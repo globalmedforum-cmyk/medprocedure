@@ -5,11 +5,11 @@ change.
 
 ## Current Phase
 
-- Feature Spec 04 Complete
+- Feature Spec 02 Complete
 
 ## Current Goal
 
-- Ready for next feature spec (02-database-schema.md)
+- Ready for next feature spec (05-procedures-module.md)
 
 ## Completed
 
@@ -31,6 +31,12 @@ change.
   - Implemented exact 50/50 split layout (`components/auth/auth-shell.tsx`) matching reference screenshot with differentiated dark slate left panel (`#0c0e12`), cyan square logo, big headline ("Votre parcours médical en Europe commence ici."), subtext, 3 feature items with rounded cyan icon badges (procédures officielles, accompagnement étape par étape, opportunités médicales), and copyright footer.
   - Styled right-side Clerk authentication card (`#0f1115` on pure black `#000000` background) with cyan CTA button (`#06b6d4`), dark social login buttons, and cyan links.
   - Integrated `Inter` and `JetBrains Mono` fonts matching `context/ui-context.md` guidelines across the entire application and Clerk components.
+- **02-database-schema.md**:
+  - Configured Prisma ORM with PostgreSQL database schema (`prisma/schema.prisma`) defining `User`, `Procedure`, `Step`, `UserProcedureProgress`, and `Opportunity` models with `ProcedureStatus` enum.
+  - Created Prisma client singleton in `lib/prisma.ts` with Next.js development hot-reload caching.
+  - Created initial seed dataset script (`prisma/seed.ts`) with realistic procedures (MEBEKO Suisse, FFI France, Stage d'Observation) and hospital opportunities.
+  - Configured `package.json` scripts (`db:generate`, `db:push`, `db:seed`) and created `.env.example` with Supabase pooler/direct connection strings.
+  - Verified `npx prisma generate`, `npx tsc --noEmit`, and `npm run lint` with 0 errors.
 
 ## In Progress
 
@@ -38,7 +44,7 @@ change.
 
 ## Next Up
 
-- **02-database-schema.md**: Database layer setup with Prisma ORM, Supabase PostgreSQL schema, `lib/prisma.ts` client singleton, and initial seed dataset.
+- **05-procedures-module.md**: Procedures catalog, step-by-step viewer, and progress tracking.
 
 ## Open Questions
 
