@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, CheckSquare, Building2 } from "lucide-react";
+import { ShieldCheck, Zap, Building2 } from "lucide-react";
 
 interface AuthShellProps {
   children: React.ReactNode;
@@ -16,35 +16,46 @@ export function AuthShell({ children }: AuthShellProps) {
             M
           </div>
           <span className="text-white font-semibold text-lg tracking-tight">
-            medprocedure
+            MedProcedure
           </span>
         </div>
 
         {/* Center Content */}
         <div className="my-12 lg:my-auto space-y-10 max-w-lg">
           {/* Headline & Subtext */}
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight text-white leading-tight">
-              Qualification et conformité médicale simplifiées.
+          <div className="space-y-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
+              Votre parcours m&eacute;dical{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+                en Europe
+              </span>{" "}
+              commence ici.
             </h1>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
-              Accompagnement étape par étape des praticiens dans leurs démarches administratives, MEBEKO et opportunités hospitalières.
+              MedProcedure accompagne les m&eacute;decins, internes et professionnels
+              de sant&eacute; dans toutes leurs d&eacute;marches d&apos;exercice et de
+              mobilit&eacute; en Europe :{" "}
+              <span className="text-zinc-200 font-medium">
+                PhD, &Eacute;quivalence de dipl&ocirc;me, FFI, Stage d&apos;Observation,
+                Poste Associ&eacute; et Congr&egrave;s M&eacute;dicaux
+              </span>
+              .
             </p>
           </div>
 
           {/* Feature List with Icon Badges */}
-          <div className="space-y-6">
+          <div className="space-y-5">
             {/* Feature 1 */}
             <div className="flex items-start gap-4">
               <div className="h-8 w-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                <Sparkles className="h-4 w-4" />
+                <ShieldCheck className="h-4 w-4" />
               </div>
               <div className="space-y-1">
                 <h3 className="text-sm font-semibold text-white">
-                  Validation et conformité MEBEKO
+                  Proc&eacute;dures Officielles &amp; R&eacute;glement&eacute;es
                 </h3>
                 <p className="text-xs text-zinc-400 leading-normal">
-                  Suivi structuré des dossiers, équivalences et critères réglementaires.
+                  PhD, &eacute;quivalences de dipl&ocirc;me et conformit&eacute; administrative.
                 </p>
               </div>
             </div>
@@ -52,14 +63,14 @@ export function AuthShell({ children }: AuthShellProps) {
             {/* Feature 2 */}
             <div className="flex items-start gap-4">
               <div className="h-8 w-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                <CheckSquare className="h-4 w-4" />
+                <Zap className="h-4 w-4" />
               </div>
               <div className="space-y-1">
                 <h3 className="text-sm font-semibold text-white">
-                  Checklists interactives
+                  Accompagnement &Eacute;tape par &Eacute;tape
                 </h3>
                 <p className="text-xs text-zinc-400 leading-normal">
-                  Progression claire, documents requis et validation en temps réel.
+                  Checklists interactives, guide des d&eacute;marches et validation structur&eacute;e.
                 </p>
               </div>
             </div>
@@ -71,10 +82,10 @@ export function AuthShell({ children }: AuthShellProps) {
               </div>
               <div className="space-y-1">
                 <h3 className="text-sm font-semibold text-white">
-                  Accès direct aux opportunités
+                  Mobilit&eacute; &amp; Opportunit&eacute;s M&eacute;dicales
                 </h3>
                 <p className="text-xs text-zinc-400 leading-normal">
-                  Postes hospitaliers, cliniques partenaires et stages qualifiants.
+                  FFI, stages d&apos;observation, postes associ&eacute;s et congr&egrave;s m&eacute;dicaux.
                 </p>
               </div>
             </div>
@@ -83,7 +94,7 @@ export function AuthShell({ children }: AuthShellProps) {
 
         {/* Bottom Footer */}
         <div className="text-xs text-zinc-600 font-normal">
-          &copy; {new Date().getFullYear()} medprocedure. Tous droits r&eacute;serv&eacute;s.
+          &copy; {new Date().getFullYear()} MedProcedure. Tous droits r&eacute;serv&eacute;s.
         </div>
       </aside>
 
