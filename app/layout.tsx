@@ -5,18 +5,18 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "medprocedure",
-  description: "Qualification et conformité médicale",
+  description: "Plateforme de qualification et de conformité médicale",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -24,9 +24,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased font-sans`}
     >
-      <body className="min-h-full flex flex-col bg-black text-foreground font-sans">
+      <body className="min-h-full flex flex-col bg-black text-foreground font-sans antialiased">
         <ClerkProvider
           appearance={{
             theme: dark,
@@ -43,27 +43,28 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               colorDanger: "#ef4444",
               colorRing: "#06b6d4",
               borderRadius: "0.625rem",
+              fontFamily: "var(--font-sans), system-ui, sans-serif",
             },
             elements: {
-              card: "bg-[#0d0d0d] border border-zinc-800/80 rounded-2xl shadow-none p-8 max-w-[400px] w-full",
-              rootBox: "w-full flex justify-center",
-              headerTitle: "text-white font-semibold text-lg tracking-tight text-center",
-              headerSubtitle: "text-zinc-400 text-xs text-center",
+              card: "bg-[#0d0d0d] border border-zinc-800/80 rounded-2xl shadow-none p-8 max-w-[400px] w-full font-sans",
+              rootBox: "w-full flex justify-center font-sans",
+              headerTitle: "text-white font-semibold text-lg tracking-tight text-center font-sans",
+              headerSubtitle: "text-zinc-400 text-xs text-center font-sans",
               socialButtonsBlockButton:
-                "bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs font-medium rounded-lg hover:bg-zinc-800 transition-colors",
-              socialButtonsBlockButtonText: "text-zinc-200 text-xs font-medium",
+                "bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs font-medium rounded-lg hover:bg-zinc-800 transition-colors font-sans",
+              socialButtonsBlockButtonText: "text-zinc-200 text-xs font-medium font-sans",
               dividerRow: "my-4",
               dividerLine: "bg-zinc-800",
-              dividerText: "text-zinc-500 text-xs font-normal",
-              formFieldLabel: "text-zinc-300 text-xs font-medium mb-1.5",
+              dividerText: "text-zinc-500 text-xs font-normal font-sans",
+              formFieldLabel: "text-zinc-300 text-xs font-medium mb-1.5 font-sans",
               formFieldInput:
-                "bg-[#161618] border border-zinc-800 text-white placeholder:text-zinc-500 rounded-lg text-sm focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all",
+                "bg-[#161618] border border-zinc-800 text-white placeholder:text-zinc-500 rounded-lg text-sm focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all font-sans",
               formButtonPrimary:
-                "bg-[#06b6d4] hover:bg-[#22d3ee] text-black font-semibold text-sm rounded-lg shadow-sm transition-colors py-2.5",
-              footerActionText: "text-zinc-400 text-xs",
+                "bg-[#06b6d4] hover:bg-[#22d3ee] text-black font-semibold text-sm rounded-lg shadow-sm transition-colors py-2.5 font-sans",
+              footerActionText: "text-zinc-400 text-xs font-sans",
               footerActionLink:
-                "text-[#06b6d4] hover:text-[#22d3ee] font-medium text-xs transition-colors",
-              footer: "bg-transparent",
+                "text-[#06b6d4] hover:text-[#22d3ee] font-medium text-xs transition-colors font-sans",
+              footer: "bg-transparent font-sans",
             },
           }}
         >
