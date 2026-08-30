@@ -5,7 +5,7 @@ change.
 
 ## Current Phase
 
-- Feature Spec 03 Complete
+- Feature Spec 04 Complete
 
 ## Current Goal
 
@@ -27,6 +27,9 @@ change.
   - Updated `/` (`app/page.tsx`) to redirect authenticated users to `/editor` and unauthenticated users to `/sign-in`.
   - Built `/editor` (`app/editor/page.tsx`) with a clean navbar featuring `UserButton` for profile management and logout.
   - Verified `npm run build` and `npm run lint` passing with 0 errors.
+- **04-auth-ui-styling.md**:
+  - Implemented minimalist dark split-panel design (`components/auth/auth-shell.tsx`) matching reference screenshot with serif title, subtitle, cyan em-dash bullets (`—`), vertical divider border, and bottom-left brand avatar.
+  - Styled Clerk components with custom variables and element overrides in `app/layout.tsx` and `app/globals.css`: deep dark `#0d0d0d` card, vibrant cyan CTA button (`#06b6d4` / `#22d3ee`) with black text, subtle dark inputs, clean social login buttons, and cyan links.
 
 ## In Progress
 

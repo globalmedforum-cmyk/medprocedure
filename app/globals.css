@@ -128,3 +128,81 @@
     @apply font-sans;
     }
 }
+
+/* Custom Clerk Dark Theming matching reference design */
+.cl-card {
+  background-color: #0d0d0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 1rem !important;
+  box-shadow: none !important;
+}
+
+.cl-headerTitle {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cl-headerSubtitle {
+  color: #a1a1aa !important;
+}
+
+.cl-socialButtonsBlockButton {
+  background-color: #141414 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ededed !important;
+  border-radius: 0.5rem !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background-color: #1f1f1f !important;
+}
+
+.cl-dividerLine {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.cl-dividerText {
+  color: #71717a !important;
+}
+
+.cl-formFieldLabel {
+  color: #d4d4d8 !important;
+  font-size: 0.75rem !important;
+}
+
+.cl-formFieldInput {
+  background-color: #161618 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-radius: 0.5rem !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: #06b6d4 !important;
+  box-shadow: 0 0 0 1px #06b6d4 !important;
+}
+
+.cl-formButtonPrimary {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: none !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #22d3ee !important;
+}
+
+.cl-footerActionLink {
+  color: #06b6d4 !important;
+  font-weight: 500 !important;
+}
+
+.cl-footerActionLink:hover {
+  color: #22d3ee !important;
+}
+
+.cl-footerActionText {
+  color: #a1a1aa !important;
+}
