@@ -28,9 +28,9 @@ change.
   - Built `/editor` (`app/editor/page.tsx`) with a clean navbar featuring `UserButton` for profile management and logout.
   - Verified `npm run build` and `npm run lint` passing with 0 errors.
 - **04-auth-ui-styling.md**:
-  - Implemented minimalist dark split-panel design (`components/auth/auth-shell.tsx`) matching reference screenshot with modern sans-serif typography, cyan em-dash bullets (`—`), vertical divider border, and bottom-left brand avatar.
-  - Styled Clerk components with custom variables and element overrides in `app/layout.tsx` and `app/globals.css`: deep dark `#0d0d0d` card, vibrant cyan CTA button (`#06b6d4` / `#22d3ee`) with black text, subtle dark inputs, clean social login buttons, and cyan links.
-  - Unified modern sans font (`--font-sans` / Geist Sans) across the entire application and Clerk components.
+  - Implemented exact 50/50 split layout (`components/auth/auth-shell.tsx`) matching reference screenshot with differentiated dark slate left panel (`#0c0e12`), cyan square logo, big headline, subtext, 3 feature items with rounded cyan icon badges (MEBEKO validation, interactive checklists, opportunity access), and copyright footer.
+  - Styled right-side Clerk authentication card (`#0f1115` on pure black `#000000` background) with cyan CTA button (`#06b6d4`), dark social login buttons, and cyan links.
+  - Integrated `Inter` and `JetBrains Mono` fonts matching `context/ui-context.md` guidelines across the entire application and Clerk components.
 
 ## In Progress
 
