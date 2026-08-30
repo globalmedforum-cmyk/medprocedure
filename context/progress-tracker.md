@@ -19,14 +19,22 @@ change.
   - Created `lib/utils.ts` with `cn()` utility.
   - Generated core UI primitives under `components/ui/` (`Button`, `Card`, `Dialog`, `Input`, `Tabs`, `Textarea`, `ScrollArea`).
   - Configured dark theme and updated root layout to use the dark theme.
+- **Clerk Authentication**:
+  - Installed and configured Clerk CLI (`clerk init --app app_3IeUQQbPSfWLfV7yirriQm2Zc5M`).
+  - Installed `@clerk/nextjs` and `@clerk/ui`.
+  - Applied `@clerk/ui/themes/shadcn` theme to `ClerkProvider` and `globals.css`.
+  - Configured Next.js proxy matcher with `/__clerk/:path*` in `proxy.ts`.
+  - Added dedicated `/sign-in` and `/sign-up` catch-all route pages.
+  - Integrated responsive auth controls (`SignInButton`, `SignUpButton`, `Show`, `UserButton`) on the landing page.
+  - Verified with `clerk doctor`.
 
 ## In Progress
 
-- None.
+- None (ready to start 02-database-schema.md).
 
 ## Next Up
 
-- Feature Spec 02
+- **02-database-schema.md**: Database layer setup with Prisma ORM, Supabase PostgreSQL schema, `lib/prisma.ts` client singleton, and initial seed dataset.
 
 ## Open Questions
 
