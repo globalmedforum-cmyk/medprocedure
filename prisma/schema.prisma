@@ -91,3 +91,4 @@ model Opportunity {
 
   @@map("opportunities")
 }
+
