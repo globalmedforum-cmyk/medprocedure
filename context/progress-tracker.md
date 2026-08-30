@@ -5,11 +5,11 @@ change.
 
 ## Current Phase
 
-- Feature Spec 01 Complete
+- Feature Spec 03 Complete
 
 ## Current Goal
 
-- Ready for next feature spec
+- Ready for next feature spec (02-database-schema.md)
 
 ## Completed
 
@@ -19,18 +19,18 @@ change.
   - Created `lib/utils.ts` with `cn()` utility.
   - Generated core UI primitives under `components/ui/` (`Button`, `Card`, `Dialog`, `Input`, `Tabs`, `Textarea`, `ScrollArea`).
   - Configured dark theme and updated root layout to use the dark theme.
-- **Clerk Authentication**:
-  - Installed and configured Clerk CLI (`clerk init --app app_3IeUQQbPSfWLfV7yirriQm2Zc5M`).
-  - Installed `@clerk/nextjs` and `@clerk/ui`.
-  - Applied `@clerk/ui/themes/shadcn` theme to `ClerkProvider` and `globals.css`.
-  - Configured Next.js proxy matcher with `/__clerk/:path*` in `proxy.ts`.
-  - Added dedicated `/sign-in` and `/sign-up` catch-all route pages.
-  - Integrated responsive auth controls (`SignInButton`, `SignUpButton`, `Show`, `UserButton`) on the landing page.
-  - Verified with `clerk doctor`.
+- **03-auth.md**:
+  - Configured `ClerkProvider` in `app/layout.tsx` using Clerk's `dark` theme from `@clerk/ui/themes` with appearance variables mapped to application CSS variables (no hardcoded colors).
+  - Created responsive two-panel `AuthShell` component (`components/auth/auth-shell.tsx`) with left branding/features on large screens and centered form on all viewports without gradients, oversized heroes, or feature cards.
+  - Implemented `/sign-in` and `/sign-up` catch-all pages using `SignIn` and `SignUp` inside `AuthShell`.
+  - Configured `proxy.ts` at project root with `createRouteMatcher` using existing environment variables (`NEXT_PUBLIC_CLERK_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_SIGN_UP_URL`), protecting all non-auth routes by default.
+  - Updated `/` (`app/page.tsx`) to redirect authenticated users to `/editor` and unauthenticated users to `/sign-in`.
+  - Built `/editor` (`app/editor/page.tsx`) with a clean navbar featuring `UserButton` for profile management and logout.
+  - Verified `npm run build` and `npm run lint` passing with 0 errors.
 
 ## In Progress
 
-- None (ready to start 02-database-schema.md).
+- None.
 
 ## Next Up
 
