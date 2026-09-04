@@ -19,6 +19,7 @@ import {
   Share2,
   Bookmark,
   CheckCircle2,
+  AlertTriangle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -94,7 +95,7 @@ export function ProcedureMainPanel({
         <div className="flex items-center justify-between flex-wrap gap-2 text-xs text-text-muted">
           <nav className="flex items-center gap-1.5 font-medium">
             <Link
-              href="/"
+              href="/editor"
               className="hover:text-text-primary transition-colors duration-150"
             >
               Procédures
@@ -157,30 +158,52 @@ export function ProcedureMainPanel({
             <Badge variant="muted" className="text-xs">
               {totalSteps} étapes séquentielles
             </Badge>
-            <Badge variant="muted" className="text-xs">
-              Durée estimée : ~3 à 6 mois
-            </Badge>
           </div>
         </div>
       </div>
 
-      {/* Global Progress Card (Inspired by Image 1 "Study Progress" and Image 2) */}
+      {/* Informations importantes avant de commencer (Faithfully matching Image 3) */}
+      <div className="rounded-2xl border border-amber-200/80 bg-amber-50/70 dark:bg-amber-950/20 dark:border-amber-800/40 p-5 space-y-3 shadow-2xs">
+        <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-semibold text-sm">
+          <div className="h-6 w-6 rounded-full bg-amber-200/60 dark:bg-amber-800/50 flex items-center justify-center shrink-0">
+            <AlertTriangle className="h-3.5 w-3.5 text-amber-700 dark:text-amber-300" />
+          </div>
+          <span>Informations importantes avant de commencer</span>
+        </div>
+
+        <ul className="text-xs text-amber-950/80 dark:text-amber-300/80 space-y-1.5 pl-8 list-disc">
+          <li>
+            <strong className="text-amber-950 dark:text-amber-200">Durée :</strong> Limitez vos prévisions de séjour à la durée stricte de l&apos;événement ou du stage initial.
+          </li>
+          <li>
+            <strong className="text-amber-950 dark:text-amber-200">Cohérence :</strong> Les dates de logement, réservations de transport et d&apos;assurance doivent être parfaitement identiques.
+          </li>
+          <li>
+            <strong className="text-amber-950 dark:text-amber-200">Finances :</strong> Justifiez clairement vos ressources ou présentez une attestation de prise en charge hospitalière.
+          </li>
+          <li>
+            <strong className="text-amber-950 dark:text-amber-200">Passeport :</strong> Valide au moins 3 à 6 mois après la date de retour prévue.
+          </li>
+        </ul>
+      </div>
+
+      {/* Global Progress Card */}
       <Card className="rounded-2xl border border-border-default bg-bg-surface shadow-xs overflow-hidden">
-        <CardContent className="p-5 sm:p-6 space-y-4">
+        <CardContent className="p-5 sm:p-6 space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-3">
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <div className="flex items-center gap-2">
                 <h3 className="font-heading text-base font-semibold text-text-primary">
-                  Progression de votre démarche
+                  Progression globale du dossier
                 </h3>
                 {progressPercentage === 100 && (
                   <Badge variant="success" className="text-xs">
-                    Terminée
+                    Complet
                   </Badge>
                 )}
               </div>
               <p className="text-xs text-text-muted">
-                Suivez en temps réel la complétion des pièces requises et des étapes hospitalières.
+                Suivez en temps réel la complétion de vos pièces justificatives.
               </p>
             </div>
 
@@ -196,10 +219,38 @@ export function ProcedureMainPanel({
             </div>
           </div>
 
-          {/* Progress bar */}
           <Progress value={progressPercentage} className="h-2.5" />
         </CardContent>
       </Card>
+
+      {/* Active Step Highlight Banner (Faithfully matching Image 3) */}
+      <div className="rounded-2xl bg-gradient-to-r from-[#2e1065] via-[#3b0764] to-[#1e1b4b] text-white p-5 sm:p-6 shadow-md flex items-center justify-between flex-wrap gap-4">
+        <div className="space-y-1.5 max-w-xl">
+          <div className="text-[11px] font-mono tracking-wider text-purple-200/80 uppercase font-semibold">
+            ÉTAPE {activeStep.order} SUR {totalSteps} &bull; {activeStep.isRequired ? "DOCUMENT MAÎTRE" : "DÉMARCHE"}
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+            {activeStep.title}
+          </h2>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            disabled={isPending}
+            onClick={() => onToggleStep(activeStep.id)}
+            className={cn(
+              "px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer shadow-xs",
+              isCurrentStepCompleted
+                ? "bg-emerald-500 text-white hover:bg-emerald-600"
+                : "bg-white text-zinc-900 hover:bg-zinc-100"
+            )}
+          >
+            <Check className="h-4 w-4 stroke-[3]" />
+            <span>{isCurrentStepCompleted ? "Étape Validée" : "Valider l'Étape"}</span>
+          </button>
+        </div>
+      </div>
 
       {/* Conditional 16:9 Responsive Media Container */}
       {activeStep.videoUrl && (
@@ -214,12 +265,12 @@ export function ProcedureMainPanel({
         </div>
       )}
 
-      {/* Main Tabs Navigation (Inspired by Image 1) */}
+      {/* Main Tabs Navigation */}
       <Tabs defaultValue="summary" className="w-full space-y-6">
         <TabsList className="bg-bg-surface border border-border-default p-1 rounded-xl w-full sm:w-auto justify-start flex-wrap">
           <TabsTrigger value="summary" className="text-xs gap-1.5 font-medium">
             <FileText className="h-3.5 w-3.5" />
-            <span>Démarche &amp; Contenu</span>
+            <span>Détails &amp; Liens</span>
           </TabsTrigger>
           <TabsTrigger value="checklist" className="text-xs gap-1.5 font-medium">
             <FileCheck2 className="h-3.5 w-3.5" />
@@ -227,161 +278,97 @@ export function ProcedureMainPanel({
           </TabsTrigger>
           <TabsTrigger value="opportunities" className="text-xs gap-1.5 font-medium">
             <Briefcase className="h-3.5 w-3.5" />
-            <span>Opportunités ({opportunities.length})</span>
+            <span>Opportunités &amp; Congrès ({opportunities.length})</span>
           </TabsTrigger>
           <TabsTrigger value="resources" className="text-xs gap-1.5 font-medium">
             <BookOpen className="h-3.5 w-3.5" />
-            <span>Ressources &amp; Contact</span>
+            <span>Ressources Officielles</span>
           </TabsTrigger>
         </TabsList>
 
-        {/* Tab 1: Démarche & Contenu de l'étape */}
+        {/* Tab 1: Détails & Liens utiles (Matching Image 3 Dual Box layout) */}
         <TabsContent value="summary" className="space-y-6 mt-0">
-          <Card className="rounded-2xl border border-border-default bg-bg-surface shadow-xs">
-            <CardHeader className="p-5 sm:p-6 pb-3 border-b border-border-default">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="h-6 w-6 rounded-md bg-accent-primary/10 text-accent-primary font-mono text-xs font-bold flex items-center justify-center">
-                    {activeStep.order}
-                  </span>
-                  <CardTitle className="text-lg font-bold text-text-primary">
-                    {activeStep.title}
-                  </CardTitle>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {activeStep.estimatedDuration && (
-                    <Badge variant="muted" className="text-xs">
-                      {activeStep.estimatedDuration}
-                    </Badge>
-                  )}
-                  {activeStep.isRequired && (
-                    <Badge variant="outline" className="text-xs">
-                      Obligatoire
-                    </Badge>
-                  )}
-                  {isCurrentStepCompleted ? (
-                    <Badge variant="success" className="text-xs gap-1">
-                      <Check className="h-3 w-3 stroke-[3]" />
-                      <span>Validée</span>
-                    </Badge>
-                  ) : (
-                    <Badge variant="accent" className="text-xs">
-                      En cours
-                    </Badge>
-                  )}
-                </div>
-              </div>
-            </CardHeader>
-
-            <CardContent className="p-5 sm:p-6 space-y-6">
-              {/* Synthèse de l'étape */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            {/* Left box: Description / Synthèse */}
+            <div className="lg:col-span-2 rounded-2xl border border-border-default bg-bg-surface p-6 space-y-4 shadow-xs">
               <div className="space-y-2">
-                <h4 className="font-heading text-sm font-semibold text-text-primary">
-                  Synthèse de l&apos;étape
-                </h4>
+                <h3 className="font-heading text-sm font-semibold text-text-primary">
+                  Description de la démarche
+                </h3>
                 <p className="text-sm text-text-muted leading-relaxed">
                   {activeStep.description}
                 </p>
               </div>
 
-              {/* Instructions & Contenu pédagogique */}
               {activeStep.content && (
-                <div className="space-y-2 p-4 rounded-xl bg-bg-base border border-border-default">
+                <div className="p-4 rounded-xl bg-bg-base border border-border-default/80 space-y-2">
                   <h4 className="font-heading text-xs font-semibold text-text-primary uppercase tracking-wider flex items-center gap-1.5">
                     <Sparkles className="h-3.5 w-3.5 text-accent-primary" />
-                    <span>Directives et exigences de conformité</span>
+                    <span>Instructions et directives spécifiques</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-text-primary leading-relaxed whitespace-pre-line">
                     {activeStep.content}
                   </p>
                 </div>
               )}
+            </div>
 
-              {/* Key Concepts / Points clés (Inspired by Image 1) */}
-              <div className="space-y-3 pt-2">
-                <h4 className="font-heading text-sm font-semibold text-text-primary">
-                  Points clés &amp; Bonnes pratiques
-                </h4>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="p-3.5 rounded-xl border border-border-default bg-bg-surface flex items-start gap-3 shadow-xs">
-                    <div className="h-6 w-6 rounded-full bg-accent-primary/10 text-accent-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-semibold text-text-primary">
-                        Conformité des originaux
-                      </div>
-                      <div className="text-[11px] text-text-muted leading-relaxed">
-                        Toutes les photocopies doivent être certifiées conformes par une autorité publique.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl border border-border-default bg-bg-surface flex items-start gap-3 shadow-xs">
-                    <div className="h-6 w-6 rounded-full bg-accent-primary/10 text-accent-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-semibold text-text-primary">
-                        Traduction officielle
-                      </div>
-                      <div className="text-[11px] text-text-muted leading-relaxed">
-                        Exigez un traducteur assermenté pour tout document non rédigé en langue officielle.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl border border-border-default bg-bg-surface flex items-start gap-3 shadow-xs">
-                    <div className="h-6 w-6 rounded-full bg-accent-primary/10 text-accent-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-semibold text-text-primary">
-                        Conservation des preuves
-                      </div>
-                      <div className="text-[11px] text-text-muted leading-relaxed">
-                        Conservez systématiquement les récépissés d&apos;envoi recommandé et accusés de réception.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl border border-border-default bg-bg-surface flex items-start gap-3 shadow-xs">
-                    <div className="h-6 w-6 rounded-full bg-accent-primary/10 text-accent-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-semibold text-text-primary">
-                        Délais d&apos;instruction
-                      </div>
-                      <div className="text-[11px] text-text-muted leading-relaxed">
-                        Anticipez le temps de réponse des commissions (en moyenne 2 à 3 mois).
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* Right box: Ressources & Liens utiles (Image 3) */}
+            <div className="rounded-2xl border border-border-default bg-bg-surface p-6 space-y-4 shadow-xs">
+              <div className="text-xs font-bold text-text-primary uppercase tracking-wider">
+                Ressources &amp; Liens utiles
               </div>
-            </CardContent>
-          </Card>
+
+              <div className="space-y-2.5">
+                <a
+                  href="https://france-visas.gouv.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full p-3 rounded-xl border border-border-default bg-bg-base hover:bg-accent-primary/10 hover:border-accent-primary/50 transition-all flex items-center justify-between text-xs font-semibold text-text-primary"
+                >
+                  <span className="flex items-center gap-2">
+                    <ExternalLink className="h-3.5 w-3.5 text-accent-primary" />
+                    <span>Portail Officiel Visas</span>
+                  </span>
+                </a>
+
+                <a
+                  href="https://www.bag.admin.ch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full p-3 rounded-xl border border-border-default bg-bg-base hover:bg-accent-primary/10 hover:border-accent-primary/50 transition-all flex items-center justify-between text-xs font-semibold text-text-primary"
+                >
+                  <span className="flex items-center gap-2">
+                    <ExternalLink className="h-3.5 w-3.5 text-accent-primary" />
+                    <span>Sociétés Savantes &amp; OFSP</span>
+                  </span>
+                </a>
+
+                <a
+                  href="mailto:contact@medprocedure.com?subject=Assistance dossier"
+                  className="w-full p-3 rounded-xl border border-border-default bg-bg-base hover:bg-accent-primary/10 hover:border-accent-primary/50 transition-all flex items-center justify-between text-xs font-semibold text-text-primary"
+                >
+                  <span className="flex items-center gap-2">
+                    <Mail className="h-3.5 w-3.5 text-accent-primary" />
+                    <span>Support Médical Dédié</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
         </TabsContent>
 
-        {/* Tab 2: Checklist détaillée & Validation */}
+        {/* Tab 2: Checklist & Validation */}
         <TabsContent value="checklist" className="space-y-6 mt-0">
           <Card className="rounded-2xl border border-border-default bg-bg-surface shadow-xs">
             <CardHeader className="p-5 sm:p-6 pb-3 border-b border-border-default">
               <CardTitle className="text-base font-semibold text-text-primary flex items-center gap-2">
                 <FileCheck2 className="h-4 w-4 text-accent-primary" />
-                <span>Checklist de validation pour cette étape</span>
+                <span>Checklist de validation</span>
               </CardTitle>
             </CardHeader>
 
             <CardContent className="p-5 sm:p-6 space-y-4">
-              <p className="text-xs text-text-muted">
-                Cochez les éléments préparatoires avant de marquer l&apos;étape comme officiellement complétée.
-              </p>
-
-              {/* Main Step Validation Checkbox */}
               <div
                 className={cn(
                   "p-4 rounded-xl border transition-all duration-200 flex items-start gap-3.5 cursor-pointer",
@@ -412,190 +399,124 @@ export function ProcedureMainPanel({
                   </p>
                 </div>
               </div>
-
-              {/* Sub-checkpoints for medical practitioner */}
-              <div className="space-y-2 pt-2">
-                <div className="text-xs font-semibold text-text-primary uppercase tracking-wider">
-                  Vérifications recommandées
-                </div>
-
-                <div className="space-y-2">
-                  <div className="p-3 rounded-xl bg-bg-base border border-border-default flex items-center gap-3 text-xs text-text-primary">
-                    <Check className="h-4 w-4 text-accent-primary shrink-0" />
-                    <span>Copies de diplômes certifiées conformes datant de moins de 3 mois</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-bg-base border border-border-default flex items-center gap-3 text-xs text-text-primary">
-                    <Check className="h-4 w-4 text-accent-primary shrink-0" />
-                    <span>Attestation de moralité et d&apos;exercice (Good Standing) délivrée par l&apos;Ordre</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-bg-base border border-border-default flex items-center gap-3 text-xs text-text-primary">
-                    <Check className="h-4 w-4 text-accent-primary shrink-0" />
-                    <span>Preuve du niveau de langue certifié par un centre d&apos;examen agréé</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-bg-base border border-border-default flex items-center gap-3 text-xs text-text-primary">
-                    <Check className="h-4 w-4 text-accent-primary shrink-0" />
-                    <span>Formulaire officiel de candidature complété et signé</span>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Tab 3: Opportunités hospitalières associées */}
+        {/* Tab 3: Opportunités hospitalières et congrès (Image 2) */}
         <TabsContent value="opportunities" className="space-y-4 mt-0">
           <div className="flex items-center justify-between">
             <h3 className="font-heading text-base font-semibold text-text-primary">
-              Postes &amp; Opportunités associées ({procedure.country})
+              Événements, Congrès &amp; Postes Associés
             </h3>
             <span className="text-xs text-text-muted">
-              {opportunities.length} offre{opportunities.length > 1 ? "s" : ""} disponible{opportunities.length > 1 ? "s" : ""}
+              {opportunities.length} opportunité{opportunities.length > 1 ? "s" : ""}
             </span>
           </div>
 
-          {opportunities.length === 0 ? (
-            <Card className="p-8 text-center rounded-2xl border border-border-default bg-bg-surface">
-              <p className="text-sm text-text-muted">
-                Aucune opportunité directement associée pour le moment.
-              </p>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {opportunities.map((opp) => (
-                <Card
-                  key={opp.id}
-                  className="rounded-2xl border border-border-default bg-bg-surface hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
-                >
-                  <CardHeader className="p-5 pb-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <Badge variant="accent" className="text-xs">
-                        {opp.specialty}
-                      </Badge>
-                      {opp.deadline && (
-                        <Badge variant="muted" className="text-[11px] gap-1">
-                          <Calendar className="h-3 w-3" />
-                          <span>
-                            {new Date(opp.deadline).toLocaleDateString("fr-FR", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })}
-                          </span>
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-base font-bold text-text-primary pt-2">
-                      {opp.title}
-                    </CardTitle>
-                  </CardHeader>
-
-                  <CardContent className="p-5 pt-0 space-y-4">
-                    <div className="space-y-1.5 text-xs text-text-muted">
-                      <div className="flex items-center gap-2">
-                        <Building2 className="h-3.5 w-3.5 text-accent-primary shrink-0" />
-                        <span className="font-medium text-text-primary">
-                          {opp.hospital}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-3.5 w-3.5 text-text-muted shrink-0" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {opportunities.map((opp) => (
+              <Card
+                key={opp.id}
+                className="rounded-2xl border border-border-default bg-bg-surface hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
+              >
+                <CardHeader className="p-5 pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <Badge variant="accent" className="text-xs">
+                      {opp.specialty}
+                    </Badge>
+                    {opp.deadline && (
+                      <Badge variant="muted" className="text-[11px] gap-1">
+                        <Calendar className="h-3 w-3" />
                         <span>
-                          {opp.location}, {opp.country}
+                          {new Date(opp.deadline).toLocaleDateString("fr-FR", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
                         </span>
-                      </div>
-                    </div>
+                      </Badge>
+                    )}
+                  </div>
+                  <CardTitle className="text-base font-bold text-text-primary pt-2">
+                    {opp.title}
+                  </CardTitle>
+                </CardHeader>
 
-                    {opp.requirements.length > 0 && (
-                      <div className="space-y-1">
-                        <div className="text-[11px] font-semibold text-text-primary uppercase tracking-wider">
-                          Prérequis clés
-                        </div>
-                        <ul className="space-y-1 text-xs text-text-muted">
-                          {opp.requirements.slice(0, 2).map((req, i) => (
-                            <li key={i} className="flex items-start gap-1.5 line-clamp-1">
-                              <span className="text-accent-primary font-bold">&bull;</span>
-                              <span>{req}</span>
-                            </li>
-                          ))}
-                        </ul>
+                <CardContent className="p-5 pt-0 space-y-4">
+                  <div className="space-y-1.5 text-xs text-text-muted">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="h-3.5 w-3.5 text-accent-primary shrink-0" />
+                      <span className="font-medium text-text-primary">
+                        {opp.hospital}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-3.5 w-3.5 text-text-muted shrink-0" />
+                      <span>
+                        {opp.location}, {opp.country}
+                      </span>
+                    </div>
+                  </div>
+
+                  {opp.requirements.length > 0 && (
+                    <div className="space-y-1.5">
+                      <div className="text-[11px] font-semibold text-text-primary uppercase tracking-wider">
+                        Inclusions &amp; Accompagnement
                       </div>
+                      <ul className="space-y-1 text-xs text-text-muted">
+                        {opp.requirements.map((req, i) => (
+                          <li key={i} className="flex items-start gap-1.5">
+                            <Check className="h-3.5 w-3.5 text-state-success shrink-0 mt-0.5" />
+                            <span>{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="pt-2 border-t border-border-default flex items-center justify-between gap-2">
+                    {opp.contactEmail && (
+                      <a
+                        href={`mailto:${opp.contactEmail}?subject=Réservation/Candidature: ${encodeURIComponent(
+                          opp.title
+                        )}`}
+                        className="text-xs font-semibold text-accent-primary hover:underline flex items-center gap-1"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        <span>Réserver / Contacter</span>
+                      </a>
                     )}
 
-                    <div className="pt-2 border-t border-border-default flex items-center justify-between">
-                      {opp.contactEmail ? (
-                        <a
-                          href={`mailto:${opp.contactEmail}?subject=Candidature: ${encodeURIComponent(
-                            opp.title
-                          )}`}
-                          className="text-xs font-semibold text-accent-primary hover:underline flex items-center gap-1"
-                        >
-                          <Mail className="h-3.5 w-3.5" />
-                          <span>Contacter / Postuler</span>
-                        </a>
-                      ) : (
-                        <span className="text-xs text-text-muted">Candidature en ligne</span>
-                      )}
-
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-xs h-8 text-accent-primary hover:bg-accent-primary/10"
-                      >
-                        <span>Détails</span>
-                        <ExternalLink className="h-3 w-3 ml-1" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-xs h-8 text-accent-primary hover:bg-accent-primary/10 ml-auto"
+                    >
+                      <span>Site officiel</span>
+                      <ExternalLink className="h-3 w-3 ml-1" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
 
-        {/* Tab 4: Ressources & Guides officiels */}
+        {/* Tab 4: Ressources Officielles */}
         <TabsContent value="resources" className="space-y-4 mt-0">
-          <Card className="rounded-2xl border border-border-default bg-bg-surface shadow-xs">
-            <CardHeader className="p-5 sm:p-6 pb-3 border-b border-border-default">
-              <CardTitle className="text-base font-semibold text-text-primary flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-accent-primary" />
-                <span>Organismes officiels et contacts utiles</span>
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent className="p-5 sm:p-6 space-y-4 text-xs text-text-muted leading-relaxed">
-              <p>
-                Retrouvez les liens des autorités compétentes pour le dépôt légal de vos dossiers en Europe.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-                <div className="p-4 rounded-xl bg-bg-base border border-border-default space-y-1">
-                  <div className="font-semibold text-text-primary text-xs">
-                    OFSP / Commission MEBEKO (Suisse)
-                  </div>
-                  <div>Office fédéral de la santé publique, Section MEBEKO</div>
-                  <div>CH-3003 Berne, Suisse</div>
-                  <div className="text-accent-primary font-mono text-[11px] pt-1">
-                    www.bag.admin.ch
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-bg-base border border-border-default space-y-1">
-                  <div className="font-semibold text-text-primary text-xs">
-                    Agences Régionales de Santé - ARS (France)
-                  </div>
-                  <div>Direction de l&apos;offre de soins et des professions de santé</div>
-                  <div>Ministère de la Santé et de la Prévention</div>
-                  <div className="text-accent-primary font-mono text-[11px] pt-1">
-                    www.sante.gouv.fr
-                  </div>
-                </div>
-              </div>
-            </CardContent>
+          <Card className="rounded-2xl border border-border-default bg-bg-surface shadow-xs p-6 space-y-4">
+            <h4 className="font-heading text-sm font-semibold text-text-primary">
+              Informations Institutionnelles
+            </h4>
+            <p className="text-xs text-text-muted leading-relaxed">
+              Consultez les textes légaux, décrets ministériels et directives de l&apos;Union Européenne encadrant l&apos;exercice médical, l&apos;accueil d&apos;internes et la délivrance des visas professionnels.
+            </p>
           </Card>
         </TabsContent>
       </Tabs>
 
-      {/* Sticky Bottom Action Bar (Inspired by Image 2 & 3) */}
+      {/* Sticky Bottom Action Bar */}
       <div className="sticky bottom-4 z-20 rounded-2xl bg-bg-surface/95 backdrop-blur-md border border-border-default p-4 shadow-xl flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-xl bg-accent-primary/10 text-accent-primary flex items-center justify-center font-bold text-sm">
@@ -620,7 +541,7 @@ export function ProcedureMainPanel({
             className="text-xs h-9 gap-1 border-border-default"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Précédente</span>
+            <span className="hidden sm:inline">Étape précédente</span>
           </Button>
 
           {!isCurrentStepCompleted ? (
@@ -631,7 +552,7 @@ export function ProcedureMainPanel({
               className="text-xs h-9 gap-1.5 bg-accent-primary hover:bg-accent-hover text-white font-semibold shadow-xs"
             >
               <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-              <span>Marquer comme validée</span>
+              <span>Valider cette étape</span>
             </Button>
           ) : nextStep ? (
             <Button
@@ -639,7 +560,7 @@ export function ProcedureMainPanel({
               onClick={() => onSelectStep(nextStep.id)}
               className="text-xs h-9 gap-1 bg-accent-primary hover:bg-accent-hover text-white font-semibold shadow-xs"
             >
-              <span>Étape suivante</span>
+              <span>Valider et continuer</span>
               <ChevronRight className="h-3.5 w-3.5" />
             </Button>
           ) : (
@@ -649,7 +570,7 @@ export function ProcedureMainPanel({
               className="text-xs h-9 gap-1.5 border-state-success text-state-success bg-state-success/10"
             >
               <CheckCircle2 className="h-3.5 w-3.5" />
-              <span>Procédure achevée !</span>
+              <span>Dossier complet !</span>
             </Button>
           )}
         </div>
