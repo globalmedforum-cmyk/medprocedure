@@ -42,11 +42,18 @@ change.
   - Built core UI primitives under `components/ui/` (`Progress`, `Badge`, `Separator`, `Checkbox`, `Sheet`).
   - Added `videoUrl String?` to `Step` model and synchronized database with `npx prisma db push && npx prisma generate`.
   - Implemented Server Action `toggleStepProgress` (`actions/procedure-progress.ts`) with Clerk authentication, optimistic updates, and database persistence on `UserProcedureProgress`.
+  - Seeded all **6 medical procedures** and congresses in PostgreSQL (`prisma/seed.ts`):
+    1. *Doctorat (PhD)* (`Recherche & Santé`)
+    2. *Équivalence Suisse (MEBEKO)* (`Suisse / OFSP`)
+    3. *Stage d'Observation* (`Immersion Hospitalière`)
+    4. *Stage FFI (Interne)* (`Pratique Rémunérée`)
+    5. *Stage Associé* (`Pratique Hospitalière`)
+    6. *Participation aux Congrès* (`Événements & Visas`) avec les 8 étapes officielles visa et congrès médicaux réels (FCPC Nantes, Congrès SFA Montpellier, Congrès SFAR Paris, Congrès SCGP Bordeaux).
   - Built 2-column layout route (`/procedures/[slug]`):
     - Left column: Chronological vertical stepper (`ProcedureStepperSidebar`) with visual status indicators (validated checkmark, active blue ring, upcoming dotted circle).
-    - Right column: Main panel (`ProcedureMainPanel`) with breadcrumbs, progress card with dynamic percentage, 16:9 responsive media container (cleanly collapsed if absent), multi-tab content (procedure details, interactive checklist, related hospital opportunities, official resources), and sticky bottom action bar.
+    - Right column: Main panel (`ProcedureMainPanel`) with breadcrumbs, guidance alert box, active step purple highlight banner, progress card with dynamic percentage, 16:9 responsive media container (cleanly collapsed if absent), multi-tab content (procedure details, interactive checklist, related hospital opportunities, official resources), and sticky bottom action bar.
     - Mobile responsiveness: Collapsible drawer (`ProcedureMobileDrawer`) using shadcn `Sheet`.
-  - Enhanced `/editor` to display available procedures linking directly to `/procedures/[slug]`.
+  - Redesigned `/editor` catalog matching Image 1 with the 6 stylized procedure cards.
   - Verified `npx tsc --noEmit`, `npm run lint` (0 errors, 0 warnings), and `npm run build` passing cleanly.
 
 ## In Progress
