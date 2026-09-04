@@ -32,6 +32,7 @@ async function main() {
             isRequired: true,
             content:
               "Assurez-vous que votre diplôme de base est conforme aux critères de la directive européenne 2005/36/CE ou soumis aux accords bilatéraux.",
+            videoUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
           },
           {
             order: 2,

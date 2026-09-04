@@ -39,6 +39,15 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-bg-base: var(--bg-base);
+    --color-bg-surface: var(--bg-surface);
+    --color-text-primary: var(--text-primary);
+    --color-text-muted: var(--text-muted);
+    --color-accent-primary: var(--accent-primary);
+    --color-accent-hover: var(--accent-hover);
+    --color-border-default: var(--border-default);
+    --color-state-error: var(--state-error);
+    --color-state-success: var(--state-success);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -51,6 +60,15 @@
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
+    --bg-base: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --accent-primary: #0284C7;
+    --accent-hover: #0369A1;
+    --border-default: #E2E8F0;
+    --state-error: #EF4444;
+    --state-success: #10B981;
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
@@ -86,6 +104,15 @@
 .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
+    --bg-base: #0B0F17;
+    --bg-surface: #111827;
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent-primary: #38BDF8;
+    --accent-hover: #0EA5E9;
+    --border-default: #1E293B;
+    --state-error: #F87171;
+    --state-success: #34D399;
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);

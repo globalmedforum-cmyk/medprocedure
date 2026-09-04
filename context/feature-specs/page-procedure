@@ -1,0 +1,44 @@
+Read `AGENTS.md` and `project-overview.md` before starting.
+
+Build the Procedure execution and hub views for Medprocedure (`/procedures/[slug]`).
+
+## Scope & Layout
+
+Each procedure page follows a 2-panel responsive layout:
+
+1. **Header**:
+   - Procedure title, target country badge (France / Suisse), and dynamic overall progress bar (e.g., "3/7 étapes complétées - 43%").
+   - Action toggle: switch between "Guide pas à pas" and "Opportunités liées".
+
+2. **Left Sidebar (Step Navigation)**:
+   - Fixed width on desktop, collapsible / drawer on mobile.
+   - Chronological list of steps with interactive check indicators (`todo`, `in_progress`, `completed`).
+   - Clicking a step loads its details into the main content panel.
+
+3. **Main Panel (Step Execution & Details)**:
+   - Step header: title, estimated timeframe, and official deadline reminder (if any).
+   - Video Embed container (responsive 16:9 iframe for YouTube/Vimeo, hidden if no video URL is provided).
+   - Rich Markdown text content: legal requirements, official administrative checklist, and practical tips.
+   - Downloadable resources section (links to official templates, cerfa forms, or external ministry portals).
+   - Bottom Action Bar: "Marquer comme terminé" button (persists to DB via Server Action) and "Étape suivante" navigation.
+
+4. **Opportunities Tab / Sub-view**:
+   - Responsive grid of cards displaying opportunities relevant to this procedure (e.g., FFI open positions, PhD grants, medical congress dates).
+   - Card metadata: organization/hospital, location, application deadline, and direct external link.
+
+## Implementation Details
+
+- Server Component by default for data fetching; use Client Components for stepper state and completion toggles.
+- Persist step completion using a Server Action updating the `UserProcedureProgress` relation.
+- Use shadcn/ui components: `Card`, `Progress`, `Button`, `Badge`, `ScrollArea`, `Tabs`, `Separator`.
+- Use `lucide-react` icons for step status (`CheckCircle2`, `Circle`, `Clock`, `ArrowRight`, `ExternalLink`).
+- Respect CSS tokens from `ui-context.md`. Do not hardcode colors.
+
+## Check When Done
+
+- Navigating to `/procedures/[slug]` loads the procedure and its ordered steps.
+- Toggling a step updates progress instantly and saves to the database.
+- Responsive layout works on mobile (sidebar switches to drawer/sheet or compact stepper).
+- Video container renders properly when a video URL is provided and collapses cleanly when null.
+- Opportunities tab displays filtered items matching the procedure type.
+- `npm run build` passes without TypeScript or linting errors.

@@ -5,11 +5,11 @@ change.
 
 ## Current Phase
 
-- Feature Spec 02 Complete
+- Feature Spec 05 Complete
 
 ## Current Goal
 
-- Ready for next feature spec (05-procedures-module.md)
+- Ready for next phase (Refinement, testing, or additional features)
 
 ## Completed
 
@@ -37,6 +37,17 @@ change.
   - Created initial seed dataset script (`prisma/seed.ts`) with realistic procedures (MEBEKO Suisse, FFI France, Stage d'Observation) and hospital opportunities.
   - Configured `package.json` scripts (`db:generate`, `db:push`, `db:seed`) and created `.env.example` with Supabase pooler/direct connection strings.
   - Verified `npx prisma generate`, `npx tsc --noEmit`, and `npm run lint` with 0 errors.
+- **05-procedures-module.md**:
+  - Registered all semantic tokens from `context/ui-context.md` in `app/globals.css` (`--bg-base`, `--bg-surface`, `--text-primary`, `--text-muted`, `--accent-primary`, `--accent-hover`, `--border-default`, `--state-error`, `--state-success`) without hardcoded hex colors.
+  - Built core UI primitives under `components/ui/` (`Progress`, `Badge`, `Separator`, `Checkbox`, `Sheet`).
+  - Added `videoUrl String?` to `Step` model and synchronized database with `npx prisma db push && npx prisma generate`.
+  - Implemented Server Action `toggleStepProgress` (`actions/procedure-progress.ts`) with Clerk authentication, optimistic updates, and database persistence on `UserProcedureProgress`.
+  - Built 2-column layout route (`/procedures/[slug]`):
+    - Left column: Chronological vertical stepper (`ProcedureStepperSidebar`) with visual status indicators (validated checkmark, active blue ring, upcoming dotted circle).
+    - Right column: Main panel (`ProcedureMainPanel`) with breadcrumbs, progress card with dynamic percentage, 16:9 responsive media container (cleanly collapsed if absent), multi-tab content (procedure details, interactive checklist, related hospital opportunities, official resources), and sticky bottom action bar.
+    - Mobile responsiveness: Collapsible drawer (`ProcedureMobileDrawer`) using shadcn `Sheet`.
+  - Enhanced `/editor` to display available procedures linking directly to `/procedures/[slug]`.
+  - Verified `npx tsc --noEmit`, `npm run lint` (0 errors, 0 warnings), and `npm run build` passing cleanly.
 
 ## In Progress
 
@@ -44,7 +55,7 @@ change.
 
 ## Next Up
 
-- **05-procedures-module.md**: Procedures catalog, step-by-step viewer, and progress tracking.
+- Additional features or procedures enhancements as requested.
 
 ## Open Questions
 

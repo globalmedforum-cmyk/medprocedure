@@ -52,6 +52,7 @@ model Step {
   title             String
   description       String    @db.Text
   content           String?   @db.Text
+  videoUrl          String?
   estimatedDuration String?
   isRequired        Boolean   @default(true)
   createdAt         DateTime  @default(now())
