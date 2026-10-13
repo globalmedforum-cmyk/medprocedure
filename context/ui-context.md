@@ -2,7 +2,7 @@
 
 ## Theme
 
-Un dossier administratif bien tenu, pas un tableau de bord. Thème clair uniquement : fond papier, encre sombre, un seul accent bleu encre réservé aux actions et à l'étape active. Le vert ne sert qu'à marquer ce qui est terminé.
+Un dossier administratif bien tenu, pas un tableau de bord. Thème sombre uniquement : fond noir, texte blanc. L'orange est réservé aux actions et à l'étape active, le bleu aux liens hypertexte. Le vert ne sert qu'à marquer ce qui est terminé.
 
 Principes :
 
@@ -14,20 +14,21 @@ Principes :
 
 ## Colors
 
-| Role            | CSS Variable       | Value     |
-| --------------- | ------------------ | --------- |
-| Page background | `--bg-base`        | `#F3F2EE` |
-| Surface         | `--bg-surface`     | `#FCFCFA` |
-| Primary text    | `--text-primary`   | `#17211D` |
-| Muted text      | `--text-muted`     | `#5C6661` |
-| Primary accent  | `--accent-primary` | `#233A8B` |
-| Accent hover    | `--accent-hover`   | `#1A2C6B` |
-| Border          | `--border-default` | `#DAD9D2` |
-| Error           | `--state-error`    | `#B42318` |
-| Success         | `--state-success`  | `#1E7B4F` |
-| Warning         | `--state-warning`  | `#8A5A00` |
+| Role            | CSS Variable         | Value     |
+| --------------- | -------------------- | --------- |
+| Page background | `--bg-base`          | `#000000` |
+| Surface         | `--bg-surface`       | `#111111` |
+| Primary text    | `--text-primary`     | `#FFFFFF` |
+| Muted text      | `--text-muted`       | `#A3A3A3` |
+| Primary accent  | `--accent-primary`   | `#FF7A1A` |
+| Accent hover    | `--accent-hover`     | `#FF9547` |
+| Links           | `--accent-secondary` | `#6EA8FF` |
+| Border          | `--border-default`   | `#2A2A2A` |
+| Error           | `--state-error`      | `#FF6B5E` |
+| Success         | `--state-success`    | `#3DD68C` |
+| Warning         | `--state-warning`    | `#F5B83D` |
 
-Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ces variables dans `app/globals.css` ; Clerk les reprend via le thème `shadcn`. Il n'y a pas de thème sombre.
+Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ces variables dans `app/globals.css` ; Clerk les reprend via le thème `shadcn`. Le texte posé sur l'orange est noir. La classe `dark` est fixée sur `<html>` ; il n'y a pas de thème clair.
 
 ## Typography
 

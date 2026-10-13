@@ -71,6 +71,8 @@ change.
   - Liens officiels et rappel visa affichés selon le pays de la procédure (France-Visas hors Suisse, OFSP pour la Suisse) au lieu d'être identiques partout.
   - Vérifié : `tsc`, `eslint`, `npm run build`, et rendu à l'écran du catalogue, de la vue procédure (bureau, étroit, tiroir) et de la connexion. La validation d'une étape en étant connecté n'a pas été testée.
 
+- **Thème noir (2026-10-13)** : à la demande, passage du thème clair à un fond noir avec texte blanc, accent orange pour les actions et l'étape active, liens en bleu (`--accent-secondary`). Seuls les jetons de `app/globals.css` et la classe `dark` changent ; `ui-context.md` mis à jour.
+
 ## In Progress
 
 - None.

@@ -68,7 +68,7 @@ export function ProcedureOpportunities({
                 href={`mailto:${opportunity.contactEmail}?subject=${encodeURIComponent(
                   opportunity.title
                 )}`}
-                className="inline-block break-all text-accent-primary underline underline-offset-4 hover:text-accent-hover"
+                className="inline-block break-all text-accent-secondary underline underline-offset-4 hover:text-text-primary"
               >
                 {opportunity.contactEmail}
               </a>

@@ -188,7 +188,7 @@ export function ProcedureStepPanel({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-accent-primary underline underline-offset-4 hover:text-accent-hover"
+                  className="inline-flex items-center gap-1.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary"
                 >
                   {link.label}
                   <ExternalLink className="h-3.5 w-3.5" aria-hidden />
@@ -200,7 +200,7 @@ export function ProcedureStepPanel({
                 href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
                   `Assistance : ${procedure.title}`
                 )}`}
-                className="text-accent-primary underline underline-offset-4 hover:text-accent-hover"
+                className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
               >
                 Écrire à l&apos;assistance
               </a>
