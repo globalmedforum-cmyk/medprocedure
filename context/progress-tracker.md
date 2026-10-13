@@ -109,6 +109,8 @@ change.
 
 - **Téléphone d'abord (2026-10-13)** : passe sur l'accueil, la connexion, le catalogue et la vue procédure à 375 px. En-tête d'accueil réduit à « Se connecter » sur téléphone, boutons principaux en pleine largeur et hauts de 48 px, navigation précédente/suivante en deux colonnes, écran de connexion qui montre le formulaire sans défilement, couleur de barre du navigateur. Vérifié à l'écran à 375 px : aucun débordement horizontal. L'admin n'a pas été contrôlé à cette largeur. Mention « Une assistance personnalisée » ajoutée à la page d'accueil.
 
+- **Bouton « Nous contacter » (2026-10-13)** : dans l'en-tête de la page d'accueil, pour les visiteurs sans compte. Il ouvre la même fenêtre e-mail / WhatsApp que l'assistance, désormais factorisée dans `components/shared/contact-dialog.tsx`. Sur téléphone, le nom du site est masqué dans cet en-tête pour laisser la place aux deux boutons.
+
 ## In Progress
 
 - None.

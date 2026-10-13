@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
+import { ContactDialog } from "@/components/shared/contact-dialog";
 import { Logo } from "@/components/shared/logo";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -58,8 +59,17 @@ export default async function HomePage() {
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-border-default">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
-          <Logo />
+          <Logo hideNameOnPhone />
           <nav className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <ContactDialog
+              trigger="Nous contacter"
+              triggerVariant="ghost"
+              triggerClassName="h-11 px-3 text-sm sm:h-10"
+              title="Nous contacter"
+              description="Une question sur une procédure ou sur notre accompagnement ? Écrivez-nous, sans avoir besoin de créer un compte. Votre message est déjà préparé, vous pouvez le compléter avant de l'envoyer."
+              emailSubject="Demande d'information"
+              message="Bonjour, je souhaite obtenir des informations sur l'accompagnement proposé par MedProcedure."
+            />
             <Link
               href="/sign-in"
               className={cn(

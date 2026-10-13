@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
+  // Masque le nom sur téléphone quand l'en-tête manque de place
+  hideNameOnPhone?: boolean;
 }
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, hideNameOnPhone = false }: LogoProps) {
   return (
     <span
       className={cn(
@@ -14,8 +16,15 @@ export function Logo({ className }: LogoProps) {
         className
       )}
     >
-      <Image src={logo} alt="" priority className="h-11 w-auto" />
-      MedProcedure
+      <Image
+        src={logo}
+        alt={hideNameOnPhone ? "MedProcedure" : ""}
+        priority
+        className="h-11 w-auto"
+      />
+      <span className={cn(hideNameOnPhone && "hidden sm:inline")}>
+        MedProcedure
+      </span>
     </span>
   );
 }
