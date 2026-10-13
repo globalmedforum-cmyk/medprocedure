@@ -83,18 +83,19 @@ export default async function HomePage() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="max-w-3xl space-y-5 py-12 sm:space-y-6 sm:py-24">
-          <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl">
+        <section className="grid gap-6 py-12 sm:py-20 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16 lg:py-24">
+          <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
             Exercer ou se former en France et en Suisse, une démarche à la
             fois.
           </h1>
-          <p className="max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
+          <p className="max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg lg:pb-2">
             MedProcedure guide les médecins diplômés à l&apos;étranger dans
             leurs démarches : reconnaissance du diplôme, postes hospitaliers,
             stages, doctorat et congrès. Pour chacune, les étapes, les pièces
             et les délais.
           </p>
-          <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:gap-4">
+          {/* Sur ordinateur, « Créer un compte » est déjà dans l'en-tête */}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 lg:hidden">
             <Link
               href="/sign-up"
               className={cn(
