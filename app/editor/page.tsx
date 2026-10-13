@@ -254,6 +254,7 @@ export default async function DashboardPage() {
                     <StartDossierDialog
                       procedureSlug={procedure.slug}
                       procedureTitle={procedure.title}
+                      existingDossierCount={dossierCount}
                       triggerLabel={
                         dossierCount > 0
                           ? "Ouvrir un autre dossier"

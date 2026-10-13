@@ -13,12 +13,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { createDossier } from "@/actions/dossiers";
+import { suggestDossierLabel } from "@/lib/dossiers";
 import { cn } from "@/lib/utils";
 import { DossierFields } from "./dossier-fields";
 
 interface StartDossierDialogProps {
   procedureSlug: string;
   procedureTitle: string;
+  // Nombre de dossiers déjà ouverts pour cette procédure : sert à numéroter
+  existingDossierCount: number;
   triggerLabel?: string;
   triggerVariant?: "default" | "outline";
   className?: string;
@@ -27,6 +30,7 @@ interface StartDossierDialogProps {
 export function StartDossierDialog({
   procedureSlug,
   procedureTitle,
+  existingDossierCount,
   triggerLabel = "Ouvrir un dossier",
   triggerVariant = "default",
   className,
@@ -67,7 +71,12 @@ export function StartDossierDialog({
 
         <form action={formAction} className="space-y-5">
           <input type="hidden" name="procedureSlug" value={procedureSlug} />
-          <DossierFields />
+          <DossierFields
+            defaultLabel={suggestDossierLabel(
+              procedureTitle,
+              existingDossierCount
+            )}
+          />
 
           {state && !state.success && (
             <p role="alert" className="text-sm text-state-error">

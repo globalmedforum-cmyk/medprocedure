@@ -9,6 +9,18 @@ export const dossierStatusLabels: Record<ProcedureStatus, string> = {
   COMPLETED: "Terminé",
 };
 
+// Nom proposé pour un nouveau dossier : la procédure suivie d'un numéro,
+// par exemple « Doctorat (PhD) 2 » pour le deuxième dossier de cette procédure
+export function suggestDossierLabel(
+  procedureTitle: string,
+  existingDossierCount: number
+) {
+  const suffix = ` ${existingDossierCount + 1}`;
+  return (
+    procedureTitle.slice(0, DOSSIER_LABEL_MAX_LENGTH - suffix.length) + suffix
+  );
+}
+
 // Nom affiché d'un dossier : son nom s'il en a un, sinon celui de la procédure
 export function getDossierLabel(label: string, procedureTitle: string) {
   return label.trim() || procedureTitle;

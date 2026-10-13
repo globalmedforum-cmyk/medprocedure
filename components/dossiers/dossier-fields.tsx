@@ -19,12 +19,11 @@ export function DossierFields({
           name="label"
           defaultValue={defaultLabel}
           maxLength={DOSSIER_LABEL_MAX_LENGTH}
-          placeholder="Exemple : Congrès de cardiologie, Paris"
           className="h-11 md:text-sm"
         />
         <span className="block text-xs text-text-muted">
-          Facultatif. Il vous sert à distinguer plusieurs dossiers d&apos;une
-          même procédure.
+          Il sert à distinguer plusieurs dossiers d&apos;une même procédure.
+          Vous pourrez le modifier à tout moment.
         </span>
       </label>
 

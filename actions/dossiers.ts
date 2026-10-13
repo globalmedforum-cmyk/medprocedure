@@ -4,7 +4,11 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { DOSSIER_LABEL_MAX_LENGTH, MAX_DOSSIERS_PER_USER } from "@/lib/dossiers";
+import {
+  DOSSIER_LABEL_MAX_LENGTH,
+  MAX_DOSSIERS_PER_USER,
+  suggestDossierLabel,
+} from "@/lib/dossiers";
 import { prisma } from "@/lib/prisma";
 import { TERMS_VERSION } from "@/lib/terms";
 import { syncDbUser } from "@/lib/user";
@@ -73,9 +77,17 @@ export async function createDossier(
 
   const procedure = await prisma.procedure.findUnique({
     where: { slug: procedureSlug.data },
-    select: { id: true },
+    select: { id: true, title: true },
   });
   if (!procedure) return { success: false, error: "Procédure inconnue." };
+
+  // Sans nom saisi, le dossier reçoit le nom de la procédure suivi d'un numéro
+  const procedureDossierCount = await prisma.userProcedureProgress.count({
+    where: { userId: user.id, procedureId: procedure.id },
+  });
+  const label =
+    fields.data.label ||
+    suggestDossierLabel(procedure.title, procedureDossierCount);
 
   const dossierCount = await prisma.userProcedureProgress.count({
     where: { userId: user.id },
@@ -91,7 +103,7 @@ export async function createDossier(
     data: {
       userId: user.id,
       procedureId: procedure.id,
-      label: fields.data.label,
+      label,
       targetDate: fields.data.targetDate,
     },
     select: { id: true },

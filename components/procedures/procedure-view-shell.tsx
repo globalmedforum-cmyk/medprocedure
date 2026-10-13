@@ -2,8 +2,8 @@
 
 import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { List } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowLeft, List } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SiteHeader } from "@/components/shared/site-header";
@@ -25,6 +25,7 @@ import type {
   ProcedureData,
 } from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
+import { cn } from "@/lib/utils";
 
 interface ProcedureViewShellProps {
   procedure: ProcedureData;
@@ -145,6 +146,7 @@ export function ProcedureViewShell({
               <StartDossierDialog
                 procedureSlug={procedure.slug}
                 procedureTitle={procedure.title}
+                existingDossierCount={existingDossiers.length}
                 triggerLabel="Suivre cette procédure"
                 className="w-full sm:w-auto"
               />
@@ -165,15 +167,25 @@ export function ProcedureViewShell({
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-4 sm:px-8 sm:py-12">
         <header className="space-y-5 sm:space-y-6">
-          <nav aria-label="Fil d'Ariane" className="text-sm text-text-muted">
+          <nav
+            aria-label="Fil d'Ariane"
+            className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-muted"
+          >
             <Link
               href="/editor"
-              className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary sm:h-auto"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-11 gap-2 bg-transparent px-3 text-sm text-text-primary sm:h-9"
+              )}
             >
-              Tableau de bord
+              <ArrowLeft aria-hidden />
+              Retour
             </Link>
-            <span aria-hidden> / </span>
-            <span>{dossier ? procedure.title : procedure.category}</span>
+            <span>
+              Tableau de bord
+              <span aria-hidden> / </span>
+              {dossier ? procedure.title : procedure.category}
+            </span>
           </nav>
 
           <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
@@ -203,6 +215,7 @@ export function ProcedureViewShell({
                 <StartDossierDialog
                   procedureSlug={procedure.slug}
                   procedureTitle={procedure.title}
+                  existingDossierCount={existingDossiers.length}
                   className="w-full sm:w-auto"
                 />
               )}
