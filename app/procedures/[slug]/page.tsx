@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import {
   getOpportunityCategoriesForProcedure,
   isOpportunityFullyPublic,
+  procedureHasOpportunities,
   startOfToday,
 } from "@/lib/opportunity-categories";
 import { ProcedureViewShell } from "@/components/procedures/procedure-view-shell";
@@ -107,6 +108,7 @@ export default async function ProcedureDetailPage({
       procedure={procedure}
       initialCompletedStepIds={completedStepIds}
       opportunities={opportunities}
+      showOpportunities={procedureHasOpportunities(procedure.slug)}
     />
   );
 }

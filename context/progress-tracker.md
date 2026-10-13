@@ -115,6 +115,8 @@ change.
 
 - **Opportunités en aperçu (2026-10-13)** : chaque offre n'affiche plus que la catégorie, la spécialité, le titre, la ville, le pays, la date limite et une référence courte. L'établissement, les conditions et l'e-mail de contact ne sont plus envoyés au navigateur (requête limitée par `select`). Sous chaque offre, un bouton « Obtenir les détails de cette offre » ouvre la fenêtre e-mail / WhatsApp avec le titre et la référence. Exception : les congrès (`CONGRES`) sont publiés en entier, lieu, conditions et contact compris, sans bouton de demande (`isOpportunityFullyPublic`). La référence est aussi affichée dans l'admin, dont le formulaire indique ce qui est public. Vérifié : HTML servi sans les champs réservés, rendu et message à l'écran.
 
+- **Onglet des opportunités et renommage (2026-10-13)** : la procédure `mebeko-suisse` s'intitule « Enregistrement MEBEKO ». L'onglet « Opportunités liées » n'apparaît plus pour le stage d'observation, l'enregistrement MEBEKO et les DFMS / DFMSA (procédures sans catégorie dans `lib/opportunity-categories.ts`) ; ces pages affichent directement le guide. Vérifié sur les huit procédures dans le HTML servi.
+
 ## In Progress
 
 - None.

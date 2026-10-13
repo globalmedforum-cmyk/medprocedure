@@ -32,12 +32,12 @@ export const opportunityCategoryGroups: {
   },
 ];
 
-// Catégories affichées dans l'onglet « Opportunités liées » de chaque procédure
+// Catégories affichées dans l'onglet « Opportunités liées » de chaque procédure.
+// Une procédure absente de cette table n'a pas d'onglet : stage d'observation,
+// enregistrement MEBEKO, DFMS et DFMSA.
 const categoriesByProcedureSlug: Record<string, OpportunityCategory[]> = {
   "ffi-france": ["FFI"],
-  "dfms-dfmsa": ["FFI"],
   "stage-associe": ["STAGE_ASSOCIE"],
-  "mebeko-suisse": ["MEDECIN_ASSISTANT"],
   "medecin-assistant-suisse": ["MEDECIN_ASSISTANT"],
   "doctorat-phd": ["PHD", "FELLOWSHIP"],
   "participation-congres": ["CONGRES"],
@@ -45,6 +45,10 @@ const categoriesByProcedureSlug: Record<string, OpportunityCategory[]> = {
 
 export function getOpportunityCategoriesForProcedure(slug: string) {
   return categoriesByProcedureSlug[slug] ?? [];
+}
+
+export function procedureHasOpportunities(slug: string) {
+  return getOpportunityCategoriesForProcedure(slug).length > 0;
 }
 
 export const opportunityCategories = Object.keys(

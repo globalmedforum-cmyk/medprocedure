@@ -117,7 +117,7 @@ export const procedures: ProcedureSeed[] = [
   },
   {
     slug: "mebeko-suisse",
-    title: "Équivalence suisse (MEBEKO)",
+    title: "Enregistrement MEBEKO",
     description:
       "Faire reconnaître ou enregistrer votre diplôme de médecin auprès de la Commission des professions médicales (MEBEKO), condition préalable à tout exercice en Suisse.",
     country: "Suisse",
@@ -228,7 +228,7 @@ export const procedures: ProcedureSeed[] = [
         content: [
           "- Diplôme de l'UE ou de l'AELE : demandez la reconnaissance à la MEBEKO.",
           "- Diplôme d'un État tiers : demandez l'enregistrement comme diplôme non reconnaissable ; il autorise l'exercice sous supervision.",
-          "- Suivez la procédure « Équivalence suisse (MEBEKO) » et comptez plusieurs mois.",
+          "- Suivez la procédure « Enregistrement MEBEKO » et comptez plusieurs mois.",
           "- Selon les cantons, un engagement sous réserve est parfois possible dès que la MEBEKO a accusé réception du dossier : posez la question à l'employeur.",
         ].join("\n"),
         estimatedDuration: "4 à 8 mois",

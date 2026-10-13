@@ -19,6 +19,7 @@ interface ProcedureViewShellProps {
   procedure: ProcedureData;
   initialCompletedStepIds: string[];
   opportunities: OpportunityItem[];
+  showOpportunities: boolean;
 }
 
 const tabTriggerClassName =
@@ -28,16 +29,17 @@ export function ProcedureViewShell({
   procedure,
   initialCompletedStepIds,
   opportunities,
+  showOpportunities,
 }: ProcedureViewShellProps) {
   // Détermination de l'étape active initiale : première étape non complétée, ou étape 1
   const firstIncomplete = procedure.steps.find(
-    (s) => !initialCompletedStepIds.includes(s.id)
+    (s) => !initialCompletedStepIds.includes(s.id),
   );
   const defaultStepId = firstIncomplete?.id || procedure.steps[0]?.id || "";
 
   const [activeStepId, setActiveStepId] = useState<string>(defaultStepId);
   const [completedStepIds, setCompletedStepIds] = useState<string[]>(
-    initialCompletedStepIds
+    initialCompletedStepIds,
   );
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +50,7 @@ export function ProcedureViewShell({
 
   const totalSteps = procedure.steps.length;
   const completedCount = procedure.steps.filter((s) =>
-    completedStepIds.includes(s.id)
+    completedStepIds.includes(s.id),
   ).length;
   const isComplete = totalSteps > 0 && completedCount === totalSteps;
 
@@ -85,6 +87,48 @@ export function ProcedureViewShell({
       }
     });
   };
+
+  const guide = (
+    <div className="grid items-start gap-x-12 gap-y-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <ProcedureStepperSidebar
+        steps={procedure.steps}
+        activeStepId={activeStepId}
+        completedStepIds={completedStepIds}
+        onSelectStep={handleSelectStep}
+        className="sticky top-6 hidden lg:block"
+      />
+
+      <Button
+        variant="outline"
+        onClick={() => setIsMobileDrawerOpen(true)}
+        className="h-12 w-full justify-between bg-transparent px-4 text-sm lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <List aria-hidden />
+          Toutes les étapes
+        </span>
+        <span className="font-mono text-xs text-text-muted">
+          {completedCount}/{totalSteps}
+        </span>
+      </Button>
+
+      {activeStep ? (
+        <ProcedureStepPanel
+          procedure={procedure}
+          activeStep={activeStep}
+          isCompleted={completedStepIds.includes(activeStep.id)}
+          isPending={isPending}
+          error={error}
+          onToggleStep={handleToggleStep}
+          onSelectStep={handleSelectStep}
+        />
+      ) : (
+        <p className="text-sm text-text-muted">
+          Cette procédure ne contient encore aucune étape.
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -137,68 +181,37 @@ export function ProcedureViewShell({
           </div>
         </header>
 
-        <Tabs defaultValue="guide" className="mt-6 gap-6 sm:mt-10 sm:gap-8">
-          <TabsList
-            variant="line"
-            className="h-auto w-full justify-start gap-6 rounded-none sm:gap-8 border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
-          >
-            <TabsTrigger value="guide" className={tabTriggerClassName}>
-              Guide pas à pas
-            </TabsTrigger>
-            <TabsTrigger value="opportunities" className={tabTriggerClassName}>
-              Opportunités liées
-              <span className="font-mono text-xs text-text-muted">
-                {opportunities.length}
-              </span>
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="guide">
-            <div className="grid items-start gap-x-12 gap-y-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
-              <ProcedureStepperSidebar
-                steps={procedure.steps}
-                activeStepId={activeStepId}
-                completedStepIds={completedStepIds}
-                onSelectStep={handleSelectStep}
-                className="sticky top-6 hidden lg:block"
-              />
-
-              <Button
-                variant="outline"
-                onClick={() => setIsMobileDrawerOpen(true)}
-                className="h-12 w-full justify-between bg-transparent px-4 text-sm lg:hidden"
+        {showOpportunities ? (
+          <Tabs defaultValue="guide" className="mt-6 gap-6 sm:mt-10 sm:gap-8">
+            <TabsList
+              variant="line"
+              className="h-auto w-full justify-start gap-6 rounded-none sm:gap-8 border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
+            >
+              <TabsTrigger value="guide" className={tabTriggerClassName}>
+                Guide pas à pas
+              </TabsTrigger>
+              <TabsTrigger
+                value="opportunities"
+                className={tabTriggerClassName}
               >
-                <span className="flex items-center gap-2">
-                  <List aria-hidden />
-                  Toutes les étapes
-                </span>
+                Opportunités liées
                 <span className="font-mono text-xs text-text-muted">
-                  {completedCount}/{totalSteps}
+                  {opportunities.length}
                 </span>
-              </Button>
+              </TabsTrigger>
+            </TabsList>
 
-              {activeStep ? (
-                <ProcedureStepPanel
-                  procedure={procedure}
-                  activeStep={activeStep}
-                  isCompleted={completedStepIds.includes(activeStep.id)}
-                  isPending={isPending}
-                  error={error}
-                  onToggleStep={handleToggleStep}
-                  onSelectStep={handleSelectStep}
-                />
-              ) : (
-                <p className="text-sm text-text-muted">
-                  Cette procédure ne contient encore aucune étape.
-                </p>
-              )}
-            </div>
-          </TabsContent>
+            <TabsContent value="guide">{guide}</TabsContent>
 
-          <TabsContent value="opportunities">
-            <ProcedureOpportunities opportunities={opportunities} />
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="opportunities">
+              <ProcedureOpportunities opportunities={opportunities} />
+            </TabsContent>
+          </Tabs>
+        ) : (
+          <div className="mt-6 border-t border-border-default pt-6 sm:mt-10 sm:pt-8">
+            {guide}
+          </div>
+        )}
       </main>
 
       {/* Mobile Drawer (Sheet) */}

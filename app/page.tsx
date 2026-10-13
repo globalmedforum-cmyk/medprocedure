@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "MedProcedure — exercer ou se former en France et en Suisse",
   description:
-    "Doctorat, équivalence MEBEKO, poste de médecin assistant, stage FFI, stage associé, stage d'observation, congrès : chaque démarche détaillée étape par étape, avec les pièces, les délais et les liens officiels.",
+    "Doctorat, enregistrement MEBEKO, poste de médecin assistant, stage FFI, stage associé, stage d'observation, congrès : chaque démarche détaillée étape par étape, avec les pièces, les délais et les liens officiels.",
 };
 
 const guideContents = [
