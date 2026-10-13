@@ -105,6 +105,8 @@ change.
 
 - **Logo (2026-10-13)** : logo fourni par le propriétaire (`public/logo.png`) affiché via `components/shared/logo.tsx` dans l'en-tête du site, la page d'accueil et l'écran de connexion ; icônes d'onglet remplacées (`app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`).
 
+- **Bouton « Obtenir une assistance » (2026-10-13)** : présent en haut de chaque procédure et sous chaque étape. Il ouvre une fenêtre proposant un e-mail et un message WhatsApp déjà rédigés (procédure et étape en cours). Coordonnées dans `lib/contact.ts` ; l'option WhatsApp ne s'affiche que si `SUPPORT_WHATSAPP` est renseigné.
+
 ## In Progress
 
 - None.

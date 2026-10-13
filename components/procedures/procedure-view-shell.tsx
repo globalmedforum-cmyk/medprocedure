@@ -10,6 +10,7 @@ import { SiteHeader } from "@/components/shared/site-header";
 import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
 import { ProcedureMobileDrawer } from "./procedure-mobile-drawer";
 import { ProcedureStepPanel } from "./procedure-step-panel";
+import { AssistanceDialog } from "./assistance-dialog";
 import { ProcedureOpportunities } from "./procedure-opportunities";
 import type { OpportunityItem, ProcedureData } from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
@@ -102,13 +103,16 @@ export function ProcedureViewShell({
             <span>{procedure.category}</span>
           </nav>
 
-          <div className="max-w-3xl space-y-3">
-            <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-              {procedure.title}
-            </h1>
-            <p className="text-base leading-relaxed text-text-muted">
-              {procedure.description}
-            </p>
+          <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
+            <div className="max-w-3xl space-y-3">
+              <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+                {procedure.title}
+              </h1>
+              <p className="text-base leading-relaxed text-text-muted">
+                {procedure.description}
+              </p>
+            </div>
+            <AssistanceDialog procedureTitle={procedure.title} />
           </div>
 
           <div className="max-w-sm space-y-2">

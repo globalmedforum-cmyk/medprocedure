@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/shared/logo";
+import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -13,8 +14,6 @@ export const metadata: Metadata = {
   description:
     "Doctorat, équivalence MEBEKO, poste de médecin assistant, stage FFI, stage associé, stage d'observation, congrès : chaque démarche détaillée étape par étape, avec les pièces, les délais et les liens officiels.",
 };
-
-const SUPPORT_EMAIL = "contact@medprocedure.com";
 
 const guideContents = [
   {

@@ -4,6 +4,7 @@ import React from "react";
 import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProcedureResources } from "@/lib/procedure-resources";
+import { AssistanceDialog } from "./assistance-dialog";
 import { StepContent } from "./step-content";
 import type { ProcedureData, StepItem } from "./types";
 
@@ -16,8 +17,6 @@ interface ProcedureStepPanelProps {
   onToggleStep: (stepId: string) => void;
   onSelectStep: (stepId: string) => void;
 }
-
-const SUPPORT_EMAIL = "contact@medprocedure.com";
 
 export function ProcedureStepPanel({
   procedure,
@@ -153,17 +152,16 @@ export function ProcedureStepPanel({
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
-                `Assistance : ${procedure.title}`
-              )}`}
-              className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
-            >
-              Écrire à l&apos;assistance
-            </a>
-          </li>
         </ul>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+          <p className="text-sm text-text-muted">
+            Besoin d&apos;aide pour cette étape ?
+          </p>
+          <AssistanceDialog
+            procedureTitle={procedure.title}
+            stepLabel={`étape ${activeStep.order} : ${activeStep.title}`}
+          />
+        </div>
         <p className="max-w-prose text-xs leading-relaxed text-text-muted">
           Informations données à titre indicatif. Les montants, les délais et
           les calendriers évoluent : vérifiez-les sur les sites officiels
