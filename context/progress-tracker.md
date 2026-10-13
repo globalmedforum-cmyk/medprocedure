@@ -113,6 +113,8 @@ change.
 
 - **Polices hébergées localement (2026-10-13)** : après un déploiement Vercel échoué sur le téléchargement d'IBM Plex Sans chez Google Fonts, les trois polices sont passées de `next/font/google` à `next/font/local` (fichiers dans `app/fonts/`, licence OFL). Vérifié : build, et dans le navigateur les polices se chargent depuis le site sans aucune requête vers Google.
 
+- **Opportunités en aperçu (2026-10-13)** : chaque offre n'affiche plus que la catégorie, la spécialité, le titre, la ville, le pays, la date limite et une référence courte. L'établissement, les conditions et l'e-mail de contact ne sont plus envoyés au navigateur (requête limitée par `select`). Sous chaque offre, un bouton « Obtenir les détails de cette offre » ouvre la fenêtre e-mail / WhatsApp avec le titre et la référence. Exception : les congrès (`CONGRES`) sont publiés en entier, lieu, conditions et contact compris, sans bouton de demande (`isOpportunityFullyPublic`). La référence est aussi affichée dans l'admin, dont le formulaire indique ce qui est public. Vérifié : HTML servi sans les champs réservés, rendu et message à l'écran.
+
 ## In Progress
 
 - None.
@@ -125,6 +127,8 @@ change.
 
 ## Open Questions
 
+- Modèle économique : l'accès au détail des offres et l'assistance sont payants, le reste est libre. Le paiement se négocie pour l'instant par WhatsApp ou e-mail ; aucun paiement en ligne ni déblocage dans le site. Faire valider par un juriste la facturation de l'accès à des offres d'emploi.
+- Les huit opportunités en base sont des données de démonstration, à remplacer par des offres réelles.
 - Le contenu des procédures a été rédigé d'après les sites officiels mais n'a pas été relu par un professionnel du domaine. Points à faire valider en priorité : le fait qu'un médecin diplômé hors UE ne peut être FFI que par un DFMS ou un DFMSA, la mention du visa long séjour correspondant, rémunération des stagiaires associés, absence de rémunération des stages d'observation, règles cantonales suisses hors Vaud.
 - Les liens utiles sont dans le code (`lib/procedure-resources.ts`) et non modifiables depuis l'admin.
 - Le seed réécrit les procédures et supprime les étapes absentes de `prisma/seed.ts` : le relancer en production écraserait les modifications faites depuis `/admin`. Faut-il le bloquer hors développement ?

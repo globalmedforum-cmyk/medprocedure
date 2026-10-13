@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/admin";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
+  getOpportunityReference,
   isOpportunityExpired,
   opportunityCategoryGroups,
   opportunityCategoryLabels,
@@ -134,6 +135,9 @@ export default async function AdminPage() {
                       >
                         <span className="text-sm text-accent-primary">
                           {opportunityCategoryLabels[opportunity.category]}
+                          <span className="block font-mono text-xs text-text-muted">
+                            Réf. {getOpportunityReference(opportunity.id)}
+                          </span>
                         </span>
                         <span>
                           <span className="block font-medium">

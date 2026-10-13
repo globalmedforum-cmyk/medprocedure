@@ -48,12 +48,25 @@ export function OpportunityForm({
           ))}
         </select>
       </label>
-      <Field label="Titre" name="title" required defaultValue={opportunity?.title} />
+      <p className="border-l-2 border-accent-primary pl-4 text-sm leading-relaxed text-text-muted">
+        Visible par tous sur le site : la catégorie, le titre, la spécialité,
+        la ville, le pays et la date limite. L&apos;établissement, les
+        conditions et l&apos;e-mail de contact restent réservés à
+        l&apos;équipe, sauf pour les congrès, qui sont publiés en entier.
+      </p>
+      <Field
+        label="Titre"
+        name="title"
+        required
+        defaultValue={opportunity?.title}
+        hint="Public. N'y mettez pas le nom de l'établissement."
+      />
       <Field
         label="Établissement"
         name="hospital"
         required
         defaultValue={opportunity?.hospital}
+        hint="Réservé à l'équipe, sauf pour un congrès (lieu affiché)."
       />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
@@ -87,13 +100,14 @@ export function OpportunityForm({
         label="Conditions"
         name="requirements"
         defaultValue={opportunity?.requirements.join("\n")}
-        hint="Une condition par ligne."
+        hint="Une condition par ligne. Réservé à l'équipe, sauf pour un congrès."
       />
       <Field
         label="E-mail de contact"
         name="contactEmail"
         type="email"
         defaultValue={opportunity?.contactEmail}
+        hint="Réservé à l'équipe, sauf pour un congrès."
       />
     </AdminForm>
   );

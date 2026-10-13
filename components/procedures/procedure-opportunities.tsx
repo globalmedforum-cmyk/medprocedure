@@ -1,4 +1,9 @@
 import React from "react";
+import { ContactDialog } from "@/components/shared/contact-dialog";
+import {
+  getOpportunityReference,
+  opportunityCategoryLabels,
+} from "@/lib/opportunity-categories";
 import type { OpportunityItem } from "./types";
 
 interface ProcedureOpportunitiesProps {
@@ -24,58 +29,99 @@ export function ProcedureOpportunities({
   }
 
   return (
-    <ul className="border-t border-border-default">
-      {opportunities.map((opportunity) => (
-        <li
-          key={opportunity.id}
-          className="grid gap-x-10 gap-y-4 border-b border-border-default py-6 md:grid-cols-[minmax(0,1fr)_14rem]"
-        >
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <p className="text-sm text-text-muted">{opportunity.specialty}</p>
-              <h3 className="font-heading text-xl leading-snug font-medium tracking-tight">
-                {opportunity.title}
-              </h3>
-              <p className="text-sm">
-                {opportunity.hospital}
-                <span className="text-text-muted">
-                  {" · "}
+    <div className="space-y-6">
+      {opportunities.some((opportunity) => !opportunity.details) && (
+        <p className="max-w-prose text-sm leading-relaxed text-text-muted">
+          Ces offres sont repérées et vérifiées par notre équipe. L&apos;aperçu
+          est libre ; le nom de l&apos;établissement, le contact et la marche à
+          suivre pour candidater vous sont communiqués sur demande.
+        </p>
+      )}
+
+      <ul className="border-t border-border-default">
+        {opportunities.map((opportunity) => {
+          const reference = getOpportunityReference(opportunity.id);
+
+          return (
+            <li
+              key={opportunity.id}
+              className="grid gap-x-10 gap-y-4 border-b border-border-default py-6 md:grid-cols-[minmax(0,1fr)_14rem] md:items-start"
+            >
+              <div className="space-y-2">
+                <p className="text-sm text-accent-primary">
+                  {opportunityCategoryLabels[opportunity.category]}
+                  <span className="text-text-muted">
+                    {" · "}
+                    {opportunity.specialty}
+                  </span>
+                </p>
+                <h3 className="font-heading text-xl leading-snug font-medium tracking-tight">
+                  {opportunity.title}
+                </h3>
+                <p className="text-sm">
+                  {opportunity.details && (
+                    <>
+                      {opportunity.details.hospital}
+                      <span className="text-text-muted">{" · "}</span>
+                    </>
+                  )}
                   {opportunity.location}, {opportunity.country}
-                </span>
-              </p>
-            </div>
-
-            {opportunity.requirements.length > 0 && (
-              <ul className="list-disc space-y-1 pl-5 text-sm leading-relaxed text-text-muted">
-                {opportunity.requirements.map((requirement) => (
-                  <li key={requirement}>{requirement}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <div className="space-y-3 text-sm">
-            {opportunity.deadline && (
-              <div>
-                <p className="text-text-muted">Date limite</p>
-                <p className="font-mono text-sm">
-                  {deadlineFormatter.format(new Date(opportunity.deadline))}
                 </p>
               </div>
-            )}
-            {opportunity.contactEmail && (
-              <a
-                href={`mailto:${opportunity.contactEmail}?subject=${encodeURIComponent(
-                  opportunity.title
-                )}`}
-                className="inline-block break-all text-accent-secondary underline underline-offset-4 hover:text-text-primary"
-              >
-                {opportunity.contactEmail}
-              </a>
-            )}
-          </div>
-        </li>
-      ))}
-    </ul>
+
+              <div className="space-y-1 text-sm">
+                <p className="text-text-muted">Date limite</p>
+                <p className="font-mono">
+                  {opportunity.deadline
+                    ? deadlineFormatter.format(new Date(opportunity.deadline))
+                    : "Non précisée"}
+                </p>
+                <p className="pt-1 font-mono text-xs text-text-muted">
+                  Réf. {reference}
+                </p>
+              </div>
+
+              {opportunity.details ? (
+                <div className="space-y-3 text-sm md:col-span-2">
+                  {opportunity.details.requirements.length > 0 && (
+                    <ul className="list-disc space-y-1 pl-5 leading-relaxed text-text-muted marker:text-accent-primary">
+                      {opportunity.details.requirements.map((requirement) => (
+                        <li key={requirement}>{requirement}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {opportunity.details.contactEmail && (
+                    <a
+                      href={`mailto:${opportunity.details.contactEmail}?subject=${encodeURIComponent(
+                        opportunity.title,
+                      )}`}
+                      className="inline-flex py-2 break-all text-accent-secondary underline underline-offset-4 hover:text-text-primary md:py-0.5"
+                    >
+                      {opportunity.details.contactEmail}
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-3 md:col-span-2">
+                  <p className="text-sm text-text-muted">
+                    Établissement, contact et modalités de candidature : sur
+                    demande.
+                  </p>
+                  <ContactDialog
+                    trigger="Obtenir les détails de cette offre"
+                    triggerVariant="default"
+                    triggerClassName="h-12 w-full px-4 text-sm sm:h-10 sm:w-auto"
+                    title="Obtenir les détails de cette offre"
+                    description="L'accès au détail des offres est un service payant. Écrivez-nous : notre équipe vous indique les conditions, puis vous transmet l'établissement, le contact et la marche à suivre pour candidater."
+                    emailSubject={`Détails de l'offre réf. ${reference}`}
+                    message={`Bonjour, je souhaite obtenir les détails de l'offre « ${opportunity.title} » (réf. ${reference}).`}
+                  />
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

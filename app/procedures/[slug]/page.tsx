@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import {
   getOpportunityCategoriesForProcedure,
+  isOpportunityFullyPublic,
   startOfToday,
 } from "@/lib/opportunity-categories";
 import { ProcedureViewShell } from "@/components/procedures/procedure-view-shell";
@@ -75,13 +76,31 @@ export default async function ProcedureDetailPage({
   }
 
   // 3. Récupération des opportunités associées, par catégorie, hors dates passées
-  const opportunities = await prisma.opportunity.findMany({
+  const opportunityRows = await prisma.opportunity.findMany({
     where: {
       category: { in: getOpportunityCategoriesForProcedure(procedure.slug) },
       OR: [{ deadline: null }, { deadline: { gte: startOfToday() } }],
     },
     orderBy: [{ deadline: "asc" }, { createdAt: "desc" }],
   });
+
+  // Seul l'aperçu quitte le serveur, sauf pour les catégories entièrement publiques
+  const opportunities = opportunityRows.map((row) => ({
+    id: row.id,
+    category: row.category,
+    title: row.title,
+    specialty: row.specialty,
+    location: row.location,
+    country: row.country,
+    deadline: row.deadline,
+    details: isOpportunityFullyPublic(row.category)
+      ? {
+          hospital: row.hospital,
+          requirements: row.requirements,
+          contactEmail: row.contactEmail,
+        }
+      : undefined,
+  }));
 
   return (
     <ProcedureViewShell

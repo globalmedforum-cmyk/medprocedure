@@ -65,3 +65,15 @@ export function startOfToday() {
 export function isOpportunityExpired(deadline: Date | null, today: Date) {
   return deadline !== null && deadline < today;
 }
+
+// Catégories publiées en entier ; les autres n'affichent qu'un aperçu
+const fullyPublicCategories: OpportunityCategory[] = ["CONGRES"];
+
+export function isOpportunityFullyPublic(category: OpportunityCategory) {
+  return fullyPublicCategories.includes(category);
+}
+
+// Référence courte, citée par le client quand il demande le détail d'une offre
+export function getOpportunityReference(id: string) {
+  return id.slice(-6).toUpperCase();
+}

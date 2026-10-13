@@ -4,6 +4,7 @@ import { requireAdmin } from "@/lib/admin";
 import { deleteOpportunity } from "@/actions/admin";
 import { DeleteForm } from "@/components/admin/delete-form";
 import { OpportunityForm } from "@/components/admin/opportunity-form";
+import { getOpportunityReference } from "@/lib/opportunity-categories";
 
 interface AdminOpportunityPageProps {
   params: Promise<{ id: string }>;
@@ -23,9 +24,14 @@ export default async function AdminOpportunityPage({
 
   return (
     <div className="space-y-8">
-      <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-        {opportunity.title}
-      </h1>
+      <header className="space-y-2">
+        <p className="font-mono text-xs text-text-muted">
+          Réf. {getOpportunityReference(opportunity.id)}
+        </p>
+        <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+          {opportunity.title}
+        </h1>
+      </header>
       <OpportunityForm opportunity={opportunity} />
       <DeleteForm
         action={deleteOpportunity}
