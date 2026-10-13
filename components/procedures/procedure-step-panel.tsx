@@ -3,6 +3,8 @@
 import React from "react";
 import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getProcedureResources } from "@/lib/procedure-resources";
+import { StepContent } from "./step-content";
 import type { ProcedureData, StepItem } from "./types";
 
 interface ProcedureStepPanelProps {
@@ -17,25 +19,6 @@ interface ProcedureStepPanelProps {
 
 const SUPPORT_EMAIL = "contact@medprocedure.com";
 
-function getOfficialLinks(country: string) {
-  const links: { label: string; href: string }[] = [];
-
-  if (country !== "Suisse") {
-    links.push({
-      label: "France-Visas, portail officiel des visas",
-      href: "https://france-visas.gouv.fr",
-    });
-  }
-  if (country.includes("Suisse")) {
-    links.push({
-      label: "Office fédéral de la santé publique (OFSP)",
-      href: "https://www.bag.admin.ch",
-    });
-  }
-
-  return links;
-}
-
 export function ProcedureStepPanel({
   procedure,
   activeStep,
@@ -49,8 +32,7 @@ export function ProcedureStepPanel({
   const currentIndex = procedure.steps.findIndex((s) => s.id === activeStep.id);
   const prevStep = procedure.steps[currentIndex - 1] ?? null;
   const nextStep = procedure.steps[currentIndex + 1] ?? null;
-  const officialLinks = getOfficialLinks(procedure.country);
-  const involvesVisa = procedure.country !== "Suisse";
+  const resources = getProcedureResources(procedure.slug);
 
   return (
     <div className="min-w-0 space-y-12">
@@ -72,12 +54,10 @@ export function ProcedureStepPanel({
         </p>
 
         {activeStep.content && (
-          <div className="max-w-prose space-y-1 border-l-2 border-accent-primary pl-4">
-            <p className="text-sm font-medium">À savoir</p>
-            <p className="text-base leading-relaxed whitespace-pre-line text-text-muted">
-              {activeStep.content}
-            </p>
-          </div>
+          <section className="max-w-prose space-y-3 border-l-2 border-accent-primary pl-4">
+            <h3 className="text-sm font-medium text-text-muted">En pratique</h3>
+            <StepContent content={activeStep.content} />
+          </section>
         )}
 
         {activeStep.videoUrl && (
@@ -154,60 +134,42 @@ export function ProcedureStepPanel({
         </div>
       </article>
 
-      <div className="grid gap-10 border-t border-border-default pt-8 md:grid-cols-2">
-        {involvesVisa && (
-          <section className="space-y-3">
-            <h3 className="text-sm font-medium">Avant de déposer un visa</h3>
-            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted marker:text-state-warning">
-              <li>
-                Limitez le séjour demandé à la durée stricte de
-                l&apos;événement ou du stage.
-              </li>
-              <li>
-                Les dates du logement, du transport et de l&apos;assurance
-                doivent être identiques.
-              </li>
-              <li>
-                Justifiez vos ressources ou joignez une attestation de prise en
-                charge.
-              </li>
-              <li>
-                Le passeport doit rester valide 3 à 6 mois après la date de
-                retour.
-              </li>
-            </ul>
-          </section>
-        )}
-
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium">Liens utiles</h3>
-          <ul className="space-y-2 text-sm">
-            {officialLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary"
-                >
-                  {link.label}
-                  <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-                </a>
-              </li>
-            ))}
-            <li>
+      <section className="space-y-4 border-t border-border-default pt-8">
+        <h3 className="text-sm font-medium">Liens utiles</h3>
+        <ul className="grid gap-x-10 gap-y-2.5 text-sm md:grid-cols-2">
+          {resources.map((resource) => (
+            <li key={resource.href}>
               <a
-                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
-                  `Assistance : ${procedure.title}`
-                )}`}
-                className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+                href={resource.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-baseline gap-1.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary"
               >
-                Écrire à l&apos;assistance
+                {resource.label}
+                <ExternalLink
+                  className="h-3.5 w-3.5 shrink-0 translate-y-0.5"
+                  aria-hidden
+                />
               </a>
             </li>
-          </ul>
-        </section>
-      </div>
+          ))}
+          <li>
+            <a
+              href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
+                `Assistance : ${procedure.title}`
+              )}`}
+              className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+            >
+              Écrire à l&apos;assistance
+            </a>
+          </li>
+        </ul>
+        <p className="max-w-prose text-xs leading-relaxed text-text-muted">
+          Informations données à titre indicatif. Les montants, les délais et
+          les calendriers évoluent : vérifiez-les sur les sites officiels
+          ci-dessus avant d&apos;engager une démarche.
+        </p>
+      </section>
     </div>
   );
 }

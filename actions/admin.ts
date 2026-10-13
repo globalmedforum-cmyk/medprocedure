@@ -15,7 +15,7 @@ const fieldLabels: Record<string, string> = {
   country: "Pays",
   category: "Catégorie",
   order: "Ordre",
-  content: "À savoir",
+  content: "En pratique",
   estimatedDuration: "Durée estimée",
   videoUrl: "Lien vidéo",
   hospital: "Établissement",

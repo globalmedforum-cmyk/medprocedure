@@ -37,6 +37,7 @@ const categoriesByProcedureSlug: Record<string, OpportunityCategory[]> = {
   "ffi-france": ["FFI"],
   "stage-associe": ["STAGE_ASSOCIE"],
   "mebeko-suisse": ["MEDECIN_ASSISTANT"],
+  "medecin-assistant-suisse": ["MEDECIN_ASSISTANT"],
   "doctorat-phd": ["PHD", "FELLOWSHIP"],
   "participation-congres": ["CONGRES"],
 };

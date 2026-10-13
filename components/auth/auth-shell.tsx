@@ -7,6 +7,7 @@ interface AuthShellProps {
 const procedures = [
   "Doctorat (PhD)",
   "Équivalence suisse (MEBEKO)",
+  "Médecin assistant en Suisse",
   "Stage d'observation",
   "Stage FFI",
   "Stage associé",

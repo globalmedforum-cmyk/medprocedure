@@ -87,6 +87,15 @@ change.
   - Onglet « Opportunités liées » : filtré par catégorie selon la procédure (`lib/opportunity-categories.ts`), à la place de la comparaison sur le pays qui ne fonctionnait pas. Le stage d'observation n'a aucune catégorie associée.
   - Vérifié : `tsc`, `eslint`, `npm run build`. La migration n'est pas encore appliquée à la base.
 
+- **Contenu des procédures (2026-10-13)** :
+  - Septième procédure : « Médecin assistant en Suisse » (`medecin-assistant-suisse`, 7 étapes), reliée à la catégorie d'opportunités « Médecin assistant ».
+  - Les sept procédures réécrites dans `prisma/procedures-content.ts` à partir des sources officielles consultées en octobre 2026 (OFSP, service-public.fr, France-Visas, facultés de médecine, AP-HP) : étapes formulées comme des actions, description courte, puis liste « En pratique » (pièces, montants, délais).
+  - Vidéos YouTube factices retirées (plus aucun `videoUrl` en base).
+  - Liens officiels par procédure dans `lib/procedure-resources.ts`, affichés sous chaque étape, avec une mention « à titre indicatif ». L'ancien bloc générique « Avant de déposer un visa » est supprimé, son contenu étant intégré aux étapes concernées.
+  - `StepContent` : les lignes commençant par « - » deviennent des listes (utilisable aussi depuis l'admin).
+  - Seed : les opportunités ne sont plus réécrites, seulement créées si absentes.
+  - Contenu appliqué à la base par `npm run db:seed` ; vérifié à l'écran sur la nouvelle procédure.
+
 ## In Progress
 
 - None.
@@ -95,11 +104,12 @@ change.
 
 - Marquer la migration de référence comme appliquée sur la base existante : `npx prisma migrate resolve --applied 0_init` (à lancer une seule fois, puis abandonner `db:push`).
 - Remplir `context/project-overview.md` (encore le gabarit vide).
-- Remplacer les vidéos factices du seed. Faire valider la règle d'affichage des liens officiels et du rappel visa par pays.
 - Tableau de bord avec progression par procédure ; CI minimale (lint, types, build).
 
 ## Open Questions
 
+- Le contenu des procédures a été rédigé d'après les sites officiels mais n'a pas été relu par un professionnel du domaine. Points à faire valider en priorité : mention du visa long séjour pour les DFMS/DFMSA, rémunération des stagiaires associés, absence de rémunération des stages d'observation, règles cantonales suisses hors Vaud.
+- Les liens utiles sont dans le code (`lib/procedure-resources.ts`) et non modifiables depuis l'admin.
 - Le seed réécrit les procédures et supprime les étapes absentes de `prisma/seed.ts` : le relancer en production écraserait les modifications faites depuis `/admin`. Faut-il le bloquer hors développement ?
 - Synchronisation des utilisateurs Clerk : aujourd'hui à la première validation d'étape, avec e-mail de repli fictif. Passer à un webhook Clerk ?
 

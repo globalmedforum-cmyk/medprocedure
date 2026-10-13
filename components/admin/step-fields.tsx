@@ -27,10 +27,10 @@ export function StepFields({ step, defaultOrder }: StepFieldsProps) {
         defaultValue={step?.description}
       />
       <TextAreaField
-        label="À savoir"
+        label="En pratique"
         name="content"
         defaultValue={step?.content}
-        hint="Affiché sous la description, dans l'encadré « À savoir »."
+        hint="Affiché sous la description. Une ligne qui commence par « - » devient un élément de liste."
       />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
