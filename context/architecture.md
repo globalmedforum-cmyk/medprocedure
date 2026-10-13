@@ -26,7 +26,8 @@
 
 ## Auth and Access Model
 
-- L'authentification est déléguée à Clerk via `proxy.ts`. Seules la page d'accueil `/` et les pages de connexion et d'inscription sont publiques.
+- L'authentification est déléguée à Clerk via `proxy.ts`. Seules la page d'accueil `/`, les conditions générales `/conditions` et les pages de connexion et d'inscription sont publiques.
+- Tant que la version en vigueur des conditions générales n'est pas acceptée, les pages réservées affichent une fenêtre d'acceptation à la place de leur contenu (`lib/terms-acceptance.ts`, `components/terms/terms-window.tsx`).
 - Chaque médecin est rattaché à son identifiant unique Clerk (`clerkId`).
 - Un utilisateur ne peut lire et modifier que ses propres enregistrements de progression.
 - Les données de procédures et d'opportunités sont en lecture seule pour les praticiens.

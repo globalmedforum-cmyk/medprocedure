@@ -7,6 +7,8 @@ import {
   procedureHasOpportunities,
   startOfToday,
 } from "@/lib/opportunity-categories";
+import { TermsWindow } from "@/components/terms/terms-window";
+import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 import { ProcedureViewShell } from "@/components/procedures/procedure-view-shell";
 
 interface ProcedurePageProps {
@@ -36,6 +38,10 @@ export default async function ProcedureDetailPage({
   params,
 }: ProcedurePageProps) {
   const { slug } = await params;
+
+  if (!(await hasAcceptedTerms())) {
+    return <TermsWindow next={`/procedures/${slug}`} />;
+  }
 
   // 1. Récupération de la procédure avec ses étapes ordonnées
   const procedure = await prisma.procedure.findUnique({

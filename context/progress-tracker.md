@@ -117,6 +117,13 @@ change.
 
 - **Onglet des opportunités et renommage (2026-10-13)** : la procédure `mebeko-suisse` s'intitule « Enregistrement MEBEKO ». L'onglet « Opportunités liées » n'apparaît plus pour le stage d'observation, l'enregistrement MEBEKO et les DFMS / DFMSA (procédures sans catégorie dans `lib/opportunity-categories.ts`) ; ces pages affichent directement le guide. Vérifié sur les huit procédures dans le HTML servi.
 
+- **Conditions générales d'utilisation (2026-10-13)** :
+  - Texte rédigé en style juridique, par articles et clauses numérotées, dans `lib/terms.ts` : objet, définitions, acceptation, description du service, engagements de l'Éditeur (obligation de moyens), absence de garantie de résultat, obligations de l'Utilisateur, prestations payantes, données, propriété intellectuelle, responsabilité, modification, contact.
+  - À la première visite de l'espace connecté, après inscription comme après connexion, `/editor` et `/procedures/[slug]` affichent à la place de leur contenu une fenêtre bloquante (`TermsWindow`) : texte défilant, case à cocher, « Accepter et continuer » ou « Refuser et me déconnecter ». Changer `TERMS_VERSION` redemande l'acceptation à tous.
+  - Page publique `/conditions` avec le même texte, liée depuis l'accueil et le catalogue.
+  - Schéma : `User.termsVersion` et `User.termsAcceptedAt`, migration `20261013190000_user_terms`. L'action de progression refuse d'enregistrer tant que les conditions ne sont pas acceptées.
+  - Vérifié : `tsc`, `eslint`, `npm run build`, rendu de la page publique et de la fenêtre (bureau et 375 px) sur une page d'aperçu temporaire. L'enregistrement de l'acceptation n'a pas été testé en étant connecté, et la migration n'est pas encore appliquée.
+
 ## In Progress
 
 - None.
@@ -129,6 +136,7 @@ change.
 
 ## Open Questions
 
+- Conditions générales : texte rédigé sans juriste. Il manque l'identité légale de l'exploitant (raison sociale, adresse, immatriculation), le droit applicable et la politique de remboursement. Les engagements de la section 2 sont à confirmer par le propriétaire.
 - Modèle économique : l'accès au détail des offres et l'assistance sont payants, le reste est libre. Le paiement se négocie pour l'instant par WhatsApp ou e-mail ; aucun paiement en ligne ni déblocage dans le site. Faire valider par un juriste la facturation de l'accès à des offres d'emploi.
 - Les huit opportunités en base sont des données de démonstration, à remplacer par des offres réelles.
 - Le contenu des procédures a été rédigé d'après les sites officiels mais n'a pas été relu par un professionnel du domaine. Points à faire valider en priorité : le fait qu'un médecin diplômé hors UE ne peut être FFI que par un DFMS ou un DFMSA, la mention du visa long séjour correspondant, rémunération des stagiaires associés, absence de rémunération des stages d'observation, règles cantonales suisses hors Vaud.

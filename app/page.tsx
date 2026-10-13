@@ -198,6 +198,14 @@ export default async function HomePage() {
             >
               {SUPPORT_EMAIL}
             </a>
+            <p>
+              <Link
+                href="/conditions"
+                className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary md:h-auto"
+              >
+                Conditions générales d&apos;utilisation
+              </Link>
+            </p>
             <p>&copy; {new Date().getFullYear()} MedProcedure</p>
           </div>
         </div>

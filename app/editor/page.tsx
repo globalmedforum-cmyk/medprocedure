@@ -4,8 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Progress } from "@/components/ui/progress";
 import { SiteHeader } from "@/components/shared/site-header";
+import { TermsWindow } from "@/components/terms/terms-window";
+import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 
 export default async function EditorPage() {
+  if (!(await hasAcceptedTerms())) {
+    return <TermsWindow next="/editor" />;
+  }
+
   const { userId } = await auth();
 
   const [procedures, progressRows] = await Promise.all([
@@ -116,6 +122,17 @@ export default async function EditorPage() {
           </p>
         )}
       </main>
+
+      <footer className="border-t border-border-default">
+        <div className="mx-auto w-full max-w-6xl px-4 py-4 text-sm text-text-muted sm:px-8">
+          <Link
+            href="/conditions"
+            className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary"
+          >
+            Conditions générales d&apos;utilisation
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }

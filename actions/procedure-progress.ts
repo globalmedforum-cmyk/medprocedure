@@ -1,9 +1,11 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { TERMS_VERSION } from "@/lib/terms";
+import { syncDbUser } from "@/lib/user";
 import { ProcedureStatus } from "@prisma/client";
 
 const toggleStepProgressSchema = z.object({
@@ -39,25 +41,14 @@ export async function toggleStepProgress(
 
     const { procedureSlug, stepId, completed } = parsed.data;
 
-    // Récupération de l'utilisateur Clerk pour synchronisation locale si nécessaire
-    const clerkUser = await currentUser();
-    const primaryEmail =
-      clerkUser?.emailAddresses?.[0]?.emailAddress || `${userId}@medprocedure.app`;
-    const fullName =
-      `${clerkUser?.firstName || ""} ${clerkUser?.lastName || ""}`.trim() || null;
+    const dbUser = await syncDbUser(userId);
 
-    const dbUser = await prisma.user.upsert({
-      where: { clerkId: userId },
-      update: {
-        email: primaryEmail,
-        name: fullName || undefined,
-      },
-      create: {
-        clerkId: userId,
-        email: primaryEmail,
-        name: fullName,
-      },
-    });
+    if (dbUser.termsVersion !== TERMS_VERSION) {
+      return {
+        success: false,
+        error: "Acceptez d'abord les conditions générales d'utilisation.",
+      };
+    }
 
     // Récupération de la procédure et de ses étapes
     const procedure = await prisma.procedure.findUnique({
