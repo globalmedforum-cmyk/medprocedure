@@ -14,6 +14,15 @@ enum ProcedureStatus {
   COMPLETED
 }
 
+enum OpportunityCategory {
+  FFI
+  STAGE_ASSOCIE
+  MEDECIN_ASSISTANT
+  FELLOWSHIP
+  PHD
+  CONGRES
+}
+
 model User {
   id        String   @id @default(cuid())
   clerkId   String   @unique
@@ -79,6 +88,7 @@ model UserProcedureProgress {
 
 model Opportunity {
   id           String    @id @default(cuid())
+  category     OpportunityCategory
   title        String
   hospital     String
   location     String
@@ -90,6 +100,7 @@ model Opportunity {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
+  @@index([category])
   @@map("opportunities")
 }
 

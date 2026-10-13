@@ -461,6 +461,7 @@ async function main() {
   const opportunities: Prisma.OpportunityCreateInput[] = [
     // Congrès médicaux majeurs (Image 2)
     {
+      category: "CONGRES",
       title: "Congrès FCPC 2026 - Cardiologie pédiatrique et congénitale",
       hospital: "Cité des Congrès de Nantes",
       location: "Nantes",
@@ -475,6 +476,7 @@ async function main() {
       contactEmail: "inscriptions@fcpc2026.fr",
     },
     {
+      category: "CONGRES",
       title: "Congrès SFA 2026 - Société Française d'Audiologie",
       hospital: "Le Corum - Centre de Congrès de Montpellier",
       location: "Montpellier",
@@ -489,6 +491,7 @@ async function main() {
       contactEmail: "contact@sfa-audiologie.fr",
     },
     {
+      category: "CONGRES",
       title:
         "Congrès SFAR 2026 - Société Française d'Anesthésie et de Réanimation",
       hospital: "Palais des Congrès de Paris",
@@ -504,6 +507,7 @@ async function main() {
       contactEmail: "congres@sfar.org",
     },
     {
+      category: "CONGRES",
       title:
         "Congrès SCGP 2026 - Société de Chirurgie Gynécologique et Pelvienne",
       hospital: "Palais des Congrès de Bordeaux",
@@ -521,6 +525,7 @@ async function main() {
 
     // Postes hospitaliers
     {
+      category: "MEDECIN_ASSISTANT",
       title: "Médecin Assistant en Médecine Interne",
       hospital: "Hôpitaux Universitaires de Genève (HUG)",
       location: "Genève",
@@ -535,6 +540,7 @@ async function main() {
       contactEmail: "recrutement.medical@hug.ch",
     },
     {
+      category: "FFI",
       title: "Poste FFI en Chirurgie Orthopédique & Traumatologie",
       hospital: "Hospices Civils de Lyon (HCL) - CHU Lyon",
       location: "Lyon",
@@ -549,6 +555,7 @@ async function main() {
       contactEmail: "orthopedie.recrutement@chu-lyon.fr",
     },
     {
+      category: "FELLOWSHIP",
       title: "Fellowship en Cardiologie Interventionnelle",
       hospital: "Centre Hospitalier Universitaire Vaudois (CHUV)",
       location: "Lausanne",
@@ -563,6 +570,7 @@ async function main() {
       contactEmail: "cardiologie.rh@chuv.ch",
     },
     {
+      category: "STAGE_ASSOCIE",
       title: "Praticien Attaché Associé en Anesthésie-Réanimation",
       hospital: "Assistance Publique - Hôpitaux de Paris (AP-HP)",
       location: "Paris",
