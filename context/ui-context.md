@@ -2,49 +2,57 @@
 
 ## Theme
 
-Thème médical professionnel, propre et rassurant. Dominante claire avec fonds blancs et ardoise pâle, rehaussée par des accents bleu médical et cyan profond pour le focus et les indicateurs d'état.
+Un dossier administratif bien tenu, pas un tableau de bord. Thème clair uniquement : fond papier, encre sombre, un seul accent bleu encre réservé aux actions et à l'étape active. Le vert ne sert qu'à marquer ce qui est terminé.
+
+Principes :
+
+- Des listes séparées par des filets plutôt que des cartes. Pas d'ombres, pas de dégradés, pas de flou d'arrière-plan.
+- Une seule action principale par écran. Pas de bouton sans effet.
+- Une information n'apparaît qu'une fois (l'avancement n'est pas répété dans trois blocs).
+- Texte courant en 16 px, jamais en dessous de 12 px. Titres en casse de phrase, à la française.
+- Les icônes accompagnent une action ; elles ne décorent pas les titres.
 
 ## Colors
 
 | Role            | CSS Variable       | Value     |
 | --------------- | ------------------ | --------- |
-| Page background | `--bg-base`        | `#F8FAFC` |
-| Surface (Cards) | `--bg-surface`     | `#FFFFFF` |
-| Primary text    | `--text-primary`   | `#0F172A` |
-| Muted text      | `--text-muted`     | `#64748B` |
-| Primary accent  | `--accent-primary` | `#0284C7` |
-| Accent hover    | `--accent-hover`   | `#0369A1` |
-| Border          | `--border-default` | `#E2E8F0` |
-| Error           | `--state-error`    | `#EF4444` |
-| Success         | `--state-success`  | `#10B981` |
+| Page background | `--bg-base`        | `#F3F2EE` |
+| Surface         | `--bg-surface`     | `#FCFCFA` |
+| Primary text    | `--text-primary`   | `#17211D` |
+| Muted text      | `--text-muted`     | `#5C6661` |
+| Primary accent  | `--accent-primary` | `#233A8B` |
+| Accent hover    | `--accent-hover`   | `#1A2C6B` |
+| Border          | `--border-default` | `#DAD9D2` |
+| Error           | `--state-error`    | `#B42318` |
+| Success         | `--state-success`  | `#1E7B4F` |
+| Warning         | `--state-warning`  | `#8A5A00` |
+
+Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ces variables dans `app/globals.css` ; Clerk les reprend via le thème `shadcn`. Il n'y a pas de thème sombre.
 
 ## Typography
 
-| Role      | Font                | Variable      |
-| --------- | ------------------- | ------------- |
-| UI text   | Inter / Geist Sans  | `--font-sans` |
-| Code/mono | JetBrains Mono      | `--font-mono` |
+| Role            | Font           | Variable       | Classe         |
+| --------------- | -------------- | -------------- | -------------- |
+| Titres          | Newsreader     | `--font-serif` | `font-heading` |
+| Texte et UI     | IBM Plex Sans  | `--font-sans`  | `font-sans`    |
+| Numéros, délais | IBM Plex Mono  | `--font-mono`  | `font-mono`    |
 
 ## Border Radius
 
-| Context           | Class            |
-| ----------------- | ---------------- |
-| Inline / small UI | `rounded-md`     |
-| Cards / panels    | `rounded-xl`     |
-| Modals / Stepper  | `rounded-2xl`    |
+`--radius` vaut `0.375rem`. Boutons, champs et vidéo utilisent `rounded-md`. Les listes et sections n'ont pas de coins arrondis : elles sont délimitées par des filets.
 
 ## Component Library
 
-- shadcn/ui configuré sur Tailwind CSS.
-- Composants clés : `Card`, `Progress`, `Badge`, `Button`, `ScrollArea`, `Separator`, `Tabs`.
+- shadcn/ui configuré sur Tailwind CSS ; les primitives de `components/ui/` ne sont pas modifiées, le style passe par les jetons et `className`.
+- Composants utilisés : `Button`, `Progress`, `Tabs` (variante `line`), `Sheet`.
 
 ## Layout Patterns
 
-- **Dashboard :** Header fixe avec profil utilisateur, grille de résumé en haut, listing des procédures en cours.
-- **Vue Procédure :** Layout 2 colonnes avec barre latérale gauche fixe (liste ordonnée des étapes + checkboxes) et corps principal défilant (contenu pédagogique, embeds vidéo, call to actions).
-- **Cartes d'opportunités :** Grille responsive (1 col mobile, 2 col tablette, 3 col desktop) avec tags de spécialité et badges de date limite.
+- **En-tête :** `SiteHeader` (`components/shared/`), nom du produit en texte et profil utilisateur.
+- **Catalogue (`/editor`) :** liste numérotée des procédures, une ligne par procédure, avec pays, nombre d'étapes et avancement de l'utilisateur.
+- **Vue procédure :** titre, avancement, puis deux onglets « Guide pas à pas » et « Opportunités liées ». Le guide est en deux colonnes : sommaire des étapes à gauche (tiroir sur mobile), étape active à droite.
+- **Opportunités :** liste, avec date limite et contact dans une colonne à droite.
 
 ## Icons
 
-- Lucide React exclusivement.
-- Dimensions standard : `h-4 w-4` pour les statuts et boutons denses, `h-5 w-5` pour la navigation principale.
+- Lucide React exclusivement, en `h-4 w-4`.

@@ -6,7 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
+    --font-heading: var(--font-serif);
+    --font-mono: var(--font-mono);
     --font-sans: var(--font-sans);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -48,6 +49,7 @@
     --color-border-default: var(--border-default);
     --color-state-error: var(--state-error);
     --color-state-success: var(--state-success);
+    --color-state-warning: var(--state-warning);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -58,90 +60,51 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --bg-base: #F8FAFC;
-    --bg-surface: #FFFFFF;
-    --text-primary: #0F172A;
-    --text-muted: #64748B;
-    --accent-primary: #0284C7;
-    --accent-hover: #0369A1;
-    --border-default: #E2E8F0;
-    --state-error: #EF4444;
-    --state-success: #10B981;
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
-}
+    /* Jetons applicatifs — voir context/ui-context.md */
+    --bg-base: #F3F2EE;
+    --bg-surface: #FCFCFA;
+    --text-primary: #17211D;
+    --text-muted: #5C6661;
+    --accent-primary: #233A8B;
+    --accent-hover: #1A2C6B;
+    --border-default: #DAD9D2;
+    --state-error: #B42318;
+    --state-success: #1E7B4F;
+    --state-warning: #8A5A00;
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --bg-base: #0B0F17;
-    --bg-surface: #111827;
-    --text-primary: #F8FAFC;
-    --text-muted: #94A3B8;
-    --accent-primary: #38BDF8;
-    --accent-hover: #0EA5E9;
-    --border-default: #1E293B;
-    --state-error: #F87171;
-    --state-success: #34D399;
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    /* Jetons shadcn/ui et Clerk, dérivés des jetons applicatifs */
+    --background: var(--bg-base);
+    --foreground: var(--text-primary);
+    --card: var(--bg-surface);
+    --card-foreground: var(--text-primary);
+    --popover: var(--bg-surface);
+    --popover-foreground: var(--text-primary);
+    --primary: var(--accent-primary);
+    --primary-foreground: #FFFFFF;
+    --secondary: #E9E8E2;
+    --secondary-foreground: var(--text-primary);
+    --muted: #E9E8E2;
+    --muted-foreground: var(--text-muted);
+    --accent: #E9E8E2;
+    --accent-foreground: var(--text-primary);
+    --destructive: var(--state-error);
+    --border: var(--border-default);
+    --input: #C4C3BB;
+    --ring: var(--accent-primary);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);
     --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --radius: 0.375rem;
+    --sidebar: var(--bg-surface);
+    --sidebar-foreground: var(--text-primary);
+    --sidebar-primary: var(--accent-primary);
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #E9E8E2;
+    --sidebar-accent-foreground: var(--text-primary);
+    --sidebar-border: var(--border-default);
+    --sidebar-ring: var(--accent-primary);
 }
 
 @layer base {
@@ -154,92 +117,8 @@
   html {
     @apply font-sans;
     }
-}
-
-/* Custom Clerk Dark Theming matching reference design */
-.cl-card {
-  background-color: #0f1115 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 1rem !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-headerTitle {
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-headerSubtitle {
-  color: #a1a1aa !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-socialButtonsBlockButton {
-  background-color: #16181d !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #ededed !important;
-  border-radius: 0.5rem !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-socialButtonsBlockButton:hover {
-  background-color: #22252c !important;
-}
-
-.cl-dividerLine {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-.cl-dividerText {
-  color: #71717a !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-formFieldLabel {
-  color: #d4d4d8 !important;
-  font-size: 0.75rem !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-formFieldInput {
-  background-color: #16181d !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #ffffff !important;
-  border-radius: 0.5rem !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-formFieldInput:focus {
-  border-color: #06b6d4 !important;
-  box-shadow: 0 0 0 1px #06b6d4 !important;
-}
-
-.cl-formButtonPrimary {
-  background-color: #06b6d4 !important;
-  color: #000000 !important;
-  font-weight: 600 !important;
-  border-radius: 0.5rem !important;
-  box-shadow: none !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-formButtonPrimary:hover {
-  background-color: #22d3ee !important;
-}
-
-.cl-footerActionLink {
-  color: #06b6d4 !important;
-  font-weight: 500 !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
-}
-
-.cl-footerActionLink:hover {
-  color: #22d3ee !important;
-}
-
-.cl-footerActionText {
-  color: #a1a1aa !important;
-  font-family: var(--font-sans), system-ui, sans-serif !important;
+  :focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+    }
 }

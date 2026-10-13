@@ -2,16 +2,16 @@
 
 import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
-import { Menu } from "lucide-react";
+import { List } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SiteHeader } from "@/components/shared/site-header";
 import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
 import { ProcedureMobileDrawer } from "./procedure-mobile-drawer";
-import {
-  ProcedureMainPanel,
-  ProcedureData,
-  OpportunityItem,
-} from "./procedure-main-panel";
+import { ProcedureStepPanel } from "./procedure-step-panel";
+import { ProcedureOpportunities } from "./procedure-opportunities";
+import type { OpportunityItem, ProcedureData } from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
 
 interface ProcedureViewShellProps {
@@ -19,6 +19,9 @@ interface ProcedureViewShellProps {
   initialCompletedStepIds: string[];
   opportunities: OpportunityItem[];
 }
+
+const tabTriggerClassName =
+  "h-10 flex-none rounded-none px-0 text-sm group-data-horizontal/tabs:after:bottom-[-1px] group-data-horizontal/tabs:after:bg-accent-primary";
 
 export function ProcedureViewShell({
   procedure,
@@ -36,10 +39,22 @@ export function ProcedureViewShell({
     initialCompletedStepIds
   );
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const activeStep =
     procedure.steps.find((s) => s.id === activeStepId) || procedure.steps[0];
+
+  const totalSteps = procedure.steps.length;
+  const completedCount = procedure.steps.filter((s) =>
+    completedStepIds.includes(s.id)
+  ).length;
+  const isComplete = totalSteps > 0 && completedCount === totalSteps;
+
+  const handleSelectStep = (stepId: string) => {
+    setError(null);
+    setActiveStepId(stepId);
+  };
 
   // Gestion optimiste du toggle d'étape
   const handleToggleStep = (stepId: string) => {
@@ -48,6 +63,7 @@ export function ProcedureViewShell({
       ? completedStepIds.filter((id) => id !== stepId)
       : [...completedStepIds, stepId];
 
+    setError(null);
     // Mise à jour optimiste locale immédiate
     setCompletedStepIds(nextCompleted);
 
@@ -62,7 +78,7 @@ export function ProcedureViewShell({
       if (!res.success) {
         // Rollback en cas d'échec
         setCompletedStepIds(completedStepIds);
-        console.error("Erreur mise à jour de l'étape :", res.error);
+        setError(res.error ?? "L'étape n'a pas pu être enregistrée.");
       } else if (res.completedStepIds) {
         setCompletedStepIds(res.completedStepIds);
       }
@@ -70,72 +86,113 @@ export function ProcedureViewShell({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-base text-text-primary">
-      {/* Top Application Navbar */}
-      <header className="sticky top-0 z-30 h-14 border-b border-border-default bg-bg-surface/90 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between shadow-2xs">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors"
-          >
-            <div className="h-7 w-7 rounded-lg bg-accent-primary flex items-center justify-center text-white font-bold text-xs shadow-xs">
-              M
-            </div>
-            <span className="font-heading font-semibold text-sm tracking-tight hidden sm:inline text-text-primary">
-              MedProcedure
-            </span>
-          </Link>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
 
-          <span className="text-border-default hidden sm:inline">&bull;</span>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8 sm:py-12">
+        <header className="space-y-6">
+          <nav aria-label="Fil d'Ariane" className="text-sm text-text-muted">
+            <Link
+              href="/editor"
+              className="underline underline-offset-4 hover:text-text-primary"
+            >
+              Procédures
+            </Link>
+            <span aria-hidden> / </span>
+            <span>{procedure.category}</span>
+          </nav>
 
-          <span className="text-xs font-medium text-text-muted truncate max-w-[200px] sm:max-w-md">
-            {procedure.title}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsMobileDrawerOpen(true)}
-            className="lg:hidden text-xs h-8 gap-1.5 border-border-default"
-          >
-            <Menu className="h-4 w-4" />
-            <span>Étapes</span>
-          </Button>
-
-          <UserButton />
-        </div>
-      </header>
-
-      {/* Main 2-Column Body Layout */}
-      <div className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Left Column: Fixed-width Stepper (Desktop) */}
-          <div className="hidden lg:block w-80 shrink-0 sticky top-20">
-            <ProcedureStepperSidebar
-              steps={procedure.steps}
-              activeStepId={activeStepId}
-              completedStepIds={completedStepIds}
-              onSelectStep={setActiveStepId}
-            />
+          <div className="max-w-3xl space-y-3">
+            <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+              {procedure.title}
+            </h1>
+            <p className="text-base leading-relaxed text-text-muted">
+              {procedure.description}
+            </p>
           </div>
 
-          {/* Right Column: Main Content Panel */}
-          {activeStep && (
-            <ProcedureMainPanel
-              procedure={procedure}
-              activeStep={activeStep}
-              completedStepIds={completedStepIds}
-              opportunities={opportunities}
-              isPending={isPending}
-              onToggleStep={handleToggleStep}
-              onSelectStep={setActiveStepId}
-              onOpenMobileMenu={() => setIsMobileDrawerOpen(true)}
+          <div className="max-w-sm space-y-2">
+            <div className="flex items-baseline justify-between gap-3 text-sm">
+              <span>{procedure.country}</span>
+              <span className="font-mono text-xs text-text-muted">
+                {isComplete
+                  ? "Procédure terminée"
+                  : `${completedCount} sur ${totalSteps} étapes terminées`}
+              </span>
+            </div>
+            <Progress
+              value={completedCount}
+              max={totalSteps || 1}
+              aria-label="Avancement de la procédure"
+              className="h-1 border-0"
+              indicatorClassName={isComplete ? "bg-state-success" : undefined}
             />
-          )}
-        </div>
-      </div>
+          </div>
+        </header>
+
+        <Tabs defaultValue="guide" className="mt-10 gap-8">
+          <TabsList
+            variant="line"
+            className="h-auto w-full justify-start gap-8 rounded-none border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
+          >
+            <TabsTrigger value="guide" className={tabTriggerClassName}>
+              Guide pas à pas
+            </TabsTrigger>
+            <TabsTrigger value="opportunities" className={tabTriggerClassName}>
+              Opportunités liées
+              <span className="font-mono text-xs text-text-muted">
+                {opportunities.length}
+              </span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="guide">
+            <div className="grid items-start gap-x-12 gap-y-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+              <ProcedureStepperSidebar
+                steps={procedure.steps}
+                activeStepId={activeStepId}
+                completedStepIds={completedStepIds}
+                onSelectStep={handleSelectStep}
+                className="sticky top-6 hidden lg:block"
+              />
+
+              <Button
+                variant="outline"
+                onClick={() => setIsMobileDrawerOpen(true)}
+                className="h-10 w-full justify-between bg-transparent px-3 text-sm lg:hidden"
+              >
+                <span className="flex items-center gap-2">
+                  <List aria-hidden />
+                  Toutes les étapes
+                </span>
+                <span className="font-mono text-xs text-text-muted">
+                  {completedCount}/{totalSteps}
+                </span>
+              </Button>
+
+              {activeStep ? (
+                <ProcedureStepPanel
+                  procedure={procedure}
+                  activeStep={activeStep}
+                  isCompleted={completedStepIds.includes(activeStep.id)}
+                  isPending={isPending}
+                  error={error}
+                  onToggleStep={handleToggleStep}
+                  onSelectStep={handleSelectStep}
+                />
+              ) : (
+                <p className="text-sm text-text-muted">
+                  Cette procédure ne contient encore aucune étape.
+                </p>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="opportunities">
+            <ProcedureOpportunities opportunities={opportunities} />
+          </TabsContent>
+        </Tabs>
+      </main>
 
       {/* Mobile Drawer (Sheet) */}
       <ProcedureMobileDrawer
@@ -144,7 +201,7 @@ export function ProcedureViewShell({
         steps={procedure.steps}
         activeStepId={activeStepId}
         completedStepIds={completedStepIds}
-        onSelectStep={setActiveStepId}
+        onSelectStep={handleSelectStep}
       />
     </div>
   );

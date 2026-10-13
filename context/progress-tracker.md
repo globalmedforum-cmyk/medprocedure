@@ -62,6 +62,15 @@ change.
   - Migration de référence `prisma/migrations/0_init` générée hors ligne depuis le schéma ; scripts `db:migrate` et `db:deploy` ajoutés.
   - Vérifié : `npx tsc --noEmit` et `npm run lint` à 0 erreur. Seed et action non exécutés contre la base.
 
+- **Refonte UI/UX (2026-10-13)**:
+  - Nouvelle direction documentée dans `context/ui-context.md` : thème clair uniquement, fond papier, accent bleu encre, Newsreader pour les titres, IBM Plex Sans et Mono pour le reste. Thème sombre, dégradés, ombres et surcharges CSS `.cl-*` supprimés.
+  - Clerk : thème `shadcn` branché sur les jetons, interface en français (`@clerk/localizations`). `lang="fr"` sur le document.
+  - `/editor` : liste numérotée des procédures avec l'avancement de l'utilisateur, à la place de la grille de cartes.
+  - `/procedures/[slug]` : deux onglets (« Guide pas à pas », « Opportunités liées ») conformes à la spec ; sommaire des étapes, étape active, une seule action « Marquer comme terminée », message d'erreur visible si l'enregistrement échoue. `procedure-main-panel.tsx` remplacé par `procedure-step-panel.tsx`, `procedure-opportunities.tsx` et `types.ts`.
+  - Retirés : boutons sans effet (« Enregistrer », « Partager », « Site officiel »), onglets « Checklist » et « Ressources officielles » (doublon et texte de remplissage), bannière violette, barre d'action flottante.
+  - Liens officiels et rappel visa affichés selon le pays de la procédure (France-Visas hors Suisse, OFSP pour la Suisse) au lieu d'être identiques partout.
+  - Vérifié : `tsc`, `eslint`, `npm run build`, et rendu à l'écran du catalogue, de la vue procédure (bureau, étroit, tiroir) et de la connexion. La validation d'une étape en étant connecté n'a pas été testée.
+
 ## In Progress
 
 - None.
@@ -69,8 +78,8 @@ change.
 ## Next Up
 
 - Marquer la migration de référence comme appliquée sur la base existante : `npx prisma migrate resolve --applied 0_init` (à lancer une seule fois, puis abandonner `db:push`).
-- Remplir `context/project-overview.md` (encore le gabarit vide) et trancher thème clair ou sombre (`ui-context.md` contredit `app/layout.tsx`).
-- Remplacer le contenu factice (vidéos, liens « ressources officielles » identiques pour toutes les procédures), brancher ou retirer les boutons « Enregistrer » et « Partager ».
+- Remplir `context/project-overview.md` (encore le gabarit vide).
+- Remplacer les vidéos factices du seed. Faire valider la règle d'affichage des liens officiels et du rappel visa par pays.
 - Tableau de bord avec progression par procédure ; CI minimale (lint, types, build).
 
 ## Open Questions

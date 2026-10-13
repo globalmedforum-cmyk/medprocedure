@@ -8,10 +8,8 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import {
-  ProcedureStepperSidebar,
-  StepItem,
-} from "./procedure-stepper-sidebar";
+import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
+import type { StepItem } from "./types";
 
 interface ProcedureMobileDrawerProps {
   open: boolean;
@@ -32,11 +30,11 @@ export function ProcedureMobileDrawer({
 }: ProcedureMobileDrawerProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="p-4 w-full sm:max-w-md overflow-y-auto">
+      <SheetContent side="left" className="w-full overflow-y-auto p-4 sm:max-w-md">
         <SheetHeader className="pb-2">
-          <SheetTitle>Étapes de la Procédure</SheetTitle>
+          <SheetTitle>Étapes</SheetTitle>
           <SheetDescription>
-            Consultez le déroulé chronologique et sélectionnez une étape.
+            Choisissez l&apos;étape à afficher.
           </SheetDescription>
         </SheetHeader>
 
@@ -48,7 +46,6 @@ export function ProcedureMobileDrawer({
             onSelectStep(id);
             onOpenChange(false);
           }}
-          className="border-0 shadow-none p-0 bg-transparent"
         />
       </SheetContent>
     </Sheet>

@@ -1,173 +1,120 @@
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import {
-  GraduationCap,
-  Award,
-  Eye,
-  Stethoscope,
-  Briefcase,
-  Calendar,
-  ArrowRight,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardTitle } from "@/components/ui/card";
-
-// Mapping des icônes et styles selon la maquette fournie (Image 1)
-const procedureMeta: Record<
-  string,
-  {
-    icon: React.ElementType;
-    badgeText: string;
-    badgeClass: string;
-    iconBgClass: string;
-    iconColorClass: string;
-  }
-> = {
-  "doctorat-phd": {
-    icon: GraduationCap,
-    badgeText: "Recherche & Santé",
-    badgeClass: "bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-950/50 dark:text-purple-300 dark:border-purple-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-  "mebeko-suisse": {
-    icon: Award,
-    badgeText: "Suisse / OFSP",
-    badgeClass: "bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-  "stage-observation": {
-    icon: Eye,
-    badgeText: "Immersion Hospitalière",
-    badgeClass: "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-  "ffi-france": {
-    icon: Stethoscope,
-    badgeText: "Pratique Rémunérée",
-    badgeClass: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-  "stage-associe": {
-    icon: Briefcase,
-    badgeText: "Pratique Hospitalière",
-    badgeClass: "bg-teal-100 text-teal-700 border-teal-200 dark:bg-teal-950/50 dark:text-teal-300 dark:border-teal-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-  "participation-congres": {
-    icon: Calendar,
-    badgeText: "Événements & Visas",
-    badgeClass: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800/60",
-    iconBgClass: "bg-indigo-900/90 text-white dark:bg-indigo-950/80",
-    iconColorClass: "text-indigo-100",
-  },
-};
+import { Progress } from "@/components/ui/progress";
+import { SiteHeader } from "@/components/shared/site-header";
 
 export default async function EditorPage() {
-  const procedures = await prisma.procedure.findMany({
-    orderBy: { createdAt: "asc" },
-  });
+  const { userId } = await auth();
+
+  const [procedures, progressRows] = await Promise.all([
+    prisma.procedure.findMany({
+      include: { steps: { select: { id: true } } },
+      orderBy: { createdAt: "asc" },
+    }),
+    userId
+      ? prisma.userProcedureProgress.findMany({
+          where: { user: { clerkId: userId } },
+          select: { procedureId: true, completedStepIds: true },
+        })
+      : [],
+  ]);
+
+  const completedByProcedure = new Map(
+    progressRows.map((row) => [row.procedureId, new Set(row.completedStepIds)])
+  );
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-base text-text-primary">
-      {/* Top Navbar */}
-      <header className="h-16 border-b border-border-default px-6 sm:px-10 flex items-center justify-between bg-bg-surface shadow-2xs">
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-xl bg-accent-primary flex items-center justify-center text-white font-bold text-sm shadow-xs">
-            M
-          </div>
-          <div>
-            <span className="font-heading font-semibold text-base tracking-tight text-text-primary">
-              MedProcedure
-            </span>
-            <span className="text-xs text-text-muted hidden sm:inline ml-2">
-              &bull; Catalogue des 6 procédures
-            </span>
-          </div>
-        </div>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
 
-        <div className="flex items-center gap-4">
-          <UserButton />
-        </div>
-      </header>
-
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-6xl w-full mx-auto p-6 sm:p-10 space-y-8">
-        <div className="space-y-2 text-center sm:text-left">
-          <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-text-primary">
-            Choisissez votre parcours médical en Europe
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-8 sm:py-14">
+        <div className="max-w-2xl space-y-3">
+          <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+            Procédures
           </h1>
-          <p className="text-sm text-text-muted max-w-2xl">
-            Accompagnement complet, étapes officielles, constitution du dossier et validation de vos démarches d&apos;exercice et de mobilité.
+          <p className="text-base leading-relaxed text-text-muted">
+            Chaque procédure détaille les pièces à réunir, l&apos;ordre des
+            démarches et les délais à prévoir. Votre avancement est enregistré
+            au fil des étapes.
           </p>
         </div>
 
-        {/* 6 Cards Grid (Faithfully matching Image 1) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {procedures.map((proc) => {
-            const meta = procedureMeta[proc.slug] || {
-              icon: Award,
-              badgeText: proc.category,
-              badgeClass: "bg-muted text-text-primary border-border-default",
-              iconBgClass: "bg-indigo-900 text-white",
-              iconColorClass: "text-white",
-            };
-            const Icon = meta.icon;
+        <ol className="mt-10 border-t border-border-default">
+          {procedures.map((procedure, index) => {
+            const completed = completedByProcedure.get(procedure.id);
+            const total = procedure.steps.length;
+            const done = procedure.steps.filter((step) =>
+              completed?.has(step.id)
+            ).length;
+            const isComplete = total > 0 && done === total;
 
             return (
-              <Card
-                key={proc.id}
-                className="rounded-3xl border border-border-default/80 bg-bg-surface shadow-xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between p-6 sm:p-7 space-y-6"
-              >
-                <div className="space-y-4">
-                  {/* Top row: Icon + Category Badge */}
-                  <div className="flex items-center justify-between gap-2">
-                    <div
-                      className={`h-12 w-12 rounded-2xl flex items-center justify-center shadow-xs ${meta.iconBgClass}`}
-                    >
-                      <Icon className={`h-6 w-6 ${meta.iconColorClass}`} />
-                    </div>
+              <li key={procedure.id} className="border-b border-border-default">
+                <Link
+                  href={`/procedures/${procedure.slug}`}
+                  className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 transition-colors hover:bg-bg-surface sm:px-4 md:grid-cols-[2.5rem_minmax(0,1fr)_13rem_1.25rem] md:items-center md:gap-x-8"
+                >
+                  <span className="pt-1.5 font-mono text-sm text-text-muted md:pt-0">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                    <Badge
-                      variant="outline"
-                      className={`text-xs font-semibold px-3 py-1 rounded-full border ${meta.badgeClass}`}
-                    >
-                      {meta.badgeText}
-                    </Badge>
-                  </div>
-
-                  {/* Title & Description */}
-                  <div className="space-y-2 pt-1">
-                    <CardTitle className="text-lg font-bold text-text-primary tracking-tight">
-                      {proc.title}
-                    </CardTitle>
-                    <p className="text-xs text-text-muted leading-relaxed line-clamp-3">
-                      {proc.description}
+                  <div className="space-y-1.5">
+                    <h2 className="font-heading text-xl font-medium tracking-tight group-hover:text-accent-primary sm:text-2xl">
+                      {procedure.title}
+                    </h2>
+                    <p className="max-w-xl text-sm leading-relaxed text-text-muted">
+                      {procedure.description}
                     </p>
                   </div>
-                </div>
 
-                {/* Action button */}
-                <div>
-                  <Link href={`/procedures/${proc.slug}`} className="block w-full">
-                    <button
-                      type="button"
-                      className="w-full py-3 px-4 rounded-xl bg-[#1e1b4b] hover:bg-[#2e2a72] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer shadow-xs"
-                    >
-                      <span>Consulter la procédure</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </Link>
-                </div>
-              </Card>
+                  <div className="col-start-2 space-y-2 text-sm md:col-start-3">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="text-text-primary">
+                        {procedure.country}
+                      </span>
+                      <span className="font-mono text-xs text-text-muted">
+                        {total} étapes
+                      </span>
+                    </div>
+                    {done > 0 ? (
+                      <div className="space-y-1.5">
+                        <Progress
+                          value={done}
+                          max={total}
+                          aria-label={`Avancement : ${done} étapes sur ${total}`}
+                          className="h-1 border-0"
+                          indicatorClassName={
+                            isComplete ? "bg-state-success" : undefined
+                          }
+                        />
+                        <p className="text-xs text-text-muted">
+                          {isComplete
+                            ? "Terminée"
+                            : `${done} sur ${total} terminées`}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-text-muted">Non commencée</p>
+                    )}
+                  </div>
+
+                  <ArrowRight
+                    aria-hidden
+                    className="hidden h-4 w-4 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent-primary md:block"
+                  />
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ol>
+
+        {procedures.length === 0 && (
+          <p className="mt-10 text-sm text-text-muted">
+            Aucune procédure n&apos;est disponible pour le moment.
+          </p>
+        )}
       </main>
     </div>
   );

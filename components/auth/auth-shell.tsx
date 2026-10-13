@@ -1,106 +1,60 @@
 import React from "react";
-import { ShieldCheck, Zap, Building2 } from "lucide-react";
 
 interface AuthShellProps {
   children: React.ReactNode;
 }
 
+const procedures = [
+  "Doctorat (PhD)",
+  "Équivalence suisse (MEBEKO)",
+  "Stage d'observation",
+  "Stage FFI",
+  "Stage associé",
+  "Participation aux congrès",
+];
+
 export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 font-sans bg-black">
-      {/* Left panel - 50% width with differentiated dark tone */}
-      <aside className="flex flex-col justify-between p-8 sm:p-12 lg:p-16 xl:p-20 bg-[#0c0e12] border-b lg:border-b-0 lg:border-r border-zinc-800/60 min-h-screen">
-        {/* Top Logo */}
-        <div className="flex items-center gap-3">
-          <div className="h-7 w-7 rounded-lg bg-cyan-400 flex items-center justify-center text-black font-bold text-xs shadow-sm shadow-cyan-500/20 select-none">
-            M
-          </div>
-          <span className="text-white font-semibold text-lg tracking-tight">
-            MedProcedure
-          </span>
-        </div>
+    <div className="grid min-h-screen w-full grid-cols-1 bg-bg-base lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]">
+      <aside className="flex flex-col justify-between gap-12 border-b border-border-default px-6 py-8 sm:px-12 lg:border-r lg:border-b-0 lg:px-16 lg:py-12">
+        <span className="font-heading text-lg font-medium tracking-tight text-text-primary">
+          MedProcedure
+        </span>
 
-        {/* Center Content */}
-        <div className="my-12 lg:my-auto space-y-10 max-w-lg">
-          {/* Headline & Subtext */}
+        <div className="max-w-xl space-y-10">
           <div className="space-y-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
-              Votre parcours m&eacute;dical{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-                en Europe
-              </span>{" "}
-              commence ici.
+            <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight text-text-primary sm:text-4xl">
+              Les démarches pour exercer ou se former en Europe, étape par
+              étape.
             </h1>
-            <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
-              MedProcedure accompagne les m&eacute;decins, internes et professionnels
-              de sant&eacute; dans toutes leurs d&eacute;marches d&apos;exercice et de
-              mobilit&eacute; en Europe :{" "}
-              <span className="text-zinc-200 font-medium">
-                PhD, &Eacute;quivalence de dipl&ocirc;me, FFI, Stage d&apos;Observation,
-                Poste Associ&eacute; et Congr&egrave;s M&eacute;dicaux
-              </span>
-              .
+            <p className="max-w-md text-base leading-relaxed text-text-muted">
+              Pour chaque procédure : les pièces à réunir, l&apos;ordre dans
+              lequel les obtenir et les délais à prévoir.
             </p>
           </div>
 
-          {/* Feature List with Icon Badges */}
-          <div className="space-y-5">
-            {/* Feature 1 */}
-            <div className="flex items-start gap-4">
-              <div className="h-8 w-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-white">
-                  Proc&eacute;dures Officielles &amp; R&eacute;glement&eacute;es
-                </h3>
-                <p className="text-xs text-zinc-400 leading-normal">
-                  PhD, &eacute;quivalences de dipl&ocirc;me et conformit&eacute; administrative.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="flex items-start gap-4">
-              <div className="h-8 w-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                <Zap className="h-4 w-4" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-white">
-                  Accompagnement &Eacute;tape par &Eacute;tape
-                </h3>
-                <p className="text-xs text-zinc-400 leading-normal">
-                  Checklists interactives, guide des d&eacute;marches et validation structur&eacute;e.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="flex items-start gap-4">
-              <div className="h-8 w-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                <Building2 className="h-4 w-4" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-white">
-                  Mobilit&eacute; &amp; Opportunit&eacute;s M&eacute;dicales
-                </h3>
-                <p className="text-xs text-zinc-400 leading-normal">
-                  FFI, stages d&apos;observation, postes associ&eacute;s et congr&egrave;s m&eacute;dicaux.
-                </p>
-              </div>
-            </div>
-          </div>
+          <ol className="hidden border-t border-border-default sm:block">
+            {procedures.map((title, index) => (
+              <li
+                key={title}
+                className="flex items-baseline gap-4 border-b border-border-default py-2.5 text-sm text-text-primary"
+              >
+                <span className="font-mono text-xs text-text-muted">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span>{title}</span>
+              </li>
+            ))}
+          </ol>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="text-xs text-zinc-600 font-normal">
-          &copy; {new Date().getFullYear()} MedProcedure. Tous droits r&eacute;serv&eacute;s.
-        </div>
+        <p className="text-sm text-text-muted">
+          &copy; {new Date().getFullYear()} MedProcedure
+        </p>
       </aside>
 
-      {/* Right panel - 50% width on pure black background */}
-      <main className="flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-black min-h-screen">
-        <div className="w-full max-w-[420px] flex justify-center">
+      <main className="flex items-center justify-center px-6 py-12 sm:px-12">
+        <div className="flex w-full max-w-[420px] justify-center">
           {children}
         </div>
       </main>
