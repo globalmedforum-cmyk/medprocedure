@@ -10,6 +10,7 @@ const procedures = [
   "Médecin assistant en Suisse",
   "Stage d'observation",
   "Stage FFI",
+  "DFMS et DFMSA",
   "Stage associé",
   "Participation aux congrès",
 ];

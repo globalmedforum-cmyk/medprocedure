@@ -8,7 +8,8 @@ export type ProcedureSeed = Omit<
 };
 
 // Contenu rédigé à partir des sources officielles consultées en octobre 2026
-// (OFSP, service-public.fr, France-Visas, facultés de médecine, AP-HP).
+// (OFSP, service-public.fr, France-Visas, facultés de médecine, AP-HP,
+// Commission européenne, ambassades d'Allemagne, régions belges).
 // Les montants, délais et calendriers changent : les liens de
 // lib/procedure-resources.ts renvoient vers la source à jour.
 //
@@ -19,19 +20,21 @@ export const procedures: ProcedureSeed[] = [
     slug: "doctorat-phd",
     title: "Doctorat (PhD)",
     description:
-      "Préparer une thèse en France : trouver un sujet et un directeur, obtenir un financement, s'inscrire en école doctorale, puis demander le titre de séjour adapté.",
-    country: "France",
+      "Préparer une thèse en Europe : choisir le pays, trouver un sujet et un directeur, obtenir un financement, puis demander le titre de séjour de chercheur.",
+    country: "Europe",
     category: "Recherche",
     steps: [
       {
         order: 1,
-        title: "Vérifier que vous pouvez candidater",
+        title: "Choisir le pays et le type de doctorat",
         description:
-          "Le doctorat est ouvert aux titulaires d'un master ou d'un diplôme de niveau équivalent (bac + 5). Un diplôme de docteur en médecine peut être admis par dérogation : c'est l'école doctorale qui décide, sur dossier.",
+          "Le doctorat dure trois à quatre ans partout en Europe, mais son organisation change d'un pays à l'autre. Ce choix détermine la langue de travail, le financement et le titre de séjour.",
         content: [
-          "- Rassemblez votre diplôme, vos relevés de notes et, si vous en avez, un mémoire de recherche ou des publications.",
-          "- Faites traduire par un traducteur assermenté les documents qui ne sont ni en français ni en anglais.",
-          "- Un master 2 recherche ou une première expérience en laboratoire renforce nettement le dossier ; certaines écoles doctorales l'exigent.",
+          "- France : thèse en trois ans, rattachée à un laboratoire et à une école doctorale.",
+          "- Allemagne : doctorat individuel auprès d'un professeur, ou programme structuré dans une école doctorale ; beaucoup de programmes sont en anglais.",
+          "- Belgique : thèse en quatre ans, souvent financée par un mandat du FNRS ou du FWO.",
+          "- Dans tous les cas, il faut un master ou un diplôme de niveau équivalent. Un diplôme de docteur en médecine est examiné sur dossier par l'université.",
+          "- Vérifiez la langue exigée : la thèse peut souvent être rédigée en anglais, mais la vie du laboratoire se fait dans la langue du pays.",
         ].join("\n"),
         estimatedDuration: "1 à 2 semaines",
         isRequired: true,
@@ -40,12 +43,12 @@ export const procedures: ProcedureSeed[] = [
         order: 2,
         title: "Trouver un sujet et un directeur de thèse",
         description:
-          "En France, on ne s'inscrit pas « en doctorat » de façon générale : on rejoint un projet précis, dans un laboratoire, sous la direction d'un chercheur habilité à diriger des recherches.",
+          "On ne s'inscrit pas « en doctorat » de façon générale : on rejoint un projet précis, dans une équipe, sous la direction d'un chercheur habilité.",
         content: [
-          "- Consultez les offres de thèse publiées sur le portail doctorat de Campus France et sur theses.fr.",
-          "- Ou écrivez directement à un chercheur du laboratoire visé, avec un CV, une lettre de motivation et une proposition de projet de deux à trois pages.",
-          "- Vérifiez que le laboratoire est rattaché à une école doctorale : c'est elle qui validera votre inscription.",
-          "- Gardez une trace écrite de l'accord du directeur de thèse, elle vous sera demandée.",
+          "- Consultez les offres du portail européen EURAXESS, qui couvre tous les pays.",
+          "- France : portail doctorat de Campus France et theses.fr. Allemagne : base d'offres du DAAD.",
+          "- Ou écrivez directement à un chercheur de l'équipe visée, avec un CV, une lettre de motivation et une proposition de projet de deux à trois pages.",
+          "- Gardez une trace écrite de l'accord du directeur : elle vous sera demandée pour l'admission.",
         ].join("\n"),
         estimatedDuration: "1 à 3 mois",
         isRequired: true,
@@ -54,11 +57,12 @@ export const procedures: ProcedureSeed[] = [
         order: 3,
         title: "Obtenir un financement",
         description:
-          "La plupart des écoles doctorales n'acceptent l'inscription que si un financement couvre la durée de la thèse, soit trois ans. C'est aussi lui qui déterminera votre titre de séjour.",
+          "La plupart des universités n'admettent un doctorant que si la thèse est financée. Le financement détermine aussi votre statut : salarié ou boursier.",
         content: [
-          "- Contrat doctoral : attribué sur concours par l'école doctorale, le plus souvent au printemps pour une rentrée à l'automne.",
-          "- Bourses : gouvernement français (programme Eiffel, bourses des ambassades), gouvernement de votre pays, fondations.",
-          "- Financement sur un projet de recherche du laboratoire, ou convention CIFRE avec une entreprise.",
+          "- Poste de doctorant salarié : la forme la plus courante en Allemagne, en Belgique et dans les pays nordiques ; en France, c'est le contrat doctoral.",
+          "- Bourses nationales : programme Eiffel et bourses des ambassades (France), DAAD (Allemagne), FNRS et FWO (Belgique).",
+          "- Réseaux doctoraux Marie Skłodowska-Curie : postes salariés financés par l'Union européenne, ouverts à toutes les nationalités.",
+          "- Bourses du gouvernement de votre pays ou de fondations.",
           "- Demandez à votre futur directeur quelles sources sont réalistes pour votre profil : il connaît les calendriers.",
         ].join("\n"),
         estimatedDuration: "2 à 6 mois",
@@ -66,28 +70,30 @@ export const procedures: ProcedureSeed[] = [
       },
       {
         order: 4,
-        title: "S'inscrire à l'école doctorale",
+        title: "Être admis et s'inscrire à l'université",
         description:
-          "L'inscription se fait à la fois auprès de l'école doctorale et de l'établissement qui délivrera le diplôme. Elle est à renouveler chaque année.",
+          "L'admission est prononcée par l'université ou son école doctorale, qui vérifie d'abord que votre diplôme donne accès au doctorat.",
         content: [
-          "- Déposez votre candidature puis votre inscription en ligne, le plus souvent sur la plateforme ADUM de l'établissement.",
-          "- Signez avec votre directeur la convention individuelle de formation et la charte du doctorat.",
-          "- Réglez la contribution de vie étudiante et de campus (CVEC), puis les droits d'inscription.",
-          "- Selon votre pays de résidence, la procédure « Études en France » de Campus France est obligatoire avant la demande de visa.",
+          "- Préparez diplômes et relevés de notes, avec une traduction assermentée si l'université la demande.",
+          "- France : inscription en ligne, le plus souvent sur la plateforme ADUM, puis paiement de la CVEC et des droits. Selon votre pays, la procédure « Études en France » est obligatoire.",
+          "- Allemagne : la faculté vérifie l'équivalence de votre diplôme, puis vous délivre une lettre d'admission comme doctorant.",
+          "- Signez la convention ou la charte de thèse avec votre directeur.",
         ].join("\n"),
-        estimatedDuration: "3 à 6 semaines",
+        estimatedDuration: "3 à 8 semaines",
         isRequired: true,
       },
       {
         order: 5,
-        title: "Obtenir la convention d'accueil et le visa",
+        title: "Obtenir la convention d'accueil et le titre de séjour",
         description:
-          "Avec un contrat de travail ou un financement suffisant, vous demandez le titre de séjour « talent – chercheur », qui repose sur une convention d'accueil. Sans cela, vous relevez du visa étudiant.",
+          "Dans l'Union européenne, un chercheur d'un pays tiers est admis sur la base d'une convention d'accueil signée avec l'organisme de recherche. Elle ouvre droit à un titre de séjour de chercheur d'au moins un an, renouvelable.",
         content: [
-          "- Demandez la convention d'accueil au laboratoire ou au service du personnel de l'établissement, deux à quatre mois avant le dépôt du visa.",
-          "- Remplissez la demande sur France-Visas, puis prenez rendez-vous au consulat ou chez son prestataire.",
-          "- Pièces habituelles : passeport, convention d'accueil, diplôme, justificatif de financement, justificatif d'hébergement.",
-          "- Le centre Euraxess de votre université d'accueil peut vous accompagner dans ces démarches.",
+          "- Demandez la convention d'accueil à l'université ou au laboratoire, deux à quatre mois avant le dépôt du visa.",
+          "- Déposez la demande au consulat du pays d'accueil, depuis votre pays de résidence.",
+          "- France : titre de séjour « talent – chercheur », demandé sur France-Visas.",
+          "- Belgique : permis unique, demandé par l'organisme de recherche auprès de la région.",
+          "- Allemagne : visa national, puis titre de séjour délivré sur place par le service des étrangers.",
+          "- Sans contrat ni convention d'accueil, vous relevez du visa étudiant, aux droits plus limités.",
         ].join("\n"),
         estimatedDuration: "1 à 3 mois",
         isRequired: true,
@@ -98,10 +104,11 @@ export const procedures: ProcedureSeed[] = [
         description:
           "Les premières semaines servent à régulariser votre séjour et à poser le cadre de travail avec votre directeur.",
         content: [
-          "- Validez votre visa long séjour en ligne, sur le site de l'administration des étrangers en France, dans les trois mois qui suivent votre arrivée.",
-          "- Affiliez-vous à l'Assurance maladie et ouvrez un compte bancaire.",
-          "- Souscrivez une assurance habitation et responsabilité civile.",
-          "- Fixez avec votre directeur le calendrier de la première année et la composition du comité de suivi individuel, dont l'avis est demandé avant chaque réinscription.",
+          "- Déclarez votre résidence : validation du visa en ligne en France, inscription à la commune en Belgique et en Allemagne.",
+          "- Affiliez-vous à l'assurance maladie du pays et ouvrez un compte bancaire.",
+          "- Contactez le centre EURAXESS de votre université : il accompagne les chercheurs étrangers pour le logement et les démarches.",
+          "- Fixez avec votre directeur le calendrier de la première année et les modalités de suivi de la thèse.",
+          "- Le titre de séjour de chercheur permet des séjours de recherche dans d'autres pays de l'Union.",
         ].join("\n"),
         estimatedDuration: "1 mois",
         isRequired: true,
@@ -316,8 +323,8 @@ export const procedures: ProcedureSeed[] = [
     slug: "stage-observation",
     title: "Stage d'observation",
     description:
-      "Observer le fonctionnement d'un service hospitalier français pendant quelques semaines, sans participer aux soins. La durée ne dépasse pas trois mois.",
-    country: "France",
+      "Observer le fonctionnement d'un service hospitalier en Europe pendant quelques semaines, sans participer aux soins. Le séjour dépasse rarement trois mois.",
+    country: "Europe",
     category: "Immersion hospitalière",
     steps: [
       {
@@ -326,9 +333,10 @@ export const procedures: ProcedureSeed[] = [
         description:
           "Vous êtes accueilli comme observateur : vous assistez aux consultations, aux visites, aux réunions de service et aux interventions, mais vous ne réalisez aucun acte de soin et vous ne prescrivez pas.",
         content: [
-          "- La durée est courte, trois mois au maximum.",
-          "- Le stage n'est en général pas rémunéré : prévoyez le financement de votre séjour.",
-          "- Il ne donne pas le droit d'exercer en France et ne se transforme pas en poste.",
+          "- La règle est la même partout : sans autorisation d'exercer dans le pays, aucun geste sur un patient. En Allemagne, où ce stage s'appelle « Hospitation », même une prise de sang est interdite.",
+          "- La durée est courte : trois mois au maximum en France.",
+          "- Le stage n'est pas rémunéré. En Allemagne, l'hôpital ne peut ni vous payer ni vous loger gratuitement.",
+          "- Il ne donne pas le droit d'exercer et ne se transforme pas en poste.",
           "- Vous êtes tenu au secret médical, comme tout le personnel du service.",
         ].join("\n"),
         estimatedDuration: "1 jour",
@@ -340,39 +348,40 @@ export const procedures: ProcedureSeed[] = [
         description:
           "L'accord du chef de service est le point de départ. Il est plus facile à obtenir quand la demande est précise et portée par votre établissement d'origine.",
         content: [
-          "- Écrivez au chef de service avec un CV, vos objectifs d'apprentissage et les dates souhaitées.",
+          "- Écrivez au chef de service avec un CV, vos objectifs d'apprentissage et les dates souhaitées, dans la langue du pays ou en anglais.",
           "- Faites appuyer la demande par votre hôpital ou votre faculté.",
-          "- Une fois l'accord de principe obtenu, demandez le contact de la direction des affaires médicales ou des relations internationales : c'est elle qui prépare la convention.",
+          "- Beaucoup d'hôpitaux universitaires ont un formulaire de candidature dédié aux observateurs : cherchez-le sur leur site.",
+          "- Une fois l'accord de principe obtenu, demandez le contact du service administratif qui prépare les documents.",
         ].join("\n"),
         estimatedDuration: "1 à 2 mois",
         isRequired: true,
       },
       {
         order: 3,
-        title: "Signer la convention de stage",
+        title: "Obtenir la convention ou la lettre d'invitation",
         description:
-          "L'hôpital ne peut vous accueillir que dans le cadre d'une convention écrite, signée avec votre établissement d'origine.",
+          "L'hôpital formalise votre accueil par écrit. C'est ce document qui justifiera votre séjour auprès du consulat.",
         content: [
-          "La convention précise le service, le médecin référent, les dates et les objectifs du stage.",
-          "Pièces habituellement demandées :",
-          "- copie du diplôme et du passeport ;",
-          "- attestation d'assurance responsabilité civile couvrant le risque en milieu hospitalier ;",
-          "- carnet de vaccination à jour, avec les vaccins obligatoires pour les professionnels de santé.",
+          "- France : convention de stage signée entre l'hôpital et votre établissement d'origine.",
+          "- Allemagne : lettre d'invitation ou contrat précisant l'établissement, le service, les dates et le nom d'un contact.",
+          "- Pièces habituellement demandées : copie du diplôme et du passeport, CV, attestation d'assurance responsabilité civile couvrant le milieu hospitalier.",
+          "- Selon l'établissement : carnet de vaccination à jour et justificatif de niveau de langue.",
         ].join("\n"),
         estimatedDuration: "3 à 6 semaines",
         isRequired: true,
       },
       {
         order: 4,
-        title: "Demander le visa court séjour",
+        title: "Demander le visa",
         description:
-          "Si votre nationalité y est soumise, vous demandez un visa Schengen de court séjour, valable 90 jours au maximum. La convention signée en est la pièce centrale.",
+          "Si votre nationalité y est soumise, un séjour de 90 jours au plus relève du visa Schengen de court séjour, aux règles communes à tous les pays de l'espace Schengen.",
         content: [
-          "- Remplissez la demande sur France-Visas, puis prenez rendez-vous au consulat ou chez son prestataire.",
-          "- Passeport valable au moins trois mois après la fin du visa, délivré depuis moins de dix ans, avec deux pages vierges.",
-          "- Assurance voyage couvrant au moins 30 000 € de frais médicaux et de rapatriement, pour tout l'espace Schengen et toute la durée du séjour.",
-          "- Justificatifs d'hébergement et de ressources.",
+          "- Déposez la demande auprès du consulat du pays où se déroule le stage : France-Visas pour la France, le site de l'ambassade pour les autres pays.",
+          "- Passeport valable au moins trois mois après la fin du séjour, délivré depuis moins de dix ans, avec deux pages vierges.",
+          "- Assurance voyage couvrant au moins 30 000 € de frais médicaux et de rapatriement, pour tout l'espace Schengen.",
+          "- Justificatifs d'hébergement et de ressources. Frais de visa : 90 € pour un adulte.",
           "- Déposez le dossier tôt, et au plus tard quinze jours avant le départ.",
+          "- Au-delà de 90 jours, il faut un visa national de long séjour, propre à chaque pays.",
         ].join("\n"),
         estimatedDuration: "3 à 6 semaines",
         isRequired: false,
@@ -381,7 +390,7 @@ export const procedures: ProcedureSeed[] = [
         order: 5,
         title: "Effectuer le stage et obtenir l'attestation",
         description:
-          "Le premier jour, présentez-vous à la direction des affaires médicales pour les formalités d'accueil, puis au médecin référent.",
+          "Le premier jour, présentez-vous au service administratif qui a préparé votre accueil, puis au médecin référent.",
         content: [
           "- Tenez un carnet de ce que vous observez : il vous servira pour vos candidatures suivantes.",
           "- Demandez en fin de stage une attestation signée du chef de service, mentionnant le service et les dates.",
@@ -394,9 +403,100 @@ export const procedures: ProcedureSeed[] = [
   },
   {
     slug: "ffi-france",
-    title: "Stage FFI (DFMS / DFMSA)",
+    title: "Stage FFI",
     description:
-      "Pour un médecin diplômé hors Union européenne, le statut de faisant fonction d'interne s'obtient en s'inscrivant à un DFMS ou à un DFMSA. La sélection est nationale et se prépare un an à l'avance.",
+      "Exercer comme faisant fonction d'interne dans un hôpital français : le statut, la voie d'accès, le visa, la prise de fonctions et la validation des semestres.",
+    country: "France",
+    category: "Poste hospitalier",
+    steps: [
+      {
+        order: 1,
+        title: "Comprendre le statut de FFI",
+        description:
+          "Le faisant fonction d'interne occupe un poste d'interne dans un service agréé pour la formation. Il exerce par délégation, sous la responsabilité d'un praticien du service.",
+        content: [
+          "- Les postes suivent le rythme des semestres d'internat, qui débutent en novembre et en mai.",
+          "- Vous êtes rémunéré et vous participez aux gardes comme un interne.",
+          "- Le statut est temporaire et ne donne pas le droit d'exercer la médecine en France par la suite.",
+        ].join("\n"),
+        estimatedDuration: "1 jour",
+        isRequired: true,
+      },
+      {
+        order: 2,
+        title: "Vérifier votre voie d'accès",
+        description:
+          "On ne postule pas directement à un poste de FFI comme à un emploi. Le statut est attaché à une formation universitaire suivie en France.",
+        content: [
+          "- Médecin diplômé hors Union européenne : le statut s'obtient en étant admis à un DFMS ou à un DFMSA. Suivez d'abord la procédure « DFMS et DFMSA ».",
+          "- C'est cette admission qui vous affecte dans un hôpital : vous ne choisissez pas librement le service.",
+          "- Si vous avez la nationalité française avec un diplôme obtenu hors de l'Union européenne, vous ne relevez pas du statut de FFI mais de la procédure d'autorisation d'exercice, gérée par le Centre national de gestion.",
+        ].join("\n"),
+        estimatedDuration: "1 jour",
+        isRequired: true,
+      },
+      {
+        order: 3,
+        title: "Préparer votre arrivée avec l'hôpital",
+        description:
+          "Dès que votre affectation est connue, prenez contact avec la direction des affaires médicales de l'hôpital : c'est elle qui établit votre dossier administratif.",
+        content: [
+          "- Demandez la liste des pièces : diplômes, passeport, attestation d'affectation, relevé d'identité bancaire, carnet de vaccination.",
+          "- Renseignez-vous sur le logement : beaucoup d'hôpitaux disposent d'un internat, aux places limitées.",
+          "- Confirmez par écrit votre date de prise de fonctions et le service d'affectation.",
+        ].join("\n"),
+        estimatedDuration: "2 à 4 semaines",
+        isRequired: true,
+      },
+      {
+        order: 4,
+        title: "Demander le visa long séjour",
+        description:
+          "Déposez la demande dès réception de votre attestation d'affectation. Le consulat vous précise la mention applicable à votre situation.",
+        content: [
+          "- Remplissez la demande sur France-Visas, puis prenez rendez-vous au consulat ou chez son prestataire.",
+          "- Pièces habituelles : passeport, attestation d'affectation, justificatifs d'hébergement et de ressources.",
+          "- Selon votre pays de résidence, la procédure « Études en France » de Campus France est obligatoire avant le visa.",
+          "- Les délais s'allongent à l'approche de la rentrée de novembre : n'attendez pas.",
+        ].join("\n"),
+        estimatedDuration: "1 à 2 mois",
+        isRequired: true,
+      },
+      {
+        order: 5,
+        title: "Prendre vos fonctions",
+        description:
+          "Les premiers jours combinent les formalités de l'hôpital, celles de l'université et la régularisation de votre séjour.",
+        content: [
+          "- Présentez-vous à la direction des affaires médicales avant le premier jour, puis au chef de service.",
+          "- Passez la visite médicale d'embauche.",
+          "- Validez votre visa long séjour en ligne dans les trois mois qui suivent votre arrivée.",
+          "- Affiliez-vous à l'Assurance maladie et ouvrez un compte bancaire pour recevoir votre rémunération.",
+          "- Demandez le tableau de gardes et les protocoles du service.",
+        ].join("\n"),
+        estimatedDuration: "2 semaines",
+        isRequired: true,
+      },
+      {
+        order: 6,
+        title: "Faire valider vos semestres",
+        description:
+          "Chaque semestre de stage est évalué par le responsable du service. Ces validations conditionnent l'obtention de votre diplôme.",
+        content: [
+          "- Demandez en début de semestre les objectifs attendus et les modalités d'évaluation.",
+          "- Faites signer la validation de stage avant de quitter le service.",
+          "- Conservez une copie de chaque validation et de vos attestations de fonctions : elles vous seront demandées dans votre pays.",
+        ].join("\n"),
+        estimatedDuration: "6 mois par semestre",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    slug: "dfms-dfmsa",
+    title: "DFMS et DFMSA",
+    description:
+      "Les deux diplômes qui permettent à un médecin diplômé hors Union européenne de venir se spécialiser en France. La sélection est nationale, annuelle, et se prépare un an à l'avance.",
     country: "France",
     category: "Formation spécialisée",
     steps: [
@@ -431,7 +531,7 @@ export const procedures: ProcedureSeed[] = [
         order: 3,
         title: "Déposer le dossier de candidature",
         description:
-          "La campagne est annuelle et centralisée par la faculté de médecine de Strasbourg pour toute la France. Les candidatures se déposent environ un an avant la prise de fonctions.",
+          "La campagne est centralisée par la faculté de médecine de Strasbourg pour toute la France. Les candidatures se déposent environ un an avant la prise de fonctions.",
         content: [
           "- Le calendrier est publié chaque automne sur le site de la faculté de médecine de Strasbourg. La date limite se situe habituellement autour du 15 janvier, pour une prise de fonctions en novembre.",
           "- Si vous résidez à l'étranger, le dossier passe par le service de coopération et d'action culturelle de l'ambassade de France.",
@@ -448,7 +548,7 @@ export const procedures: ProcedureSeed[] = [
           "Les candidats retenus envoient un second dossier au printemps. La faculté répartit ensuite les candidats selon les postes ouverts dans les hôpitaux.",
         content: [
           "- Joignez au second dossier l'attestation de français.",
-          "- Vous ne choisissez pas librement l'hôpital : l'affectation dépend des postes offerts dans votre spécialité.",
+          "- L'affectation dépend des postes offerts dans votre spécialité : vous ne choisissez pas librement l'hôpital.",
           "- Les résultats sont publiés au début de l'été.",
         ].join("\n"),
         estimatedDuration: "4 à 6 mois",
@@ -456,27 +556,13 @@ export const procedures: ProcedureSeed[] = [
       },
       {
         order: 5,
-        title: "Demander le visa long séjour",
+        title: "S'inscrire à l'université d'accueil",
         description:
-          "Dès réception de votre affectation, déposez la demande de visa long séjour. Le consulat vous précise la mention applicable à votre situation.",
-        content: [
-          "- Remplissez la demande sur France-Visas, puis prenez rendez-vous au consulat ou chez son prestataire.",
-          "- Pièces habituelles : passeport, attestation d'affectation, justificatifs d'hébergement et de ressources.",
-          "- Selon votre pays de résidence, la procédure « Études en France » de Campus France est obligatoire avant le visa.",
-        ].join("\n"),
-        estimatedDuration: "1 à 2 mois",
-        isRequired: true,
-      },
-      {
-        order: 6,
-        title: "S'inscrire à l'université et prendre vos fonctions",
-        description:
-          "Pendant toute la formation, vous êtes inscrit à l'université et vous exercez à l'hôpital comme faisant fonction d'interne, sous la responsabilité d'un praticien.",
+          "Votre affectation désigne une université et un hôpital. L'inscription universitaire est obligatoire : c'est elle qui fonde votre statut.",
         content: [
           "- Inscrivez-vous à l'université d'accueil et réglez la CVEC et les droits d'inscription.",
-          "- Présentez-vous à la direction des affaires médicales de l'hôpital avant le premier jour.",
-          "- Validez votre visa long séjour en ligne dans les trois mois qui suivent votre arrivée.",
-          "- Vous êtes rémunéré et vous participez aux gardes comme un interne.",
+          "- Conservez l'attestation d'affectation et le certificat de scolarité : ils servent au visa et à l'hôpital.",
+          "- Pour le visa, l'arrivée à l'hôpital et la validation des semestres, poursuivez avec la procédure « Stage FFI ».",
         ].join("\n"),
         estimatedDuration: "2 à 4 semaines",
         isRequired: true,

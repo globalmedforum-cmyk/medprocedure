@@ -26,7 +26,7 @@
 
 ## Auth and Access Model
 
-- L'authentification est déléguée à Clerk via middleware Next.js.
+- L'authentification est déléguée à Clerk via `proxy.ts`. Seules la page d'accueil `/` et les pages de connexion et d'inscription sont publiques.
 - Chaque médecin est rattaché à son identifiant unique Clerk (`clerkId`).
 - Un utilisateur ne peut lire et modifier que ses propres enregistrements de progression.
 - Les données de procédures et d'opportunités sont en lecture seule pour les praticiens.

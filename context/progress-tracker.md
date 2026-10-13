@@ -96,6 +96,13 @@ change.
   - Seed : les opportunités ne sont plus réécrites, seulement créées si absentes.
   - Contenu appliqué à la base par `npm run db:seed` ; vérifié à l'écran sur la nouvelle procédure.
 
+- **Page d'accueil publique (2026-10-13)** : la racine `/` est publique (`proxy.ts`) et n'est plus une simple redirection. Elle présente le service, liste les procédures et les opportunités ouvertes lues en base, puis renvoie vers l'inscription. Un utilisateur connecté est toujours redirigé vers `/editor`. Vérifié : `tsc`, `eslint`, `npm run build`, rendu à l'écran en large et en étroit.
+
+- **Procédures, seconde passe (2026-10-13)** :
+  - « Doctorat (PhD) » et « Stage d'observation » passent à l'échelle européenne : pays « Europe », étapes générales avec les particularités de la France, de l'Allemagne et de la Belgique, liens européens (EURAXESS, Commission européenne, DAAD, FNRS).
+  - « Stage FFI » ne décrit plus que le poste (statut, voie d'accès, arrivée, visa, prise de fonctions, validation des semestres). La candidature universitaire devient une huitième procédure, « DFMS et DFMSA » (`dfms-dfmsa`, 5 étapes).
+  - Page d'accueil (non déployée) : mention des opportunités ajoutée à « Ce que contient chaque procédure », section « Opportunités ouvertes » retirée.
+
 ## In Progress
 
 - None.
@@ -108,7 +115,7 @@ change.
 
 ## Open Questions
 
-- Le contenu des procédures a été rédigé d'après les sites officiels mais n'a pas été relu par un professionnel du domaine. Points à faire valider en priorité : mention du visa long séjour pour les DFMS/DFMSA, rémunération des stagiaires associés, absence de rémunération des stages d'observation, règles cantonales suisses hors Vaud.
+- Le contenu des procédures a été rédigé d'après les sites officiels mais n'a pas été relu par un professionnel du domaine. Points à faire valider en priorité : le fait qu'un médecin diplômé hors UE ne peut être FFI que par un DFMS ou un DFMSA, la mention du visa long séjour correspondant, rémunération des stagiaires associés, absence de rémunération des stages d'observation, règles cantonales suisses hors Vaud.
 - Les liens utiles sont dans le code (`lib/procedure-resources.ts`) et non modifiables depuis l'admin.
 - Le seed réécrit les procédures et supprime les étapes absentes de `prisma/seed.ts` : le relancer en production écraserait les modifications faites depuis `/admin`. Faut-il le bloquer hors développement ?
 - Synchronisation des utilisateurs Clerk : aujourd'hui à la première validation d'étape, avec e-mail de repli fictif. Passer à un webhook Clerk ?

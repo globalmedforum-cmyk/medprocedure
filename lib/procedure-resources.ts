@@ -37,14 +37,24 @@ const isfm: ProcedureResource = {
 const resourcesByProcedureSlug: Record<string, ProcedureResource[]> = {
   "doctorat-phd": [
     {
-      label: "Campus France, portail du doctorat et offres de thèse",
+      label: "EURAXESS, offres de thèse et accueil des chercheurs en Europe",
+      href: "https://euraxess.ec.europa.eu/jobs",
+    },
+    {
+      label: "Réseaux doctoraux Marie Skłodowska-Curie",
+      href: "https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks",
+    },
+    {
+      label: "France : Campus France, portail du doctorat",
       href: "https://doctorat.campusfrance.org",
     },
-    { label: "theses.fr, thèses en cours et soutenues", href: "https://theses.fr" },
-    etudesEnFrance,
-    { label: "Euraxess France, accueil des chercheurs", href: "https://www.euraxess.fr" },
+    { label: "France : theses.fr", href: "https://theses.fr" },
+    {
+      label: "Allemagne : DAAD, doctorat et recherche",
+      href: "https://www.daad.de/en/studying-in-germany/phd-studies-research/",
+    },
+    { label: "Belgique : FNRS", href: "https://www.frs-fnrs.be" },
     franceVisas,
-    anef,
   ],
   "mebeko-suisse": [
     mebeko,
@@ -78,17 +88,30 @@ const resourcesByProcedureSlug: Record<string, ProcedureResource[]> = {
     },
   ],
   "stage-observation": [
+    {
+      label: "Commission européenne, demander un visa Schengen",
+      href: "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en",
+    },
     franceVisas,
     {
-      label: "Service-public.fr, visa de court séjour Schengen",
-      href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F16146",
+      label: "France : AP-HP, accueil des professionnels de santé étrangers",
+      href: "https://www.aphp.fr/professionnels-linternational",
     },
     {
-      label: "AP-HP, accueil des professionnels de santé étrangers",
-      href: "https://www.aphp.fr/professionnels-linternational",
+      label: "Allemagne : ministère des Affaires étrangères, visas",
+      href: "https://www.auswaertiges-amt.de/en/visa-service",
     },
   ],
   "ffi-france": [
+    franceVisas,
+    etudesEnFrance,
+    anef,
+    {
+      label: "Centre national de gestion, autorisation d'exercice",
+      href: "https://www.cng.sante.fr",
+    },
+  ],
+  "dfms-dfmsa": [
     {
       label: "Faculté de médecine de Strasbourg (calendrier DFMS / DFMSA)",
       href: "https://med.unistra.fr",
@@ -98,8 +121,6 @@ const resourcesByProcedureSlug: Record<string, ProcedureResource[]> = {
       href: "https://u-paris.fr/medecine/dfms-dfmsa/",
     },
     etudesEnFrance,
-    franceVisas,
-    anef,
   ],
   "stage-associe": [
     {

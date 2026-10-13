@@ -35,6 +35,7 @@ export const opportunityCategoryGroups: {
 // Catégories affichées dans l'onglet « Opportunités liées » de chaque procédure
 const categoriesByProcedureSlug: Record<string, OpportunityCategory[]> = {
   "ffi-france": ["FFI"],
+  "dfms-dfmsa": ["FFI"],
   "stage-associe": ["STAGE_ASSOCIE"],
   "mebeko-suisse": ["MEDECIN_ASSISTANT"],
   "medecin-assistant-suisse": ["MEDECIN_ASSISTANT"],
