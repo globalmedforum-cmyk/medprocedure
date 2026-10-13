@@ -29,7 +29,7 @@
 - L'authentification est déléguée à Clerk via `proxy.ts`. Seules la page d'accueil `/`, les conditions générales `/conditions` et les pages de connexion et d'inscription sont publiques.
 - Tant que la version en vigueur des conditions générales n'est pas acceptée, les pages réservées affichent une fenêtre d'acceptation à la place de leur contenu (`lib/terms-acceptance.ts`, `components/terms/terms-window.tsx`).
 - Chaque médecin est rattaché à son identifiant unique Clerk (`clerkId`).
-- Un utilisateur ne peut lire et modifier que ses propres enregistrements de progression.
+- Un utilisateur ne peut lire et modifier que ses propres dossiers (`UserProcedureProgress`). Il peut en ouvrir plusieurs pour une même procédure.
 - Les données de procédures et d'opportunités sont en lecture seule pour les praticiens.
 - Les administrateurs sont les comptes dont l'e-mail principal vérifié figure dans `ADMIN_EMAILS`. Eux seuls accèdent à `/admin` et aux Server Actions de `actions/admin.ts`.
 

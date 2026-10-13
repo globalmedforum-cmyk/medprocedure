@@ -1,12 +1,8 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
-import {
-  getOpportunityCategoriesForProcedure,
-  isOpportunityFullyPublic,
-  procedureHasOpportunities,
-  startOfToday,
-} from "@/lib/opportunity-categories";
+import { procedureHasOpportunities } from "@/lib/opportunity-categories";
+import { getProcedureOpportunities } from "@/lib/opportunity-queries";
 import { TermsWindow } from "@/components/terms/terms-window";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 import { ProcedureViewShell } from "@/components/procedures/procedure-view-shell";
@@ -57,62 +53,24 @@ export default async function ProcedureDetailPage({
     notFound();
   }
 
-  // 2. Récupération de la progression de l'utilisateur authentifié
+  // 2. Dossiers déjà ouverts par l'utilisateur pour cette procédure
   const { userId } = await auth();
-  let completedStepIds: string[] = [];
+  const existingDossiers = userId
+    ? await prisma.userProcedureProgress.findMany({
+        where: { procedureId: procedure.id, user: { clerkId: userId } },
+        orderBy: { createdAt: "asc" },
+        select: { id: true, label: true },
+      })
+    : [];
 
-  if (userId) {
-    const dbUser = await prisma.user.findUnique({
-      where: { clerkId: userId },
-      select: { id: true },
-    });
-
-    if (dbUser) {
-      const userProgress = await prisma.userProcedureProgress.findUnique({
-        where: {
-          userId_procedureId: {
-            userId: dbUser.id,
-            procedureId: procedure.id,
-          },
-        },
-        select: { completedStepIds: true },
-      });
-
-      completedStepIds = userProgress?.completedStepIds || [];
-    }
-  }
-
-  // 3. Récupération des opportunités associées, par catégorie, hors dates passées
-  const opportunityRows = await prisma.opportunity.findMany({
-    where: {
-      category: { in: getOpportunityCategoriesForProcedure(procedure.slug) },
-      OR: [{ deadline: null }, { deadline: { gte: startOfToday() } }],
-    },
-    orderBy: [{ deadline: "asc" }, { createdAt: "desc" }],
-  });
-
-  // Seul l'aperçu quitte le serveur, sauf pour les catégories entièrement publiques
-  const opportunities = opportunityRows.map((row) => ({
-    id: row.id,
-    category: row.category,
-    title: row.title,
-    specialty: row.specialty,
-    location: row.location,
-    country: row.country,
-    deadline: row.deadline,
-    details: isOpportunityFullyPublic(row.category)
-      ? {
-          hospital: row.hospital,
-          requirements: row.requirements,
-          contactEmail: row.contactEmail,
-        }
-      : undefined,
-  }));
+  // 3. Opportunités associées
+  const opportunities = await getProcedureOpportunities(procedure.slug);
 
   return (
     <ProcedureViewShell
       procedure={procedure}
-      initialCompletedStepIds={completedStepIds}
+      initialCompletedStepIds={[]}
+      existingDossiers={existingDossiers}
       opportunities={opportunities}
       showOpportunities={procedureHasOpportunities(procedure.slug)}
     />

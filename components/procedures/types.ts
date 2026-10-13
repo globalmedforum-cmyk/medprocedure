@@ -39,3 +39,10 @@ export interface OpportunityItem {
     contactEmail: string | null;
   };
 }
+
+// Dossier suivi par l'utilisateur, tel qu'il est transmis à la vue
+export interface DossierSummary {
+  id: string;
+  label: string;
+  targetDate: Date | string | null;
+}

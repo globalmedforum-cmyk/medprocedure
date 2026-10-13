@@ -12,7 +12,18 @@ import { ProcedureMobileDrawer } from "./procedure-mobile-drawer";
 import { ProcedureStepPanel } from "./procedure-step-panel";
 import { AssistanceDialog } from "./assistance-dialog";
 import { ProcedureOpportunities } from "./procedure-opportunities";
-import type { OpportunityItem, ProcedureData } from "./types";
+import { DossierSettingsDialog } from "@/components/dossiers/dossier-settings-dialog";
+import { StartDossierDialog } from "@/components/dossiers/start-dossier-dialog";
+import {
+  formatDossierDate,
+  getDossierLabel,
+  toDateInputValue,
+} from "@/lib/dossiers";
+import type {
+  DossierSummary,
+  OpportunityItem,
+  ProcedureData,
+} from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
 
 interface ProcedureViewShellProps {
@@ -20,6 +31,10 @@ interface ProcedureViewShellProps {
   initialCompletedStepIds: string[];
   opportunities: OpportunityItem[];
   showOpportunities: boolean;
+  // Dossier suivi. Absent : la page est le guide en lecture, sans avancement.
+  dossier?: DossierSummary | null;
+  // Dossiers déjà ouverts par l'utilisateur pour cette procédure (mode guide)
+  existingDossiers?: { id: string; label: string }[];
 }
 
 const tabTriggerClassName =
@@ -30,6 +45,8 @@ export function ProcedureViewShell({
   initialCompletedStepIds,
   opportunities,
   showOpportunities,
+  dossier = null,
+  existingDossiers = [],
 }: ProcedureViewShellProps) {
   // Détermination de l'étape active initiale : première étape non complétée, ou étape 1
   const firstIncomplete = procedure.steps.find(
@@ -61,6 +78,8 @@ export function ProcedureViewShell({
 
   // Gestion optimiste du toggle d'étape
   const handleToggleStep = (stepId: string) => {
+    if (!dossier) return;
+
     const isCompleted = completedStepIds.includes(stepId);
     const nextCompleted = isCompleted
       ? completedStepIds.filter((id) => id !== stepId)
@@ -73,7 +92,7 @@ export function ProcedureViewShell({
     // Déclenchement de la Server Action en tâche de fond
     startTransition(async () => {
       const res = await toggleStepProgress({
-        procedureSlug: procedure.slug,
+        dossierId: dossier.id,
         stepId,
         completed: !isCompleted,
       });
@@ -121,6 +140,16 @@ export function ProcedureViewShell({
           error={error}
           onToggleStep={handleToggleStep}
           onSelectStep={handleSelectStep}
+          startDossier={
+            dossier ? undefined : (
+              <StartDossierDialog
+                procedureSlug={procedure.slug}
+                procedureTitle={procedure.title}
+                triggerLabel="Suivre cette procédure"
+                className="w-full sm:w-auto"
+              />
+            )
+          }
         />
       ) : (
         <p className="text-sm text-text-muted">
@@ -141,44 +170,99 @@ export function ProcedureViewShell({
               href="/editor"
               className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary sm:h-auto"
             >
-              Procédures
+              Tableau de bord
             </Link>
             <span aria-hidden> / </span>
-            <span>{procedure.category}</span>
+            <span>{dossier ? procedure.title : procedure.category}</span>
           </nav>
 
           <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
             <div className="max-w-3xl space-y-3">
               <h1 className="font-heading text-2xl leading-tight font-medium tracking-tight sm:text-4xl">
-                {procedure.title}
+                {dossier
+                  ? getDossierLabel(dossier.label, procedure.title)
+                  : procedure.title}
               </h1>
               <p className="text-base leading-relaxed text-text-muted">
                 {procedure.description}
               </p>
             </div>
-            <AssistanceDialog
-              procedureTitle={procedure.title}
-              className="w-full sm:w-auto"
-            />
+            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap">
+              <AssistanceDialog
+                procedureTitle={procedure.title}
+                className="w-full sm:w-auto"
+              />
+              {dossier ? (
+                <DossierSettingsDialog
+                  dossierId={dossier.id}
+                  label={dossier.label}
+                  targetDate={toDateInputValue(dossier.targetDate)}
+                  className="w-full sm:w-auto"
+                />
+              ) : (
+                <StartDossierDialog
+                  procedureSlug={procedure.slug}
+                  procedureTitle={procedure.title}
+                  className="w-full sm:w-auto"
+                />
+              )}
+            </div>
           </div>
 
-          <div className="space-y-2 sm:max-w-sm">
-            <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span>{procedure.country}</span>
-              <span className="font-mono text-xs text-text-muted">
-                {isComplete
-                  ? "Procédure terminée"
-                  : `${completedCount} sur ${totalSteps} étapes terminées`}
-              </span>
+          {dossier ? (
+            <div className="space-y-2 sm:max-w-sm">
+              <div className="flex items-baseline justify-between gap-3 text-sm">
+                <span>
+                  {dossier.targetDate
+                    ? `Échéance : ${formatDossierDate(dossier.targetDate)}`
+                    : procedure.country}
+                </span>
+                <span className="font-mono text-xs text-text-muted">
+                  {isComplete
+                    ? "Dossier terminé"
+                    : `${completedCount} sur ${totalSteps} étapes terminées`}
+                </span>
+              </div>
+              <Progress
+                value={completedCount}
+                max={totalSteps || 1}
+                aria-label="Avancement du dossier"
+                className="h-1 border-0"
+                indicatorClassName={isComplete ? "bg-state-success" : undefined}
+              />
             </div>
-            <Progress
-              value={completedCount}
-              max={totalSteps || 1}
-              aria-label="Avancement de la procédure"
-              className="h-1 border-0"
-              indicatorClassName={isComplete ? "bg-state-success" : undefined}
-            />
-          </div>
+          ) : (
+            <div className="space-y-2 text-sm">
+              <p>
+                {procedure.country}
+                <span className="font-mono text-xs text-text-muted">
+                  {" · "}
+                  {totalSteps} étapes
+                </span>
+              </p>
+              {existingDossiers.length > 0 ? (
+                <p className="leading-relaxed text-text-muted">
+                  Vos dossiers pour cette procédure :{" "}
+                  {existingDossiers.map((existing, index) => (
+                    <React.Fragment key={existing.id}>
+                      {index > 0 && ", "}
+                      <Link
+                        href={`/dossiers/${existing.id}`}
+                        className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+                      >
+                        {getDossierLabel(existing.label, procedure.title)}
+                      </Link>
+                    </React.Fragment>
+                  ))}
+                </p>
+              ) : (
+                <p className="max-w-prose leading-relaxed text-text-muted">
+                  Vous consultez le guide. Ouvrez un dossier pour enregistrer
+                  votre avancement étape par étape.
+                </p>
+              )}
+            </div>
+          )}
         </header>
 
         {showOpportunities ? (

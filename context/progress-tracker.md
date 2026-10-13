@@ -124,6 +124,14 @@ change.
   - Schéma : `User.termsVersion` et `User.termsAcceptedAt`, migration `20261013190000_user_terms`. L'action de progression refuse d'enregistrer tant que les conditions ne sont pas acceptées.
   - Vérifié : `tsc`, `eslint`, `npm run build`, rendu de la page publique et de la fenêtre (bureau et 375 px) sur une page d'aperçu temporaire. L'enregistrement de l'acceptation n'a pas été testé en étant connecté, et la migration n'est pas encore appliquée.
 
+- **Tableau de bord et dossiers (2026-10-13)** :
+  - Le suivi se fait par dossier : un utilisateur peut ouvrir plusieurs dossiers pour une même procédure, chacun avec un nom, une échéance facultative et son propre avancement. Schéma : `UserProcedureProgress` perd sa contrainte d'unicité (utilisateur, procédure) et gagne `label` et `targetDate` ; migration `20261013210000_dossiers`.
+  - `/editor` devient le tableau de bord : « Mes dossiers » (en cours, terminés, prochaine étape, avancement, échéance signalée si dépassée) puis la liste des procédures avec « Ouvrir un dossier » et « Lire le guide ».
+  - `/dossiers/[id]` : la vue procédure appliquée à un dossier, réservée à son propriétaire, avec « Modifier le dossier » (renommer, échéance, supprimer avec confirmation).
+  - `/procedures/[slug]` : guide en lecture, sans avancement, avec « Suivre cette procédure » et les liens vers les dossiers déjà ouverts.
+  - Actions `actions/dossiers.ts` (création, modification, suppression, limite de 40 dossiers par utilisateur) ; `toggleStepProgress` prend un `dossierId` et vérifie qu'il appartient à l'utilisateur.
+  - Vérifié : `tsc`, `eslint`, `npm run build`, rendu du mode guide, du mode dossier et de la fenêtre de création sur une page d'aperçu temporaire. Non testé : le tableau de bord lui-même et l'enregistrement en base, qui demandent une connexion et la migration, pas encore appliquée.
+
 ## In Progress
 
 - None.

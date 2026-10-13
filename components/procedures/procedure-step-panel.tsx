@@ -16,6 +16,8 @@ interface ProcedureStepPanelProps {
   error: string | null;
   onToggleStep: (stepId: string) => void;
   onSelectStep: (stepId: string) => void;
+  // Hors dossier, le guide est en lecture : ce contenu remplace le bouton de suivi
+  startDossier?: React.ReactNode;
 }
 
 export function ProcedureStepPanel({
@@ -26,6 +28,7 @@ export function ProcedureStepPanel({
   error,
   onToggleStep,
   onSelectStep,
+  startDossier,
 }: ProcedureStepPanelProps) {
   const totalSteps = procedure.steps.length;
   const currentIndex = procedure.steps.findIndex((s) => s.id === activeStep.id);
@@ -73,7 +76,9 @@ export function ProcedureStepPanel({
 
         <div className="space-y-3 border-t border-border-default pt-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            {isCompleted ? (
+            {startDossier ? (
+              startDossier
+            ) : isCompleted ? (
               <div className="flex h-12 items-center gap-3 text-sm sm:h-10">
                 <span className="flex items-center gap-1.5 font-medium text-state-success">
                   <Check className="h-4 w-4 stroke-[2.5]" aria-hidden />

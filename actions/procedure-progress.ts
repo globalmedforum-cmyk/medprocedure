@@ -9,7 +9,7 @@ import { syncDbUser } from "@/lib/user";
 import { ProcedureStatus } from "@prisma/client";
 
 const toggleStepProgressSchema = z.object({
-  procedureSlug: z.string().trim().min(1).max(200),
+  dossierId: z.string().trim().min(1).max(64),
   stepId: z.string().trim().min(1).max(64),
   completed: z.boolean(),
 });
@@ -39,7 +39,7 @@ export async function toggleStepProgress(
       return { success: false, error: "Requête invalide." };
     }
 
-    const { procedureSlug, stepId, completed } = parsed.data;
+    const { dossierId, stepId, completed } = parsed.data;
 
     const dbUser = await syncDbUser(userId);
 
@@ -50,47 +50,33 @@ export async function toggleStepProgress(
       };
     }
 
-    // Récupération de la procédure et de ses étapes
-    const procedure = await prisma.procedure.findUnique({
-      where: { slug: procedureSlug },
-      include: {
-        steps: {
-          select: { id: true },
-          orderBy: { order: "asc" },
-        },
+    // Le dossier doit appartenir à l'utilisateur connecté
+    const dossier = await prisma.userProcedureProgress.findFirst({
+      where: { id: dossierId, userId: dbUser.id },
+      select: {
+        id: true,
+        procedure: { select: { steps: { select: { id: true } } } },
       },
     });
 
-    if (!procedure) {
-      return { success: false, error: "Procédure médicale introuvable." };
+    if (!dossier) {
+      return { success: false, error: "Dossier introuvable." };
     }
 
-    const procedureStepIds = new Set(procedure.steps.map((step) => step.id));
+    const procedureStepIds = new Set(
+      dossier.procedure.steps.map((step) => step.id)
+    );
 
     if (!procedureStepIds.has(stepId)) {
       return { success: false, error: "Cette étape n'appartient pas à la procédure." };
     }
 
-    const progressKey = {
-      userId_procedureId: {
-        userId: dbUser.id,
-        procedureId: procedure.id,
-      },
-    };
-
     const updatedProgress = await prisma.$transaction(async (tx) => {
-      const progress = await tx.userProcedureProgress.upsert({
-        where: progressKey,
-        update: {},
-        create: { userId: dbUser.id, procedureId: procedure.id },
-        select: { id: true },
-      });
-
       // Verrou de ligne : deux validations simultanées ne doivent pas s'écraser
-      await tx.$queryRaw`SELECT id FROM user_procedure_progress WHERE id = ${progress.id} FOR UPDATE`;
+      await tx.$queryRaw`SELECT id FROM user_procedure_progress WHERE id = ${dossier.id} FOR UPDATE`;
 
       const current = await tx.userProcedureProgress.findUniqueOrThrow({
-        where: { id: progress.id },
+        where: { id: dossier.id },
         select: { completedStepIds: true },
       });
 
@@ -113,7 +99,7 @@ export async function toggleStepProgress(
       }
 
       return tx.userProcedureProgress.update({
-        where: { id: progress.id },
+        where: { id: dossier.id },
         data: {
           completedStepIds: Array.from(nextCompleted),
           status: nextStatus,
@@ -121,7 +107,8 @@ export async function toggleStepProgress(
       });
     });
 
-    revalidatePath(`/procedures/${procedureSlug}`);
+    revalidatePath("/editor");
+    revalidatePath(`/dossiers/${dossier.id}`);
 
     return {
       success: true,
