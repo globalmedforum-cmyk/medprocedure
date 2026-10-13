@@ -56,22 +56,31 @@ change.
   - Redesigned `/editor` catalog matching Image 1 with the 6 stylized procedure cards.
   - Verified `npx tsc --noEmit`, `npm run lint` (0 errors, 0 warnings), and `npm run build` passing cleanly.
 
+- **Durcissement données (2026-10-13)**:
+  - `prisma/seed.ts` rendu rejouable : upsert des procédures par `slug`, des étapes par (procédure, ordre) et des opportunités par (titre, hôpital). Plus aucun `deleteMany` sur `users` ni `user_procedure_progress`.
+  - `toggleStepProgress` : validation Zod des arguments, refus d'un `stepId` étranger à la procédure, mise à jour sous transaction avec verrou de ligne, purge des identifiants d'étapes orphelins.
+  - Migration de référence `prisma/migrations/0_init` générée hors ligne depuis le schéma ; scripts `db:migrate` et `db:deploy` ajoutés.
+  - Vérifié : `npx tsc --noEmit` et `npm run lint` à 0 erreur. Seed et action non exécutés contre la base.
+
 ## In Progress
 
 - None.
 
 ## Next Up
 
-- Additional features or procedures enhancements as requested.
+- Marquer la migration de référence comme appliquée sur la base existante : `npx prisma migrate resolve --applied 0_init` (à lancer une seule fois, puis abandonner `db:push`).
+- Remplir `context/project-overview.md` (encore le gabarit vide) et trancher thème clair ou sombre (`ui-context.md` contredit `app/layout.tsx`).
+- Remplacer le contenu factice (vidéos, liens « ressources officielles » identiques pour toutes les procédures), brancher ou retirer les boutons « Enregistrer » et « Partager ».
+- Tableau de bord avec progression par procédure ; CI minimale (lint, types, build).
 
 ## Open Questions
 
-- [Any unresolved product or technical decisions]
+- Synchronisation des utilisateurs Clerk : aujourd'hui à la première validation d'étape, avec e-mail de repli fictif. Passer à un webhook Clerk ?
 
 ## Architecture Decisions
 
-- [Decisions made that affect the system design or
-  data model — include why the decision was made]
+- Le schéma évolue désormais par migrations Prisma versionnées, plus par `db push`, pour garder un historique et permettre le retour arrière.
+- Le seed ne doit jamais supprimer de données utilisateur : les identifiants d'étapes sont référencés par `completedStepIds` et doivent rester stables.
 
 ## Session Notes
 

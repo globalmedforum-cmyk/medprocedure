@@ -2,14 +2,17 @@
 
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ProcedureStatus } from "@prisma/client";
 
-export interface ToggleStepProgressInput {
-  procedureSlug: string;
-  stepId: string;
-  completed: boolean;
-}
+const toggleStepProgressSchema = z.object({
+  procedureSlug: z.string().trim().min(1).max(200),
+  stepId: z.string().trim().min(1).max(64),
+  completed: z.boolean(),
+});
+
+export type ToggleStepProgressInput = z.infer<typeof toggleStepProgressSchema>;
 
 export interface ToggleStepProgressResult {
   success: boolean;
@@ -18,17 +21,23 @@ export interface ToggleStepProgressResult {
   error?: string;
 }
 
-export async function toggleStepProgress({
-  procedureSlug,
-  stepId,
-  completed,
-}: ToggleStepProgressInput): Promise<ToggleStepProgressResult> {
+export async function toggleStepProgress(
+  input: ToggleStepProgressInput
+): Promise<ToggleStepProgressResult> {
   try {
     const { userId } = await auth();
 
     if (!userId) {
       return { success: false, error: "Vous devez être connecté pour enregistrer votre progression." };
     }
+
+    const parsed = toggleStepProgressSchema.safeParse(input);
+
+    if (!parsed.success) {
+      return { success: false, error: "Requête invalide." };
+    }
+
+    const { procedureSlug, stepId, completed } = parsed.data;
 
     // Récupération de l'utilisateur Clerk pour synchronisation locale si nécessaire
     const clerkUser = await currentUser();
@@ -55,6 +64,7 @@ export async function toggleStepProgress({
       where: { slug: procedureSlug },
       include: {
         steps: {
+          select: { id: true },
           orderBy: { order: "asc" },
         },
       },
@@ -64,53 +74,60 @@ export async function toggleStepProgress({
       return { success: false, error: "Procédure médicale introuvable." };
     }
 
-    // Récupération ou initialisation de la progression
-    const existingProgress = await prisma.userProcedureProgress.findUnique({
-      where: {
-        userId_procedureId: {
-          userId: dbUser.id,
-          procedureId: procedure.id,
-        },
-      },
-    });
+    const procedureStepIds = new Set(procedure.steps.map((step) => step.id));
 
-    const currentCompleted = new Set(existingProgress?.completedStepIds || []);
-
-    if (completed) {
-      currentCompleted.add(stepId);
-    } else {
-      currentCompleted.delete(stepId);
+    if (!procedureStepIds.has(stepId)) {
+      return { success: false, error: "Cette étape n'appartient pas à la procédure." };
     }
 
-    const nextCompletedStepIds = Array.from(currentCompleted);
-    const totalSteps = procedure.steps.length;
-
-    let nextStatus: ProcedureStatus = ProcedureStatus.NOT_STARTED;
-    if (nextCompletedStepIds.length === 0) {
-      nextStatus = ProcedureStatus.NOT_STARTED;
-    } else if (nextCompletedStepIds.length >= totalSteps && totalSteps > 0) {
-      nextStatus = ProcedureStatus.COMPLETED;
-    } else {
-      nextStatus = ProcedureStatus.IN_PROGRESS;
-    }
-
-    const updatedProgress = await prisma.userProcedureProgress.upsert({
-      where: {
-        userId_procedureId: {
-          userId: dbUser.id,
-          procedureId: procedure.id,
-        },
-      },
-      update: {
-        completedStepIds: nextCompletedStepIds,
-        status: nextStatus,
-      },
-      create: {
+    const progressKey = {
+      userId_procedureId: {
         userId: dbUser.id,
         procedureId: procedure.id,
-        completedStepIds: nextCompletedStepIds,
-        status: nextStatus,
       },
+    };
+
+    const updatedProgress = await prisma.$transaction(async (tx) => {
+      const progress = await tx.userProcedureProgress.upsert({
+        where: progressKey,
+        update: {},
+        create: { userId: dbUser.id, procedureId: procedure.id },
+        select: { id: true },
+      });
+
+      // Verrou de ligne : deux validations simultanées ne doivent pas s'écraser
+      await tx.$queryRaw`SELECT id FROM user_procedure_progress WHERE id = ${progress.id} FOR UPDATE`;
+
+      const current = await tx.userProcedureProgress.findUniqueOrThrow({
+        where: { id: progress.id },
+        select: { completedStepIds: true },
+      });
+
+      // Seules les étapes existantes de la procédure comptent dans la progression
+      const nextCompleted = new Set(
+        current.completedStepIds.filter((id) => procedureStepIds.has(id))
+      );
+
+      if (completed) {
+        nextCompleted.add(stepId);
+      } else {
+        nextCompleted.delete(stepId);
+      }
+
+      let nextStatus: ProcedureStatus = ProcedureStatus.IN_PROGRESS;
+      if (nextCompleted.size === 0) {
+        nextStatus = ProcedureStatus.NOT_STARTED;
+      } else if (nextCompleted.size === procedureStepIds.size) {
+        nextStatus = ProcedureStatus.COMPLETED;
+      }
+
+      return tx.userProcedureProgress.update({
+        where: { id: progress.id },
+        data: {
+          completedStepIds: Array.from(nextCompleted),
+          status: nextStatus,
+        },
+      });
     });
 
     revalidatePath(`/procedures/${procedureSlug}`);
@@ -128,4 +145,3 @@ export async function toggleStepProgress({
     };
   }
 }
-
