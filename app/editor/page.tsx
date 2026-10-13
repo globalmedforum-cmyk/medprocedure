@@ -29,7 +29,7 @@ export default async function EditorPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-8 sm:py-14">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8 sm:py-14">
         <div className="max-w-2xl space-y-3">
           <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
             Procédures
@@ -41,7 +41,7 @@ export default async function EditorPage() {
           </p>
         </div>
 
-        <ol className="mt-10 border-t border-border-default">
+        <ol className="mt-8 border-t border-border-default sm:mt-10">
           {procedures.map((procedure, index) => {
             const completed = completedByProcedure.get(procedure.id);
             const total = procedure.steps.length;

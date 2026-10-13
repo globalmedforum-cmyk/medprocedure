@@ -34,7 +34,7 @@ export function ProcedureStepPanel({
   const resources = getProcedureResources(procedure.slug);
 
   return (
-    <div className="min-w-0 space-y-12">
+    <div className="min-w-0 space-y-10 sm:space-y-12">
       <article className="space-y-6">
         <header className="space-y-2">
           <p className="font-mono text-xs text-text-muted">
@@ -72,9 +72,9 @@ export function ProcedureStepPanel({
         )}
 
         <div className="space-y-3 border-t border-border-default pt-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             {isCompleted ? (
-              <div className="flex items-center gap-3 text-sm">
+              <div className="flex h-12 items-center gap-3 text-sm sm:h-10">
                 <span className="flex items-center gap-1.5 font-medium text-state-success">
                   <Check className="h-4 w-4 stroke-[2.5]" aria-hidden />
                   Étape terminée
@@ -83,7 +83,7 @@ export function ProcedureStepPanel({
                   type="button"
                   disabled={isPending}
                   onClick={() => onToggleStep(activeStep.id)}
-                  className="cursor-pointer text-text-muted underline underline-offset-4 hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-11 cursor-pointer items-center px-1 text-text-muted underline underline-offset-4 hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Annuler
                 </button>
@@ -92,19 +92,19 @@ export function ProcedureStepPanel({
               <Button
                 disabled={isPending}
                 onClick={() => onToggleStep(activeStep.id)}
-                className="h-10 gap-2 px-4 text-sm"
+                className="h-12 w-full gap-2 px-4 text-base sm:h-10 sm:w-auto sm:text-sm"
               >
                 <Check aria-hidden />
                 Marquer comme terminée
               </Button>
             )}
 
-            <div className="flex items-center gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
               <Button
                 variant="outline"
                 disabled={!prevStep}
                 onClick={() => prevStep && onSelectStep(prevStep.id)}
-                className="h-10 gap-2 bg-transparent px-3 text-sm"
+                className="h-12 gap-2 bg-transparent px-3 text-sm sm:h-10"
               >
                 <ArrowLeft aria-hidden />
                 Précédente
@@ -115,8 +115,8 @@ export function ProcedureStepPanel({
                 onClick={() => nextStep && onSelectStep(nextStep.id)}
                 className={
                   isCompleted
-                    ? "h-10 gap-2 px-3 text-sm"
-                    : "h-10 gap-2 bg-transparent px-3 text-sm"
+                    ? "h-12 gap-2 px-3 text-sm sm:h-10"
+                    : "h-12 gap-2 bg-transparent px-3 text-sm sm:h-10"
                 }
               >
                 Suivante
@@ -135,14 +135,14 @@ export function ProcedureStepPanel({
 
       <section className="space-y-4 border-t border-border-default pt-8">
         <h3 className="text-sm font-medium">Liens utiles</h3>
-        <ul className="grid gap-x-10 gap-y-2.5 text-sm md:grid-cols-2">
+        <ul className="grid gap-x-10 gap-y-1 text-sm md:grid-cols-2 md:gap-y-2">
           {resources.map((resource) => (
             <li key={resource.href}>
               <a
                 href={resource.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-baseline gap-1.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+                className="inline-flex items-baseline gap-1.5 py-2.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary md:py-0.5"
               >
                 {resource.label}
                 <ExternalLink
@@ -153,13 +153,14 @@ export function ProcedureStepPanel({
             </li>
           ))}
         </ul>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+        <div className="flex flex-col gap-x-4 gap-y-2 pt-2 sm:flex-row sm:items-center">
           <p className="text-sm text-text-muted">
             Besoin d&apos;aide pour cette étape ?
           </p>
           <AssistanceDialog
             procedureTitle={procedure.title}
             stepLabel={`étape ${activeStep.order} : ${activeStep.title}`}
+            className="w-full sm:w-auto"
           />
         </div>
         <p className="max-w-prose text-xs leading-relaxed text-text-muted">

@@ -44,7 +44,10 @@ export function AssistanceDialog({
         render={
           <Button
             variant="outline"
-            className={cn("h-10 gap-2 bg-transparent px-4 text-sm", className)}
+            className={cn(
+              "h-12 gap-2 bg-transparent px-4 text-sm sm:h-10",
+              className
+            )}
           />
         }
       >
@@ -75,7 +78,7 @@ export function AssistanceDialog({
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants(),
-                "h-11 justify-start gap-3 px-4 text-sm"
+                "h-12 justify-start gap-3 px-4 text-sm"
               )}
             >
               <MessageCircle aria-hidden />
@@ -86,7 +89,7 @@ export function AssistanceDialog({
             href={emailLink}
             className={cn(
               buttonVariants({ variant: whatsAppLink ? "outline" : "default" }),
-              "h-11 justify-start gap-3 px-4 text-sm",
+              "h-12 justify-start gap-3 px-4 text-sm",
               whatsAppLink && "bg-transparent"
             )}
           >
@@ -102,7 +105,7 @@ export function AssistanceDialog({
           render={
             <button
               type="button"
-              className="cursor-pointer justify-self-start text-sm text-text-muted underline underline-offset-4 hover:text-text-primary"
+              className="flex h-11 cursor-pointer items-center justify-self-start text-sm text-text-muted underline underline-offset-4 hover:text-text-primary"
             />
           }
         >

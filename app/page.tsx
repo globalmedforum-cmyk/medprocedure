@@ -33,6 +33,10 @@ const guideContents = [
     text: "Postes hospitaliers, fellowships, thèses et congrès ouverts, rattachés à la procédure qui permet d'y candidater.",
   },
   {
+    title: "Une assistance personnalisée",
+    text: "À chaque étape, vous pouvez demander l'accompagnement de notre équipe, par WhatsApp ou par e-mail, pour avancer sur votre dossier.",
+  },
+  {
     title: "Votre avancement",
     text: "Vous cochez les étapes terminées et vous retrouvez votre dossier là où vous l'avez laissé.",
   },
@@ -55,16 +59,22 @@ export default async function HomePage() {
       <header className="border-b border-border-default">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
           <Logo />
-          <nav className="flex items-center gap-2 sm:gap-4">
+          <nav className="flex shrink-0 items-center gap-2 sm:gap-3">
             <Link
               href="/sign-in"
-              className="px-2 text-sm underline-offset-4 hover:underline"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-11 bg-transparent px-4 text-sm sm:h-10"
+              )}
             >
               Se connecter
             </Link>
             <Link
               href="/sign-up"
-              className={cn(buttonVariants(), "h-9 px-3 text-sm")}
+              className={cn(
+                buttonVariants(),
+                "hidden h-10 px-4 text-sm sm:inline-flex"
+              )}
             >
               Créer un compte
             </Link>
@@ -73,35 +83,38 @@ export default async function HomePage() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="max-w-3xl space-y-6 py-16 sm:py-24">
-          <h1 className="font-heading text-4xl leading-tight font-medium tracking-tight sm:text-5xl">
+        <section className="max-w-3xl space-y-5 py-12 sm:space-y-6 sm:py-24">
+          <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl">
             Exercer ou se former en France et en Suisse, une démarche à la
             fois.
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-text-muted">
+          <p className="max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
             MedProcedure guide les médecins diplômés à l&apos;étranger dans
             leurs démarches : reconnaissance du diplôme, postes hospitaliers,
             stages, doctorat et congrès. Pour chacune, les étapes, les pièces
             et les délais.
           </p>
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:gap-4">
             <Link
               href="/sign-up"
-              className={cn(buttonVariants(), "h-11 gap-2 px-5 text-base")}
+              className={cn(
+                buttonVariants(),
+                "h-12 w-full gap-2 px-5 text-base sm:w-auto"
+              )}
             >
-              Commencer
+              Créer un compte
               <ArrowRight aria-hidden />
             </Link>
             <a
               href="#procedures"
-              className="text-sm underline underline-offset-4 hover:text-accent-primary"
+              className="flex h-11 items-center justify-center text-sm underline underline-offset-4 hover:text-accent-primary sm:justify-start"
             >
               Voir les {procedures.length} procédures
             </a>
           </div>
         </section>
 
-        <section id="procedures" className="scroll-mt-8 space-y-6 pb-20">
+        <section id="procedures" className="scroll-mt-6 space-y-5 pb-14 sm:space-y-6 sm:pb-20">
           <h2 className="font-heading text-2xl font-medium tracking-tight sm:text-3xl">
             Les procédures
           </h2>
@@ -143,7 +156,7 @@ export default async function HomePage() {
           </p>
         </section>
 
-        <section className="grid gap-x-16 gap-y-8 border-t border-border-default py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+        <section className="grid gap-x-16 gap-y-8 border-t border-border-default py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
           <h2 className="font-heading text-2xl font-medium tracking-tight sm:text-3xl">
             Ce que contient chaque procédure
           </h2>
@@ -170,7 +183,7 @@ export default async function HomePage() {
           <div className="space-y-1 md:text-right">
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
-              className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+              className="inline-flex h-11 items-center text-accent-secondary underline underline-offset-4 hover:text-text-primary md:h-auto"
             >
               {SUPPORT_EMAIL}
             </a>

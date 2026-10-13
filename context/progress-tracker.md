@@ -107,6 +107,8 @@ change.
 
 - **Bouton « Obtenir une assistance » (2026-10-13)** : présent en haut de chaque procédure et sous chaque étape. Il ouvre une fenêtre proposant un e-mail et un message WhatsApp déjà rédigés (procédure et étape en cours). Coordonnées dans `lib/contact.ts` ; l'option WhatsApp ne s'affiche que si `SUPPORT_WHATSAPP` est renseigné.
 
+- **Téléphone d'abord (2026-10-13)** : passe sur l'accueil, la connexion, le catalogue et la vue procédure à 375 px. En-tête d'accueil réduit à « Se connecter » sur téléphone, boutons principaux en pleine largeur et hauts de 48 px, navigation précédente/suivante en deux colonnes, écran de connexion qui montre le formulaire sans défilement, couleur de barre du navigateur. Vérifié à l'écran à 375 px : aucun débordement horizontal. L'admin n'a pas été contrôlé à cette largeur. Mention « Une assistance personnalisée » ajoutée à la page d'accueil.
+
 ## In Progress
 
 - None.

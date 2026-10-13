@@ -22,7 +22,7 @@ interface ProcedureViewShellProps {
 }
 
 const tabTriggerClassName =
-  "h-10 flex-none rounded-none px-0 text-sm group-data-horizontal/tabs:after:bottom-[-1px] group-data-horizontal/tabs:after:bg-accent-primary";
+  "h-12 flex-none rounded-none px-0 text-sm group-data-horizontal/tabs:after:bottom-[-1px] group-data-horizontal/tabs:after:bg-accent-primary";
 
 export function ProcedureViewShell({
   procedure,
@@ -90,12 +90,12 @@ export function ProcedureViewShell({
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8 sm:py-12">
-        <header className="space-y-6">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-4 sm:px-8 sm:py-12">
+        <header className="space-y-5 sm:space-y-6">
           <nav aria-label="Fil d'Ariane" className="text-sm text-text-muted">
             <Link
               href="/editor"
-              className="underline underline-offset-4 hover:text-text-primary"
+              className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary sm:h-auto"
             >
               Procédures
             </Link>
@@ -105,17 +105,20 @@ export function ProcedureViewShell({
 
           <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
             <div className="max-w-3xl space-y-3">
-              <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+              <h1 className="font-heading text-2xl leading-tight font-medium tracking-tight sm:text-4xl">
                 {procedure.title}
               </h1>
               <p className="text-base leading-relaxed text-text-muted">
                 {procedure.description}
               </p>
             </div>
-            <AssistanceDialog procedureTitle={procedure.title} />
+            <AssistanceDialog
+              procedureTitle={procedure.title}
+              className="w-full sm:w-auto"
+            />
           </div>
 
-          <div className="max-w-sm space-y-2">
+          <div className="space-y-2 sm:max-w-sm">
             <div className="flex items-baseline justify-between gap-3 text-sm">
               <span>{procedure.country}</span>
               <span className="font-mono text-xs text-text-muted">
@@ -134,10 +137,10 @@ export function ProcedureViewShell({
           </div>
         </header>
 
-        <Tabs defaultValue="guide" className="mt-10 gap-8">
+        <Tabs defaultValue="guide" className="mt-6 gap-6 sm:mt-10 sm:gap-8">
           <TabsList
             variant="line"
-            className="h-auto w-full justify-start gap-8 rounded-none border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
+            className="h-auto w-full justify-start gap-6 rounded-none sm:gap-8 border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
           >
             <TabsTrigger value="guide" className={tabTriggerClassName}>
               Guide pas à pas
@@ -163,7 +166,7 @@ export function ProcedureViewShell({
               <Button
                 variant="outline"
                 onClick={() => setIsMobileDrawerOpen(true)}
-                className="h-10 w-full justify-between bg-transparent px-3 text-sm lg:hidden"
+                className="h-12 w-full justify-between bg-transparent px-4 text-sm lg:hidden"
               >
                 <span className="flex items-center gap-2">
                   <List aria-hidden />

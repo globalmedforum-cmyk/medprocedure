@@ -19,19 +19,19 @@ const procedures = [
 
 export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="grid min-h-screen w-full grid-cols-1 bg-bg-base lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]">
-      <aside className="flex flex-col justify-between gap-12 border-b border-border-default px-6 py-8 sm:px-12 lg:border-r lg:border-b-0 lg:px-16 lg:py-12">
+    <div className="grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] bg-bg-base lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:grid-rows-1">
+      <aside className="flex flex-col justify-between gap-5 border-b border-border-default px-4 py-5 sm:gap-12 sm:px-12 sm:py-8 lg:border-r lg:border-b-0 lg:px-16 lg:py-12">
         <Link href="/" aria-label="MedProcedure, accueil" className="self-start">
           <Logo />
         </Link>
 
         <div className="max-w-xl space-y-10">
           <div className="space-y-4">
-            <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight text-text-primary sm:text-4xl">
+            <h1 className="font-heading text-xl leading-snug font-medium tracking-tight text-text-primary sm:text-4xl sm:leading-tight">
               Les démarches pour exercer ou se former en Europe, étape par
               étape.
             </h1>
-            <p className="max-w-md text-base leading-relaxed text-text-muted">
+            <p className="hidden max-w-md text-base leading-relaxed text-text-muted sm:block">
               Pour chaque procédure : les pièces à réunir, l&apos;ordre dans
               lequel les obtenir et les délais à prévoir.
             </p>
@@ -52,12 +52,12 @@ export function AuthShell({ children }: AuthShellProps) {
           </ol>
         </div>
 
-        <p className="text-sm text-text-muted">
+        <p className="hidden text-sm text-text-muted sm:block">
           &copy; {new Date().getFullYear()} MedProcedure
         </p>
       </aside>
 
-      <main className="flex items-center justify-center px-6 py-12 sm:px-12">
+      <main className="flex items-start justify-center px-4 py-8 sm:items-center sm:px-12 sm:py-12">
         <div className="flex w-full max-w-[420px] justify-center">
           {children}
         </div>

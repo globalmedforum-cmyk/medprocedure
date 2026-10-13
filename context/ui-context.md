@@ -11,6 +11,7 @@ Principes :
 - Une information n'apparaît qu'une fois (l'avancement n'est pas répété dans trois blocs).
 - Texte courant en 16 px, jamais en dessous de 12 px. Titres en casse de phrase, à la française.
 - Les icônes accompagnent une action ; elles ne décorent pas les titres.
+- Téléphone d'abord : chaque écran est conçu pour 375 px de large, puis élargi avec les préfixes `sm:`, `md:` et `lg:`. Sur téléphone, les actions principales occupent toute la largeur et toute zone cliquable fait au moins 44 px de haut.
 
 ## Colors
 
