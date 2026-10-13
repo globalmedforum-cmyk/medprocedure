@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
+import { Logo } from "@/components/shared/logo";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -54,9 +55,7 @@ export default async function HomePage() {
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-border-default">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
-          <span className="font-heading text-lg font-medium tracking-tight">
-            MedProcedure
-          </span>
+          <Logo />
           <nav className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/sign-in"

@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { Logo } from "@/components/shared/logo";
 
 interface AuthShellProps {
   children: React.ReactNode;
@@ -19,9 +21,9 @@ export function AuthShell({ children }: AuthShellProps) {
   return (
     <div className="grid min-h-screen w-full grid-cols-1 bg-bg-base lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]">
       <aside className="flex flex-col justify-between gap-12 border-b border-border-default px-6 py-8 sm:px-12 lg:border-r lg:border-b-0 lg:px-16 lg:py-12">
-        <span className="font-heading text-lg font-medium tracking-tight text-text-primary">
-          MedProcedure
-        </span>
+        <Link href="/" aria-label="MedProcedure, accueil" className="self-start">
+          <Logo />
+        </Link>
 
         <div className="max-w-xl space-y-10">
           <div className="space-y-4">

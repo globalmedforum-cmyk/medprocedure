@@ -103,6 +103,8 @@ change.
   - « Stage FFI » ne décrit plus que le poste (statut, voie d'accès, arrivée, visa, prise de fonctions, validation des semestres). La candidature universitaire devient une huitième procédure, « DFMS et DFMSA » (`dfms-dfmsa`, 5 étapes).
   - Page d'accueil (non déployée) : mention des opportunités ajoutée à « Ce que contient chaque procédure », section « Opportunités ouvertes » retirée.
 
+- **Logo (2026-10-13)** : logo fourni par le propriétaire (`public/logo.png`) affiché via `components/shared/logo.tsx` dans l'en-tête du site, la page d'accueil et l'écran de connexion ; icônes d'onglet remplacées (`app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`).
+
 ## In Progress
 
 - None.
