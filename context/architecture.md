@@ -30,6 +30,7 @@
 - Chaque médecin est rattaché à son identifiant unique Clerk (`clerkId`).
 - Un utilisateur ne peut lire et modifier que ses propres enregistrements de progression.
 - Les données de procédures et d'opportunités sont en lecture seule pour les praticiens.
+- Les administrateurs sont les comptes dont l'e-mail principal vérifié figure dans `ADMIN_EMAILS`. Eux seuls accèdent à `/admin` et aux Server Actions de `actions/admin.ts`.
 
 ## Invariants
 

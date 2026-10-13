@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import {
+  getOpportunityCategoriesForProcedure,
+  startOfToday,
+} from "@/lib/opportunity-categories";
 import { ProcedureViewShell } from "@/components/procedures/procedure-view-shell";
 
 interface ProcedurePageProps {
@@ -70,20 +74,14 @@ export default async function ProcedureDetailPage({
     }
   }
 
-  // 3. Récupération des opportunités associées (par pays ou générales)
-  let opportunities = await prisma.opportunity.findMany({
+  // 3. Récupération des opportunités associées, par catégorie, hors dates passées
+  const opportunities = await prisma.opportunity.findMany({
     where: {
-      country: procedure.country,
+      category: { in: getOpportunityCategoriesForProcedure(procedure.slug) },
+      OR: [{ deadline: null }, { deadline: { gte: startOfToday() } }],
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ deadline: "asc" }, { createdAt: "desc" }],
   });
-
-  if (opportunities.length === 0) {
-    opportunities = await prisma.opportunity.findMany({
-      take: 4,
-      orderBy: { createdAt: "desc" },
-    });
-  }
 
   return (
     <ProcedureViewShell

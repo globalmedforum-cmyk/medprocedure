@@ -73,6 +73,20 @@ change.
 
 - **Thème noir (2026-10-13)** : à la demande, passage du thème clair à un fond noir avec texte blanc, accent orange pour les actions et l'étape active, liens en bleu (`--accent-secondary`). Seuls les jetons de `app/globals.css` et la classe `dark` changent ; `ui-context.md` mis à jour.
 
+- **Administration (2026-10-13)** :
+  - `/admin` réservé aux adresses listées dans la variable `ADMIN_EMAILS` (e-mail principal Clerk vérifié) ; sans cette variable, personne n'y accède. Les non-administrateurs reçoivent une 404. Contrôle répété dans chaque page et chaque Server Action (`lib/admin.ts`).
+  - Vue d'ensemble : compteurs, liste des procédures et des opportunités.
+  - `/admin/procedures/[id]` : modification de la présentation, modification, ajout et suppression d'étapes (numéro d'ordre unique par procédure, lien vidéo en https uniquement).
+  - `/admin/opportunities/new` et `/admin/opportunities/[id]` : ajout, modification, suppression.
+  - Server Actions dans `actions/admin.ts`, validées avec Zod (messages en français).
+  - Vérifié : `tsc`, `eslint`, `npm run build`, et la redirection d'un visiteur non connecté vers la connexion. Les écrans et les formulaires n'ont pas été vus ni testés en tant qu'administrateur connecté.
+
+- **Catégories d'opportunités (2026-10-13)** :
+  - Schéma : enum `OpportunityCategory` (`FFI`, `STAGE_ASSOCIE`, `MEDECIN_ASSISTANT`, `FELLOWSHIP`, `PHD`, `CONGRES`) et champ obligatoire `Opportunity.category`. Migration `20261013170000_opportunity_category`, qui classe les opportunités existantes d'après leur titre.
+  - Administration : opportunités réparties en trois groupes (postes hospitaliers, fellowship et PhD, congrès), chacun avec son bouton « Ajouter » ; catégorie choisie dans le formulaire.
+  - Onglet « Opportunités liées » : filtré par catégorie selon la procédure (`lib/opportunity-categories.ts`), à la place de la comparaison sur le pays qui ne fonctionnait pas. Le stage d'observation n'a aucune catégorie associée.
+  - Vérifié : `tsc`, `eslint`, `npm run build`. La migration n'est pas encore appliquée à la base.
+
 ## In Progress
 
 - None.
@@ -86,6 +100,7 @@ change.
 
 ## Open Questions
 
+- Le seed réécrit les procédures et supprime les étapes absentes de `prisma/seed.ts` : le relancer en production écraserait les modifications faites depuis `/admin`. Faut-il le bloquer hors développement ?
 - Synchronisation des utilisateurs Clerk : aujourd'hui à la première validation d'étape, avec e-mail de repli fictif. Passer à un webhook Clerk ?
 
 ## Architecture Decisions
