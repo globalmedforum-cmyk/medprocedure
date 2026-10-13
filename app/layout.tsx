@@ -2,27 +2,34 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 import { shadcn } from "@clerk/ui/themes";
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const plexSans = IBM_Plex_Sans({
+// Polices servies depuis app/fonts : le build ne télécharge rien chez Google
+const plexSans = localFont({
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
+  src: [
+    { path: "./fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400" },
+    { path: "./fonts/ibm-plex-sans-latin-500-normal.woff2", weight: "500" },
+    { path: "./fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600" },
+  ],
 });
 
-const plexMono = IBM_Plex_Mono({
+const plexMono = localFont({
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
+  src: [
+    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400" },
+    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500" },
+  ],
 });
 
-const newsreader = Newsreader({
+const newsreader = localFont({
   variable: "--font-serif",
-  subsets: ["latin"],
   display: "swap",
+  src: "./fonts/newsreader-latin-wght-normal.woff2",
+  weight: "200 800",
 });
 
 export const metadata: Metadata = {

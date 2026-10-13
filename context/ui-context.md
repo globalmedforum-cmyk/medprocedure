@@ -39,6 +39,8 @@ Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ce
 | Texte et UI     | IBM Plex Sans  | `--font-sans`  | `font-sans`    |
 | Numéros, délais | IBM Plex Mono  | `--font-mono`  | `font-mono`    |
 
+Les trois polices sont hébergées dans `app/fonts/` et chargées avec `next/font/local` : le build ne dépend d'aucun téléchargement externe.
+
 ## Border Radius
 
 `--radius` vaut `0.375rem`. Boutons, champs et vidéo utilisent `rounded-md`. Les listes et sections n'ont pas de coins arrondis : elles sont délimitées par des filets.

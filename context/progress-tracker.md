@@ -111,6 +111,8 @@ change.
 
 - **Bouton « Nous contacter » (2026-10-13)** : dans l'en-tête de la page d'accueil, pour les visiteurs sans compte. Il ouvre la même fenêtre e-mail / WhatsApp que l'assistance, désormais factorisée dans `components/shared/contact-dialog.tsx`. Sur téléphone, le nom du site est masqué dans cet en-tête pour laisser la place aux deux boutons.
 
+- **Polices hébergées localement (2026-10-13)** : après un déploiement Vercel échoué sur le téléchargement d'IBM Plex Sans chez Google Fonts, les trois polices sont passées de `next/font/google` à `next/font/local` (fichiers dans `app/fonts/`, licence OFL). Vérifié : build, et dans le navigateur les polices se chargent depuis le site sans aucune requête vers Google.
+
 ## In Progress
 
 - None.
