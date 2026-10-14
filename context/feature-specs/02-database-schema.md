@@ -1,6 +1,6 @@
 Read `AGENTS.md` before starting.
 
-We're setting up the database layer with Prisma ORM and Supabase PostgreSQL.
+We're setting up the database layer with Prisma ORM and PostgreSQL (hosted on Prisma Postgres; Supabase is not used).
 
 ### Scope
 

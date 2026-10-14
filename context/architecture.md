@@ -7,7 +7,7 @@
 | Framework | Next.js 15+ (App Router)    | Rendu serveur/client, routing et API Server Actions |
 | UI        | Tailwind CSS + shadcn/ui    | Système de design, composants accessibles et réactifs |
 | Auth      | Clerk                       | Gestion des sessions, inscriptions et sécurité     |
-| Database  | Supabase (PostgreSQL)       | Stockage des données relationnelles               |
+| Database  | Prisma Postgres (PostgreSQL) | Stockage des données relationnelles               |
 | ORM       | Prisma                      | Modélisation des types et requêtage typé           |
 
 ## System Boundaries
@@ -21,7 +21,7 @@
 
 ## Storage Model
 
-- **Database (PostgreSQL via Supabase)** : Profils utilisateurs (synchronisés depuis Clerk), définitions des procédures, étapes séquentielles, opportunités publiées, et enregistrements de progression (`UserProcedureProgress`).
+- **Database (PostgreSQL, hébergé par Prisma Postgres)** : Profils utilisateurs (synchronisés depuis Clerk), définitions des procédures, étapes séquentielles, opportunités publiées, et enregistrements de progression (`UserProcedureProgress`).
 - **Blob/File Storage** : Aucun stockage de fichiers requis pour cette phase.
 
 ## Auth and Access Model
