@@ -95,16 +95,18 @@ export default async function HomePage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
         <section className="grid gap-6 py-12 sm:py-20 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-14 lg:py-24">
           <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            Exercer ou se former à l&apos;étranger, une démarche à la fois.
+            Exercer ou se former à l&apos;étranger grâce à notre assistance
+            personnalisée.
           </h1>
           <div className="max-w-2xl space-y-3 lg:border-l lg:border-border-default lg:py-1 lg:pl-8">
             <p className="text-lg leading-snug sm:text-xl lg:text-2xl lg:leading-snug">
-              MedProcedure guide les médecins dans leurs démarches hors de leur
-              pays.
+              MedProcedure vous aide à avancer dans votre projet à
+              l&apos;étranger.
             </p>
             <p className="text-base leading-relaxed text-text-muted">
-              Reconnaissance du diplôme, postes hospitaliers, stages, doctorat
-              et congrès : pour chacune, les étapes, les pièces et les délais.
+              Reconnaissance de diplôme, postes hospitaliers, stages, doctorat,
+              congrès : comprenez les démarches, les documents à préparer et les
+              étapes à franchir, pays par pays.
             </p>
           </div>
           {/* Sur ordinateur, « Créer un compte » est déjà dans l'en-tête */}
@@ -119,12 +121,6 @@ export default async function HomePage() {
               Créer un compte
               <ArrowRight aria-hidden />
             </Link>
-            <a
-              href="#procedures"
-              className="flex h-11 items-center justify-center text-sm underline underline-offset-4 hover:text-accent-primary sm:justify-start"
-            >
-              Voir les {procedures.length} procédures
-            </a>
           </div>
         </section>
 
