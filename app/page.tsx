@@ -93,16 +93,20 @@ export default async function HomePage() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="grid gap-6 py-12 sm:py-20 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16 lg:py-24">
+        <section className="grid gap-6 py-12 sm:py-20 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-14 lg:py-24">
           <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
             Exercer ou se former à l&apos;étranger, une démarche à la fois.
           </h1>
-          <p className="max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg lg:pb-2">
-            MedProcedure guide les médecins dans leurs démarches hors de leur
-            pays : reconnaissance du diplôme, postes hospitaliers, stages,
-            doctorat et congrès. Pour chacune, les étapes, les pièces et les
-            délais.
-          </p>
+          <div className="max-w-2xl space-y-3 lg:border-l lg:border-border-default lg:py-1 lg:pl-8">
+            <p className="text-lg leading-snug sm:text-xl lg:text-2xl lg:leading-snug">
+              MedProcedure guide les médecins dans leurs démarches hors de leur
+              pays.
+            </p>
+            <p className="text-base leading-relaxed text-text-muted">
+              Reconnaissance du diplôme, postes hospitaliers, stages, doctorat
+              et congrès : pour chacune, les étapes, les pièces et les délais.
+            </p>
+          </div>
           {/* Sur ordinateur, « Créer un compte » est déjà dans l'en-tête */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 lg:hidden">
             <Link
