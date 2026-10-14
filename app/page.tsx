@@ -11,7 +11,7 @@ import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "MedProcedure — exercer ou se former en France et en Suisse",
+  title: "MedProcedure — exercer ou se former à l'étranger",
   description:
     "Doctorat, enregistrement MEBEKO, poste de médecin assistant, stage FFI, stage associé, stage d'observation, congrès : chaque démarche détaillée étape par étape, avec les pièces, les délais et les liens officiels.",
 };
@@ -74,7 +74,7 @@ export default async function HomePage() {
               href="/sign-in"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "h-11 bg-transparent px-4 text-sm sm:h-10"
+                "h-11 bg-transparent px-4 text-sm sm:h-10",
               )}
             >
               Se connecter
@@ -83,7 +83,7 @@ export default async function HomePage() {
               href="/sign-up"
               className={cn(
                 buttonVariants(),
-                "hidden h-10 px-4 text-sm sm:inline-flex"
+                "hidden h-10 px-4 text-sm sm:inline-flex",
               )}
             >
               Créer un compte
@@ -95,14 +95,13 @@ export default async function HomePage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
         <section className="grid gap-6 py-12 sm:py-20 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16 lg:py-24">
           <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            Exercer ou se former en France et en Suisse, une démarche à la
-            fois.
+            Exercer ou se former à l&apos;étranger, une démarche à la fois.
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg lg:pb-2">
-            MedProcedure guide les médecins diplômés à l&apos;étranger dans
-            leurs démarches : reconnaissance du diplôme, postes hospitaliers,
-            stages, doctorat et congrès. Pour chacune, les étapes, les pièces
-            et les délais.
+            MedProcedure guide les médecins dans leurs démarches hors de leur
+            pays : reconnaissance du diplôme, postes hospitaliers, stages,
+            doctorat et congrès. Pour chacune, les étapes, les pièces et les
+            délais.
           </p>
           {/* Sur ordinateur, « Créer un compte » est déjà dans l'en-tête */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 lg:hidden">
@@ -110,7 +109,7 @@ export default async function HomePage() {
               href="/sign-up"
               className={cn(
                 buttonVariants(),
-                "h-12 w-full gap-2 px-5 text-base sm:w-auto"
+                "h-12 w-full gap-2 px-5 text-base sm:w-auto",
               )}
             >
               Créer un compte
@@ -125,7 +124,10 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section id="procedures" className="scroll-mt-6 space-y-5 pb-14 sm:space-y-6 sm:pb-20">
+        <section
+          id="procedures"
+          className="scroll-mt-6 space-y-5 pb-14 sm:space-y-6 sm:pb-20"
+        >
           <h2 className="font-heading text-2xl font-medium tracking-tight sm:text-3xl">
             Les procédures
           </h2>
