@@ -30,7 +30,7 @@ export function StepFields({ step, defaultOrder }: StepFieldsProps) {
         label="En pratique"
         name="content"
         defaultValue={step?.content}
-        hint="Affiché sous la description. Une ligne qui commence par « - » devient un élément de liste."
+        hint="Affiché sous la description. « - » en début de ligne : point de liste (indenté de deux espaces : sous-puce). « ## Titre » : encadré complémentaire, « ### Titre » : carte dans cet encadré. Dans le texte : **gras**, *italique*, [libellé](https://lien)."
       />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field

@@ -146,6 +146,8 @@ change.
   - suppression d'une opportunité (icône) : erreur visible et indicateur de chargement ;
   - admin : l'état d'un dossier (non commencé, en cours, terminé) est calculé à partir des étapes cochées (`getDossierState` dans `lib/dossiers.ts`), comme sur le tableau de bord, au lieu du statut enregistré qui peut être périmé ; nouveau filtre « Non commencés ».
   - Non corrigé : l'avertissement React sur le script de thème, visible seulement en développement lors d'un rechargement à chaud.
+- **Doctorat (PhD) enrichi (2026-10-15, branche `experimentation-ui`, non déployé)** : 6 étapes réécrites dans `prisma/procedures-content.ts` (contenu fourni par l'utilisateur, liens vérifiés : 2 adresses mortes et 1 lien hors sujet remplacés). `StepContent` gère désormais **gras**, *italique*, liens externes, sous-puces et un encadré complémentaire (« ## » puis cartes « ### »), utilisé pour « Focus : dossier de candidature » à l'étape 2. Pas de changement de schéma.
+  - À faire au déploiement : fusionner dans main, attendre le déploiement Vercel, PUIS lancer `npm run db:seed`. L'inverse afficherait les ** et [ ]( ) bruts sur le site en ligne, car la base locale est la base de production.
 
 ## In Progress
 

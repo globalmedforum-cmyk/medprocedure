@@ -69,12 +69,7 @@ export function ProcedureStepPanel({
           {activeStep.description}
         </p>
 
-        {activeStep.content && (
-          <section className="max-w-prose space-y-3 rounded-xl bg-bg-base p-4 sm:p-5">
-            <h3 className="text-sm font-bold">En pratique</h3>
-            <StepContent content={activeStep.content} />
-          </section>
-        )}
+        {activeStep.content && <StepContent content={activeStep.content} />}
 
         {activeStep.videoUrl && (
           <div className="aspect-video w-full overflow-hidden rounded-xl border border-border-default">
