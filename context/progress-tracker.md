@@ -135,6 +135,7 @@ change.
 - **Détails de l'administration (2026-10-15, branche `experimentation-ui`)** : les trois cartes de chiffres de `/admin` sont cliquables. « Utilisateurs » mène à `/admin/utilisateurs` (liste des comptes, puis fiche `/admin/utilisateurs/[id]` avec inscription, acceptation des conditions et dossiers) ; « Procédures terminées » à `/admin/dossiers?statut=termines` (filtres Tous / En cours / Terminés) ; « Opportunités publiées » à la section des opportunités. Requêtes dans `lib/admin-queries.ts`, testées en lecture seule sur la base : mêmes totaux que les cartes. Pages en lecture seule, protégées par `requireAdmin`.
 - **Barre de navigation admin retirée (2026-10-15, branche `experimentation-ui`)** : les pastilles sous l'en-tête de l'administration sont supprimées à la demande de l'utilisateur. On circule par les cartes de chiffres, les liens « Retour » et le menu du profil.
 - **Liens de l'en-tête d'accueil retirés (2026-10-15, branche `experimentation-ui`)** : « Les procédures » et « Notre accompagnement » supprimés de l'en-tête de la page d'accueil.
+- **Illustration de l'accueil (2026-10-15, branche `experimentation-ui`)** : `components/shared/hero-illustration.tsx`, SVG décoratif (fiche médicale, dossier et stylo, avion, valise, trajets en pointillés) à droite du titre, à partir de 1024 px seulement. Couleurs tirées des jetons, donc correct en mode sombre. Vérifié à l'écran à 1280 px (clair et sombre) et masqué à 375 px.
 
 ## In Progress
 

@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
+import { HeroIllustration } from "@/components/shared/hero-illustration";
 import { Logo } from "@/components/shared/logo";
 import { ProcedureCard } from "@/components/shared/procedure-card";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -98,22 +99,26 @@ export default async function HomePage() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="space-y-8 py-14 sm:py-20 lg:py-28">
-          <h1 className="max-w-4xl font-heading text-[1.85rem] leading-[1.25] font-bold tracking-tight sm:text-4xl sm:leading-[1.2] lg:text-5xl lg:leading-[1.15]">
-            MedProcedure est une plateforme qui accompagne les médecins, en
-            activité ou en formation, dans leur projet d&apos;immigration à
-            l&apos;étranger.
-          </h1>
-          <Link
-            href="/sign-up"
-            className={cn(
-              buttonVariants(),
-              "h-12 w-full gap-2 rounded-xl px-6 text-base font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:w-auto",
-            )}
-          >
-            Créer un compte
-            <ArrowRight aria-hidden />
-          </Link>
+        <section className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:py-24 xl:grid-cols-[minmax(0,1fr)_23rem]">
+          <div className="space-y-8">
+            <h1 className="max-w-4xl font-heading text-[1.85rem] leading-[1.25] font-bold tracking-tight sm:text-4xl sm:leading-[1.2] lg:text-5xl lg:leading-[1.15]">
+              MedProcedure est une plateforme qui accompagne les médecins, en
+              activité ou en formation, dans leur projet d&apos;immigration à
+              l&apos;étranger.
+            </h1>
+            <Link
+              href="/sign-up"
+              className={cn(
+                buttonVariants(),
+                "h-12 w-full gap-2 rounded-xl px-6 text-base font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:w-auto",
+              )}
+            >
+              Créer un compte
+              <ArrowRight aria-hidden />
+            </Link>
+          </div>
+          {/* Réservée aux grands écrans : sur téléphone, le texte suffit */}
+          <HeroIllustration className="hidden lg:block" />
         </section>
 
         <section
