@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useState, useTransition } from "react";
-import { Trash2 } from "lucide-react";
+import { Check, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { AdminActionState } from "@/actions/admin";
 
@@ -13,8 +13,8 @@ interface DeleteFormProps {
   name: string;
   value: string;
   label: string;
-  // « button » : bouton compact à bordure rouge, pour les listes
-  variant?: "link" | "button";
+  // « button » : bouton compact à bordure rouge ; « icon » : icône seule
+  variant?: "link" | "button" | "icon";
 }
 
 export function DeleteForm({
@@ -33,6 +33,48 @@ export function DeleteForm({
     formData.set(name, value);
     startTransition(() => formAction(formData));
   };
+
+  if (variant === "icon") {
+    return isConfirming ? (
+      <span className="flex items-center gap-1">
+        <button
+          type="button"
+          disabled={isPending}
+          onClick={handleDelete}
+          aria-label="Confirmer la suppression"
+          title="Confirmer la suppression"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-state-error text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        >
+          <Check aria-hidden className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          disabled={isPending}
+          onClick={() => setIsConfirming(false)}
+          aria-label="Annuler la suppression"
+          title="Annuler"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border-default bg-bg-surface text-text-muted transition-colors hover:bg-bg-subtle"
+        >
+          <X aria-hidden className="h-4 w-4" />
+        </button>
+        {state && !state.success && (
+          <span role="alert" className="sr-only">
+            {state.error}
+          </span>
+        )}
+      </span>
+    ) : (
+      <button
+        type="button"
+        onClick={() => setIsConfirming(true)}
+        aria-label={label}
+        title={label}
+        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-state-error transition-colors hover:bg-state-error/10"
+      >
+        <Trash2 aria-hidden className="h-5 w-5" />
+      </button>
+    );
+  }
 
   if (!isConfirming && variant === "button") {
     return (
