@@ -116,22 +116,22 @@
 
 /* Mode sombre, activé par la classe `dark` sur <html> (bouton de l'en-tête) */
 .dark {
-    --bg-base: #0B1120;
-    --bg-surface: #111827;
-    --bg-subtle: #1E293B;
-    --text-primary: #F1F5F9;
-    --text-muted: #94A3B8;
+    --bg-base: #000000;
+    --bg-surface: #0A0A0A;
+    --bg-subtle: #171717;
+    --text-primary: #F5F5F5;
+    --text-muted: #A3A3A3;
     --accent-primary: #FF7A1A;
     --accent-hover: #FF9547;
     --accent-soft: #2A1708;
     --accent-secondary: #93C5FD;
-    --border-default: #334155;
+    --border-default: #262626;
     --state-error: #F87171;
     --state-success: #4ADE80;
     --state-warning: #FBBF24;
-    --primary-foreground: #0B1120;
-    --sidebar-primary-foreground: #0B1120;
-    --input: #334155;
+    --primary-foreground: #000000;
+    --sidebar-primary-foreground: #000000;
+    --input: #333333;
     color-scheme: dark;
 }
 

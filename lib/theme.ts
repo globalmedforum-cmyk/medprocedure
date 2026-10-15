@@ -3,7 +3,7 @@
 export const THEME_STORAGE_KEY = "medprocedure-theme";
 
 // Couleur de la barre du navigateur sur téléphone, selon le thème
-export const THEME_COLORS = { light: "#F9FAFB", dark: "#0B1120" } as const;
+export const THEME_COLORS = { light: "#F9FAFB", dark: "#000000" } as const;
 
 export function applyThemeColor(isDark: boolean) {
   document
