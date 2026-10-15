@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
-import { LayoutDashboard, ShieldCheck } from "lucide-react";
 import { Logo } from "./logo";
+import { ProfileMenu } from "./profile-menu";
 import { ThemeToggle } from "./theme-toggle";
 
 interface SiteHeaderProps {
@@ -36,25 +35,7 @@ export function SiteHeader({
             </span>
           )}
           <ThemeToggle />
-          <UserButton>
-            {showAdmin && (
-              <UserButton.MenuItems>
-                {isAdminMode ? (
-                  <UserButton.Link
-                    label="Passer en mode utilisateur"
-                    labelIcon={<LayoutDashboard className="h-4 w-4" />}
-                    href="/editor"
-                  />
-                ) : (
-                  <UserButton.Link
-                    label="Passer en mode administrateur"
-                    labelIcon={<ShieldCheck className="h-4 w-4" />}
-                    href="/admin"
-                  />
-                )}
-              </UserButton.MenuItems>
-            )}
-          </UserButton>
+          <ProfileMenu showAdmin={showAdmin} isAdminMode={isAdminMode} />
         </div>
       </div>
     </header>
