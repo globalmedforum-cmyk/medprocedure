@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ProcedureStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, Pencil, Plus } from "lucide-react";
+import { deleteOpportunity } from "@/actions/admin";
+import { DeleteForm } from "@/components/admin/delete-form";
 import { buttonVariants } from "@/components/ui/button";
 import { AdminPageHeader, AdminSection } from "@/components/admin/admin-ui";
 import { cn } from "@/lib/utils";
@@ -137,39 +139,54 @@ export default async function AdminPage() {
                   <ul className="space-y-2">
                     {items.map((opportunity) => (
                       <li key={opportunity.id}>
-                        <Link
-                          href={`/admin/opportunities/${opportunity.id}`}
-                          className="grid gap-x-6 gap-y-1 rounded-xl border border-border-default bg-bg-base p-4 transition-all hover:border-accent-primary/40 hover:bg-bg-surface hover:shadow-md sm:grid-cols-[8rem_minmax(0,1fr)_11rem] sm:items-center"
-                        >
-                          <span className="text-sm font-semibold text-accent-primary">
-                            {opportunityCategoryLabels[opportunity.category]}
-                            <span className="block font-mono text-xs font-normal text-text-muted">
-                              Réf. {getOpportunityReference(opportunity.id)}
-                            </span>
-                          </span>
-                          <span>
-                            <span className="block font-semibold">
-                              {opportunity.title}
-                            </span>
-                            <span className="block text-sm text-text-muted">
-                              {opportunity.hospital} · {opportunity.location},{" "}
-                              {opportunity.country}
-                            </span>
-                          </span>
-                          <span className="text-xs text-text-muted">
-                            {opportunity.deadline
-                              ? dateFormatter.format(opportunity.deadline)
-                              : "Sans date limite"}
-                            {isOpportunityExpired(
-                              opportunity.deadline,
-                              today,
-                            ) && (
-                              <span className="mt-1 block w-fit rounded-full bg-state-error/10 px-2 py-0.5 font-semibold text-state-error">
-                                Expirée, masquée du site
+                        <div className="rounded-xl border border-border-default bg-bg-base p-4 transition-all hover:bg-bg-surface hover:shadow-md">
+                          <div className="grid gap-x-6 gap-y-1 sm:grid-cols-[8rem_minmax(0,1fr)_11rem] sm:items-center">
+                            <span className="text-sm font-semibold text-accent-primary">
+                              {opportunityCategoryLabels[opportunity.category]}
+                              <span className="block font-mono text-xs font-normal text-text-muted">
+                                Réf. {getOpportunityReference(opportunity.id)}
                               </span>
-                            )}
-                          </span>
-                        </Link>
+                            </span>
+                            <span>
+                              <span className="block font-semibold">
+                                {opportunity.title}
+                              </span>
+                              <span className="block text-sm text-text-muted">
+                                {opportunity.hospital} · {opportunity.location},{" "}
+                                {opportunity.country}
+                              </span>
+                            </span>
+                            <span className="text-xs text-text-muted">
+                              {opportunity.deadline
+                                ? dateFormatter.format(opportunity.deadline)
+                                : "Sans date limite"}
+                              {isOpportunityExpired(
+                                opportunity.deadline,
+                                today,
+                              ) && (
+                                <span className="mt-1 block w-fit rounded-full bg-state-error/10 px-2 py-0.5 font-semibold text-state-error">
+                                  Expirée, masquée du site
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                          <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border-default pt-3">
+                            <Link
+                              href={`/admin/opportunities/${opportunity.id}`}
+                              className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-border-default bg-bg-surface px-3 text-sm font-semibold transition-colors hover:bg-bg-subtle"
+                            >
+                              <Pencil aria-hidden className="h-4 w-4" />
+                              Modifier
+                            </Link>
+                            <DeleteForm
+                              action={deleteOpportunity}
+                              name="opportunityId"
+                              value={opportunity.id}
+                              label="Supprimer"
+                              variant="button"
+                            />
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>
