@@ -1,4 +1,7 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChevronDown, ExternalLink } from "lucide-react";
+import { AdminPageHeader, AdminSection } from "@/components/admin/admin-ui";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin";
 import {
@@ -34,27 +37,38 @@ export default async function AdminProcedurePage({
   const nextOrder = (procedure.steps.at(-1)?.order ?? 0) + 1;
 
   return (
-    <div className="space-y-14">
-      <header className="space-y-2">
-        <p className="font-mono text-xs text-text-muted">
-          /procedures/{procedure.slug}
-        </p>
-        <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-          {procedure.title}
-        </h1>
-      </header>
+    <div className="space-y-6">
+      <AdminPageHeader
+        title={procedure.title}
+        eyebrow={`/procedures/${procedure.slug}`}
+        backHref="/admin"
+        actions={
+          <Link
+            href={`/procedures/${procedure.slug}`}
+            className="inline-flex h-11 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary sm:h-10"
+          >
+            Voir la page
+            <ExternalLink aria-hidden className="h-4 w-4" />
+          </Link>
+        }
+      />
 
-      <section className="space-y-5">
-        <h2 className="font-heading text-2xl font-bold tracking-tight">
-          Présentation
-        </h2>
+      <AdminSection
+        title="Présentation"
+        description="Titre, description, pays et catégorie affichés sur le site."
+      >
         <AdminForm
           action={updateProcedure}
           submitLabel="Enregistrer"
           className="max-w-2xl"
         >
           <input type="hidden" name="id" value={procedure.id} />
-          <Field label="Titre" name="title" required defaultValue={procedure.title} />
+          <Field
+            label="Titre"
+            name="title"
+            required
+            defaultValue={procedure.title}
+          />
           <TextAreaField
             label="Description"
             name="description"
@@ -76,61 +90,66 @@ export default async function AdminProcedurePage({
             />
           </div>
         </AdminForm>
-      </section>
+      </AdminSection>
 
-      <section className="space-y-5">
-        <h2 className="font-heading text-2xl font-bold tracking-tight">
-          Étapes
-        </h2>
-
-        <div className="border-t border-border-default">
+      <AdminSection
+        title="Étapes"
+        description="Cliquez sur une étape pour la modifier ou la supprimer."
+      >
+        <div className="space-y-2">
           {procedure.steps.map((step) => (
             <details
               key={step.id}
-              className="group border-b border-border-default"
+              className="group rounded-xl border border-border-default bg-bg-base transition-colors open:bg-bg-surface open:shadow-sm"
             >
-              <summary className="grid cursor-pointer grid-cols-[2rem_minmax(0,1fr)_auto] items-baseline gap-3 py-4 transition-colors hover:bg-bg-surface sm:px-3">
-                <span className="font-mono text-xs text-text-muted">
+              <summary className="grid cursor-pointer list-none grid-cols-[2.25rem_minmax(0,1fr)_auto] items-center gap-3 rounded-xl p-4 transition-colors hover:bg-bg-subtle [&::-webkit-details-marker]:hidden">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-soft font-mono text-xs font-semibold text-accent-primary">
                   {String(step.order).padStart(2, "0")}
                 </span>
-                <span className="font-medium">{step.title}</span>
-                <span className="text-sm text-text-muted group-open:hidden">
-                  Modifier
-                </span>
-                <span className="hidden text-sm text-text-muted group-open:inline">
-                  Fermer
-                </span>
+                <span className="font-semibold">{step.title}</span>
+                <ChevronDown
+                  aria-hidden
+                  className="h-4 w-4 text-text-muted transition-transform group-open:rotate-180"
+                />
               </summary>
 
-              <div className="max-w-2xl space-y-6 pt-2 pb-8 sm:px-3">
-                <AdminForm action={updateStep} submitLabel="Enregistrer l'étape">
-                  <input type="hidden" name="stepId" value={step.id} />
-                  <StepFields step={step} />
-                </AdminForm>
-                <DeleteForm
-                  action={deleteStep}
-                  name="stepId"
-                  value={step.id}
-                  label="Supprimer cette étape"
-                />
+              <div className="border-t border-border-default p-4 sm:p-6">
+                <div className="max-w-2xl space-y-6">
+                  <AdminForm
+                    action={updateStep}
+                    submitLabel="Enregistrer l'étape"
+                  >
+                    <input type="hidden" name="stepId" value={step.id} />
+                    <StepFields step={step} />
+                  </AdminForm>
+                  <DeleteForm
+                    action={deleteStep}
+                    name="stepId"
+                    value={step.id}
+                    label="Supprimer cette étape"
+                  />
+                </div>
               </div>
             </details>
           ))}
         </div>
+      </AdminSection>
 
-        <div className="max-w-2xl space-y-5 pt-6">
-          <h3 className="text-base font-medium">Ajouter une étape</h3>
-          <AdminForm
-            key={nextOrder}
-            action={createStep}
-            submitLabel="Ajouter l'étape"
-            resetOnSuccess
-          >
-            <input type="hidden" name="procedureId" value={procedure.id} />
-            <StepFields defaultOrder={nextOrder} />
-          </AdminForm>
-        </div>
-      </section>
+      <AdminSection
+        title="Ajouter une étape"
+        description="Elle s'insère selon son numéro d'ordre."
+      >
+        <AdminForm
+          key={nextOrder}
+          action={createStep}
+          submitLabel="Ajouter l'étape"
+          resetOnSuccess
+          className="max-w-2xl"
+        >
+          <input type="hidden" name="procedureId" value={procedure.id} />
+          <StepFields defaultOrder={nextOrder} />
+        </AdminForm>
+      </AdminSection>
     </div>
   );
 }

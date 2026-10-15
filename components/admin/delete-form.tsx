@@ -7,7 +7,7 @@ import type { AdminActionState } from "@/actions/admin";
 interface DeleteFormProps {
   action: (
     prev: AdminActionState,
-    formData: FormData
+    formData: FormData,
   ) => Promise<AdminActionState>;
   name: string;
   value: string;
@@ -30,7 +30,7 @@ export function DeleteForm({ action, name, value, label }: DeleteFormProps) {
       <button
         type="button"
         onClick={() => setIsConfirming(true)}
-        className="cursor-pointer text-sm text-state-error underline underline-offset-4 hover:text-text-primary"
+        className="flex h-11 cursor-pointer items-center text-sm font-medium text-state-error underline underline-offset-4 hover:opacity-80"
       >
         {label}
       </button>
@@ -44,7 +44,7 @@ export function DeleteForm({ action, name, value, label }: DeleteFormProps) {
         variant="destructive"
         disabled={isPending}
         onClick={handleDelete}
-        className="h-9 px-3 text-sm"
+        className="h-11 rounded-xl px-4 text-sm font-semibold"
       >
         {isPending ? "Suppression…" : "Confirmer la suppression"}
       </Button>

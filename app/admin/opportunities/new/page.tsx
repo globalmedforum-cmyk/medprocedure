@@ -1,4 +1,8 @@
 import { requireAdmin } from "@/lib/admin";
+import {
+  AdminPageHeader,
+  adminCardClassName,
+} from "@/components/admin/admin-ui";
 import { OpportunityForm } from "@/components/admin/opportunity-form";
 import { parseOpportunityCategory } from "@/lib/opportunity-categories";
 
@@ -13,11 +17,11 @@ export default async function AdminNewOpportunityPage({
   const { category } = await searchParams;
 
   return (
-    <div className="space-y-8">
-      <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-        Nouvelle opportunité
-      </h1>
-      <OpportunityForm defaultCategory={parseOpportunityCategory(category)} />
+    <div className="space-y-6">
+      <AdminPageHeader title="Nouvelle opportunité" backHref="/admin" />
+      <section className={adminCardClassName}>
+        <OpportunityForm defaultCategory={parseOpportunityCategory(category)} />
+      </section>
     </div>
   );
 }

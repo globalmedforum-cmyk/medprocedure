@@ -46,13 +46,18 @@ export function Field({
   className,
 }: FieldProps) {
   return (
-    <FieldShell label={label} required={required} hint={hint} className={className}>
+    <FieldShell
+      label={label}
+      required={required}
+      hint={hint}
+      className={className}
+    >
       <Input
         name={name}
         type={type}
         defaultValue={defaultValue ?? ""}
         required={required}
-        className="h-10 md:text-sm"
+        className="h-11 rounded-xl md:text-sm"
       />
     </FieldShell>
   );
@@ -67,12 +72,17 @@ export function TextAreaField({
   className,
 }: Omit<FieldProps, "type">) {
   return (
-    <FieldShell label={label} required={required} hint={hint} className={className}>
+    <FieldShell
+      label={label}
+      required={required}
+      hint={hint}
+      className={className}
+    >
       <Textarea
         name={name}
         defaultValue={defaultValue ?? ""}
         required={required}
-        className="min-h-24 leading-relaxed md:text-sm"
+        className="min-h-24 rounded-xl leading-relaxed md:text-sm"
       />
     </FieldShell>
   );

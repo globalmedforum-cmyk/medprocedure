@@ -32,7 +32,7 @@ export function OpportunityForm({
           name="category"
           required
           defaultValue={opportunity?.category ?? defaultCategory ?? ""}
-          className="h-10 w-full rounded-lg border border-input bg-input/30 px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="h-11 w-full rounded-xl border border-input bg-bg-surface px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
         >
           <option value="" disabled>
             Choisir une catégorie
@@ -48,11 +48,11 @@ export function OpportunityForm({
           ))}
         </select>
       </label>
-      <p className="border-l-2 border-accent-primary pl-4 text-sm leading-relaxed text-text-muted">
-        Visible par tous sur le site : la catégorie, le titre, la spécialité,
-        la ville, le pays et la date limite. L&apos;établissement, les
-        conditions et l&apos;e-mail de contact restent réservés à
-        l&apos;équipe, sauf pour les congrès, qui sont publiés en entier.
+      <p className="rounded-xl bg-accent-soft p-4 text-sm leading-relaxed text-text-primary">
+        Visible par tous sur le site : la catégorie, le titre, la spécialité, la
+        ville, le pays et la date limite. L&apos;établissement, les conditions
+        et l&apos;e-mail de contact restent réservés à l&apos;équipe, sauf pour
+        les congrès, qui sont publiés en entier.
       </p>
       <Field
         label="Titre"

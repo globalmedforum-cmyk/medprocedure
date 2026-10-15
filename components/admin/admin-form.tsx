@@ -7,7 +7,7 @@ import type { AdminActionState } from "@/actions/admin";
 
 type AdminAction = (
   prev: AdminActionState,
-  formData: FormData
+  formData: FormData,
 ) => Promise<AdminActionState>;
 
 interface AdminFormProps {
@@ -52,7 +52,11 @@ export function AdminForm({
       {children}
 
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" disabled={isPending} className="h-10 px-4 text-sm">
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="h-11 rounded-xl px-5 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
+        >
           {isPending ? "Enregistrement…" : submitLabel}
         </Button>
         {state?.success && (
