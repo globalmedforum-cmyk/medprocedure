@@ -44,30 +44,46 @@ export default async function AdminPage() {
     ]);
 
   const stats = [
-    { label: "Utilisateurs", value: userCount },
-    { label: "Procédures terminées", value: completedCount },
-    { label: "Opportunités publiées", value: opportunities.length },
+    { label: "Utilisateurs", value: userCount, href: "/admin/utilisateurs" },
+    {
+      label: "Procédures terminées",
+      value: completedCount,
+      href: "/admin/dossiers?statut=termines",
+    },
+    {
+      label: "Opportunités publiées",
+      value: opportunities.length,
+      href: "/admin#opportunites",
+    },
   ];
 
   return (
     <div className="space-y-6">
       <AdminPageHeader title="Administration" eyebrow="Mode administrateur" />
 
-      <dl className="grid grid-cols-3 gap-2 sm:gap-4">
+      <ul className="grid grid-cols-3 gap-2 sm:gap-4">
         {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-2xl border border-border-default bg-bg-surface p-3 shadow-sm sm:p-5"
-          >
-            <dd className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
-              {stat.value}
-            </dd>
-            <dt className="mt-1 text-xs leading-snug text-text-muted sm:text-sm">
-              {stat.label}
-            </dt>
-          </div>
+          <li key={stat.label}>
+            <Link
+              href={stat.href}
+              className="group flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-3 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent-primary/40 hover:shadow-md sm:p-5"
+            >
+              <span className="flex items-start justify-between gap-1">
+                <span className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
+                  {stat.value}
+                </span>
+                <ArrowRight
+                  aria-hidden
+                  className="mt-1 h-4 w-4 shrink-0 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent-primary"
+                />
+              </span>
+              <span className="mt-1 text-xs leading-snug text-text-muted sm:text-sm">
+                {stat.label}
+              </span>
+            </Link>
+          </li>
         ))}
-      </dl>
+      </ul>
 
       <AdminSection
         id="procedures"

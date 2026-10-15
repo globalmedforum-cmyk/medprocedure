@@ -132,6 +132,8 @@ change.
   - Actions `actions/dossiers.ts` (création, modification, suppression, limite de 40 dossiers par utilisateur) ; `toggleStepProgress` prend un `dossierId` et vérifie qu'il appartient à l'utilisateur.
   - Vérifié : `tsc`, `eslint`, `npm run build`, rendu du mode guide, du mode dossier et de la fenêtre de création sur une page d'aperçu temporaire. Non testé : le tableau de bord lui-même et l'enregistrement en base, qui demandent une connexion et la migration, pas encore appliquée.
 
+- **Détails de l'administration (2026-10-15, branche `experimentation-ui`)** : les trois cartes de chiffres de `/admin` sont cliquables. « Utilisateurs » mène à `/admin/utilisateurs` (liste des comptes, puis fiche `/admin/utilisateurs/[id]` avec inscription, acceptation des conditions et dossiers) ; « Procédures terminées » à `/admin/dossiers?statut=termines` (filtres Tous / En cours / Terminés) ; « Opportunités publiées » à la section des opportunités. Requêtes dans `lib/admin-queries.ts`, testées en lecture seule sur la base : mêmes totaux que les cartes. Pages en lecture seule, protégées par `requireAdmin`.
+
 ## In Progress
 
 - None.

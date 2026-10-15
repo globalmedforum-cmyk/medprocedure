@@ -12,6 +12,7 @@ interface AdminPageHeaderProps {
   title: string;
   eyebrow?: React.ReactNode;
   backHref?: string;
+  backLabel?: string;
   actions?: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export function AdminPageHeader({
   title,
   eyebrow,
   backHref,
+  backLabel = "Retour à l'administration",
   actions,
 }: AdminPageHeaderProps) {
   return (
@@ -32,7 +34,7 @@ export function AdminPageHeader({
           )}
         >
           <ArrowLeft aria-hidden />
-          Retour à l&apos;administration
+          {backLabel}
         </Link>
       )}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

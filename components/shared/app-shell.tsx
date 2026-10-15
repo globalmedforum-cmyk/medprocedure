@@ -11,6 +11,8 @@ interface AppShellProps {
 
 const adminNavigation = [
   { href: "/admin", label: "Vue d'ensemble" },
+  { href: "/admin/utilisateurs", label: "Utilisateurs" },
+  { href: "/admin/dossiers", label: "Dossiers" },
   { href: "/admin#procedures", label: "Procédures" },
   { href: "/admin#opportunites", label: "Opportunités" },
   { href: "/editor", label: "Voir le site" },
