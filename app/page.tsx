@@ -63,24 +63,6 @@ export default async function HomePage() {
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
           <Logo hideNameOnPhone />
 
-          <nav
-            aria-label="Navigation principale"
-            className="hidden items-center gap-1 text-sm font-medium md:flex"
-          >
-            <a
-              href="#procedures"
-              className="rounded-lg px-3 py-2 text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary"
-            >
-              Les procédures
-            </a>
-            <a
-              href="#contenu"
-              className="rounded-lg px-3 py-2 text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary"
-            >
-              Notre accompagnement
-            </a>
-          </nav>
-
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <ThemeToggle />
             <ContactDialog
