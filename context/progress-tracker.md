@@ -150,6 +150,7 @@ change.
   - À faire au déploiement : fusionner dans main, attendre le déploiement Vercel, PUIS lancer `npm run db:seed`. L'inverse afficherait les ** et [ ]( ) bruts sur le site en ligne, car la base locale est la base de production.
 - **MEBEKO enrichi (2026-10-15, branche `experimentation-ui`, non déployé)** : 6 étapes réécrites pour les diplômes hors UE/AELE (contenu fourni par l'utilisateur), focus « dossier de candidature » à l'étape 5. Liens vérifiés : lien OFSP mort et page emploi HUG remplacés, registre MedReg pointé vers la page OFSP, cvmaker.ch retiré (injoignable). Même ordre de déploiement que le PhD (code d'abord, seed ensuite).
 - **Stage d'observation enrichi (2026-10-15, branche `experimentation-ui`, non déployé)** : passe de 5 à 6 étapes (contenu fourni par l'utilisateur, couvre aussi le Royaume-Uni et l'Amérique du Nord), focus « dossier de candidature » à l'étape 2. Lien AMA mort remplacé. Le seed créera l'étape 6.
+- **Stage FFI enrichi (2026-10-15, branche `experimentation-ui`, non déployé)** : 6 étapes réécrites (contenu fourni par l'utilisateur), focus « dossier de candidature » à l'étape 2. Retirés car non vérifiés : la référence à l'arrêté du 16 mai 2011 et le montant de la taxe ANEF (75 €).
 
 ## In Progress
 
