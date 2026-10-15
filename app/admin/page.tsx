@@ -44,7 +44,7 @@ export default async function AdminPage() {
     ]);
 
   const stats = [
-    { label: "Utilisateurs ayant commencé une procédure", value: userCount },
+    { label: "Utilisateurs", value: userCount },
     { label: "Procédures terminées", value: completedCount },
     { label: "Opportunités publiées", value: opportunities.length },
   ];
@@ -53,16 +53,18 @@ export default async function AdminPage() {
     <div className="space-y-6">
       <AdminPageHeader title="Administration" eyebrow="Mode administrateur" />
 
-      <dl className="grid gap-4 sm:grid-cols-3">
+      <dl className="grid grid-cols-3 gap-2 sm:gap-4">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm"
+            className="rounded-2xl border border-border-default bg-bg-surface p-3 shadow-sm sm:p-5"
           >
-            <dd className="font-heading text-3xl font-bold tracking-tight">
+            <dd className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
               {stat.value}
             </dd>
-            <dt className="mt-1 text-sm text-text-muted">{stat.label}</dt>
+            <dt className="mt-1 text-xs leading-snug text-text-muted sm:text-sm">
+              {stat.label}
+            </dt>
           </div>
         ))}
       </dl>
