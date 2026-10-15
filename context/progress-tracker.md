@@ -136,6 +136,16 @@ change.
 - **Barre de navigation admin retirée (2026-10-15, branche `experimentation-ui`)** : les pastilles sous l'en-tête de l'administration sont supprimées à la demande de l'utilisateur. On circule par les cartes de chiffres, les liens « Retour » et le menu du profil.
 - **Liens de l'en-tête d'accueil retirés (2026-10-15, branche `experimentation-ui`)** : « Les procédures » et « Notre accompagnement » supprimés de l'en-tête de la page d'accueil.
 - **Illustration de l'accueil (2026-10-15, branche `experimentation-ui`)** : `components/shared/hero-illustration.tsx`, SVG décoratif (fiche médicale, dossier et stylo, avion, valise, trajets en pointillés) à droite du titre, à partir de 1024 px seulement. Couleurs tirées des jetons, donc correct en mode sombre. Vérifié à l'écran à 1280 px (clair et sombre) et masqué à 375 px.
+- **Corrections après la revue de test (2026-10-15, branche `experimentation-ui`)** :
+  - orange d'accent foncé à #BF4A00 (survol #9C3D00) pour un contraste AA du texte blanc et du texte orange ; bordures du mode sombre plus visibles (#334155) ;
+  - accueil : le bouton « Créer un compte » de l'en-tête n'apparaît qu'à partir de 768 px, le logo n'est plus chevauché entre 640 et 740 px ;
+  - pied de page avec le lien vers les conditions dans l'espace connecté (`AppShell`) ;
+  - bouton de thème sur la connexion, l'inscription et les conditions ; couleur de la barre du navigateur qui suit le thème (`lib/theme.ts`) ;
+  - fond de la fenêtre des conditions qui assombrit aussi en mode sombre ;
+  - « Ouvrir un dossier » au lieu de « Ouvrir un autre dossier » tant que l'utilisateur n'en a aucun ;
+  - suppression d'une opportunité (icône) : erreur visible et indicateur de chargement ;
+  - admin : l'état d'un dossier (non commencé, en cours, terminé) est calculé à partir des étapes cochées (`getDossierState` dans `lib/dossiers.ts`), comme sur le tableau de bord, au lieu du statut enregistré qui peut être périmé ; nouveau filtre « Non commencés ».
+  - Non corrigé : l'avertissement React sur le script de thème, visible seulement en développement lors d'un rechargement à chaud.
 
 ## In Progress
 

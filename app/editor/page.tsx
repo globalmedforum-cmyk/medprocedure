@@ -118,6 +118,7 @@ export default async function DashboardPage() {
           {procedureOptions.length > 0 && (
             <NewDossierDialog
               procedures={procedureOptions}
+              hasDossiers={dossiers.length > 0}
               className="w-full sm:w-auto"
             />
           )}

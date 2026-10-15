@@ -16,12 +16,14 @@ export const metadata: Metadata = {
 
 const filters: { value: DossierStatusFilter; label: string }[] = [
   { value: "tous", label: "Tous" },
+  { value: "non-commences", label: "Non commencés" },
   { value: "en-cours", label: "En cours" },
   { value: "termines", label: "Terminés" },
 ];
 
 const sectionTitles: Record<DossierStatusFilter, string> = {
   tous: "Tous les dossiers",
+  "non-commences": "Dossiers non commencés",
   "en-cours": "Dossiers en cours",
   termines: "Procédures terminées",
 };

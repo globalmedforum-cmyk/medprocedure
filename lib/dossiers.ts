@@ -41,3 +41,20 @@ export function formatDossierDate(date: Date | string) {
 export function toDateInputValue(date: Date | string | null | undefined) {
   return date ? new Date(date).toISOString().slice(0, 10) : "";
 }
+
+// État réel d'un dossier, calculé à partir des étapes cochées. Le statut
+// enregistré n'est recalculé que lorsque l'utilisateur coche une étape : il
+// peut être périmé après l'ajout ou le retrait d'une étape par l'admin.
+export function getDossierState({
+  done,
+  total,
+  status,
+}: {
+  done: number;
+  total: number;
+  status: ProcedureStatus;
+}): ProcedureStatus {
+  if (total > 0 && done === total) return "COMPLETED";
+  if (status !== "NOT_STARTED" || done > 0) return "IN_PROGRESS";
+  return "NOT_STARTED";
+}

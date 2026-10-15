@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Logo } from "@/components/shared/logo";
 import { AcceptTermsForm } from "@/components/terms/accept-terms-form";
 import { TermsText } from "@/components/terms/terms-text";
@@ -34,10 +35,11 @@ export default async function ConditionsPage({
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-border-default">
-        <div className="mx-auto flex h-14 w-full max-w-3xl items-center px-4 sm:px-8">
+        <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between gap-4 px-4 sm:px-8">
           <Link href="/" aria-label="MedProcedure, accueil">
             <Logo />
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 

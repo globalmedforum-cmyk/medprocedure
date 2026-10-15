@@ -19,12 +19,15 @@ import { DossierFields } from "./dossier-fields";
 
 interface NewDossierDialogProps {
   procedures: { slug: string; title: string; dossierCount: number }[];
+  // L'utilisateur a déjà au moins un dossier : « Ouvrir un autre dossier »
+  hasDossiers?: boolean;
   className?: string;
 }
 
 // Ouverture d'un dossier avec choix de la procédure, depuis le tableau de bord
 export function NewDossierDialog({
   procedures,
+  hasDossiers = false,
   className,
 }: NewDossierDialogProps) {
   const [state, formAction, isPending] = useActionState(createDossier, null);
@@ -45,7 +48,7 @@ export function NewDossierDialog({
         }
       >
         <Plus aria-hidden />
-        Ouvrir un autre dossier
+        {hasDossiers ? "Ouvrir un autre dossier" : "Ouvrir un dossier"}
       </DialogTrigger>
 
       <DialogContent

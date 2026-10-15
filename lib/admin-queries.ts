@@ -1,14 +1,29 @@
-import { ProcedureStatus, type Prisma } from "@prisma/client";
+import type { Prisma, ProcedureStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { getDossierLabel } from "@/lib/dossiers";
+import { getDossierLabel, getDossierState } from "@/lib/dossiers";
 
 // Requêtes de lecture de l'administration. Chaque page appelle requireAdmin()
 // avant de les utiliser.
 
-export type DossierStatusFilter = "tous" | "en-cours" | "termines";
+export type DossierStatusFilter =
+  | "tous"
+  | "non-commences"
+  | "en-cours"
+  | "termines";
+
+const filterStates: Record<
+  Exclude<DossierStatusFilter, "tous">,
+  ProcedureStatus
+> = {
+  "non-commences": "NOT_STARTED",
+  "en-cours": "IN_PROGRESS",
+  termines: "COMPLETED",
+};
 
 export function parseDossierStatusFilter(value: unknown): DossierStatusFilter {
-  return value === "en-cours" || value === "termines" ? value : "tous";
+  return typeof value === "string" && Object.hasOwn(filterStates, value)
+    ? (value as DossierStatusFilter)
+    : "tous";
 }
 
 const dossierInclude = {
@@ -33,6 +48,7 @@ export interface AdminDossier {
   procedureTitle: string;
   procedureCountry: string;
   user: { id: string; name: string | null; email: string };
+  // État calculé à partir des étapes cochées, comme sur le tableau de bord
   status: ProcedureStatus;
   done: number;
   total: number;
@@ -44,6 +60,9 @@ export interface AdminDossier {
 function toAdminDossier(row: DossierRow): AdminDossier {
   const completed = new Set(row.completedStepIds);
   const total = row.procedure.steps.length;
+  const done = row.procedure.steps.filter((step) =>
+    completed.has(step.id),
+  ).length;
 
   return {
     id: row.id,
@@ -51,8 +70,8 @@ function toAdminDossier(row: DossierRow): AdminDossier {
     procedureTitle: row.procedure.title,
     procedureCountry: row.procedure.country,
     user: row.user,
-    status: row.status,
-    done: row.procedure.steps.filter((step) => completed.has(step.id)).length,
+    status: getDossierState({ done, total, status: row.status }),
+    done,
     total,
     targetDate: row.targetDate,
     createdAt: row.createdAt,
@@ -60,39 +79,26 @@ function toAdminDossier(row: DossierRow): AdminDossier {
   };
 }
 
-function dossierWhere(
-  filter: DossierStatusFilter,
-): Prisma.UserProcedureProgressWhereInput {
-  if (filter === "termines") return { status: ProcedureStatus.COMPLETED };
-  if (filter === "en-cours")
-    return { status: { not: ProcedureStatus.COMPLETED } };
-  return {};
-}
-
 export async function getAdminDossiers(filter: DossierStatusFilter) {
-  const [rows, counts] = await Promise.all([
-    prisma.userProcedureProgress.findMany({
-      where: dossierWhere(filter),
-      include: dossierInclude,
-      orderBy: { updatedAt: "desc" },
-    }),
-    prisma.userProcedureProgress.groupBy({
-      by: ["status"],
-      _count: { _all: true },
-    }),
-  ]);
-
-  const completedCount =
-    counts.find((c) => c.status === ProcedureStatus.COMPLETED)?._count._all ??
-    0;
-  const totalCount = counts.reduce((sum, c) => sum + c._count._all, 0);
+  // L'état dépend des étapes cochées : on charge tout et on filtre ici
+  const rows = await prisma.userProcedureProgress.findMany({
+    include: dossierInclude,
+    orderBy: { updatedAt: "desc" },
+  });
+  const all = rows.map(toAdminDossier);
+  const countOf = (state: ProcedureStatus) =>
+    all.filter((dossier) => dossier.status === state).length;
 
   return {
-    dossiers: rows.map(toAdminDossier),
+    dossiers:
+      filter === "tous"
+        ? all
+        : all.filter((dossier) => dossier.status === filterStates[filter]),
     counts: {
-      tous: totalCount,
-      "en-cours": totalCount - completedCount,
-      termines: completedCount,
+      tous: all.length,
+      "non-commences": countOf("NOT_STARTED"),
+      "en-cours": countOf("IN_PROGRESS"),
+      termines: countOf("COMPLETED"),
     } satisfies Record<DossierStatusFilter, number>,
   };
 }
@@ -110,7 +116,7 @@ export interface AdminUserSummary {
 export async function getAdminUsers(): Promise<AdminUserSummary[]> {
   const users = await prisma.user.findMany({
     orderBy: { createdAt: "desc" },
-    include: { progress: { select: { status: true } } },
+    include: { progress: { include: dossierInclude } },
   });
 
   return users.map((user) => ({
@@ -120,9 +126,9 @@ export async function getAdminUsers(): Promise<AdminUserSummary[]> {
     createdAt: user.createdAt,
     termsAcceptedAt: user.termsAcceptedAt,
     dossierCount: user.progress.length,
-    completedCount: user.progress.filter(
-      (p) => p.status === ProcedureStatus.COMPLETED,
-    ).length,
+    completedCount: user.progress
+      .map(toAdminDossier)
+      .filter((dossier) => dossier.status === "COMPLETED").length,
   }));
 }
 

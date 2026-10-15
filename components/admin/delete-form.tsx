@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useState, useTransition } from "react";
-import { Check, Trash2, X } from "lucide-react";
+import { Check, Loader2, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { AdminActionState } from "@/actions/admin";
 
@@ -36,16 +36,22 @@ export function DeleteForm({
 
   if (variant === "icon") {
     return isConfirming ? (
-      <span className="flex items-center gap-1">
+      <span className="flex flex-wrap items-center justify-end gap-1">
         <button
           type="button"
           disabled={isPending}
           onClick={handleDelete}
-          aria-label="Confirmer la suppression"
+          aria-label={
+            isPending ? "Suppression en cours" : "Confirmer la suppression"
+          }
           title="Confirmer la suppression"
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-state-error text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-state-error text-bg-surface transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          <Check aria-hidden className="h-4 w-4" />
+          {isPending ? (
+            <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
+          ) : (
+            <Check aria-hidden className="h-4 w-4" />
+          )}
         </button>
         <button
           type="button"
@@ -58,7 +64,10 @@ export function DeleteForm({
           <X aria-hidden className="h-4 w-4" />
         </button>
         {state && !state.success && (
-          <span role="alert" className="sr-only">
+          <span
+            role="alert"
+            className="basis-full text-right text-xs font-medium text-state-error"
+          >
             {state.error}
           </span>
         )}

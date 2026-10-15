@@ -20,8 +20,8 @@ Principes :
 | Fond discret    | `--bg-subtle`        | `#F1F5F9` |
 | Primary text    | `--text-primary`     | `#0F172A` |
 | Muted text      | `--text-muted`       | `#475569` |
-| Primary accent  | `--accent-primary`   | `#F25C05` |
-| Accent hover    | `--accent-hover`     | `#D94F00` |
+| Primary accent  | `--accent-primary`   | `#BF4A00` (contraste AA avec le blanc) |
+| Accent hover    | `--accent-hover`     | `#9C3D00` |
 | Accent doux     | `--accent-soft`      | `#FFF1E8` |
 | Links           | `--accent-secondary` | `#1D4ED8` |
 | Border          | `--border-default`   | `#E2E8F0` |

@@ -88,7 +88,7 @@ export default async function HomePage() {
               href="/sign-up"
               className={cn(
                 buttonVariants(),
-                "hidden h-10 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:inline-flex",
+                "hidden h-10 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md md:inline-flex",
               )}
             >
               Créer un compte

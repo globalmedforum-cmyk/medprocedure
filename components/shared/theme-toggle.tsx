@@ -2,7 +2,7 @@
 
 import React, { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
-import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { applyThemeColor, THEME_STORAGE_KEY } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 // Le thème est porté par la classe `dark` de <html>, posée avant l'affichage
@@ -30,6 +30,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   const toggleTheme = () => {
     const nextIsDark = !isDarkTheme();
     document.documentElement.classList.toggle("dark", nextIsDark);
+    applyThemeColor(nextIsDark);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, nextIsDark ? "dark" : "light");
     } catch {

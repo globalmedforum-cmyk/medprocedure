@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ProcedureStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin";
+import { getAdminDossiers } from "@/lib/admin-queries";
 import { ArrowRight, Plus } from "lucide-react";
 import { AdminOpportunityCard } from "@/components/admin/admin-opportunity-card";
 import { buttonVariants } from "@/components/ui/button";
@@ -24,12 +25,10 @@ export default async function AdminPage() {
   await requireAdmin();
   const today = startOfToday();
 
-  const [userCount, completedCount, procedures, opportunities] =
+  const [userCount, dossierSummary, procedures, opportunities] =
     await Promise.all([
       prisma.user.count(),
-      prisma.userProcedureProgress.count({
-        where: { status: ProcedureStatus.COMPLETED },
-      }),
+      getAdminDossiers("tous"),
       prisma.procedure.findMany({
         orderBy: { createdAt: "asc" },
         include: {
@@ -47,7 +46,7 @@ export default async function AdminPage() {
     { label: "Utilisateurs", value: userCount, href: "/admin/utilisateurs" },
     {
       label: "Procédures terminées",
-      value: completedCount,
+      value: dossierSummary.counts.termines,
       href: "/admin/dossiers?statut=termines",
     },
     {

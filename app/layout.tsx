@@ -3,7 +3,7 @@ import { frFR } from "@clerk/localizations";
 import { shadcn } from "@clerk/ui/themes";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { THEME_COLORS, THEME_STORAGE_KEY } from "@/lib/theme";
 import "./globals.css";
 
 // Polices servies depuis app/fonts : le build ne télécharge rien chez Google
@@ -30,10 +30,11 @@ export const metadata: Metadata = {
 };
 
 // Applique le thème mémorisé avant le premier affichage, sans clignotement
-const themeScript = `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
+// (la couleur de la barre du navigateur est ajustée une fois l'en-tête lu)
+const themeScript = `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="dark"){document.documentElement.classList.add("dark");document.addEventListener("DOMContentLoaded",function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","${THEME_COLORS.dark}")})}}catch(e){}`;
 
 export const viewport: Viewport = {
-  themeColor: "#F9FAFB",
+  themeColor: THEME_COLORS.light,
   colorScheme: "light",
 };
 

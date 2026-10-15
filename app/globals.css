@@ -69,8 +69,8 @@
     --bg-subtle: #F1F5F9;
     --text-primary: #0F172A;
     --text-muted: #475569;
-    --accent-primary: #F25C05;
-    --accent-hover: #D94F00;
+    --accent-primary: #BF4A00;
+    --accent-hover: #9C3D00;
     --accent-soft: #FFF1E8;
     --accent-secondary: #1D4ED8;
     --border-default: #E2E8F0;
@@ -125,7 +125,7 @@
     --accent-hover: #FF9547;
     --accent-soft: #2A1708;
     --accent-secondary: #93C5FD;
-    --border-default: #1F2937;
+    --border-default: #334155;
     --state-error: #F87171;
     --state-success: #4ADE80;
     --state-warning: #FBBF24;
