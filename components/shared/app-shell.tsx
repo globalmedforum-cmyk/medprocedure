@@ -32,7 +32,7 @@ export function AppShell({ children, showAdmin = false }: AppShellProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader />
+      <SiteHeader showAdmin={showAdmin} />
 
       <div className="flex flex-1">
         <nav

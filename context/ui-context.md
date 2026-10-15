@@ -29,7 +29,9 @@ Principes :
 | Success         | `--state-success`    | `#16A34A` |
 | Warning         | `--state-warning`    | `#B45309` |
 
-Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ces variables dans `app/globals.css` ; Clerk les reprend via le thème `shadcn`. Il n'y a pas de thème sombre.
+Les jetons shadcn/ui (`--primary`, `--card`, `--border`…) sont dérivés de ces variables dans `app/globals.css` ; Clerk les reprend via le thème `shadcn`.
+
+Un mode sombre existe : la classe `dark` sur `<html>` redéfinit ces variables (bloc `.dark` de `app/globals.css`). Le bouton de l'en-tête (`ThemeToggle`) la bascule et mémorise le choix dans le navigateur ; un script de `app/layout.tsx` l'applique avant l'affichage. Le mode clair est celui par défaut.
 
 ## Typography
 

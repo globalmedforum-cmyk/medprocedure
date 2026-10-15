@@ -22,7 +22,7 @@ export function Logo({ className, hideNameOnPhone = false }: LogoProps) {
         priority
         // Logo blanc sur fond noir : inversé puis multiplié, il s'affiche en
         // noir sur le fond clair, sans carré autour
-        className="h-11 w-auto invert mix-blend-multiply"
+        className="h-11 w-auto invert mix-blend-multiply dark:invert-0 dark:mix-blend-screen"
       />
       <span className={cn(hideNameOnPhone && "hidden sm:inline")}>
         MedProcedure

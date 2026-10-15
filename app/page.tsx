@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { Logo } from "@/components/shared/logo";
 import { ProcedureCard } from "@/components/shared/procedure-card";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
@@ -81,6 +82,7 @@ export default async function HomePage() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <ThemeToggle />
             <ContactDialog
               trigger="Nous contacter"
               triggerVariant="ghost"

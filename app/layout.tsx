@@ -3,6 +3,7 @@ import { frFR } from "@clerk/localizations";
 import { shadcn } from "@clerk/ui/themes";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
 import "./globals.css";
 
 // Polices servies depuis app/fonts : le build ne télécharge rien chez Google
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
     "Les démarches des médecins qui viennent exercer ou se former en Europe, étape par étape.",
 };
 
+// Applique le thème mémorisé avant le premier affichage, sans clignotement
+const themeScript = `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
+
 export const viewport: Viewport = {
   themeColor: "#F9FAFB",
   colorScheme: "light",
@@ -37,8 +41,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
+      // La classe `dark` est posée par le script ci-dessous avant l'affichage
+      suppressHydrationWarning
       className={`${jakarta.variable} ${plexMono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary font-sans">
         <ClerkProvider
           localization={frFR}
@@ -51,7 +60,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             },
             elements: {
               cardBox: {
-                boxShadow: "0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.06)",
+                boxShadow:
+                  "0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.06)",
                 border: "1px solid var(--border-default)",
                 borderRadius: "1rem",
               },
