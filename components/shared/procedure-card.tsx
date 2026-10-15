@@ -1,6 +1,6 @@
 import React from "react";
-import { ProcedureIcon } from "./procedure-icon";
 import { cn } from "@/lib/utils";
+import { ProcedureIcon } from "./procedure-icon";
 
 interface ProcedureCardProps {
   index: number;
@@ -25,28 +25,31 @@ export function ProcedureCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-6",
-        className,
+        "flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-6",
+        className
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <span className="font-mono text-xs text-text-muted">
-          {String(index + 1).padStart(2, "0")}
-        </span>
+      {/* Sur téléphone, icône, numéro et titre tiennent sur une seule ligne */}
+      <div className="flex items-center gap-3">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-primary">
           <ProcedureIcon slug={slug} className="h-5 w-5" />
         </span>
+        <div className="min-w-0">
+          <span className="block font-mono text-[11px] text-text-muted">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3 className="font-heading text-base leading-snug font-bold tracking-tight sm:text-lg">
+            {title}
+          </h3>
+        </div>
       </div>
 
-      <h3 className="mt-3 font-heading text-lg leading-snug font-bold tracking-tight">
-        {title}
-      </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-text-muted">
+      <p className="mt-3 line-clamp-2 flex-1 text-sm leading-relaxed text-text-muted sm:line-clamp-none">
         {description}
       </p>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border-default pt-4">
-        <span className="text-xs font-medium text-text-muted">{meta}</span>
+      <div className="mt-4 space-y-3 border-t border-border-default pt-3 sm:mt-5 sm:pt-4">
+        <p className="text-xs font-medium text-text-muted">{meta}</p>
         {children}
       </div>
     </article>

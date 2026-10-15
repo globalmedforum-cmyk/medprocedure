@@ -153,7 +153,7 @@ export default async function HomePage() {
                 >
                   <Link
                     href={`/procedures/${procedure.slug}`}
-                    className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-bg-subtle px-3 text-sm font-semibold transition-colors hover:bg-accent-soft hover:text-accent-primary"
+                    className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-bg-subtle px-3 text-sm font-semibold transition-colors hover:bg-accent-soft hover:text-accent-primary sm:h-10"
                   >
                     Découvrir
                     <ArrowRight aria-hidden className="h-4 w-4" />

@@ -262,10 +262,10 @@ export default async function DashboardPage() {
                           : ""
                       }`}
                     >
-                      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+                      <div className="grid grid-cols-2 gap-2">
                         <Link
                           href={`/procedures/${procedure.slug}`}
-                          className="inline-flex h-11 items-center justify-center rounded-xl px-3 text-sm font-semibold text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary sm:h-10"
+                          className="inline-flex h-11 items-center justify-center rounded-xl bg-bg-subtle px-2 text-sm font-semibold transition-colors hover:bg-border-default sm:h-10"
                         >
                           Lire le guide
                         </Link>
@@ -274,7 +274,7 @@ export default async function DashboardPage() {
                           procedureTitle={procedure.title}
                           existingDossierCount={dossierCount}
                           triggerLabel="Ouvrir un dossier"
-                          className="w-full rounded-xl font-semibold hover:bg-accent-hover sm:w-auto"
+                          className="h-11 w-full gap-1.5 rounded-xl px-2 font-semibold hover:bg-accent-hover sm:h-10"
                         />
                       </div>
                     </ProcedureCard>
