@@ -44,7 +44,8 @@ export function StartDossierDialog({
           <Button
             variant={triggerVariant}
             className={cn(
-              "h-12 gap-2 px-4 text-sm sm:h-10",
+              "h-12 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:shadow-md sm:h-10",
+              triggerVariant === "default" && "hover:bg-accent-hover",
               triggerVariant === "outline" && "bg-transparent",
               className
             )}
@@ -57,7 +58,7 @@ export function StartDossierDialog({
 
       <DialogContent
         showCloseButton={false}
-        className="gap-5 rounded-md border border-border-default p-6 sm:max-w-md"
+        className="gap-5 rounded-2xl border border-border-default p-6 shadow-lg sm:max-w-md"
       >
         <DialogHeader>
           <DialogTitle className="font-heading text-xl">
@@ -88,7 +89,7 @@ export function StartDossierDialog({
             <Button
               type="submit"
               disabled={isPending}
-              className="h-12 w-full px-5 text-sm sm:h-10 sm:w-auto"
+              className="h-12 w-full rounded-xl px-5 text-sm font-semibold hover:bg-accent-hover sm:h-10 sm:w-auto"
             >
               {isPending ? "Création…" : "Créer le dossier"}
             </Button>

@@ -33,7 +33,7 @@ export function AcceptTermsForm({ next }: AcceptTermsFormProps) {
         <Button
           type="submit"
           disabled={isPending}
-          className="h-12 w-full px-5 text-base sm:w-auto"
+          className="h-12 w-full rounded-xl px-5 text-base font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:w-auto"
         >
           {isPending ? "Enregistrement…" : "Accepter et continuer"}
         </Button>

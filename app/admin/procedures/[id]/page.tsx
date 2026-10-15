@@ -39,13 +39,13 @@ export default async function AdminProcedurePage({
         <p className="font-mono text-xs text-text-muted">
           /procedures/{procedure.slug}
         </p>
-        <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
           {procedure.title}
         </h1>
       </header>
 
       <section className="space-y-5">
-        <h2 className="font-heading text-2xl font-medium tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight">
           Présentation
         </h2>
         <AdminForm
@@ -79,7 +79,7 @@ export default async function AdminProcedurePage({
       </section>
 
       <section className="space-y-5">
-        <h2 className="font-heading text-2xl font-medium tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight">
           Étapes
         </h2>
 

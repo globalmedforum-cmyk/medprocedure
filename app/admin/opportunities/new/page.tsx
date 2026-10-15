@@ -14,7 +14,7 @@ export default async function AdminNewOpportunityPage({
 
   return (
     <div className="space-y-8">
-      <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+      <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
         Nouvelle opportunité
       </h1>
       <OpportunityForm defaultCategory={parseOpportunityCategory(category)} />

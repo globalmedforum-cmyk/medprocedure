@@ -38,24 +38,24 @@ export function ProcedureOpportunities({
         </p>
       )}
 
-      <ul className="border-t border-border-default">
+      <ul className="space-y-4">
         {opportunities.map((opportunity) => {
           const reference = getOpportunityReference(opportunity.id);
 
           return (
             <li
               key={opportunity.id}
-              className="grid gap-x-10 gap-y-4 border-b border-border-default py-6 md:grid-cols-[minmax(0,1fr)_14rem] md:items-start"
+              className="grid gap-x-10 gap-y-4 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 md:grid-cols-[minmax(0,1fr)_14rem] md:items-start"
             >
               <div className="space-y-2">
-                <p className="text-sm text-accent-primary">
+                <p className="text-sm font-semibold text-accent-primary">
                   {opportunityCategoryLabels[opportunity.category]}
                   <span className="text-text-muted">
                     {" · "}
                     {opportunity.specialty}
                   </span>
                 </p>
-                <h3 className="font-heading text-xl leading-snug font-medium tracking-tight">
+                <h3 className="font-heading text-xl leading-snug font-bold tracking-tight">
                   {opportunity.title}
                 </h3>
                 <p className="text-sm">
@@ -95,7 +95,7 @@ export function ProcedureOpportunities({
                       href={`mailto:${opportunity.details.contactEmail}?subject=${encodeURIComponent(
                         opportunity.title,
                       )}`}
-                      className="inline-flex py-2 break-all text-accent-secondary underline underline-offset-4 hover:text-text-primary md:py-0.5"
+                      className="inline-flex py-2 font-medium break-all text-accent-secondary hover:underline md:py-0.5"
                     >
                       {opportunity.details.contactEmail}
                     </a>
@@ -110,7 +110,7 @@ export function ProcedureOpportunities({
                   <ContactDialog
                     trigger="Obtenir les détails de cette offre"
                     triggerVariant="default"
-                    triggerClassName="h-12 w-full px-4 text-sm sm:h-10 sm:w-auto"
+                    triggerClassName="h-12 w-full rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:h-10 sm:w-auto"
                     title="Obtenir les détails de cette offre"
                     description="L'accès au détail des offres est un service payant. Écrivez-nous : notre équipe vous indique les conditions, puis vous transmet l'établissement, le contact et la marche à suivre pour candidater."
                     emailSubject={`Détails de l'offre réf. ${reference}`}

@@ -19,7 +19,7 @@ export function DossierFields({
           name="label"
           defaultValue={defaultLabel}
           maxLength={DOSSIER_LABEL_MAX_LENGTH}
-          className="h-11 md:text-sm"
+          className="h-11 rounded-xl md:text-sm"
         />
         <span className="block text-xs text-text-muted">
           Il sert à distinguer plusieurs dossiers d&apos;une même procédure.
@@ -36,7 +36,7 @@ export function DossierFields({
           name="targetDate"
           type="date"
           defaultValue={defaultTargetDate}
-          className="h-11 md:text-sm"
+          className="h-11 rounded-xl md:text-sm"
         />
       </label>
     </>

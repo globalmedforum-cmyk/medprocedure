@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import { isAdmin } from "@/lib/admin";
 import { procedureHasOpportunities } from "@/lib/opportunity-categories";
 import { getProcedureOpportunities } from "@/lib/opportunity-queries";
 import { TermsWindow } from "@/components/terms/terms-window";
@@ -73,6 +74,7 @@ export default async function ProcedureDetailPage({
       existingDossiers={existingDossiers}
       opportunities={opportunities}
       showOpportunities={procedureHasOpportunities(procedure.slug)}
+      showAdmin={await isAdmin()}
     />
   );
 }

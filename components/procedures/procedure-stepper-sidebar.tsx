@@ -24,22 +24,22 @@ export function ProcedureStepperSidebar({
 
   return (
     <nav aria-label="Étapes de la procédure" className={className}>
-      <ol className="border-t border-border-default">
+      <ol className="space-y-1">
         {steps.map((step) => {
           const isCompleted = completedSet.has(step.id);
           const isActive = step.id === activeStepId;
 
           return (
-            <li key={step.id} className="border-b border-border-default">
+            <li key={step.id}>
               <button
                 type="button"
                 onClick={() => onSelectStep(step.id)}
                 aria-current={isActive ? "step" : undefined}
                 className={cn(
-                  "grid w-full cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)] gap-3 border-l-2 py-3 pr-2 pl-3 text-left transition-colors",
+                  "grid w-full cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)] gap-3 rounded-xl px-3 py-3 text-left transition-colors",
                   isActive
-                    ? "border-accent-primary bg-bg-surface"
-                    : "border-transparent hover:bg-bg-surface"
+                    ? "bg-accent-soft"
+                    : "hover:bg-bg-subtle"
                 )}
               >
                 <span className="flex h-5 items-center font-mono text-xs text-text-muted">
@@ -57,10 +57,11 @@ export function ProcedureStepperSidebar({
                   <span
                     className={cn(
                       "block text-sm leading-snug",
-                      isActive && "font-medium",
-                      isCompleted && !isActive
-                        ? "text-text-muted"
-                        : "text-text-primary"
+                      isActive
+                        ? "font-semibold text-accent-primary"
+                        : isCompleted
+                          ? "text-text-muted"
+                          : "text-text-primary"
                     )}
                   >
                     {step.title}

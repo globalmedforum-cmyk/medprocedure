@@ -1,4 +1,5 @@
 import React from "react";
+import { CheckCircle2 } from "lucide-react";
 
 interface StepContentProps {
   content: string;
@@ -33,15 +34,18 @@ function parseContent(content: string): Block[] {
 
 export function StepContent({ content }: StepContentProps) {
   return (
-    <div className="space-y-3 text-base leading-relaxed">
+    <div className="space-y-3 text-[0.95rem] leading-relaxed">
       {parseContent(content).map((block, index) =>
         block.type === "list" ? (
-          <ul
-            key={index}
-            className="list-disc space-y-2 pl-5 marker:text-accent-primary"
-          >
+          <ul key={index} className="space-y-2.5">
             {block.items.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-start gap-2.5">
+                <CheckCircle2
+                  aria-hidden
+                  className="mt-1 h-4 w-4 shrink-0 text-accent-primary"
+                />
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
         ) : (

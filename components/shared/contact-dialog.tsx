@@ -47,7 +47,7 @@ export function ContactDialog({
 
       <DialogContent
         showCloseButton={false}
-        className="gap-5 rounded-md border border-border-default p-6 sm:max-w-md"
+        className="gap-5 rounded-2xl border border-border-default p-6 shadow-lg sm:max-w-md"
       >
         <DialogHeader>
           <DialogTitle className="font-heading text-xl">{title}</DialogTitle>
@@ -64,7 +64,7 @@ export function ContactDialog({
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants(),
-                "h-12 justify-start gap-3 px-4 text-sm"
+                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-all hover:bg-accent-hover"
               )}
             >
               <MessageCircle aria-hidden />
@@ -75,7 +75,7 @@ export function ContactDialog({
             href={emailLink}
             className={cn(
               buttonVariants({ variant: whatsAppLink ? "outline" : "default" }),
-              "h-12 justify-start gap-3 px-4 text-sm",
+              "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold",
               whatsAppLink && "bg-transparent"
             )}
           >

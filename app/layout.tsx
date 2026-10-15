@@ -6,14 +6,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 // Polices servies depuis app/fonts : le build ne télécharge rien chez Google
-const plexSans = localFont({
+const jakarta = localFont({
   variable: "--font-sans",
   display: "swap",
-  src: [
-    { path: "./fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400" },
-    { path: "./fonts/ibm-plex-sans-latin-500-normal.woff2", weight: "500" },
-    { path: "./fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600" },
-  ],
+  src: "./fonts/plus-jakarta-sans-latin-wght-normal.woff2",
+  weight: "200 800",
 });
 
 const plexMono = localFont({
@@ -25,13 +22,6 @@ const plexMono = localFont({
   ],
 });
 
-const newsreader = localFont({
-  variable: "--font-serif",
-  display: "swap",
-  src: "./fonts/newsreader-latin-wght-normal.woff2",
-  weight: "200 800",
-});
-
 export const metadata: Metadata = {
   title: "MedProcedure",
   description:
@@ -39,15 +29,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#F9FAFB",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${plexSans.variable} ${plexMono.variable} ${newsreader.variable} dark h-full antialiased`}
+      className={`${jakarta.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary font-sans">
         <ClerkProvider
@@ -56,13 +46,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             theme: shadcn,
             variables: {
               colorInput: "var(--bg-surface)",
-              borderRadius: "0.375rem",
+              borderRadius: "0.75rem",
               fontFamily: "var(--font-sans), system-ui, sans-serif",
             },
             elements: {
               cardBox: {
-                boxShadow: "none",
+                boxShadow: "0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.06)",
                 border: "1px solid var(--border-default)",
+                borderRadius: "1rem",
+              },
+              formButtonPrimary: {
+                fontWeight: 600,
               },
             },
           }}

@@ -15,17 +15,17 @@ export function TermsWindow({ next }: TermsWindowProps) {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/80 sm:items-center sm:p-6">
+      <div className="fixed inset-0 z-40 flex items-end justify-center bg-text-primary/40 backdrop-blur-sm sm:items-center sm:p-6">
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="terms-window-title"
-          className="flex h-dvh w-full flex-col border-border-default bg-bg-surface sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-md sm:border"
+          className="flex h-dvh w-full flex-col border-border-default bg-bg-surface shadow-xl sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-2xl sm:border"
         >
           <header className="space-y-1.5 border-b border-border-default px-4 py-4 sm:px-6">
             <h2
               id="terms-window-title"
-              className="font-heading text-xl font-medium tracking-tight sm:text-2xl"
+              className="font-heading text-xl font-bold tracking-tight sm:text-2xl"
             >
               Conditions générales d&apos;utilisation
             </h2>

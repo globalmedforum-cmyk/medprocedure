@@ -42,7 +42,7 @@ export default async function ConditionsPage({
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-8 sm:py-14">
-        <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+        <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
           Conditions générales d&apos;utilisation
         </h1>
 

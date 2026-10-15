@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import { isAdmin } from "@/lib/admin";
 import { procedureHasOpportunities } from "@/lib/opportunity-categories";
 import { getProcedureOpportunities } from "@/lib/opportunity-queries";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
@@ -52,6 +53,7 @@ export default async function DossierPage({ params }: DossierPageProps) {
       initialCompletedStepIds={dossier.completedStepIds}
       opportunities={opportunities}
       showOpportunities={procedureHasOpportunities(procedure.slug)}
+      showAdmin={await isAdmin()}
       dossier={{
         id: dossier.id,
         label: dossier.label,

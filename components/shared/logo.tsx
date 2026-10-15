@@ -12,7 +12,7 @@ export function Logo({ className, hideNameOnPhone = false }: LogoProps) {
   return (
     <span
       className={cn(
-        "flex items-center gap-2.5 font-heading text-lg font-medium tracking-tight text-text-primary",
+        "flex items-center gap-2.5 font-heading text-lg font-bold tracking-tight text-text-primary",
         className
       )}
     >
@@ -20,7 +20,9 @@ export function Logo({ className, hideNameOnPhone = false }: LogoProps) {
         src={logo}
         alt={hideNameOnPhone ? "MedProcedure" : ""}
         priority
-        className="h-11 w-auto"
+        // Logo blanc sur fond noir : inversé puis multiplié, il s'affiche en
+        // noir sur le fond clair, sans carré autour
+        className="h-11 w-auto invert mix-blend-multiply"
       />
       <span className={cn(hideNameOnPhone && "hidden sm:inline")}>
         MedProcedure

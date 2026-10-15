@@ -6,7 +6,7 @@ import { ArrowLeft, List } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SiteHeader } from "@/components/shared/site-header";
+import { AppShell } from "@/components/shared/app-shell";
 import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
 import { ProcedureMobileDrawer } from "./procedure-mobile-drawer";
 import { ProcedureStepPanel } from "./procedure-step-panel";
@@ -34,6 +34,7 @@ interface ProcedureViewShellProps {
   showOpportunities: boolean;
   // Dossier suivi. Absent : la page est le guide en lecture, sans avancement.
   dossier?: DossierSummary | null;
+  showAdmin?: boolean;
   // Dossiers déjà ouverts par l'utilisateur pour cette procédure (mode guide)
   existingDossiers?: { id: string; label: string }[];
 }
@@ -48,6 +49,7 @@ export function ProcedureViewShell({
   showOpportunities,
   dossier = null,
   existingDossiers = [],
+  showAdmin = false,
 }: ProcedureViewShellProps) {
   // Détermination de l'étape active initiale : première étape non complétée, ou étape 1
   const firstIncomplete = procedure.steps.find(
@@ -109,25 +111,25 @@ export function ProcedureViewShell({
   };
 
   const guide = (
-    <div className="grid items-start gap-x-12 gap-y-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+    <div className="grid items-start gap-x-6 gap-y-4 lg:grid-cols-[18rem_minmax(0,1fr)]">
       <ProcedureStepperSidebar
         steps={procedure.steps}
         activeStepId={activeStepId}
         completedStepIds={completedStepIds}
         onSelectStep={handleSelectStep}
-        className="sticky top-6 hidden lg:block"
+        className="sticky top-24 hidden overflow-hidden rounded-2xl border border-border-default bg-bg-surface p-2 shadow-sm lg:block"
       />
 
       <Button
         variant="outline"
         onClick={() => setIsMobileDrawerOpen(true)}
-        className="h-12 w-full justify-between bg-transparent px-4 text-sm lg:hidden"
+        className="h-14 w-full justify-between rounded-2xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm lg:hidden"
       >
         <span className="flex items-center gap-2">
           <List aria-hidden />
           Toutes les étapes
         </span>
-        <span className="font-mono text-xs text-text-muted">
+        <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent-primary">
           {completedCount}/{totalSteps}
         </span>
       </Button>
@@ -162,11 +164,9 @@ export function ProcedureViewShell({
   );
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-4 sm:px-8 sm:py-12">
-        <header className="space-y-5 sm:space-y-6">
+    <AppShell showAdmin={showAdmin}>
+      <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-10">
+        <header className="space-y-5 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:space-y-6 sm:p-8">
           <nav
             aria-label="Fil d'Ariane"
             className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-muted"
@@ -175,7 +175,7 @@ export function ProcedureViewShell({
               href="/editor"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "h-11 gap-2 bg-transparent px-3 text-sm text-text-primary sm:h-9"
+                "h-11 gap-2 rounded-xl border-border-default bg-bg-surface px-3 text-sm font-semibold text-text-primary transition-all hover:shadow-sm sm:h-9"
               )}
             >
               <ArrowLeft aria-hidden />
@@ -190,7 +190,7 @@ export function ProcedureViewShell({
 
           <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
             <div className="max-w-3xl space-y-3">
-              <h1 className="font-heading text-2xl leading-tight font-medium tracking-tight sm:text-4xl">
+              <h1 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-4xl">
                 {dossier
                   ? getDossierLabel(dossier.label, procedure.title)
                   : procedure.title}
@@ -223,14 +223,14 @@ export function ProcedureViewShell({
           </div>
 
           {dossier ? (
-            <div className="space-y-2 sm:max-w-sm">
-              <div className="flex items-baseline justify-between gap-3 text-sm">
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-baseline justify-between gap-3 text-sm">
                 <span>
                   {dossier.targetDate
                     ? `Échéance : ${formatDossierDate(dossier.targetDate)}`
                     : procedure.country}
                 </span>
-                <span className="font-mono text-xs text-text-muted">
+                <span className="text-xs font-semibold text-text-muted">
                   {isComplete
                     ? "Dossier terminé"
                     : `${completedCount} sur ${totalSteps} étapes terminées`}
@@ -240,8 +240,11 @@ export function ProcedureViewShell({
                 value={completedCount}
                 max={totalSteps || 1}
                 aria-label="Avancement du dossier"
-                className="h-1 border-0"
-                indicatorClassName={isComplete ? "bg-state-success" : undefined}
+                className="h-2 rounded-full border-0 bg-bg-subtle"
+                indicatorClassName={cn(
+                  "rounded-full",
+                  isComplete && "bg-state-success"
+                )}
               />
             </div>
           ) : (
@@ -261,7 +264,7 @@ export function ProcedureViewShell({
                       {index > 0 && ", "}
                       <Link
                         href={`/dossiers/${existing.id}`}
-                        className="text-accent-secondary underline underline-offset-4 hover:text-text-primary"
+                        className="font-semibold text-accent-primary hover:underline"
                       >
                         {getDossierLabel(existing.label, procedure.title)}
                       </Link>
@@ -279,7 +282,7 @@ export function ProcedureViewShell({
         </header>
 
         {showOpportunities ? (
-          <Tabs defaultValue="guide" className="mt-6 gap-6 sm:mt-10 sm:gap-8">
+          <Tabs defaultValue="guide" className="mt-6 gap-5 sm:mt-8 sm:gap-6">
             <TabsList
               variant="line"
               className="h-auto w-full justify-start gap-6 rounded-none sm:gap-8 border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
@@ -305,9 +308,7 @@ export function ProcedureViewShell({
             </TabsContent>
           </Tabs>
         ) : (
-          <div className="mt-6 border-t border-border-default pt-6 sm:mt-10 sm:pt-8">
-            {guide}
-          </div>
+          <div className="mt-6 sm:mt-8">{guide}</div>
         )}
       </main>
 
@@ -320,6 +321,6 @@ export function ProcedureViewShell({
         completedStepIds={completedStepIds}
         onSelectStep={handleSelectStep}
       />
-    </div>
+    </AppShell>
   );
 }

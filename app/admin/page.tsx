@@ -51,7 +51,7 @@ export default async function AdminPage() {
   return (
     <div className="space-y-14">
       <header className="space-y-6">
-        <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
           Administration
         </h1>
         <dl className="grid gap-6 border-y border-border-default py-5 sm:grid-cols-3">
@@ -65,7 +65,7 @@ export default async function AdminPage() {
       </header>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-medium tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight">
           Procédures
         </h2>
         <ul className="border-t border-border-default">
@@ -89,7 +89,7 @@ export default async function AdminPage() {
       </section>
 
       <section className="space-y-8">
-        <h2 className="font-heading text-2xl font-medium tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight">
           Opportunités
         </h2>
 

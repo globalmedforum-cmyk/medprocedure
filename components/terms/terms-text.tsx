@@ -25,7 +25,7 @@ export function TermsText() {
 
         return (
           <section key={article.title} className="space-y-3">
-            <h3 className="font-heading text-lg font-medium tracking-tight">
+            <h3 className="font-heading text-lg font-bold tracking-tight">
               Article {articleNumber} – {article.title}
             </h3>
 
@@ -66,7 +66,7 @@ export function TermsText() {
       })}
 
       <section className="space-y-3">
-        <h3 className="font-heading text-lg font-medium tracking-tight">
+        <h3 className="font-heading text-lg font-bold tracking-tight">
           Article {contactArticleNumber} – Contact
         </h3>
         <p>

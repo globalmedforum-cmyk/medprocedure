@@ -8,7 +8,11 @@ import { formatDossierDate, getDossierLabel } from "@/lib/dossiers";
 import { startOfToday } from "@/lib/opportunity-categories";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 import { Progress } from "@/components/ui/progress";
-import { SiteHeader } from "@/components/shared/site-header";
+import { AppShell } from "@/components/shared/app-shell";
+import { ProcedureCard } from "@/components/shared/procedure-card";
+import { NewDossierDialog } from "@/components/dossiers/new-dossier-dialog";
+import { isAdmin } from "@/lib/admin";
+import { cn } from "@/lib/utils";
 import { StartDossierDialog } from "@/components/dossiers/start-dossier-dialog";
 import { TermsWindow } from "@/components/terms/terms-window";
 
@@ -54,7 +58,9 @@ export default async function DashboardPage() {
 
     const completed = new Set(row.completedStepIds);
     const total = procedure.steps.length;
-    const done = procedure.steps.filter((step) => completed.has(step.id)).length;
+    const done = procedure.steps.filter((step) =>
+      completed.has(step.id),
+    ).length;
     const isComplete = total > 0 && done === total;
 
     return [
@@ -80,7 +86,7 @@ export default async function DashboardPage() {
   for (const dossier of dossiers) {
     dossierCountByProcedure.set(
       dossier.procedure.id,
-      (dossierCountByProcedure.get(dossier.procedure.id) ?? 0) + 1
+      (dossierCountByProcedure.get(dossier.procedure.id) ?? 0) + 1,
     );
   }
 
@@ -89,66 +95,84 @@ export default async function DashboardPage() {
     { title: "Terminés", items: completedDossiers },
   ].filter((group) => group.items.length > 0);
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
+  const procedureOptions = procedures.map((procedure) => ({
+    slug: procedure.slug,
+    title: procedure.title,
+    dossierCount: dossierCountByProcedure.get(procedure.id) ?? 0,
+  }));
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8 sm:py-14">
-        <header className="max-w-2xl space-y-3">
-          <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-            Tableau de bord
-          </h1>
-          <p className="text-base leading-relaxed text-text-muted">
-            {dossiers.length === 0
-              ? "Ouvrez un dossier pour suivre une démarche étape par étape. Vous pouvez en ouvrir plusieurs pour une même procédure."
-              : `${pluralize(activeDossiers.length, "dossier en cours", "dossiers en cours")}, ${pluralize(completedDossiers.length, "terminé", "terminés")}.`}
-          </p>
+  return (
+    <AppShell showAdmin={await isAdmin()}>
+      <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-8 sm:py-12">
+        <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div className="space-y-2">
+            <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+              Tableau de bord
+            </h1>
+            <p className="text-base text-text-muted">
+              {dossiers.length === 0
+                ? "Ouvrez un dossier pour suivre une démarche étape par étape."
+                : `${pluralize(activeDossiers.length, "dossier en cours", "dossiers en cours")}, ${pluralize(completedDossiers.length, "terminé", "terminés")}.`}
+            </p>
+          </div>
+          {procedureOptions.length > 0 && (
+            <NewDossierDialog
+              procedures={procedureOptions}
+              className="w-full sm:w-auto"
+            />
+          )}
         </header>
 
-        <section className="mt-10 space-y-6" aria-labelledby="mes-dossiers">
-          <h2
+        <div className="mt-10 grid items-start gap-10 lg:grid-cols-2 lg:gap-8">
+          <section
             id="mes-dossiers"
-            className="font-heading text-2xl font-medium tracking-tight"
+            className="scroll-mt-24 space-y-5"
+            aria-labelledby="mes-dossiers-titre"
           >
-            Mes dossiers
-          </h2>
+            <h2
+              id="mes-dossiers-titre"
+              className="font-heading text-xl font-bold tracking-tight sm:text-2xl"
+            >
+              Mes dossiers
+            </h2>
 
-          {dossiers.length === 0 ? (
-            <p className="border-t border-border-default pt-5 text-sm leading-relaxed text-text-muted">
-              Vous n&apos;avez pas encore de dossier. Choisissez une procédure
-              ci-dessous et cliquez sur « Ouvrir un dossier ».
-            </p>
-          ) : (
-            dossierGroups.map((group) => (
-              <div key={group.title} className="space-y-2">
-                <h3 className="text-sm font-medium text-text-muted">
-                  {group.title}
-                  <span className="ml-2 font-mono text-xs">
-                    {group.items.length}
-                  </span>
-                </h3>
-                <ul className="border-t border-border-default">
-                  {group.items.map((dossier) => (
-                    <li
-                      key={dossier.id}
-                      className="border-b border-border-default"
-                    >
-                      <Link
-                        href={`/dossiers/${dossier.id}`}
-                        className="group grid gap-x-8 gap-y-3 py-5 transition-colors hover:bg-bg-surface sm:px-4 md:grid-cols-[minmax(0,1fr)_15rem_1.25rem] md:items-center"
-                      >
-                        <div className="space-y-1.5">
-                          <p className="text-sm text-text-muted">
-                            {dossier.procedure.title}
-                            {" · "}
-                            {dossier.procedure.country}
-                          </p>
-                          <p className="font-heading text-xl font-medium tracking-tight group-hover:text-accent-primary">
+            {dossiers.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-border-default bg-bg-surface p-6 text-sm leading-relaxed text-text-muted">
+                Vous n&apos;avez pas encore de dossier. Choisissez une procédure
+                et cliquez sur « Ouvrir un dossier ».
+              </div>
+            ) : (
+              dossierGroups.map((group) => (
+                <div key={group.title} className="space-y-3">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold">
+                    {group.title}
+                    <span className="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent-primary">
+                      {group.items.length}
+                    </span>
+                  </h3>
+                  <ul className="space-y-3">
+                    {group.items.map((dossier) => (
+                      <li key={dossier.id}>
+                        <Link
+                          href={`/dossiers/${dossier.id}`}
+                          className="group block rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <p className="text-xs font-medium text-text-muted">
+                              {dossier.procedure.title} ·{" "}
+                              {dossier.procedure.country}
+                            </p>
+                            <ArrowRight
+                              aria-hidden
+                              className="h-4 w-4 shrink-0 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent-primary"
+                            />
+                          </div>
+                          <p className="mt-1 font-heading text-lg font-bold tracking-tight">
                             {dossier.label}
                           </p>
-                          <p className="text-sm leading-relaxed">
+                          <p className="mt-1 text-sm leading-relaxed">
                             {dossier.isComplete ? (
-                              <span className="text-state-success">
+                              <span className="font-medium text-state-success">
                                 Toutes les étapes sont terminées.
                               </span>
                             ) : dossier.nextStep ? (
@@ -158,141 +182,115 @@ export default async function DashboardPage() {
                                     ? "Prochaine étape : "
                                     : "Première étape : "}
                                 </span>
-                                {dossier.nextStep.title}
+                                <span className="font-medium">
+                                  {dossier.nextStep.title}
+                                </span>
                               </>
                             ) : null}
                           </p>
-                        </div>
 
-                        <div className="space-y-2 text-sm">
                           <Progress
                             value={dossier.done}
                             max={dossier.total || 1}
                             aria-label={`Avancement : ${dossier.done} étapes sur ${dossier.total}`}
-                            className="h-1 border-0"
-                            indicatorClassName={
-                              dossier.isComplete ? "bg-state-success" : undefined
-                            }
+                            className="mt-4 h-2 rounded-full border-0 bg-bg-subtle"
+                            indicatorClassName={cn(
+                              "rounded-full",
+                              dossier.isComplete && "bg-state-success",
+                            )}
                           />
-                          <p className="font-mono text-xs text-text-muted">
-                            {dossier.done} sur {dossier.total} étapes
-                          </p>
-                          {dossier.targetDate && (
-                            <p
-                              className={
-                                dossier.isOverdue
-                                  ? "text-state-error"
-                                  : "text-text-muted"
-                              }
-                            >
-                              Échéance : {formatDossierDate(dossier.targetDate)}
-                              {dossier.isOverdue && " (dépassée)"}
-                            </p>
-                          )}
-                        </div>
+                          <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+                            <span className="font-medium text-text-muted">
+                              {dossier.done} sur {dossier.total} étapes
+                            </span>
+                            {dossier.targetDate && (
+                              <span
+                                className={
+                                  dossier.isOverdue
+                                    ? "font-medium text-state-error"
+                                    : "text-text-muted"
+                                }
+                              >
+                                Échéance :{" "}
+                                {formatDossierDate(dossier.targetDate)}
+                                {dossier.isOverdue && " (dépassée)"}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            )}
+          </section>
 
-                        <ArrowRight
-                          aria-hidden
-                          className="hidden h-4 w-4 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent-primary md:block"
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          )}
-        </section>
-
-        <section className="mt-14 space-y-6" aria-labelledby="procedures">
-          <div className="max-w-2xl space-y-2">
-            <h2
-              id="procedures"
-              className="font-heading text-2xl font-medium tracking-tight"
-            >
-              Procédures
-            </h2>
-            <p className="text-sm leading-relaxed text-text-muted">
-              Lisez un guide librement, ou ouvrez un dossier pour suivre votre
-              avancement.
-            </p>
-          </div>
-
-          <ol className="border-t border-border-default">
-            {procedures.map((procedure, index) => {
-              const dossierCount =
-                dossierCountByProcedure.get(procedure.id) ?? 0;
-
-              return (
-                <li
-                  key={procedure.id}
-                  className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-4 border-b border-border-default py-6 sm:px-4 lg:grid-cols-[2.5rem_minmax(0,1fr)_auto] lg:items-center lg:gap-x-8"
-                >
-                  <span className="pt-1.5 font-mono text-sm text-text-muted lg:pt-0">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <div className="space-y-1.5">
-                    <h3 className="font-heading text-xl font-medium tracking-tight">
-                      {procedure.title}
-                    </h3>
-                    <p className="max-w-xl text-sm leading-relaxed text-text-muted">
-                      {procedure.description}
-                    </p>
-                    <p className="text-sm">
-                      {procedure.country}
-                      <span className="font-mono text-xs text-text-muted">
-                        {" · "}
-                        {procedure.steps.length} étapes
-                        {dossierCount > 0 &&
-                          ` · ${pluralize(dossierCount, "dossier ouvert", "dossiers ouverts")}`}
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="col-start-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 lg:col-start-3">
-                    <StartDossierDialog
-                      procedureSlug={procedure.slug}
-                      procedureTitle={procedure.title}
-                      existingDossierCount={dossierCount}
-                      triggerLabel={
-                        dossierCount > 0
-                          ? "Ouvrir un autre dossier"
-                          : "Ouvrir un dossier"
-                      }
-                      triggerVariant={dossierCount > 0 ? "outline" : "default"}
-                      className="w-full sm:w-auto"
-                    />
-                    <Link
-                      href={`/procedures/${procedure.slug}`}
-                      className="flex h-11 items-center justify-center text-sm underline underline-offset-4 hover:text-accent-primary sm:h-10"
-                    >
-                      Lire le guide
-                    </Link>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-
-          {procedures.length === 0 && (
-            <p className="text-sm text-text-muted">
-              Aucune procédure n&apos;est disponible pour le moment.
-            </p>
-          )}
-        </section>
-      </main>
-
-      <footer className="border-t border-border-default">
-        <div className="mx-auto w-full max-w-6xl px-4 py-4 text-sm text-text-muted sm:px-8">
-          <Link
-            href="/conditions"
-            className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary"
+          <section
+            id="procedures"
+            className="scroll-mt-24 space-y-5"
+            aria-labelledby="procedures-titre"
           >
-            Conditions générales d&apos;utilisation
-          </Link>
+            <div className="space-y-1.5">
+              <h2
+                id="procedures-titre"
+                className="font-heading text-xl font-bold tracking-tight sm:text-2xl"
+              >
+                Procédures
+              </h2>
+              <p className="text-sm leading-relaxed text-text-muted">
+                Lisez un guide librement, ou ouvrez un dossier pour suivre votre
+                avancement.
+              </p>
+            </div>
+
+            <ol className="space-y-3">
+              {procedures.map((procedure, index) => {
+                const dossierCount =
+                  dossierCountByProcedure.get(procedure.id) ?? 0;
+
+                return (
+                  <li key={procedure.id}>
+                    <ProcedureCard
+                      index={index}
+                      slug={procedure.slug}
+                      title={procedure.title}
+                      description={procedure.description}
+                      meta={`${procedure.country} · ${procedure.steps.length} étapes${
+                        dossierCount > 0
+                          ? ` · ${pluralize(dossierCount, "dossier ouvert", "dossiers ouverts")}`
+                          : ""
+                      }`}
+                    >
+                      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+                        <Link
+                          href={`/procedures/${procedure.slug}`}
+                          className="inline-flex h-11 items-center justify-center rounded-xl px-3 text-sm font-semibold text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary sm:h-10"
+                        >
+                          Lire le guide
+                        </Link>
+                        <StartDossierDialog
+                          procedureSlug={procedure.slug}
+                          procedureTitle={procedure.title}
+                          existingDossierCount={dossierCount}
+                          triggerLabel="Ouvrir un dossier"
+                          className="w-full rounded-xl font-semibold hover:bg-accent-hover sm:w-auto"
+                        />
+                      </div>
+                    </ProcedureCard>
+                  </li>
+                );
+              })}
+            </ol>
+
+            {procedures.length === 0 && (
+              <p className="text-sm text-text-muted">
+                Aucune procédure n&apos;est disponible pour le moment.
+              </p>
+            )}
+          </section>
         </div>
-      </footer>
-    </div>
+      </main>
+    </AppShell>
   );
 }

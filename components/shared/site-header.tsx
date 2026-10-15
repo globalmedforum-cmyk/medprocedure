@@ -4,9 +4,9 @@ import { Logo } from "./logo";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-border-default bg-bg-base">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
-        <Link href="/editor" aria-label="MedProcedure, mes procédures">
+    <header className="sticky top-0 z-30 border-b border-border-default bg-bg-surface/90 backdrop-blur">
+      <div className="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6">
+        <Link href="/editor" aria-label="MedProcedure, tableau de bord">
           <Logo />
         </Link>
 

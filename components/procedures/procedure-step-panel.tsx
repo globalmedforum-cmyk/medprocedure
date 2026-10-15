@@ -1,7 +1,13 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  ExternalLink,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProcedureResources } from "@/lib/procedure-resources";
 import { AssistanceDialog } from "./assistance-dialog";
@@ -37,33 +43,41 @@ export function ProcedureStepPanel({
   const resources = getProcedureResources(procedure.slug);
 
   return (
-    <div className="min-w-0 space-y-10 sm:space-y-12">
-      <article className="space-y-6">
+    <div className="min-w-0 space-y-5">
+      <article className="space-y-6 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:p-8">
         <header className="space-y-2">
-          <p className="font-mono text-xs text-text-muted">
+          <p className="text-xs font-semibold tracking-wide text-accent-primary uppercase">
             Étape {activeStep.order} sur {totalSteps}
-            {activeStep.estimatedDuration &&
-              ` · ${activeStep.estimatedDuration}`}
-            {!activeStep.isRequired && " · facultative"}
+            {activeStep.estimatedDuration && (
+              <span className="font-medium text-text-muted normal-case">
+                {" · "}
+                {activeStep.estimatedDuration}
+              </span>
+            )}
+            {!activeStep.isRequired && (
+              <span className="font-medium text-text-muted normal-case">
+                {" · facultative"}
+              </span>
+            )}
           </p>
-          <h2 className="font-heading text-2xl leading-tight font-medium tracking-tight sm:text-3xl">
+          <h2 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
             {activeStep.title}
           </h2>
         </header>
 
-        <p className="max-w-prose text-base leading-relaxed">
+        <p className="max-w-prose text-base leading-relaxed text-text-muted">
           {activeStep.description}
         </p>
 
         {activeStep.content && (
-          <section className="max-w-prose space-y-3 border-l-2 border-accent-primary pl-4">
-            <h3 className="text-sm font-medium text-text-muted">En pratique</h3>
+          <section className="max-w-prose space-y-3 rounded-xl bg-bg-base p-4 sm:p-5">
+            <h3 className="text-sm font-bold">En pratique</h3>
             <StepContent content={activeStep.content} />
           </section>
         )}
 
         {activeStep.videoUrl && (
-          <div className="aspect-video w-full overflow-hidden rounded-md border border-border-default">
+          <div className="aspect-video w-full overflow-hidden rounded-xl border border-border-default">
             <iframe
               src={activeStep.videoUrl}
               title={activeStep.title}
@@ -74,92 +88,94 @@ export function ProcedureStepPanel({
           </div>
         )}
 
-        <div className="space-y-3 border-t border-border-default pt-6">
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            {startDossier ? (
-              startDossier
-            ) : isCompleted ? (
-              <div className="flex h-12 items-center gap-3 text-sm sm:h-10">
-                <span className="flex items-center gap-1.5 font-medium text-state-success">
-                  <Check className="h-4 w-4 stroke-[2.5]" aria-hidden />
-                  Étape terminée
-                </span>
-                <button
-                  type="button"
-                  disabled={isPending}
-                  onClick={() => onToggleStep(activeStep.id)}
-                  className="flex h-11 cursor-pointer items-center px-1 text-text-muted underline underline-offset-4 hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  Annuler
-                </button>
-              </div>
-            ) : (
-              <Button
+        <div className="space-y-4 border-t border-border-default pt-6">
+          {startDossier ? (
+            <div className="flex flex-col gap-3 rounded-xl bg-accent-soft p-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm leading-relaxed">
+                Ouvrez un dossier pour enregistrer votre avancement.
+              </p>
+              {startDossier}
+            </div>
+          ) : isCompleted ? (
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-state-success/30 bg-state-success/5 px-4 py-3">
+              <span className="flex items-center gap-2 text-sm font-semibold text-state-success">
+                <CheckCircle2 className="h-5 w-5" aria-hidden />
+                Étape terminée
+              </span>
+              <button
+                type="button"
                 disabled={isPending}
                 onClick={() => onToggleStep(activeStep.id)}
-                className="h-12 w-full gap-2 px-4 text-base sm:h-10 sm:w-auto sm:text-sm"
+                className="flex h-11 cursor-pointer items-center px-1 text-sm text-text-muted underline underline-offset-4 hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50 sm:h-auto"
               >
-                <Check aria-hidden />
-                Marquer comme terminée
-              </Button>
-            )}
-
-            <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
-              <Button
-                variant="outline"
-                disabled={!prevStep}
-                onClick={() => prevStep && onSelectStep(prevStep.id)}
-                className="h-12 gap-2 bg-transparent px-3 text-sm sm:h-10"
-              >
-                <ArrowLeft aria-hidden />
-                Précédente
-              </Button>
-              <Button
-                variant={isCompleted ? "default" : "outline"}
-                disabled={!nextStep}
-                onClick={() => nextStep && onSelectStep(nextStep.id)}
-                className={
-                  isCompleted
-                    ? "h-12 gap-2 px-3 text-sm sm:h-10"
-                    : "h-12 gap-2 bg-transparent px-3 text-sm sm:h-10"
-                }
-              >
-                Suivante
-                <ArrowRight aria-hidden />
-              </Button>
+                Annuler
+              </button>
             </div>
-          </div>
+          ) : (
+            <Button
+              variant="outline"
+              disabled={isPending}
+              onClick={() => onToggleStep(activeStep.id)}
+              className="h-12 w-full gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-all hover:border-state-success hover:text-state-success hover:shadow-md sm:w-auto"
+            >
+              <Check aria-hidden className="text-state-success" />
+              Marquer comme terminée
+            </Button>
+          )}
 
           {error && (
             <p role="alert" className="text-sm text-state-error">
               {error}
             </p>
           )}
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant="secondary"
+              disabled={!prevStep}
+              onClick={() => prevStep && onSelectStep(prevStep.id)}
+              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold transition-all hover:bg-border-default"
+            >
+              <ArrowLeft aria-hidden />
+              Précédente
+            </Button>
+            <Button
+              disabled={!nextStep}
+              onClick={() => nextStep && onSelectStep(nextStep.id)}
+              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
+            >
+              Suivante
+              <ArrowRight aria-hidden />
+            </Button>
+          </div>
         </div>
       </article>
 
-      <section className="space-y-4 border-t border-border-default pt-8">
-        <h3 className="text-sm font-medium">Liens utiles</h3>
-        <ul className="grid gap-x-10 gap-y-1 text-sm md:grid-cols-2 md:gap-y-2">
+      <section className="space-y-4 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:p-8">
+        <h3 className="font-heading text-lg font-bold">Liens utiles</h3>
+        <ul className="grid gap-x-8 gap-y-1 text-sm md:grid-cols-2">
           {resources.map((resource) => (
             <li key={resource.href}>
               <a
                 href={resource.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-baseline gap-1.5 py-2.5 text-accent-secondary underline underline-offset-4 hover:text-text-primary md:py-0.5"
+                className="group inline-flex items-start gap-2 rounded-lg py-2 font-medium text-text-primary transition-colors hover:text-accent-secondary"
               >
-                {resource.label}
                 <ExternalLink
-                  className="h-3.5 w-3.5 shrink-0 translate-y-0.5"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-text-muted group-hover:text-accent-secondary"
                   aria-hidden
                 />
+                <span className="underline-offset-4 group-hover:underline">
+                  {resource.label}
+                </span>
               </a>
             </li>
           ))}
         </ul>
-        <div className="flex flex-col gap-x-4 gap-y-2 pt-2 sm:flex-row sm:items-center">
-          <p className="text-sm text-text-muted">
+
+        <div className="flex flex-col gap-3 rounded-xl bg-bg-base p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm font-medium">
             Besoin d&apos;aide pour cette étape ?
           </p>
           <AssistanceDialog
