@@ -253,7 +253,7 @@ export function ProcedureViewShell({
         {/* Table des matières, sur ordinateur */}
         {isTocOpen && (
           <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
-            <div className="flex items-center justify-between border-b border-border-default px-5 py-4">
+            <div className="flex items-center justify-between border-b border-border-default py-4 pr-4 pl-6">
               <h2 className="font-heading text-base font-bold">
                 Table des matières
               </h2>
@@ -272,13 +272,13 @@ export function ProcedureViewShell({
               activeStepId={activeStepId}
               completedStepIds={completedStepIds}
               onSelectStep={handleSelectStep}
-              className="flex-1 overflow-y-auto p-2"
+              className="flex-1 overflow-y-auto py-2 pr-2 pl-3"
             />
           </aside>
         )}
 
-        <main className="min-w-0 flex-1 px-4 py-6 sm:px-8 sm:py-10 lg:px-12">
-          <div className="mx-auto max-w-3xl space-y-6">
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:pl-12">
+          <div className="max-w-6xl space-y-6">
             {showOpportunities ? (
               <Tabs defaultValue="guide" className="gap-6">
                 <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border-default">
@@ -303,7 +303,9 @@ export function ProcedureViewShell({
 
                 <TabsContent value="guide" className="space-y-6">
                   {tocButton}
-                  {stepsPanel}
+                  <div key={activeStepId} className="animate-enter">
+                    {stepsPanel}
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="opportunities">
@@ -313,7 +315,9 @@ export function ProcedureViewShell({
             ) : (
               <>
                 {tocButton}
-                {stepsPanel}
+                <div key={activeStepId} className="animate-enter">
+                  {stepsPanel}
+                </div>
               </>
             )}
           </div>

@@ -65,7 +65,7 @@ export function ProcedureStepPanel({
           </h2>
         </header>
 
-        <p className="max-w-prose text-base leading-relaxed text-text-muted">
+        <p className="max-w-3xl text-base leading-relaxed text-text-muted sm:text-lg">
           {activeStep.description}
         </p>
 

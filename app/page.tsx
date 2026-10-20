@@ -60,7 +60,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-30 border-b border-border-default bg-bg-surface/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-border-default/70 bg-bg-surface/80 backdrop-blur-xl backdrop-saturate-150">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
           <Logo hideNameOnPhone />
 
@@ -98,7 +98,7 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
+      <main className="mx-auto w-full max-w-6xl flex-1 animate-enter px-4 sm:px-8">
         <section className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:py-24 xl:grid-cols-[minmax(0,1fr)_23rem]">
           <div className="space-y-8">
             <h1 className="max-w-4xl font-heading text-[1.85rem] leading-[1.25] font-bold tracking-tight sm:text-4xl sm:leading-[1.2] lg:text-5xl lg:leading-[1.15]">

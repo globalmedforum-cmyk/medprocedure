@@ -15,7 +15,7 @@ export function SiteHeader({
   isAdminMode = false,
 }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 border-b border-border-default bg-bg-surface/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border-default/70 bg-bg-surface/80 backdrop-blur-xl backdrop-saturate-150">
       <div className="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href={isAdminMode ? "/admin" : "/editor"}

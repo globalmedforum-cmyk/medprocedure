@@ -23,7 +23,7 @@ export function AppShell({
         isAdminMode={isAdminMode}
       />
 
-      <div className="min-w-0 flex-1">{children}</div>
+      <div className="min-w-0 flex-1 animate-enter">{children}</div>
 
       <footer className="border-t border-border-default">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-5 text-xs text-text-muted sm:px-8">

@@ -5,6 +5,26 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Ombres douces en plusieurs couches, pour un rendu plus soigné */
+@theme {
+    --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.04);
+    --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 2px 6px rgb(15 23 42 / 0.04);
+    --shadow-md: 0 2px 4px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.08);
+    --shadow-lg: 0 4px 8px rgb(15 23 42 / 0.05), 0 16px 40px rgb(15 23 42 / 0.1);
+    --animate-enter: enter 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+    @keyframes enter {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --font-mono: var(--font-mono);
@@ -144,6 +164,27 @@
     }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--text-primary);
+    }
+  h1, h2, h3 {
+    text-wrap: balance;
+    }
+  p {
+    text-wrap: pretty;
+    }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+      }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      }
     }
   :focus-visible {
     outline: 2px solid var(--accent-primary);

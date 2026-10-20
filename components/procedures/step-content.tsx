@@ -162,14 +162,14 @@ export function StepContent({ content }: StepContentProps) {
   return (
     <>
       {blocks.length > 0 && (
-        <section className="max-w-prose space-y-3 rounded-xl bg-bg-base p-4 sm:p-5">
+        <section className="space-y-3 rounded-2xl border border-border-default/60 bg-bg-base p-4 sm:p-6">
           <h3 className="text-sm font-bold">En pratique</h3>
           <ContentBlocks blocks={blocks} />
         </section>
       )}
 
       {focus && (
-        <section className="max-w-prose space-y-4 rounded-xl border border-accent-primary/20 bg-accent-soft/50 p-3 sm:p-5">
+        <section className="space-y-4 rounded-2xl border border-accent-primary/20 bg-accent-soft/50 p-3 sm:p-6">
           <h3 className="text-sm font-bold">{focus.title}</h3>
           {focus.intro.length > 0 && <ContentBlocks blocks={focus.intro} />}
           {focus.cards.length > 0 && (
