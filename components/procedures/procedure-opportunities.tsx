@@ -1,4 +1,5 @@
 import React from "react";
+import { ArrowRight, CalendarDays, Check, Lock, MapPin } from "lucide-react";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import {
   getOpportunityReference,
@@ -16,6 +17,24 @@ const deadlineFormatter = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric",
   timeZone: "Europe/Paris",
 });
+
+// Ce que débloque la demande de détails d'une offre réservée
+const lockedDetails = [
+  "Nom de l'établissement et du service",
+  "Contact direct du recruteur",
+  "Marche à suivre pour candidater",
+];
+
+const roundButtonClassName =
+  "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-accent-hover hover:shadow-md";
+
+function CheckMark() {
+  return (
+    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-primary text-primary-foreground">
+      <Check aria-hidden className="h-3.5 w-3.5 stroke-[3]" />
+    </span>
+  );
+}
 
 export function ProcedureOpportunities({
   opportunities,
@@ -38,86 +57,128 @@ export function ProcedureOpportunities({
         </p>
       )}
 
-      <ul className="space-y-4">
+      <ul className="grid gap-4 xl:grid-cols-2">
         {opportunities.map((opportunity) => {
           const reference = getOpportunityReference(opportunity.id);
+          const { details } = opportunity;
+          const mailto = details?.contactEmail
+            ? `mailto:${details.contactEmail}?subject=${encodeURIComponent(opportunity.title)}`
+            : null;
 
           return (
             <li
               key={opportunity.id}
-              className="grid gap-x-10 gap-y-4 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 md:grid-cols-[minmax(0,1fr)_14rem] md:items-start"
+              className="flex flex-col gap-5 rounded-2xl border border-border-default bg-accent-soft/40 p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6"
             >
-              <div className="space-y-2">
-                <p className="text-sm font-semibold text-accent-primary">
-                  {opportunityCategoryLabels[opportunity.category]}
+              <span className="w-fit rounded-lg bg-accent-primary px-3 py-1 text-sm font-semibold text-primary-foreground">
+                {opportunityCategoryLabels[opportunity.category]}
+              </span>
+
+              <h3 className="font-heading text-xl leading-snug font-bold tracking-tight sm:text-2xl">
+                {opportunity.title}
+              </h3>
+
+              <div className="grid gap-4 border-l-4 border-accent-primary pl-4 sm:grid-cols-2">
+                <div className="flex items-start gap-3">
+                  <CalendarDays
+                    aria-hidden
+                    className="mt-0.5 h-7 w-7 shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-semibold">
+                      {opportunity.deadline
+                        ? deadlineFormatter.format(
+                            new Date(opportunity.deadline),
+                          )
+                        : "Sans date limite"}
+                    </p>
+                    <p className="text-sm text-text-muted">
+                      {opportunity.deadline
+                        ? "Date limite"
+                        : "Candidature ouverte"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MapPin aria-hidden className="mt-0.5 h-7 w-7 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-semibold">
+                      {details?.hospital ?? "Établissement sur demande"}
+                    </p>
+                    <p className="text-sm text-text-muted">
+                      {opportunity.location}, {opportunity.country}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <ul className="space-y-2.5 rounded-xl bg-bg-surface p-4 text-[0.95rem] leading-snug">
+                {details ? (
+                  <>
+                    {details.requirements.map((requirement) => (
+                      <li key={requirement} className="flex items-start gap-3">
+                        <CheckMark />
+                        {requirement}
+                      </li>
+                    ))}
+                    {mailto && (
+                      <li className="flex items-start gap-3">
+                        <CheckMark />
+                        <a
+                          href={mailto}
+                          className="font-medium break-all text-accent-primary hover:underline"
+                        >
+                          {details.contactEmail}
+                        </a>
+                      </li>
+                    )}
+                  </>
+                ) : (
+                  lockedDetails.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-text-muted"
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bg-subtle">
+                        <Lock aria-hidden className="h-3.5 w-3.5" />
+                      </span>
+                      {item}
+                    </li>
+                  ))
+                )}
+              </ul>
+
+              <div className="mt-auto flex items-center justify-between gap-4">
+                <p className="min-w-0 text-sm font-semibold text-accent-primary">
+                  {opportunity.specialty}
                   <span className="text-text-muted">
-                    {" · "}
-                    {opportunity.specialty}
+                    {" | "}Réf. {reference}
                   </span>
                 </p>
-                <h3 className="font-heading text-xl leading-snug font-bold tracking-tight">
-                  {opportunity.title}
-                </h3>
-                <p className="text-sm">
-                  {opportunity.details && (
-                    <>
-                      {opportunity.details.hospital}
-                      <span className="text-text-muted">{" · "}</span>
-                    </>
-                  )}
-                  {opportunity.location}, {opportunity.country}
-                </p>
-              </div>
-
-              <div className="space-y-1 text-sm">
-                <p className="text-text-muted">Date limite</p>
-                <p className="font-mono">
-                  {opportunity.deadline
-                    ? deadlineFormatter.format(new Date(opportunity.deadline))
-                    : "Non précisée"}
-                </p>
-                <p className="pt-1 font-mono text-xs text-text-muted">
-                  Réf. {reference}
-                </p>
-              </div>
-
-              {opportunity.details ? (
-                <div className="space-y-3 text-sm md:col-span-2">
-                  {opportunity.details.requirements.length > 0 && (
-                    <ul className="list-disc space-y-1 pl-5 leading-relaxed text-text-muted marker:text-accent-primary">
-                      {opportunity.details.requirements.map((requirement) => (
-                        <li key={requirement}>{requirement}</li>
-                      ))}
-                    </ul>
-                  )}
-                  {opportunity.details.contactEmail && (
+                {details ? (
+                  mailto && (
                     <a
-                      href={`mailto:${opportunity.details.contactEmail}?subject=${encodeURIComponent(
-                        opportunity.title,
-                      )}`}
-                      className="inline-flex py-2 font-medium break-all text-accent-secondary hover:underline md:py-0.5"
+                      href={mailto}
+                      aria-label={`Écrire à ${details.contactEmail}`}
+                      title="Écrire aux organisateurs"
+                      className={roundButtonClassName}
                     >
-                      {opportunity.details.contactEmail}
+                      <ArrowRight aria-hidden className="h-5 w-5" />
                     </a>
-                  )}
-                </div>
-              ) : (
-                <div className="space-y-3 md:col-span-2">
-                  <p className="text-sm text-text-muted">
-                    Établissement, contact et modalités de candidature : sur
-                    demande.
-                  </p>
+                  )
+                ) : (
                   <ContactDialog
-                    trigger="Obtenir les détails de cette offre"
+                    trigger={<ArrowRight aria-hidden className="size-5" />}
+                    triggerAriaLabel="Obtenir les détails de cette offre"
                     triggerVariant="default"
-                    triggerClassName="h-12 w-full rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:h-10 sm:w-auto"
+                    triggerClassName={roundButtonClassName}
                     title="Obtenir les détails de cette offre"
                     description="L'accès au détail des offres est un service payant. Écrivez-nous : notre équipe vous indique les conditions, puis vous transmet l'établissement, le contact et la marche à suivre pour candidater."
                     emailSubject={`Détails de l'offre réf. ${reference}`}
                     message={`Bonjour, je souhaite obtenir les détails de l'offre « ${opportunity.title} » (réf. ${reference}).`}
                   />
-                </div>
-              )}
+                )}
+              </div>
             </li>
           );
         })}

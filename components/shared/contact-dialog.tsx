@@ -17,6 +17,8 @@ import { cn } from "@/lib/utils";
 
 interface ContactDialogProps {
   trigger: React.ReactNode;
+  // Nom accessible du bouton, obligatoire quand il ne contient qu'une icône
+  triggerAriaLabel?: string;
   triggerVariant?: "default" | "outline" | "ghost";
   triggerClassName?: string;
   title: string;
@@ -27,6 +29,7 @@ interface ContactDialogProps {
 
 export function ContactDialog({
   trigger,
+  triggerAriaLabel,
   triggerVariant = "outline",
   triggerClassName,
   title,
@@ -40,7 +43,14 @@ export function ContactDialog({
   return (
     <Dialog>
       <DialogTrigger
-        render={<Button variant={triggerVariant} className={triggerClassName} />}
+        render={
+          <Button
+            variant={triggerVariant}
+            className={triggerClassName}
+            aria-label={triggerAriaLabel}
+            title={triggerAriaLabel}
+          />
+        }
       >
         {trigger}
       </DialogTrigger>
