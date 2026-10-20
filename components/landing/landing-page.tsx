@@ -110,13 +110,13 @@ export function LandingPage({ procedures }: LandingPageProps) {
           id="procedures"
           className="scroll-mt-24 space-y-6 pb-16 sm:pb-24"
         >
-          <div className="mx-auto max-w-3xl space-y-4 pb-4 text-center sm:pb-8">
+          <div className="mx-auto max-w-5xl space-y-4 pb-4 text-center sm:pb-8">
             <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
               {procedures.length} procédures détaillées
             </p>
-            <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
+            <h2 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-3xl lg:text-4xl lg:whitespace-nowrap">
               Toutes vos démarches{" "}
-              <span className="rounded-lg bg-accent-primary px-2 text-white italic">
+              <span className="rounded-lg bg-accent-primary px-2 whitespace-nowrap text-white italic">
                 étape par étape
               </span>{" "}
               au même endroit.
