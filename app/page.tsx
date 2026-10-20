@@ -8,7 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { HeroIllustration } from "@/components/shared/hero-illustration";
 import { Logo } from "@/components/shared/logo";
-import { ProcedureCard } from "@/components/shared/procedure-card";
+import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -55,7 +55,12 @@ export default async function HomePage() {
 
   const procedures = await prisma.procedure.findMany({
     orderBy: { createdAt: "asc" },
-    include: { _count: { select: { steps: true } } },
+    include: {
+      steps: {
+        select: { order: true, title: true, estimatedDuration: true },
+        orderBy: { order: "asc" },
+      },
+    },
   });
 
   return (
@@ -125,30 +130,19 @@ export default async function HomePage() {
           id="procedures"
           className="scroll-mt-24 space-y-6 pb-16 sm:pb-24"
         >
-          <h2 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
-            Les procédures
-          </h2>
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {procedures.map((procedure, index) => (
-              <li key={procedure.id}>
-                <ProcedureCard
-                  index={index}
-                  slug={procedure.slug}
-                  title={procedure.title}
-                  description={procedure.description}
-                  meta={`${procedure.country} · ${procedure._count.steps} étapes`}
-                >
-                  <Link
-                    href={`/procedures/${procedure.slug}`}
-                    className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-bg-subtle px-3 text-sm font-semibold transition-colors hover:bg-accent-soft hover:text-accent-primary sm:h-10"
-                  >
-                    Découvrir
-                    <ArrowRight aria-hidden className="h-4 w-4" />
-                  </Link>
-                </ProcedureCard>
-              </li>
-            ))}
-          </ol>
+          <div className="mx-auto max-w-3xl space-y-4 pb-4 text-center sm:pb-8">
+            <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
+              {procedures.length} procédures détaillées
+            </p>
+            <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
+              Toutes vos démarches pour{" "}
+              <span className="rounded-lg bg-accent-primary px-2 text-white italic">
+                partir exercer,
+              </span>{" "}
+              au même endroit.
+            </h2>
+          </div>
+          <ProcedureStack procedures={procedures} />
           <p className="text-sm text-text-muted">
             La consultation d&apos;une procédure demande un compte, qui sert à
             enregistrer votre avancement.
