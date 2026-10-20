@@ -15,8 +15,7 @@ interface ListItem {
 }
 
 type Block =
-  | { type: "paragraph"; text: string }
-  | { type: "list"; items: ListItem[] };
+  { type: "paragraph"; text: string } | { type: "list"; items: ListItem[] };
 
 interface FocusCard {
   title: string;

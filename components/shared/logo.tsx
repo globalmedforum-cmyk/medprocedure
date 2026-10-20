@@ -13,7 +13,7 @@ export function Logo({ className, hideNameOnPhone = false }: LogoProps) {
     <span
       className={cn(
         "flex items-center gap-2.5 font-heading text-lg font-bold tracking-tight text-text-primary",
-        className
+        className,
       )}
     >
       <Image

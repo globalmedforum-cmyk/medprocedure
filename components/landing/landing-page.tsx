@@ -2,11 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
-import { HeroIllustration } from "@/components/shared/hero-illustration";
 import { Logo } from "@/components/shared/logo";
 import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
+import {
+  CONTENT_VERIFIED_AT,
+  OFFICIAL_AUTHORITIES,
+  countOfficialLinks,
+} from "@/lib/content-verification";
 import type { LandingProcedure } from "@/lib/landing";
 import { cn } from "@/lib/utils";
 
@@ -43,6 +47,8 @@ interface LandingPageProps {
 
 // Page d'accueil publique, affichée aux visiteurs non connectés
 export function LandingPage({ procedures }: LandingPageProps) {
+  const officialLinkCount = countOfficialLinks();
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-30 border-b border-border-default/70 bg-bg-surface/80 backdrop-blur-xl backdrop-saturate-150">
@@ -83,15 +89,18 @@ export function LandingPage({ procedures }: LandingPageProps) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 animate-enter px-4 sm:px-8">
-        <section className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:py-24 xl:grid-cols-[minmax(0,1fr)_23rem]">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
+        <section className="grid items-end gap-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16 lg:py-24">
           <div className="space-y-8">
+            <p className="font-mono text-xs tracking-[0.2em] text-text-muted uppercase">
+              Guide des démarches · Médecins diplômés hors UE
+            </p>
             {/* Bloc justifié : la taille suit la largeur de l'emplacement
-                (unités de conteneur), si bien que les quatre lignes se coupent
+                (unités de conteneur), si bien que les lignes se coupent
                 toujours aux mêmes mots et restent pleines, sans césure ni
                 espaces étirés, quel que soit l'écran */}
             <div className="@container max-w-[40rem]">
-              <h1 className="text-justify font-heading text-[6.2cqi] leading-[1.2] font-bold tracking-tight [text-align-last:justify] [text-wrap:wrap]">
+              <h1 className="text-justify font-heading text-[6.9cqi] leading-[1.15] font-semibold tracking-tight [text-align-last:justify] [text-wrap:wrap]">
                 MedProcedure est une plateforme qui accompagne les médecins, en
                 activité ou en formation, dans leur projet d&apos;immigration à
                 l&apos;étranger.
@@ -101,15 +110,45 @@ export function LandingPage({ procedures }: LandingPageProps) {
               href="/sign-up"
               className={cn(
                 buttonVariants(),
-                "h-12 w-full gap-2 rounded-xl px-6 text-base font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md sm:w-auto",
+                "h-12 w-full gap-2 rounded-md px-6 text-base font-semibold transition-colors hover:bg-accent-hover sm:w-auto",
               )}
             >
               Créer un compte
               <ArrowRight aria-hidden />
             </Link>
           </div>
-          {/* Réservée aux grands écrans : sur téléphone, le texte suffit */}
-          <HeroIllustration className="hidden lg:block" />
+
+          {/* Registre des sources : la preuve plutôt que la promesse */}
+          <aside
+            aria-label="Nos sources"
+            className="border-y border-text-primary py-5"
+          >
+            <p className="font-mono text-[0.7rem] tracking-[0.2em] text-text-muted uppercase">
+              Registre des sources
+            </p>
+            <dl className="mt-4 divide-y divide-border-default">
+              {[
+                ["Procédures", String(procedures.length).padStart(2, "0")],
+                ["Liens officiels", String(officialLinkCount)],
+                ["Dernière vérification", CONTENT_VERIFIED_AT],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="flex items-baseline justify-between gap-4 py-2.5"
+                >
+                  <dt className="text-sm text-text-muted">{label}</dt>
+                  <dd className="font-mono text-base capitalize">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-sm leading-relaxed text-text-muted">
+              Rédigé d&apos;après les pages officielles :{" "}
+              <span className="text-text-primary">
+                {OFFICIAL_AUTHORITIES.join(", ")}
+              </span>
+              .
+            </p>
+          </aside>
         </section>
 
         <section
@@ -120,11 +159,11 @@ export function LandingPage({ procedures }: LandingPageProps) {
             <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
               {procedures.length} procédures détaillées
             </p>
-            <h2 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-3xl lg:text-4xl lg:whitespace-nowrap">
+            <h2 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
               Toutes vos démarches{" "}
-              <span className="rounded-lg bg-accent-primary px-2 whitespace-nowrap text-white italic">
+              <em className="whitespace-nowrap text-accent-primary">
                 étape par étape
-              </span>{" "}
+              </em>{" "}
               au même endroit.
             </h2>
           </div>
@@ -135,22 +174,28 @@ export function LandingPage({ procedures }: LandingPageProps) {
           </p>
         </section>
 
-        <section id="contenu" className="scroll-mt-24 space-y-6 pb-16 sm:pb-24">
-          <h2 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
+        <section id="contenu" className="scroll-mt-24 space-y-8 pb-16 sm:pb-24">
+          <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
             Ce que contient chaque procédure
           </h2>
-          <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {guideContents.map((item) => (
+          {/* Sommaire éditorial : des filets et des numéros, pas des cartes */}
+          <dl className="grid border-t border-text-primary sm:grid-cols-2 lg:grid-cols-3">
+            {guideContents.map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:p-6"
+                className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-3 border-b border-border-default py-6 sm:pr-8"
               >
-                <dt className="font-heading text-base font-bold">
-                  {item.title}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-text-muted">
-                  {item.text}
-                </dd>
+                <span className="font-mono text-sm text-accent-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <dt className="font-heading text-xl font-medium">
+                    {item.title}
+                  </dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-text-muted">
+                    {item.text}
+                  </dd>
+                </div>
               </div>
             ))}
           </dl>

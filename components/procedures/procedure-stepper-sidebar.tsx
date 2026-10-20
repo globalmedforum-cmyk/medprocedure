@@ -53,7 +53,7 @@ export function ProcedureStepperSidebar({
                   className={cn(
                     "relative z-10 flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
                     isCompleted
-                      ? "border-state-success bg-state-success text-bg-surface"
+                      ? "ink -rotate-12 border-[3px] border-double border-accent-primary bg-bg-surface text-accent-primary"
                       : isActive
                         ? "border-2 border-accent-primary bg-bg-surface text-accent-primary"
                         : "border-border-default bg-bg-surface text-text-muted",

@@ -159,6 +159,8 @@ change.
 
 - **Nombre d'étapes adapté à chaque procédure (2026-10-20, branche `test-landing-procedures`, non déployé)** : Doctorat 7 (dossier de candidature à part), MEBEKO 5 (la recherche de poste renvoie à « Médecin assistant »), Médecin assistant 7 (installation et formation FMH séparées), FFI 7 (suite du parcours à part), DFMS 7 (attestation B2 à part), congrès 7 (hébergement et transport fusionnés) ; observation et stage associé restent à 6. Le seed retrouve les étapes par leur ordre : les premières étapes sont restées en place pour que l'avancement des dossiers existants (Doctorat étapes 1-2, MEBEKO étape 1, congrès terminé) reste juste.
 
+- **Identité « dossier officiel » (2026-10-20, branche `test-dossier-officiel`, partie de `test-landing-procedures`, non déployé)** : titres en Newsreader (police à empattements, `--font-heading`), chiffres en IBM Plex Mono ; arrondis réduits (`--radius` 0.5rem), plus d'ombre au repos, plus de fondus à l'apparition. Accueil : registre des sources (procédures, liens officiels comptés dans `lib/procedure-resources.ts`, date de vérification dans `lib/content-verification.ts`) à la place de l'illustration ; procédures en pages de passeport (motif guilloché, tampon rond, bande de lecture automatique) ; sommaire éditorial numéroté. Guides : tampon « Validée » à l'encre (composant `Stamp`, classe `.ink`) qui s'appose quand on coche une étape, pastilles de la table des matières en tampons, mention « vérifié en … » sur chaque étape. Cartes du tableau de bord sans pictogramme.
+
 ## In Progress
 
 - None.

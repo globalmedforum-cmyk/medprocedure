@@ -27,7 +27,7 @@ export function AssistanceDialog({
       }
       triggerClassName={cn(
         "h-12 gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-all hover:shadow-md sm:h-10",
-        className
+        className,
       )}
       title="Obtenir une assistance"
       description="Notre équipe peut vous accompagner dans cette procédure. Choisissez comment nous écrire : votre message est déjà préparé, vous pouvez le compléter avant de l'envoyer."

@@ -5,11 +5,12 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  CheckCircle2,
   ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProcedureResources } from "@/lib/procedure-resources";
+import { Stamp } from "@/components/shared/stamp";
+import { CONTENT_VERIFIED_AT } from "@/lib/content-verification";
 import { AssistanceDialog } from "./assistance-dialog";
 import { StepContent } from "./step-content";
 import type { ProcedureData, StepItem } from "./types";
@@ -24,6 +25,8 @@ interface ProcedureStepPanelProps {
   onSelectStep: (stepId: string) => void;
   // Hors dossier, le guide est en lecture : ce contenu remplace le bouton de suivi
   startDossier?: React.ReactNode;
+  // Joue l'animation du tampon : l'étape vient d'être cochée
+  animateStamp?: boolean;
 }
 
 export function ProcedureStepPanel({
@@ -35,6 +38,7 @@ export function ProcedureStepPanel({
   onToggleStep,
   onSelectStep,
   startDossier,
+  animateStamp = false,
 }: ProcedureStepPanelProps) {
   const totalSteps = procedure.steps.length;
   const currentIndex = procedure.steps.findIndex((s) => s.id === activeStep.id);
@@ -46,8 +50,9 @@ export function ProcedureStepPanel({
     <div className="min-w-0 space-y-8">
       <article className="space-y-6">
         <header className="space-y-2">
-          <p className="text-xs font-semibold tracking-wide text-accent-primary uppercase">
-            Étape {activeStep.order} sur {totalSteps}
+          <p className="font-mono text-xs tracking-[0.15em] text-accent-primary uppercase">
+            Étape {String(activeStep.order).padStart(2, "0")} /{" "}
+            {String(totalSteps).padStart(2, "0")}
             {activeStep.estimatedDuration && (
               <span className="font-medium text-text-muted normal-case">
                 {" · "}
@@ -59,6 +64,10 @@ export function ProcedureStepPanel({
                 {" · facultative"}
               </span>
             )}
+            <span className="text-text-muted normal-case">
+              {" · vérifié en "}
+              {CONTENT_VERIFIED_AT}
+            </span>
           </p>
           <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
             {activeStep.title}
@@ -80,11 +89,14 @@ export function ProcedureStepPanel({
               {startDossier}
             </div>
           ) : isCompleted ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-state-success/30 bg-state-success/5 px-4 py-3">
-              <span className="flex items-center gap-2 text-sm font-semibold text-state-success">
-                <CheckCircle2 className="h-5 w-5" aria-hidden />
-                Étape terminée
-              </span>
+            <div className="flex flex-wrap items-center justify-between gap-4 py-2">
+              <span className="sr-only">Étape terminée</span>
+              <Stamp
+                label="Validée"
+                detail={`Étape ${activeStep.order} sur ${totalSteps}`}
+                animate={animateStamp}
+                className="text-2xl text-accent-primary"
+              />
               <button
                 type="button"
                 disabled={isPending}

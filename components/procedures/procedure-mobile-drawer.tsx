@@ -30,7 +30,10 @@ export function ProcedureMobileDrawer({
 }: ProcedureMobileDrawerProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-full overflow-y-auto p-4 sm:max-w-md">
+      <SheetContent
+        side="left"
+        className="w-full overflow-y-auto p-4 sm:max-w-md"
+      >
         <SheetHeader className="pb-2">
           <SheetTitle>Table des matières</SheetTitle>
           <SheetDescription>
@@ -51,4 +54,3 @@ export function ProcedureMobileDrawer({
     </Sheet>
   );
 }
-

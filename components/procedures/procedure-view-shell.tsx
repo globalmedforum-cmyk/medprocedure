@@ -58,6 +58,8 @@ export function ProcedureViewShell({
   );
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(true);
+  // Dernière étape cochée pendant cette visite : son tampon s'appose
+  const [stampedStepId, setStampedStepId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -85,6 +87,7 @@ export function ProcedureViewShell({
       : [...completedStepIds, stepId];
 
     setError(null);
+    setStampedStepId(isCompleted ? null : stepId);
     // Mise à jour optimiste locale immédiate
     setCompletedStepIds(nextCompleted);
 
@@ -118,6 +121,7 @@ export function ProcedureViewShell({
       error={error}
       onToggleStep={handleToggleStep}
       onSelectStep={handleSelectStep}
+      animateStamp={stampedStepId === activeStep.id}
       startDossier={
         dossier ? undefined : (
           <StartDossierDialog
@@ -303,9 +307,7 @@ export function ProcedureViewShell({
 
                 <TabsContent value="guide" className="space-y-6">
                   {tocButton}
-                  <div key={activeStepId} className="animate-enter">
-                    {stepsPanel}
-                  </div>
+                  <div key={activeStepId}>{stepsPanel}</div>
                 </TabsContent>
 
                 <TabsContent value="opportunities">
@@ -315,9 +317,7 @@ export function ProcedureViewShell({
             ) : (
               <>
                 {tocButton}
-                <div key={activeStepId} className="animate-enter">
-                  {stepsPanel}
-                </div>
+                <div key={activeStepId}>{stepsPanel}</div>
               </>
             )}
           </div>

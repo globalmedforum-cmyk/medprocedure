@@ -14,6 +14,14 @@ const jakarta = localFont({
   weight: "200 800",
 });
 
+// Titres : police à empattements, au ton éditorial
+const newsreader = localFont({
+  variable: "--font-serif",
+  display: "swap",
+  src: "./fonts/newsreader-latin-wght-normal.woff2",
+  weight: "200 800",
+});
+
 const plexMono = localFont({
   variable: "--font-mono",
   display: "swap",
@@ -44,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="fr"
       // La classe `dark` est posée par le script ci-dessous avant l'affichage
       suppressHydrationWarning
-      className={`${jakarta.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${newsreader.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

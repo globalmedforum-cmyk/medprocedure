@@ -46,7 +46,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       title={isDark ? "Mode clair" : "Mode sombre"}
       className={cn(
         "flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary",
-        className
+        className,
       )}
     >
       {isDark ? (

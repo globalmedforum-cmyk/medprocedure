@@ -1,9 +1,9 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { ProcedureIcon } from "./procedure-icon";
 
 interface ProcedureCardProps {
   index: number;
+  // Identifiant de la procédure (gardé pour les appels existants)
   slug: string;
   title: string;
   description: string;
@@ -15,7 +15,6 @@ interface ProcedureCardProps {
 
 export function ProcedureCard({
   index,
-  slug,
   title,
   description,
   meta,
@@ -25,23 +24,18 @@ export function ProcedureCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-6",
-        className
+        "flex h-full flex-col rounded-lg border border-border-default bg-bg-surface p-4 transition-colors duration-200 hover:border-text-primary/40 sm:p-6",
+        className,
       )}
     >
-      {/* Sur téléphone, icône, numéro et titre tiennent sur une seule ligne */}
-      <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-primary">
-          <ProcedureIcon slug={slug} className="h-5 w-5" />
+      {/* Numéro en chasse fixe et titre éditorial, sans pictogramme */}
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-sm text-accent-primary">
+          {String(index + 1).padStart(2, "0")}
         </span>
-        <div className="min-w-0">
-          <span className="block font-mono text-[11px] text-text-muted">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <h3 className="font-heading text-base leading-snug font-bold tracking-tight sm:text-lg">
-            {title}
-          </h3>
-        </div>
+        <h3 className="min-w-0 font-heading text-xl leading-snug font-medium tracking-tight sm:text-2xl">
+          {title}
+        </h3>
       </div>
 
       <p className="mt-3 line-clamp-2 flex-1 text-sm leading-relaxed text-text-muted sm:line-clamp-none">

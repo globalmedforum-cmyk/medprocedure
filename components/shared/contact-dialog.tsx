@@ -12,7 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { SUPPORT_EMAIL, buildEmailLink, buildWhatsAppLink } from "@/lib/contact";
+import {
+  SUPPORT_EMAIL,
+  buildEmailLink,
+  buildWhatsAppLink,
+} from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 interface ContactDialogProps {
@@ -74,7 +78,7 @@ export function ContactDialog({
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants(),
-                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-all hover:bg-accent-hover"
+                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-all hover:bg-accent-hover",
               )}
             >
               <MessageCircle aria-hidden />
@@ -86,7 +90,7 @@ export function ContactDialog({
             className={cn(
               buttonVariants({ variant: whatsAppLink ? "outline" : "default" }),
               "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold",
-              whatsAppLink && "bg-transparent"
+              whatsAppLink && "bg-transparent",
             )}
           >
             <Mail aria-hidden />

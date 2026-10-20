@@ -150,3 +150,8 @@ const resourcesByProcedureSlug: Record<string, ProcedureResource[]> = {
 export function getProcedureResources(slug: string) {
   return resourcesByProcedureSlug[slug] ?? [];
 }
+
+// Tous les liens officiels, toutes procédures confondues
+export function getAllProcedureResources() {
+  return Object.values(resourcesByProcedureSlug).flat();
+}
