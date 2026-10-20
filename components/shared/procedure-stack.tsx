@@ -114,11 +114,12 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
                           {String(procedure.steps.length).padStart(2, "0")}
                         </dd>
                       </div>
-                      <div>
+                      <div className="@container col-span-2">
                         <dt className="font-mono text-[0.65rem] tracking-[0.18em] text-black/55 uppercase">
                           Domaine
                         </dt>
-                        <dd className="text-base leading-snug sm:text-lg">
+                        {/* Toujours sur une ligne : la taille suit la largeur */}
+                        <dd className="text-[min(1.125rem,6.2cqi)] leading-snug whitespace-nowrap">
                           {procedure.category}
                         </dd>
                       </div>
