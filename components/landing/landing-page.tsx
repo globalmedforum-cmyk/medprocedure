@@ -115,9 +115,9 @@ export function LandingPage({ procedures }: LandingPageProps) {
               {procedures.length} procédures détaillées
             </p>
             <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
-              Toutes vos démarches pour{" "}
+              Toutes vos démarches{" "}
               <span className="rounded-lg bg-accent-primary px-2 text-white italic">
-                partir exercer,
+                étape par étape
               </span>{" "}
               au même endroit.
             </h2>
