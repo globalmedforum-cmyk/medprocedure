@@ -86,11 +86,17 @@ export function LandingPage({ procedures }: LandingPageProps) {
       <main className="mx-auto w-full max-w-6xl flex-1 animate-enter px-4 sm:px-8">
         <section className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:py-24 xl:grid-cols-[minmax(0,1fr)_23rem]">
           <div className="space-y-8">
-            <h1 className="max-w-4xl text-justify font-heading text-[1.55rem] leading-[1.28] font-bold tracking-tight [text-wrap:wrap] hyphens-auto [text-align-last:left] [word-spacing:0.08em] sm:text-[2.1rem] sm:leading-[1.2] lg:text-[2.6rem] lg:leading-[1.18]">
-              MedProcedure est une plateforme qui accompagne les médecins, en
-              activité ou en formation, dans leur projet d&apos;immigration à
-              l&apos;étranger.
-            </h1>
+            {/* Bloc justifié : la taille suit la largeur de l'emplacement
+                (unités de conteneur), si bien que les quatre lignes se coupent
+                toujours aux mêmes mots et restent pleines, sans césure ni
+                espaces étirés, quel que soit l'écran */}
+            <div className="@container max-w-[40rem]">
+              <h1 className="text-justify font-heading text-[6.2cqi] leading-[1.2] font-bold tracking-tight [text-align-last:justify] [text-wrap:wrap]">
+                MedProcedure est une plateforme qui accompagne les médecins, en
+                activité ou en formation, dans leur projet d&apos;immigration à
+                l&apos;étranger.
+              </h1>
+            </div>
             <Link
               href="/sign-up"
               className={cn(
