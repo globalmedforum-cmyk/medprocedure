@@ -10,6 +10,9 @@ interface ProcedureCarouselProps {
 }
 
 const AUTOPLAY_DELAY = 4500;
+// Après un glissement manuel ou un clic sur un point, le défilement
+// automatique reprend après ce délai
+const RESUME_DELAY = 8000;
 
 // Sur téléphone, la liste des procédures est un carrousel horizontal : ce
 // composant le fait défiler tout seul, avec des points de navigation et un
@@ -18,6 +21,9 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
+  // Défilement lancé par le carrousel lui-même (à ne pas prendre pour un geste)
+  const programmaticUntilRef = useRef(0);
+  const pausedUntilRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -25,6 +31,7 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
     const list = wrapperRef.current?.querySelector("ol");
     const card = list?.children[index] as HTMLElement | undefined;
     if (!list || !card) return;
+    programmaticUntilRef.current = Date.now() + 900;
     list.scrollTo({
       left: card.offsetLeft - (list.clientWidth - card.offsetWidth) / 2,
       behavior: "smooth",
@@ -50,19 +57,17 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
       });
       activeRef.current = nearest;
       setActive(nearest);
-    };
 
-    // Un geste de l'utilisateur met le défilement automatique en pause
-    const onUserInteraction = () => setIsPlaying(false);
+      // Un glissement horizontal de l'utilisateur suspend le défilement
+      // automatique quelques secondes. Un simple appui pour faire défiler la
+      // page vers le bas ne déplace pas la liste et ne compte donc pas.
+      if (Date.now() > programmaticUntilRef.current) {
+        pausedUntilRef.current = Date.now() + RESUME_DELAY;
+      }
+    };
 
     list.addEventListener("scroll", onScroll, { passive: true });
-    list.addEventListener("touchstart", onUserInteraction, { passive: true });
-    list.addEventListener("wheel", onUserInteraction, { passive: true });
-    return () => {
-      list.removeEventListener("scroll", onScroll);
-      list.removeEventListener("touchstart", onUserInteraction);
-      list.removeEventListener("wheel", onUserInteraction);
-    };
+    return () => list.removeEventListener("scroll", onScroll);
   }, []);
 
   // Ne défile que lorsque le carrousel est à l'écran
@@ -85,6 +90,7 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
       const list = wrapperRef.current?.querySelector("ol");
       // Sur ordinateur, la liste ne défile pas horizontalement
       if (!list || list.scrollWidth <= list.clientWidth + 1) return;
+      if (Date.now() < pausedUntilRef.current) return;
       scrollToCard((activeRef.current + 1) % count);
     }, AUTOPLAY_DELAY);
     return () => window.clearInterval(timer);
@@ -101,8 +107,8 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
               key={index}
               type="button"
               onClick={() => {
-                setIsPlaying(false);
                 scrollToCard(index);
+                pausedUntilRef.current = Date.now() + RESUME_DELAY;
               }}
               aria-label={`Afficher la procédure ${index + 1}`}
               aria-current={index === active ? "true" : undefined}

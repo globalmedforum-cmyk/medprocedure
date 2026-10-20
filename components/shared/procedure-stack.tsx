@@ -126,7 +126,7 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
                 {/* Aperçu de la table des matières du guide */}
                 <div
                   aria-hidden
-                  className="relative mx-4 flex items-end justify-center overflow-hidden rounded-t-3xl bg-bg-base px-5 pt-6 md:mx-0 md:mt-10 md:rounded-t-none md:rounded-tl-3xl md:p-8 md:pb-0"
+                  className="relative hidden items-end justify-center overflow-hidden bg-bg-base md:mt-10 md:flex md:rounded-tl-3xl md:p-8 md:pb-0"
                   style={{
                     backgroundImage:
                       "radial-gradient(rgb(15 23 42 / 0.12) 1.2px, transparent 1.2px)",
