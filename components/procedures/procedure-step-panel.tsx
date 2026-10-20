@@ -1,16 +1,10 @@
 "use client";
 
 import React from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Check,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProcedureResources } from "@/lib/procedure-resources";
 import { Stamp } from "@/components/shared/stamp";
-import { CONTENT_VERIFIED_AT } from "@/lib/content-verification";
 import { AssistanceDialog } from "./assistance-dialog";
 import { StepContent } from "./step-content";
 import type { ProcedureData, StepItem } from "./types";
@@ -64,10 +58,6 @@ export function ProcedureStepPanel({
                 {" · facultative"}
               </span>
             )}
-            <span className="text-text-muted normal-case">
-              {" · vérifié en "}
-              {CONTENT_VERIFIED_AT}
-            </span>
           </p>
           <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
             {activeStep.title}

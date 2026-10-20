@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { ProcedureCarousel } from "@/components/shared/procedure-carousel";
 import { Guilloche } from "@/components/shared/guilloche";
 import { Stamp } from "@/components/shared/stamp";
-import { CONTENT_VERIFIED_AT } from "@/lib/content-verification";
 import { cn } from "@/lib/utils";
 
 interface ProcedureStackItem {
@@ -117,10 +116,10 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
                       </div>
                       <div>
                         <dt className="font-mono text-[0.65rem] tracking-[0.18em] text-black/55 uppercase">
-                          Vérifié
+                          Domaine
                         </dt>
-                        <dd className="font-mono text-base capitalize sm:text-lg">
-                          {CONTENT_VERIFIED_AT}
+                        <dd className="text-base leading-snug sm:text-lg">
+                          {procedure.category}
                         </dd>
                       </div>
                     </dl>
@@ -184,8 +183,7 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
                   <p>
                     {machineLine([
                       `${procedure.steps.length} etapes`,
-                      "verifie",
-                      CONTENT_VERIFIED_AT,
+                      "medprocedure",
                       procedure.slug,
                     ])}
                   </p>

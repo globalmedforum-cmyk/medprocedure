@@ -7,7 +7,6 @@ import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import {
-  CONTENT_VERIFIED_AT,
   OFFICIAL_AUTHORITIES,
   countOfficialLinks,
 } from "@/lib/content-verification";
@@ -92,9 +91,13 @@ export function LandingPage({ procedures }: LandingPageProps) {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
         <section className="grid items-end gap-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16 lg:py-24">
           <div className="space-y-8">
-            <p className="font-mono text-xs tracking-[0.2em] text-text-muted uppercase">
-              Guide des démarches · Médecins diplômés hors UE
-            </p>
+            {/* Une seule ligne sur tous les écrans : la taille suit la largeur
+                disponible, plafonnée à 12 px */}
+            <div className="@container">
+              <p className="font-mono text-[min(0.75rem,3.4cqi)] tracking-[0.12em] whitespace-nowrap text-text-muted uppercase">
+                Démarches des médecins diplômés hors UE
+              </p>
+            </div>
             {/* Bloc justifié : la taille suit la largeur de l'emplacement
                 (unités de conteneur), si bien que les lignes se coupent
                 toujours aux mêmes mots et restent pleines, sans césure ni
@@ -130,7 +133,6 @@ export function LandingPage({ procedures }: LandingPageProps) {
               {[
                 ["Procédures", String(procedures.length).padStart(2, "0")],
                 ["Liens officiels", String(officialLinkCount)],
-                ["Dernière vérification", CONTENT_VERIFIED_AT],
               ].map(([label, value]) => (
                 <div
                   key={label}
