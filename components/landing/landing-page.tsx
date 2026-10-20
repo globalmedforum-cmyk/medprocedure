@@ -89,15 +89,15 @@ export function LandingPage({ procedures }: LandingPageProps) {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="grid items-end gap-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16 lg:py-24">
-          <div className="space-y-8">
-            {/* Une seule ligne sur tous les écrans : la taille suit la largeur
+        <section className="grid items-start gap-x-16 gap-y-8 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:py-24">
+          {/* Une seule ligne sur tous les écrans : la taille suit la largeur
                 disponible, plafonnée à 12 px */}
-            <div className="@container">
-              <p className="font-mono text-[min(0.75rem,3.4cqi)] tracking-[0.12em] whitespace-nowrap text-text-muted uppercase">
-                Démarches des médecins diplômés hors UE
-              </p>
-            </div>
+          <div className="@container lg:col-span-2">
+            <p className="font-mono text-[min(0.75rem,3.4cqi)] tracking-[0.12em] whitespace-nowrap text-text-muted uppercase">
+              Démarches des médecins diplômés hors UE
+            </p>
+          </div>
+          <div className="space-y-8">
             {/* Bloc justifié : la taille suit la largeur de l'emplacement
                 (unités de conteneur), si bien que les lignes se coupent
                 toujours aux mêmes mots et restent pleines, sans césure ni
