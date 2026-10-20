@@ -157,6 +157,8 @@ change.
 
 - **Procédures détaillées d'après les sources officielles (2026-10-20, branche `test-ux-ui`, non déployé)** : les 8 procédures sont complétées étape par étape. Sources : OFSP (diplômes d'États tiers, MedReg), canton de Vaud (autorisation de médecin assistant), SEM, note ARS Grand Est de janvier 2026 sur les PADHUE, Service-public (carte « talent », attestation d'accueil), Commission européenne (visa Schengen), FHF (EVC 2026). Corrections majeures : examen fédéral suisse (36 mois = examen complet, 60 mois = partie théorique seule, clôture le 31 mars), émolument MEBEKO 800 à 1 200 CHF, statut officiel de FFI (DFMS/DFMSA) distinct du stagiaire associé (formation achevée obligatoire), nouveau statut PACT, carte « talent – chercheur ». Mise en ligne : code d'abord, puis mise à jour des procédures seules dans la base (sans recréer les opportunités).
 
+- **Nombre d'étapes adapté à chaque procédure (2026-10-20, branche `test-landing-procedures`, non déployé)** : Doctorat 7 (dossier de candidature à part), MEBEKO 5 (la recherche de poste renvoie à « Médecin assistant »), Médecin assistant 7 (installation et formation FMH séparées), FFI 7 (suite du parcours à part), DFMS 7 (attestation B2 à part), congrès 7 (hébergement et transport fusionnés) ; observation et stage associé restent à 6. Le seed retrouve les étapes par leur ordre : les premières étapes sont restées en place pour que l'avancement des dossiers existants (Doctorat étapes 1-2, MEBEKO étape 1, congrès terminé) reste juste.
+
 ## In Progress
 
 - None.

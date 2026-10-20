@@ -55,6 +55,19 @@ export const procedures: ProcedureSeed[] = [
           "  - France : [Campus France Doctorat](https://doctorat.campusfrance.org/), [ABG](https://www.abg.asso.fr/), [ADUM](https://www.adum.fr/)",
           "  - Allemagne : [PhDGermany, la base du DAAD](https://www2.daad.de/deutschland/promotion/phd/en/13306-phdgermany-database-doctoral-programmes/)",
           "  - International : [FindAPhD](https://www.findaphd.com/), [Nature Careers](https://www.nature.com/naturecareers)",
+        ].join("\n"),
+        estimatedDuration: "1 à 3 mois",
+        isRequired: true,
+      },
+      {
+        order: 3,
+        title: "Préparer le dossier de candidature",
+        description:
+          "Que vous répondiez à une offre ou que vous écriviez à un directeur, votre dossier doit montrer un profil de chercheur, et pas seulement de clinicien.",
+        content: [
+          "- **Trois pièces font la différence :** le CV académique, la lettre de motivation et les lettres de recommandation, détaillées ci-dessous.",
+          "- **Adaptez chaque envoi** au laboratoire visé : citez ses travaux et expliquez ce que votre profil apporte à son projet.",
+          "- **Préparez les pièces administratives dès maintenant :** diplômes, relevés de notes et leurs traductions seront demandés à l'admission (voir l'étape 5).",
           "## Focus : dossier de candidature",
           "### Le CV académique (spécial médecin chercheur)",
           "- N'envoyez jamais un CV purement clinique. Deux pages au maximum, qui mettent en avant :",
@@ -76,11 +89,11 @@ export const procedures: ProcedureSeed[] = [
           "- Sur papier à en-tête officiel du CHU ou de l'université, signées, cachetées, avec une adresse e-mail professionnelle.",
           "- Elles doivent évaluer votre autonomie scientifique et votre classement (par exemple : dans les 5 % premiers de la promotion).",
         ].join("\n"),
-        estimatedDuration: "1 à 3 mois",
+        estimatedDuration: "2 à 4 semaines",
         isRequired: true,
       },
       {
-        order: 3,
+        order: 4,
         title: "Obtenir un financement",
         description:
           "En sciences biomédicales et en santé, la quasi-totalité des écoles doctorales européennes refusent l'inscription en thèse sans un financement garanti pour toute la durée du doctorat (de 1 400 € à 2 500 € net par mois selon le pays). Un PhD en sciences ne se finance pas sur fonds propres.",
@@ -98,7 +111,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 4,
+        order: 5,
         title: "Être admis et s'inscrire à l'université",
         description:
           "Une fois le directeur de thèse et le financement validés, il faut transformer cet accord scientifique en une admission administrative officielle à l'école doctorale et à l'université.",
@@ -115,7 +128,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 5,
+        order: 6,
         title: "Obtenir la convention d'accueil et le titre de séjour",
         description:
           "Doctorant financé, vous bénéficiez dans la plupart des pays européens du statut de chercheur, et non d'un simple visa étudiant. Il facilite les démarches consulaires, ouvre les droits sociaux complets et permet de venir en famille.",
@@ -132,7 +145,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 6,
+        order: 7,
         title: "S'installer et démarrer la thèse",
         description:
           "L'arrivée dans le pays d'accueil lance à la fois votre contrat de travail au laboratoire et la validation définitive de votre titre de séjour pluriannuel.",
@@ -232,53 +245,19 @@ export const procedures: ProcedureSeed[] = [
           "- **Contact :** office@mebeko.admin.ch (réponse en plusieurs semaines) ou +41 58 462 94 83, le vendredi de 8 h à 11 h.",
           "- **Inscription au MedReg et numéro GLN :** vous recevez une attestation officielle, et votre nom apparaît sur le [registre fédéral MedReg](https://www.bag.admin.ch/fr/registre-des-professions-medicales-medreg) avec votre **numéro GLN** à 13 chiffres et la langue enregistrée.",
           "- **La décision :** elle vous est envoyée sur papier, par courrier recommandé.",
-          "- **Attention :** la décision d'enregistrement ne vaut pas inscription à l'examen fédéral. Celui-ci se demande plus tard, après 36 mois d'activité clinique en Suisse (voir l'étape 6).",
+          "- **Attention :** la décision d'enregistrement ne vaut pas inscription à l'examen fédéral. Celui-ci se demande plus tard, après 36 mois d'activité clinique en Suisse (voir l'étape 5).",
         ].join("\n"),
         estimatedDuration: "3 à 5 mois",
         isRequired: true,
       },
       {
         order: 5,
-        title: "Décrocher un poste de médecin assistant",
+        title: "Travailler en Suisse puis obtenir le diplôme fédéral",
         description:
-          "Avec l'enregistrement MEBEKO et le numéro GLN, votre candidature devient recevable par les hôpitaux universitaires (CHUV, HUG) et les hôpitaux cantonaux suisses.",
+          "L'enregistrement vous permet de travailler sous supervision. Le diplôme fédéral, qui donne l'équivalence complète, s'obtient ensuite, après plusieurs années d'activité clinique en Suisse.",
         content: [
-          "- **Stratégies d'entrée pour un diplôme hors UE :**",
-          "  - visez d'abord les hôpitaux cantonaux et régionaux en pénurie (Jura, Neuchâtel, Valais, Fribourg) ou les spécialités en tension (psychiatrie, gériatrie, réadaptation, médecine interne, radiologie avec un DES) ;",
-          "  - ou un fellowship ou stage de perfectionnement universitaire de 6 à 12 mois aux HUG ou au CHUV.",
+          "- **Trouver un poste :** avec votre numéro GLN, vous pouvez postuler comme médecin assistant. Suivez la procédure « Médecin assistant en Suisse » : cibler les hôpitaux, candidater, autorisation cantonale et permis de travail.",
           "- **Calendrier de recrutement :** les chefs de service recrutent leurs médecins assistants **12 à 18 mois à l'avance**, avec des prises de poste principalement au **1er novembre** et au **1er mai**.",
-          "- **Cibler les services formateurs :** postulez uniquement dans les services reconnus du [registre des établissements de formation de l'ISFM](https://register.siwf.ch) (catégories A, B ou C).",
-          "- **Où trouver les offres :**",
-          "  - [medjobs.ch](https://www.medjobs.ch/) et [fmhjob.ch](https://www.fmhjob.ch/) ;",
-          "  - les pages emploi des hôpitaux : [HUG](https://www.hug.ch/emploi), [CHUV](https://www.chuv.ch/fr/chuv-home/emploi), [Hôpital du Valais](https://www.hopitalvs.ch/), [RHNe](https://www.rhne.ch/), [HFR Fribourg](https://www.h-fr.ch/).",
-          "## Focus : dossier de candidature",
-          "### Le CV médical au standard suisse (2 à 3 pages)",
-          "- En Suisse, une photo professionnelle sobre est la norme.",
-          "- Dès l'en-tête, en gras : **« Numéro GLN (MedReg) : 760100XXXXXXX, enregistré MEBEKO »**.",
-          "- Détaillez votre parcours clinique au mois près : CHU, service, nom du chef de service, volume d'actes et de gardes.",
-          "- Joignez un *logbook* chiffré des gestes techniques et des examens d'imagerie que vous maîtrisez en autonomie.",
-          "- Terminez par une rubrique « Références » avec les coordonnées directes de deux ou trois professeurs.",
-          "- Outil : [Canva](https://www.canva.com/).",
-          "### La lettre de motivation (1 page)",
-          "- Adressée directement au **médecin-chef du service** (« Monsieur le Professeur » ou « Madame la Médecin-cheffe »), et non aux ressources humaines.",
-          "- Indiquez votre numéro GLN dès l'objet.",
-          "- Mettez en avant votre autonomie clinique immédiate en garde (un atout majeur si vous avez déjà exercé ou si vous avez un DES) et votre projet d'intégrer la formation ISFM vers le titre FMH.",
-          "### Les certificats de travail et les recommandations",
-          "- Particularité suisse : tout employeur exige un certificat de travail détaillé (*Arbeitszeugnis*) pour chaque poste occupé.",
-          "- Faites rédiger par vos chefs de service actuels des attestations sur papier à en-tête, avec vos dates exactes, la liste précise de vos responsabilités cliniques et une évaluation de votre rigueur.",
-          "- Formule de conclusion attendue en Suisse : *« Le Dr [Nom] nous quitte libre de tout engagement et nous le recommandons chaleureusement à tout futur employeur hospitalier. »*",
-        ].join("\n"),
-        estimatedDuration: "2 à 6 mois",
-        isRequired: true,
-      },
-      {
-        order: 6,
-        title: "Autorisation cantonale, permis de travail et examen fédéral",
-        description:
-          "Une fois le contrat signé avec l'hôpital, vous obtenez l'autorisation cantonale d'exercer sous supervision et votre permis de travail, tout en préparant l'examen fédéral qui donne l'équivalence complète.",
-        content: [
-          "- **Autorisation cantonale d'exercer sous supervision :** délivrée avant la prise de poste par le service de la santé publique (médecin cantonal) du canton de l'hôpital, sur présentation de l'enregistrement MEBEKO et du GLN, du contrat de travail sous supervision, d'un extrait de casier judiciaire vierge de moins de trois mois et d'un certificat médical.",
-          "- **Permis de travail (L ou B) et visa D :** l'hôpital dépose la demande auprès des autorités cantonales de migration et du **SEM**. Une fois l'autorisation accordée, vous retirez votre **visa national D** à l'ambassade de Suisse, puis votre permis de séjour à votre arrivée dans le canton.",
           "- **Passer l'examen fédéral de médecine humaine :**",
           "  - après **36 mois** d'activité clinique en Suisse (à 100 %), vous êtes admis directement à l'examen complet ;",
           "  - après **60 mois**, seule la partie théorique (questions à choix multiple) reste à réussir ;",
@@ -286,7 +265,7 @@ export const procedures: ProcedureSeed[] = [
           "  - l'émolument pour la demande de diplôme fédéral est de 800 à 1 000 CHF, les frais d'examen étant facturés à part.",
           "- **Le diplôme fédéral de médecin :** la réussite à l'examen vous donne le diplôme suisse de médecin, lève les restrictions liées au diplôme hors UE et ouvre l'accès au titre fédéral de spécialiste **ISFM / FMH** et à la pratique indépendante (chef de clinique, cabinet privé).",
         ].join("\n"),
-        estimatedDuration: "6 à 36 mois",
+        estimatedDuration: "3 à 5 ans",
         isRequired: true,
       },
     ],
@@ -393,19 +372,29 @@ export const procedures: ProcedureSeed[] = [
       },
       {
         order: 6,
-        title: "S'installer et commencer la formation FMH",
+        title: "S'installer en Suisse",
         description:
-          "L'arrivée en Suisse marque le début de votre contrat de médecin assistant et de votre formation postgraduée en vue du titre de spécialiste FMH.",
+          "Les premières semaines servent à régulariser votre séjour et votre couverture sociale, avant ou juste après la prise de poste.",
         content: [
           "- **Annonce d'arrivée :** inscription au contrôle des habitants de votre commune, en général dans les 14 jours suivant l'emménagement, avec votre passeport, votre contrat de travail et votre bail.",
           "- **Assurance maladie obligatoire (LAMal) :** à souscrire dans les trois mois suivant l'arrivée auprès d'une caisse de votre choix ; la couverture s'applique alors rétroactivement depuis votre arrivée. Comparez les primes et choisissez votre franchise.",
           "- **Compte bancaire et assurances sociales :** ouvrez un compte suisse pour le salaire ; votre employeur vous affilie à l'AVS et à la caisse de pension.",
+        ].join("\n"),
+        estimatedDuration: "2 à 4 semaines",
+        isRequired: true,
+      },
+      {
+        order: 7,
+        title: "Suivre la formation FMH et préparer l'examen fédéral",
+        description:
+          "Chaque mois de travail compte pour votre titre de spécialiste et pour l'accès à l'examen fédéral, à condition d'être enregistré et validé.",
+        content: [
           "- **Prise de poste et logbook ISFM :** entrée en fonction, intégration au tableau de gardes et ouverture de votre *logbook* électronique de l'ISFM, qui consigne et valide vos années de formation en Suisse.",
           "- **Faire valider chaque période :** à la fin de chaque poste, votre responsable de formation remplit dans le logbook le certificat qui atteste la période effectuée. Sans ce certificat, la période ne compte pas pour le titre de spécialiste.",
           "- **Renouveler l'autorisation cantonale :** elle est limitée dans le temps (un an au plus dans le canton de Vaud, par exemple) : anticipez son renouvellement avec l'hôpital.",
           "- **Préparer l'examen fédéral :** comptez vos mois d'activité clinique en Suisse dès le premier jour (36 mois pour l'examen complet, 60 mois pour la seule partie théorique, voir la procédure « Enregistrement MEBEKO »).",
         ].join("\n"),
-        estimatedDuration: "1 mois",
+        estimatedDuration: "3 à 5 ans",
         isRequired: true,
       },
     ],
@@ -654,9 +643,22 @@ export const procedures: ProcedureSeed[] = [
           "- **Compte bancaire et paie :** ouvrez un compte bancaire français dès les premiers jours avec votre attestation de logement à l'internat, et remettez votre RIB à la DAM avant le 10 du mois pour toucher votre premier salaire sans décalage.",
           "- **Assurance maladie :** salarié de l'hôpital, vous êtes affilié à l'Assurance maladie ; la DAM transmet les éléments pour l'attribution de votre numéro de sécurité sociale. Conservez les documents de cette démarche.",
           "- **Temps de travail :** dix demi-journées par semaine, sans dépasser 48 heures par période de sept jours en moyenne, gardes comprises.",
-          "- **La suite du parcours, renouvellement et EVC :** pour prolonger votre stage d'un second semestre, la DAM doit saisir l'administration **deux à trois mois avant l'échéance**. Profitez aussi de votre présence à l'hôpital pour préparer les **épreuves de vérification des connaissances (EVC)**, organisées par le [CNG](https://www.cng.sante.fr) : inscription en ligne au début de l'été ces dernières années, épreuves de novembre à janvier, quatre candidatures au maximum. Les lauréats deviennent praticiens associés pour un parcours de consolidation des compétences de deux ans avant l'autorisation d'exercice.",
         ].join("\n"),
         estimatedDuration: "2 à 4 semaines",
+        isRequired: true,
+      },
+      {
+        order: 7,
+        title: "Renouveler le stage et préparer la suite",
+        description:
+          "Le stage étant limité dans le temps, la suite se prépare dès les premiers mois : renouvellement éventuel, puis autorisation d'exercice.",
+        content: [
+          "- **Renouvellement :** pour prolonger d'un second semestre, la DAM doit saisir l'administration **deux à trois mois avant l'échéance**. Au-delà d'un an, demandez une carte de séjour temporaire « stagiaire » à la préfecture.",
+          "- **Les épreuves de vérification des connaissances (EVC) :** organisées par le [CNG](https://www.cng.sante.fr), inscription en ligne au début de l'été ces dernières années, épreuves de novembre à janvier, quatre candidatures au maximum.",
+          "- **Après les EVC :** les lauréats deviennent praticiens associés pour un parcours de consolidation des compétences de deux ans, avant l'avis de la commission nationale sur l'autorisation d'exercice.",
+          "- **Autre voie :** le praticien associé contractuel temporaire (PACT), pour les médecins qui ont au moins trois ans d'expérience et s'engagent à passer les EVC (voir la procédure « Stage associé »).",
+        ].join("\n"),
+        estimatedDuration: "2 à 3 mois avant l'échéance",
         isRequired: true,
       },
     ],
@@ -687,6 +689,20 @@ export const procedures: ProcedureSeed[] = [
       },
       {
         order: 2,
+        title: "Obtenir l'attestation de français B2",
+        description:
+          "Le niveau B2 en français est exigé dès le dossier de candidature. Les sessions d'examen sont espacées et les résultats prennent plusieurs semaines : c'est la première chose à préparer.",
+        content: [
+          "- **Certifications acceptées :** DELF B2, DALF C1 ou C2, TCF ou TEF, ou un baccalauréat français.",
+          "- **Inscrivez-vous tôt :** passez l'examen avant l'ouverture de la campagne, pour avoir l'attestation au moment du dépôt.",
+          "- **Où le passer :** dans les centres agréés de votre pays (Instituts français, Alliances françaises).",
+          "- **Gardez l'original :** il est demandé dans le dossier de candidature, puis au moment de l'affectation.",
+        ].join("\n"),
+        estimatedDuration: "1 à 3 mois",
+        isRequired: true,
+      },
+      {
+        order: 3,
         title: "Constituer le dossier 1 (candidature)",
         description:
           "Le dossier 1 est la première phase de sélection, académique et linguistique, centralisée par l'université de Strasbourg pour vérifier que vous remplissez les conditions.",
@@ -715,7 +731,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 3,
+        order: 4,
         title: "Recevabilité et choix des postes",
         description:
           "Après l'examen des dossiers, l'université de Strasbourg publie la liste des candidatures recevables, puis vient la phase de répartition sur les postes ouverts.",
@@ -729,7 +745,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 4,
+        order: 5,
         title: "Constituer le dossier 2 et recevoir l'affectation",
         description:
           "Une fois retenu, vous transmettez un second dossier, qui déclenche l'inscription universitaire et l'affectation officielle.",
@@ -744,7 +760,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 5,
+        order: 6,
         title: "Obtenir le visa et arriver en France",
         description:
           "Avec votre affectation, vous faites les démarches consulaires pour rejoindre la France avant la prise de poste du 1er novembre.",
@@ -758,7 +774,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 6,
+        order: 7,
         title: "Se former, valider le diplôme et préparer la suite",
         description:
           "Le cursus allie formation pratique supervisée en CHU, participation aux gardes et validation universitaire du diplôme.",
@@ -924,36 +940,26 @@ export const procedures: ProcedureSeed[] = [
       },
       {
         order: 3,
-        title: "Réserver l'hébergement",
+        title: "Réserver l'hébergement et le transport",
         description:
-          "Le consulat vérifie que vous savez où vous logez pendant tout le séjour.",
+          "Le consulat vérifie où vous logez et comment vous voyagez : les réservations doivent couvrir exactement le séjour, à des dates cohérentes avec le congrès.",
         content: [
           "- Réservez un hôtel couvrant exactement les nuits du séjour, de préférence proche du lieu du congrès.",
           "- Les dates doivent correspondre à celles du transport et de l'assurance.",
           "- Si vous êtes hébergé par un particulier, celui-ci doit obtenir une attestation d'accueil auprès de sa mairie.",
           "- **L'attestation d'accueil ([service-public.fr](https://www.service-public.gouv.fr/particuliers/vosdroits/F2191)) :** votre hôte la demande en personne à la mairie du logement (formulaire cerfa n° 10798), paie 30 € en timbres fiscaux et justifie de son identité, de son logement et de ses ressources. La mairie la valide avant votre demande de visa, puis votre hôte vous envoie l'original.",
           "- **Réservation annulable :** choisissez une réservation d'hôtel annulable sans frais tant que le visa n'est pas délivré.",
-        ].join("\n"),
-        estimatedDuration: "1 à 2 jours",
-        isRequired: true,
-      },
-      {
-        order: 4,
-        title: "Réserver le transport",
-        description:
-          "Le dossier doit montrer un aller et un retour, à des dates cohérentes avec le congrès.",
-        content: [
           "- Privilégiez une réservation modifiable ou remboursable tant que le visa n'est pas accordé.",
           "- Les dates d'arrivée et de départ doivent encadrer celles du congrès, sans séjour prolongé inexpliqué.",
           "- Une réservation suffit pour le dossier : il n'est pas nécessaire d'acheter le billet avant la décision de visa.",
           "- Si vous voyagez via un autre pays Schengen, vérifiez que l'itinéraire reste cohérent avec le consulat choisi (pays de séjour principal).",
           "- Gardez une copie de la réservation à présenter au contrôle à l'arrivée, avec la lettre d'invitation et l'assurance.",
         ].join("\n"),
-        estimatedDuration: "1 jour",
+        estimatedDuration: "1 à 2 jours",
         isRequired: true,
       },
       {
-        order: 5,
+        order: 4,
         title: "Souscrire l'assurance voyage",
         description:
           "L'assurance est obligatoire : sans elle, le visa est refusé.",
@@ -968,7 +974,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 6,
+        order: 5,
         title: "Réunir les justificatifs professionnels et financiers",
         description:
           "Ces pièces montrent deux choses : que vous pouvez financer le séjour, et que vous avez des raisons solides de rentrer.",
@@ -984,7 +990,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 7,
+        order: 6,
         title: "Remplir la demande sur France-Visas",
         description:
           "La demande se fait en ligne, sur le portail officiel. Il vous indique la liste exacte des pièces selon votre situation et le montant des frais.",
@@ -1000,7 +1006,7 @@ export const procedures: ProcedureSeed[] = [
         isRequired: true,
       },
       {
-        order: 8,
+        order: 7,
         title: "Déposer le dossier au rendez-vous",
         description:
           "Le dépôt se fait en personne, au consulat ou chez le prestataire qu'il a désigné dans votre pays, avec prise des empreintes.",
