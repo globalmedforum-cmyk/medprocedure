@@ -86,7 +86,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
       <main className="mx-auto w-full max-w-6xl flex-1 animate-enter px-4 sm:px-8">
         <section className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:py-24 xl:grid-cols-[minmax(0,1fr)_23rem]">
           <div className="space-y-8">
-            <h1 className="max-w-4xl font-heading text-[1.85rem] leading-[1.25] font-bold tracking-tight sm:text-4xl sm:leading-[1.2] lg:text-5xl lg:leading-[1.15]">
+            <h1 className="max-w-4xl text-justify font-heading text-[1.55rem] leading-[1.28] font-bold tracking-tight [text-wrap:wrap] hyphens-auto [text-align-last:left] [word-spacing:0.08em] sm:text-[2.1rem] sm:leading-[1.2] lg:text-[2.6rem] lg:leading-[1.18]">
               MedProcedure est une plateforme qui accompagne les médecins, en
               activité ou en formation, dans leur projet d&apos;immigration à
               l&apos;étranger.
