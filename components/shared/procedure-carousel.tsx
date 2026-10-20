@@ -31,7 +31,8 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
     const list = wrapperRef.current?.querySelector("ol");
     const card = list?.children[index] as HTMLElement | undefined;
     if (!list || !card) return;
-    programmaticUntilRef.current = Date.now() + 900;
+    // Garde jusqu'à la fin du défilement doux (prolongée par chaque événement)
+    programmaticUntilRef.current = Date.now() + 1500;
     list.scrollTo({
       left: card.offsetLeft - (list.clientWidth - card.offsetWidth) / 2,
       behavior: "smooth",
@@ -63,6 +64,9 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
       // page vers le bas ne déplace pas la liste et ne compte donc pas.
       if (Date.now() > programmaticUntilRef.current) {
         pausedUntilRef.current = Date.now() + RESUME_DELAY;
+      } else {
+        // Défilement automatique encore en cours (long retour au début)
+        programmaticUntilRef.current = Date.now() + 300;
       }
     };
 

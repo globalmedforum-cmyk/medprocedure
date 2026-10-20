@@ -894,7 +894,7 @@ export const procedures: ProcedureSeed[] = [
           "- **Autre statut possible :** le **praticien associé contractuel temporaire (PACT)**, créé en 2025, pour les médecins qui justifient d'au moins trois ans d'expérience (dont un an au cours des trois dernières années) et s'engagent à passer les EVC : autorisation d'exercice provisoire de 13 mois, renouvelable une fois, délivrée par l'ARS après avis d'une commission.",
           "- Vous pouvez aussi candidater au **DFMS ou au DFMSA** (voir la procédure « DFMS et DFMSA »).",
         ].join("\n"),
-        estimatedDuration: "1 à 2 mois avant l'échéance",
+        estimatedDuration: "2 mois avant l'échéance",
         isRequired: true,
       },
     ],

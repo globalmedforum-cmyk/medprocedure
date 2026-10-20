@@ -28,6 +28,7 @@ export function Stamp({
 }: StampProps) {
   return (
     <span
+      aria-hidden
       style={
         {
           "--stamp-rotate": `${rotate}deg`,

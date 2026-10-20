@@ -74,6 +74,7 @@ export function ProcedureViewShell({
 
   const handleSelectStep = (stepId: string) => {
     setError(null);
+    setStampedStepId(null);
     setActiveStepId(stepId);
   };
 

@@ -59,7 +59,7 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
     <ProcedureCarousel count={procedures.length}>
       <ol
         aria-label="Procédures"
-        className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 [scrollbar-width:none] md:mx-0 md:block md:space-y-10 md:overflow-visible md:p-0 [&::-webkit-scrollbar]:hidden"
+        className="relative -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 [scrollbar-width:none] md:mx-0 md:block md:space-y-10 md:overflow-visible md:p-0 [&::-webkit-scrollbar]:hidden"
       >
         {procedures.map((procedure, index) => {
           const paper = papers[index % papers.length];
@@ -138,7 +138,7 @@ export function ProcedureStack({ procedures }: ProcedureStackProps) {
                       shape="round"
                       rotate={index % 2 === 0 ? -14 : 11}
                       className={cn(
-                        "absolute top-6 right-5 hidden w-28 text-sm opacity-80 sm:right-8 sm:flex",
+                        "absolute top-6 right-8 hidden w-28 text-sm opacity-80 lg:flex",
                         paper.ink,
                       )}
                     />

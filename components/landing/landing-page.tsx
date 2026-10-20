@@ -132,7 +132,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
             <dl className="mt-4 divide-y divide-border-default">
               {[
                 ["Procédures", String(procedures.length).padStart(2, "0")],
-                ["Liens officiels", String(officialLinkCount)],
+                ["Liens de référence", String(officialLinkCount)],
               ].map(([label, value]) => (
                 <div
                   key={label}
@@ -157,11 +157,11 @@ export function LandingPage({ procedures }: LandingPageProps) {
           id="procedures"
           className="scroll-mt-24 space-y-6 pb-16 sm:pb-24"
         >
-          <div className="mx-auto max-w-5xl space-y-4 pb-4 text-center sm:pb-8">
+          <div className="@container mx-auto space-y-4 pb-4 text-center sm:pb-8">
             <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
               {procedures.length} procédures détaillées
             </p>
-            <h2 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
+            <h2 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl lg:text-[min(3rem,4.3cqi)] lg:whitespace-nowrap">
               Toutes vos démarches{" "}
               <em className="whitespace-nowrap text-accent-primary">
                 étape par étape
