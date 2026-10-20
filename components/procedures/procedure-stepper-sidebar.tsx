@@ -13,6 +13,8 @@ interface ProcedureStepperSidebarProps {
   className?: string;
 }
 
+// Table des matières : les étapes reliées par un trait vertical, avec une
+// pastille d'état (terminée, en cours de lecture, à venir)
 export function ProcedureStepperSidebar({
   steps,
   activeStepId,
@@ -24,44 +26,56 @@ export function ProcedureStepperSidebar({
 
   return (
     <nav aria-label="Étapes de la procédure" className={className}>
-      <ol className="space-y-1">
-        {steps.map((step) => {
+      <ol className="relative">
+        {steps.map((step, index) => {
           const isCompleted = completedSet.has(step.id);
           const isActive = step.id === activeStepId;
+          const isLast = index === steps.length - 1;
 
           return (
-            <li key={step.id}>
+            <li key={step.id} className="relative">
+              {!isLast && (
+                <span
+                  aria-hidden
+                  className="absolute top-11 -bottom-3 left-[calc(1.75rem-0.5px)] z-[1] w-px bg-text-muted/30"
+                />
+              )}
               <button
                 type="button"
                 onClick={() => onSelectStep(step.id)}
                 aria-current={isActive ? "step" : undefined}
                 className={cn(
-                  "grid w-full cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)] gap-3 rounded-xl px-3 py-3 text-left transition-colors",
-                  isActive
-                    ? "bg-accent-soft"
-                    : "hover:bg-bg-subtle"
+                  "relative grid w-full cursor-pointer grid-cols-[2rem_minmax(0,1fr)] items-start gap-3 rounded-xl px-3 py-3 text-left transition-colors",
+                  isActive ? "bg-accent-soft" : "hover:bg-bg-subtle",
                 )}
               >
-                <span className="flex h-5 items-center font-mono text-xs text-text-muted">
+                <span
+                  className={cn(
+                    "relative z-10 flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+                    isCompleted
+                      ? "border-state-success bg-state-success text-bg-surface"
+                      : isActive
+                        ? "border-2 border-accent-primary bg-bg-surface text-accent-primary"
+                        : "border-border-default bg-bg-surface text-text-muted",
+                  )}
+                >
                   {isCompleted ? (
                     <Check
                       aria-label="Terminée"
-                      className="h-4 w-4 stroke-[2.5] text-state-success"
+                      className="h-4 w-4 stroke-[3]"
                     />
                   ) : (
-                    String(step.order).padStart(2, "0")
+                    step.order
                   )}
                 </span>
 
-                <span className="space-y-0.5">
+                <span className="space-y-0.5 pt-1">
                   <span
                     className={cn(
-                      "block text-sm leading-snug",
+                      "block text-[0.95rem] leading-snug",
                       isActive
-                        ? "font-semibold text-accent-primary"
-                        : isCompleted
-                          ? "text-text-muted"
-                          : "text-text-primary"
+                        ? "font-bold text-text-primary"
+                        : "text-text-primary",
                     )}
                   >
                     {step.title}

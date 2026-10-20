@@ -2,9 +2,8 @@
 
 import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowLeft, List } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { ArrowLeft, List, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppShell } from "@/components/shared/app-shell";
 import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
@@ -19,11 +18,7 @@ import {
   getDossierLabel,
   toDateInputValue,
 } from "@/lib/dossiers";
-import type {
-  DossierSummary,
-  OpportunityItem,
-  ProcedureData,
-} from "./types";
+import type { DossierSummary, OpportunityItem, ProcedureData } from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
 import { cn } from "@/lib/utils";
 
@@ -62,6 +57,7 @@ export function ProcedureViewShell({
     initialCompletedStepIds,
   );
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [isTocOpen, setIsTocOpen] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -110,209 +106,221 @@ export function ProcedureViewShell({
     });
   };
 
-  const guide = (
-    <div className="grid items-start gap-x-6 gap-y-4 lg:grid-cols-[18rem_minmax(0,1fr)]">
-      <ProcedureStepperSidebar
-        steps={procedure.steps}
-        activeStepId={activeStepId}
-        completedStepIds={completedStepIds}
-        onSelectStep={handleSelectStep}
-        className="sticky top-24 hidden overflow-hidden rounded-2xl border border-border-default bg-bg-surface p-2 shadow-sm lg:block"
-      />
+  const progressPercent =
+    totalSteps > 0 ? Math.round((completedCount / totalSteps) * 100) : 0;
 
-      <Button
-        variant="outline"
-        onClick={() => setIsMobileDrawerOpen(true)}
-        className="h-14 w-full justify-between rounded-2xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm lg:hidden"
-      >
-        <span className="flex items-center gap-2">
-          <List aria-hidden />
-          Toutes les étapes
-        </span>
-        <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent-primary">
-          {completedCount}/{totalSteps}
-        </span>
-      </Button>
+  const stepsPanel = activeStep ? (
+    <ProcedureStepPanel
+      procedure={procedure}
+      activeStep={activeStep}
+      isCompleted={completedStepIds.includes(activeStep.id)}
+      isPending={isPending}
+      error={error}
+      onToggleStep={handleToggleStep}
+      onSelectStep={handleSelectStep}
+      startDossier={
+        dossier ? undefined : (
+          <StartDossierDialog
+            procedureSlug={procedure.slug}
+            procedureTitle={procedure.title}
+            existingDossierCount={existingDossiers.length}
+            triggerLabel="Suivre cette procédure"
+            className="w-full sm:w-auto"
+          />
+        )
+      }
+    />
+  ) : (
+    <p className="text-sm text-text-muted">
+      Cette procédure ne contient encore aucune étape.
+    </p>
+  );
 
-      {activeStep ? (
-        <ProcedureStepPanel
-          procedure={procedure}
-          activeStep={activeStep}
-          isCompleted={completedStepIds.includes(activeStep.id)}
-          isPending={isPending}
-          error={error}
-          onToggleStep={handleToggleStep}
-          onSelectStep={handleSelectStep}
-          startDossier={
-            dossier ? undefined : (
-              <StartDossierDialog
-                procedureSlug={procedure.slug}
-                procedureTitle={procedure.title}
-                existingDossierCount={existingDossiers.length}
-                triggerLabel="Suivre cette procédure"
-                className="w-full sm:w-auto"
-              />
-            )
-          }
-        />
-      ) : (
-        <p className="text-sm text-text-muted">
-          Cette procédure ne contient encore aucune étape.
-        </p>
+  // Bouton d'ouverture de la table des matières : tiroir sur téléphone,
+  // panneau latéral replié sur ordinateur
+  const tocButton = (
+    <Button
+      variant="outline"
+      onClick={() => {
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+          setIsTocOpen(true);
+        } else {
+          setIsMobileDrawerOpen(true);
+        }
+      }}
+      className={cn(
+        "h-11 gap-2 rounded-xl border-border-default bg-bg-surface px-3 text-sm font-semibold",
+        isTocOpen && "lg:hidden",
       )}
-    </div>
+    >
+      <List aria-hidden />
+      Table des matières
+      <span className="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent-primary">
+        {completedCount}/{totalSteps}
+      </span>
+    </Button>
   );
 
   return (
     <AppShell showAdmin={showAdmin}>
-      <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-10">
-        <header className="space-y-5 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:space-y-6 sm:p-8">
-          <nav
-            aria-label="Fil d'Ariane"
-            className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-muted"
-          >
-            <Link
-              href="/editor"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "h-11 gap-2 rounded-xl border-border-default bg-bg-surface px-3 text-sm font-semibold text-text-primary transition-all hover:shadow-sm sm:h-9"
-              )}
-            >
-              <ArrowLeft aria-hidden />
-              Retour
-            </Link>
-            <span>
-              Tableau de bord
-              <span aria-hidden> / </span>
-              {dossier ? procedure.title : procedure.category}
-            </span>
-          </nav>
-
-          <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
-            <div className="max-w-3xl space-y-3">
-              <h1 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-4xl">
+      {/* Barre de la procédure : retour, titre, progression et actions */}
+      <div className="border-b border-border-default bg-bg-surface">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-4 sm:px-6">
+          <div className="min-w-0 space-y-1.5">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/editor"
+                aria-label="Retour au tableau de bord"
+                title="Retour au tableau de bord"
+                className="-ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-text-primary transition-colors hover:bg-bg-subtle"
+              >
+                <ArrowLeft aria-hidden className="h-5 w-5" />
+              </Link>
+              <h1 className="min-w-0 font-heading text-lg leading-snug font-bold tracking-tight sm:text-xl">
                 {dossier
                   ? getDossierLabel(dossier.label, procedure.title)
                   : procedure.title}
               </h1>
-              <p className="text-base leading-relaxed text-text-muted">
-                {procedure.description}
-              </p>
             </div>
-            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap">
-              <AssistanceDialog
-                procedureTitle={procedure.title}
-                className="w-full sm:w-auto"
-              />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pl-11 text-sm text-text-muted">
               {dossier ? (
-                <DossierSettingsDialog
-                  dossierId={dossier.id}
-                  label={dossier.label}
-                  targetDate={toDateInputValue(dossier.targetDate)}
-                  className="w-full sm:w-auto"
-                />
+                <>
+                  <span className="flex items-center gap-2">
+                    <ProgressRing value={progressPercent} />
+                    <span>
+                      {isComplete
+                        ? "Dossier terminé"
+                        : `${progressPercent} % de progression`}
+                    </span>
+                  </span>
+                  {dossier.targetDate && (
+                    <span>
+                      Échéance : {formatDossierDate(dossier.targetDate)}
+                    </span>
+                  )}
+                </>
               ) : (
-                <StartDossierDialog
-                  procedureSlug={procedure.slug}
-                  procedureTitle={procedure.title}
-                  existingDossierCount={existingDossiers.length}
-                  className="w-full sm:w-auto"
-                />
+                <>
+                  <span>
+                    Guide · {procedure.country} · {totalSteps} étapes
+                  </span>
+                  {existingDossiers.length > 0 && (
+                    <span>
+                      Vos dossiers :{" "}
+                      {existingDossiers.map((existing, index) => (
+                        <React.Fragment key={existing.id}>
+                          {index > 0 && ", "}
+                          <Link
+                            href={`/dossiers/${existing.id}`}
+                            className="font-semibold text-accent-primary hover:underline"
+                          >
+                            {getDossierLabel(existing.label, procedure.title)}
+                          </Link>
+                        </React.Fragment>
+                      ))}
+                    </span>
+                  )}
+                </>
               )}
             </div>
           </div>
 
-          {dossier ? (
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-baseline justify-between gap-3 text-sm">
-                <span>
-                  {dossier.targetDate
-                    ? `Échéance : ${formatDossierDate(dossier.targetDate)}`
-                    : procedure.country}
-                </span>
-                <span className="text-xs font-semibold text-text-muted">
-                  {isComplete
-                    ? "Dossier terminé"
-                    : `${completedCount} sur ${totalSteps} étapes terminées`}
-                </span>
-              </div>
-              <Progress
-                value={completedCount}
-                max={totalSteps || 1}
-                aria-label="Avancement du dossier"
-                className="h-2 rounded-full border-0 bg-bg-subtle"
-                indicatorClassName={cn(
-                  "rounded-full",
-                  isComplete && "bg-state-success"
-                )}
+          <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto">
+            <AssistanceDialog
+              procedureTitle={procedure.title}
+              className="w-full sm:w-auto"
+            />
+            {dossier ? (
+              <DossierSettingsDialog
+                dossierId={dossier.id}
+                label={dossier.label}
+                targetDate={toDateInputValue(dossier.targetDate)}
+                className="w-full sm:w-auto"
               />
-            </div>
-          ) : (
-            <div className="space-y-2 text-sm">
-              <p>
-                {procedure.country}
-                <span className="font-mono text-xs text-text-muted">
-                  {" · "}
-                  {totalSteps} étapes
-                </span>
-              </p>
-              {existingDossiers.length > 0 ? (
-                <p className="leading-relaxed text-text-muted">
-                  Vos dossiers pour cette procédure :{" "}
-                  {existingDossiers.map((existing, index) => (
-                    <React.Fragment key={existing.id}>
-                      {index > 0 && ", "}
-                      <Link
-                        href={`/dossiers/${existing.id}`}
-                        className="font-semibold text-accent-primary hover:underline"
-                      >
-                        {getDossierLabel(existing.label, procedure.title)}
-                      </Link>
-                    </React.Fragment>
-                  ))}
-                </p>
-              ) : (
-                <p className="max-w-prose leading-relaxed text-text-muted">
-                  Vous consultez le guide. Ouvrez un dossier pour enregistrer
-                  votre avancement étape par étape.
-                </p>
-              )}
-            </div>
-          )}
-        </header>
+            ) : (
+              <StartDossierDialog
+                procedureSlug={procedure.slug}
+                procedureTitle={procedure.title}
+                existingDossierCount={existingDossiers.length}
+                className="w-full sm:w-auto"
+              />
+            )}
+          </div>
+        </div>
+      </div>
 
-        {showOpportunities ? (
-          <Tabs defaultValue="guide" className="mt-6 gap-5 sm:mt-8 sm:gap-6">
-            <TabsList
-              variant="line"
-              className="h-auto w-full justify-start gap-6 rounded-none sm:gap-8 border-b border-border-default p-0 group-data-horizontal/tabs:h-auto"
-            >
-              <TabsTrigger value="guide" className={tabTriggerClassName}>
-                Guide pas à pas
-              </TabsTrigger>
-              <TabsTrigger
-                value="opportunities"
-                className={tabTriggerClassName}
+      <div className="flex min-h-[calc(100vh-4rem)] bg-bg-surface">
+        {/* Table des matières, sur ordinateur */}
+        {isTocOpen && (
+          <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
+            <div className="flex items-center justify-between border-b border-border-default px-5 py-4">
+              <h2 className="font-heading text-base font-bold">
+                Table des matières
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsTocOpen(false)}
+                aria-label="Masquer la table des matières"
+                title="Masquer la table des matières"
+                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-subtle hover:text-text-primary"
               >
-                Opportunités liées
-                <span className="font-mono text-xs text-text-muted">
-                  {opportunities.length}
-                </span>
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="guide">{guide}</TabsContent>
-
-            <TabsContent value="opportunities">
-              <ProcedureOpportunities opportunities={opportunities} />
-            </TabsContent>
-          </Tabs>
-        ) : (
-          <div className="mt-6 sm:mt-8">{guide}</div>
+                <X aria-hidden className="h-5 w-5" />
+              </button>
+            </div>
+            <ProcedureStepperSidebar
+              steps={procedure.steps}
+              activeStepId={activeStepId}
+              completedStepIds={completedStepIds}
+              onSelectStep={handleSelectStep}
+              className="flex-1 overflow-y-auto p-2"
+            />
+          </aside>
         )}
-      </main>
 
-      {/* Mobile Drawer (Sheet) */}
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-8 sm:py-10 lg:px-12">
+          <div className="mx-auto max-w-3xl space-y-6">
+            {showOpportunities ? (
+              <Tabs defaultValue="guide" className="gap-6">
+                <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border-default">
+                  <TabsList
+                    variant="line"
+                    className="h-auto justify-start gap-6 rounded-none p-0 group-data-horizontal/tabs:h-auto sm:gap-8"
+                  >
+                    <TabsTrigger value="guide" className={tabTriggerClassName}>
+                      Guide pas à pas
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="opportunities"
+                      className={tabTriggerClassName}
+                    >
+                      Opportunités liées
+                      <span className="font-mono text-xs text-text-muted">
+                        {opportunities.length}
+                      </span>
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+
+                <TabsContent value="guide" className="space-y-6">
+                  {tocButton}
+                  {stepsPanel}
+                </TabsContent>
+
+                <TabsContent value="opportunities">
+                  <ProcedureOpportunities opportunities={opportunities} />
+                </TabsContent>
+              </Tabs>
+            ) : (
+              <>
+                {tocButton}
+                {stepsPanel}
+              </>
+            )}
+          </div>
+        </main>
+      </div>
+
+      {/* Table des matières, sur téléphone */}
       <ProcedureMobileDrawer
         open={isMobileDrawerOpen}
         onOpenChange={setIsMobileDrawerOpen}
@@ -322,5 +330,37 @@ export function ProcedureViewShell({
         onSelectStep={handleSelectStep}
       />
     </AppShell>
+  );
+}
+
+// Anneau de progression du dossier, comme sur les plateformes de cours
+function ProgressRing({ value }: { value: number }) {
+  const radius = 9;
+  const circumference = 2 * Math.PI * radius;
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-6 w-6 -rotate-90">
+      <circle
+        cx="12"
+        cy="12"
+        r={radius}
+        fill="none"
+        strokeWidth="3"
+        className="stroke-bg-subtle"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r={radius}
+        fill="none"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={circumference * (1 - value / 100)}
+        className={
+          value === 100 ? "stroke-state-success" : "stroke-accent-primary"
+        }
+      />
+    </svg>
   );
 }

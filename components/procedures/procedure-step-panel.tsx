@@ -43,8 +43,8 @@ export function ProcedureStepPanel({
   const resources = getProcedureResources(procedure.slug);
 
   return (
-    <div className="min-w-0 space-y-5">
-      <article className="space-y-6 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:p-8">
+    <div className="min-w-0 space-y-8">
+      <article className="space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold tracking-wide text-accent-primary uppercase">
             Étape {activeStep.order} sur {totalSteps}
@@ -60,7 +60,7 @@ export function ProcedureStepPanel({
               </span>
             )}
           </p>
-          <h2 className="font-heading text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
+          <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
             {activeStep.title}
           </h2>
         </header>
@@ -70,18 +70,6 @@ export function ProcedureStepPanel({
         </p>
 
         {activeStep.content && <StepContent content={activeStep.content} />}
-
-        {activeStep.videoUrl && (
-          <div className="aspect-video w-full overflow-hidden rounded-xl border border-border-default">
-            <iframe
-              src={activeStep.videoUrl}
-              title={activeStep.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="h-full w-full border-0"
-            />
-          </div>
-        )}
 
         <div className="space-y-4 border-t border-border-default pt-6">
           {startDossier ? (
@@ -146,7 +134,7 @@ export function ProcedureStepPanel({
         </div>
       </article>
 
-      <section className="space-y-4 rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm sm:p-8">
+      <section className="space-y-4 border-t border-border-default pt-8">
         <h3 className="font-heading text-lg font-bold">Liens utiles</h3>
         <ul className="grid gap-x-8 gap-y-1 text-sm md:grid-cols-2">
           {resources.map((resource) => (

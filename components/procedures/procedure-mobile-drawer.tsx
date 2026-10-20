@@ -32,7 +32,7 @@ export function ProcedureMobileDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-full overflow-y-auto p-4 sm:max-w-md">
         <SheetHeader className="pb-2">
-          <SheetTitle>Étapes</SheetTitle>
+          <SheetTitle>Table des matières</SheetTitle>
           <SheetDescription>
             Choisissez l&apos;étape à afficher.
           </SheetDescription>
