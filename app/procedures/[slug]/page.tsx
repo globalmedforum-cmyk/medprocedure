@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { isAdmin } from "@/lib/admin";
+import { isCongressProcedure } from "@/lib/congress";
 import { procedureHasOpportunities } from "@/lib/opportunity-categories";
 import { getProcedureOpportunities } from "@/lib/opportunity-queries";
 import { TermsWindow } from "@/components/terms/terms-window";
@@ -66,6 +67,8 @@ export default async function ProcedureDetailPage({
 
   // 3. Opportunités associées
   const opportunities = await getProcedureOpportunities(procedure.slug);
+  // Congrès : la liste s'ouvre d'abord, le guide général reste dans son onglet
+  const congressProcedure = isCongressProcedure(procedure.slug);
 
   return (
     <ProcedureViewShell
@@ -75,6 +78,11 @@ export default async function ProcedureDetailPage({
       opportunities={opportunities}
       showOpportunities={procedureHasOpportunities(procedure.slug)}
       showAdmin={await isAdmin()}
+      {...(congressProcedure && {
+        defaultTab: "opportunities" as const,
+        guideTabLabel: "Guide général",
+        opportunitiesTabLabel: "Congrès à venir",
+      })}
     />
   );
 }

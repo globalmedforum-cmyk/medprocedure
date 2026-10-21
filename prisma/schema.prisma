@@ -24,18 +24,18 @@ enum OpportunityCategory {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  name      String?
-  specialty String?
+  id              String    @id @default(cuid())
+  clerkId         String    @unique
+  email           String    @unique
+  name            String?
+  specialty       String?
   // Version des conditions générales acceptée, et date d'acceptation
   termsVersion    String?
   termsAcceptedAt DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  progress  UserProcedureProgress[]
+  progress UserProcedureProgress[]
 
   @@map("users")
 }
@@ -50,8 +50,8 @@ model Procedure {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  steps       Step[]
-  progress    UserProcedureProgress[]
+  steps    Step[]
+  progress UserProcedureProgress[]
 
   @@map("procedures")
 }
@@ -87,15 +87,19 @@ model UserProcedureProgress {
   targetDate       DateTime?
   status           ProcedureStatus @default(NOT_STARTED)
   completedStepIds String[]        @default([])
+  // Congrès choisi avec « Participer à cet événement » : le guide s'y adapte
+  opportunityId    String?
+  opportunity      Opportunity?    @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
 
   @@index([userId, procedureId])
+  @@index([opportunityId])
   @@map("user_procedure_progress")
 }
 
 model Opportunity {
-  id           String    @id @default(cuid())
+  id           String              @id @default(cuid())
   category     OpportunityCategory
   title        String
   hospital     String
@@ -103,12 +107,13 @@ model Opportunity {
   country      String
   specialty    String
   deadline     DateTime?
-  requirements String[]  @default([])
+  requirements String[]            @default([])
   contactEmail String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  dossiers UserProcedureProgress[]
 
   @@index([category])
   @@map("opportunities")
 }
-

@@ -1,14 +1,18 @@
 import React from "react";
 import { ArrowRight, CalendarDays, Check, Lock, MapPin } from "lucide-react";
 import { ContactDialog } from "@/components/shared/contact-dialog";
+import { linkRequirementPattern } from "@/lib/congress";
 import {
   getOpportunityReference,
   opportunityCategoryLabels,
 } from "@/lib/opportunity-categories";
+import { ParticipateButton } from "./participate-button";
 import type { OpportunityItem } from "./types";
 
 interface ProcedureOpportunitiesProps {
   opportunities: OpportunityItem[];
+  // Congrès suivi par le dossier affiché : son bouton mène au dossier
+  currentCongressId?: string | null;
 }
 
 const deadlineFormatter = new Intl.DateTimeFormat("fr-FR", {
@@ -27,9 +31,6 @@ const lockedDetails = [
 
 const roundButtonClassName =
   "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-accent-hover hover:shadow-md";
-
-// Une condition de la forme « Libellé : https://… » s'affiche comme un lien
-const linkRequirementPattern = /^(.+?)\s:\s(https:\/\/\S+)$/;
 
 function Requirement({ text }: { text: string }) {
   const match = linkRequirementPattern.exec(text);
@@ -57,6 +58,7 @@ function CheckMark() {
 
 export function ProcedureOpportunities({
   opportunities,
+  currentCongressId = null,
 }: ProcedureOpportunitiesProps) {
   if (opportunities.length === 0) {
     return (
@@ -169,14 +171,22 @@ export function ProcedureOpportunities({
                 )}
               </ul>
 
-              <div className="mt-auto flex items-center justify-between gap-4">
+              <div className="mt-auto flex flex-wrap items-center justify-between gap-4">
                 <p className="min-w-0 text-sm font-semibold text-accent-primary">
                   {opportunity.specialty}
                   <span className="text-text-muted">
                     {" | "}Réf. {reference}
                   </span>
                 </p>
-                {details ? (
+                {opportunity.category === "CONGRES" ? (
+                  currentCongressId === opportunity.id ? (
+                    <span className="shrink-0 rounded-lg bg-accent-soft px-3 py-2 text-sm font-semibold text-accent-primary">
+                      Votre congrès
+                    </span>
+                  ) : (
+                    <ParticipateButton opportunityId={opportunity.id} />
+                  )
+                ) : details ? (
                   mailto && (
                     <a
                       href={mailto}

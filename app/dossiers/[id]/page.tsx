@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { isAdmin } from "@/lib/admin";
+import { getCongressInfo, isCongressProcedure } from "@/lib/congress";
 import { procedureHasOpportunities } from "@/lib/opportunity-categories";
 import { getProcedureOpportunities } from "@/lib/opportunity-queries";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
@@ -35,6 +36,7 @@ export default async function DossierPage({ params }: DossierPageProps) {
     where: { id, user: { clerkId: userId } },
     include: {
       procedure: { include: { steps: { orderBy: { order: "asc" } } } },
+      opportunity: true,
     },
   });
 
@@ -44,6 +46,10 @@ export default async function DossierPage({ params }: DossierPageProps) {
 
   const { procedure } = dossier;
   const opportunities = await getProcedureOpportunities(procedure.slug);
+  const congress =
+    dossier.opportunity?.category === "CONGRES"
+      ? getCongressInfo(dossier.opportunity)
+      : null;
 
   return (
     <ProcedureViewShell
@@ -54,6 +60,11 @@ export default async function DossierPage({ params }: DossierPageProps) {
       opportunities={opportunities}
       showOpportunities={procedureHasOpportunities(procedure.slug)}
       showAdmin={await isAdmin()}
+      congress={congress}
+      {...(isCongressProcedure(procedure.slug) && {
+        guideTabLabel: congress ? "Guide pour ce congrès" : "Guide général",
+        opportunitiesTabLabel: "Congrès à venir",
+      })}
       dossier={{
         id: dossier.id,
         label: dossier.label,

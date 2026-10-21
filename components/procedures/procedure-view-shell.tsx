@@ -12,6 +12,7 @@ import { ProcedureMobileDrawer } from "./procedure-mobile-drawer";
 import { ProcedureStepPanel } from "./procedure-step-panel";
 import { AssistanceDialog } from "./assistance-dialog";
 import { ProcedureOpportunities } from "./procedure-opportunities";
+import { CongressSummary } from "./congress-summary";
 import { DossierSettingsDialog } from "@/components/dossiers/dossier-settings-dialog";
 import { StartDossierDialog } from "@/components/dossiers/start-dossier-dialog";
 import {
@@ -21,6 +22,7 @@ import {
 } from "@/lib/dossiers";
 import type { DossierSummary, OpportunityItem, ProcedureData } from "./types";
 import { toggleStepProgress } from "@/actions/procedure-progress";
+import type { CongressInfo } from "@/lib/congress";
 import { cn } from "@/lib/utils";
 
 interface ProcedureViewShellProps {
@@ -33,6 +35,12 @@ interface ProcedureViewShellProps {
   showAdmin?: boolean;
   // Dossiers déjà ouverts par l'utilisateur pour cette procédure (mode guide)
   existingDossiers?: { id: string; label: string }[];
+  // Onglet ouvert à l'arrivée et intitulés des onglets
+  defaultTab?: "guide" | "opportunities";
+  guideTabLabel?: string;
+  opportunitiesTabLabel?: string;
+  // Congrès suivi par le dossier : fiche en tête et guide adapté
+  congress?: CongressInfo | null;
 }
 
 const tabTriggerClassName =
@@ -70,6 +78,10 @@ export function ProcedureViewShell({
   dossier = null,
   existingDossiers = [],
   showAdmin = false,
+  defaultTab = "guide",
+  guideTabLabel = "Guide pas à pas",
+  opportunitiesTabLabel = "Opportunités liées",
+  congress = null,
 }: ProcedureViewShellProps) {
   // Détermination de l'étape active initiale : première étape non complétée, ou étape 1
   const firstIncomplete = procedure.steps.find(
@@ -87,7 +99,7 @@ export function ProcedureViewShell({
   const [stampedStepId, setStampedStepId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [activeTab, setActiveTab] = useState("guide");
+  const [activeTab, setActiveTab] = useState<string>(defaultTab);
   const [opportunityQuery, setOpportunityQuery] = useState("");
 
   const filteredOpportunities = opportunityQuery.trim()
@@ -156,6 +168,7 @@ export function ProcedureViewShell({
       onToggleStep={handleToggleStep}
       onSelectStep={handleSelectStep}
       animateStamp={stampedStepId === activeStep.id}
+      congress={congress}
       startDossier={
         dossier ? undefined : (
           <StartDossierDialog
@@ -329,13 +342,13 @@ export function ProcedureViewShell({
                     className="h-auto justify-start gap-6 rounded-none p-0 group-data-horizontal/tabs:h-auto sm:gap-8"
                   >
                     <TabsTrigger value="guide" className={tabTriggerClassName}>
-                      Guide pas à pas
+                      {guideTabLabel}
                     </TabsTrigger>
                     <TabsTrigger
                       value="opportunities"
                       className={tabTriggerClassName}
                     >
-                      Opportunités liées
+                      {opportunitiesTabLabel}
                       <span className="font-mono text-xs text-text-muted">
                         {opportunities.length}
                       </span>
@@ -356,13 +369,14 @@ export function ProcedureViewShell({
                         setActiveTab("opportunities");
                       }}
                       placeholder="Rechercher : ville, spécialité, société…"
-                      aria-label="Rechercher dans les opportunités"
+                      aria-label={`Rechercher dans : ${opportunitiesTabLabel}`}
                       className="h-10 rounded-lg border-border-default bg-bg-surface pl-9"
                     />
                   </div>
                 </div>
 
                 <TabsContent value="guide" className="space-y-6">
+                  {congress && <CongressSummary congress={congress} />}
                   {tocButton}
                   <div key={activeStepId}>{stepsPanel}</div>
                 </TabsContent>
@@ -379,6 +393,7 @@ export function ProcedureViewShell({
                     !opportunityQuery.trim()) && (
                     <ProcedureOpportunities
                       opportunities={filteredOpportunities}
+                      currentCongressId={congress?.id}
                     />
                   )}
                 </TabsContent>

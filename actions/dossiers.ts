@@ -9,6 +9,7 @@ import {
   MAX_DOSSIERS_PER_USER,
   suggestDossierLabel,
 } from "@/lib/dossiers";
+import { CONGRESS_PROCEDURE_SLUG } from "@/lib/congress";
 import { prisma } from "@/lib/prisma";
 import { TERMS_VERSION } from "@/lib/terms";
 import { syncDbUser } from "@/lib/user";
@@ -105,6 +106,70 @@ export async function createDossier(
       procedureId: procedure.id,
       label,
       targetDate: fields.data.targetDate,
+    },
+    select: { id: true },
+  });
+
+  revalidatePath("/editor");
+  redirect(`/dossiers/${dossier.id}`);
+}
+
+// « Participer à cet événement » : ouvre un dossier de participation rattaché
+// au congrès, nommé et daté d'après lui, ou retrouve celui qui existe déjà.
+export async function participateInCongress(
+  _prev: DossierActionState,
+  formData: FormData
+): Promise<DossierActionState> {
+  const { user, error } = await getAuthorizedUser();
+  if (!user) return { success: false, error };
+
+  const opportunityId = z
+    .string()
+    .trim()
+    .min(1)
+    .max(64)
+    .safeParse(formData.get("opportunityId"));
+  if (!opportunityId.success) {
+    return { success: false, error: "Congrès inconnu." };
+  }
+
+  const [congress, procedure] = await Promise.all([
+    prisma.opportunity.findFirst({
+      where: { id: opportunityId.data, category: "CONGRES" },
+      select: { id: true, title: true, deadline: true },
+    }),
+    prisma.procedure.findUnique({
+      where: { slug: CONGRESS_PROCEDURE_SLUG },
+      select: { id: true },
+    }),
+  ]);
+  if (!congress || !procedure) {
+    return { success: false, error: "Congrès inconnu." };
+  }
+
+  const existing = await prisma.userProcedureProgress.findFirst({
+    where: { userId: user.id, opportunityId: congress.id },
+    select: { id: true },
+  });
+  if (existing) redirect(`/dossiers/${existing.id}`);
+
+  const dossierCount = await prisma.userProcedureProgress.count({
+    where: { userId: user.id },
+  });
+  if (dossierCount >= MAX_DOSSIERS_PER_USER) {
+    return {
+      success: false,
+      error: `Vous avez atteint la limite de ${MAX_DOSSIERS_PER_USER} dossiers. Supprimez-en un pour en créer un nouveau.`,
+    };
+  }
+
+  const dossier = await prisma.userProcedureProgress.create({
+    data: {
+      userId: user.id,
+      procedureId: procedure.id,
+      opportunityId: congress.id,
+      label: congress.title.slice(0, DOSSIER_LABEL_MAX_LENGTH),
+      targetDate: congress.deadline,
     },
     select: { id: true },
   });

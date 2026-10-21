@@ -15,6 +15,7 @@ import { isAdmin } from "@/lib/admin";
 import { cn } from "@/lib/utils";
 import { StartDossierDialog } from "@/components/dossiers/start-dossier-dialog";
 import { TermsWindow } from "@/components/terms/terms-window";
+import { isCongressProcedure } from "@/lib/congress";
 
 export const metadata: Metadata = {
   title: "Tableau de bord | MedProcedure",
@@ -268,7 +269,9 @@ export default async function DashboardPage() {
                           href={`/procedures/${procedure.slug}`}
                           className="inline-flex h-11 items-center justify-center rounded-xl bg-bg-subtle px-2 text-sm font-semibold transition-colors hover:bg-border-default sm:h-10"
                         >
-                          Lire le guide
+                          {isCongressProcedure(procedure.slug)
+                            ? "Liste des congrès"
+                            : "Lire le guide"}
                         </Link>
                         <StartDossierDialog
                           procedureSlug={procedure.slug}

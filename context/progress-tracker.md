@@ -165,6 +165,15 @@ change.
 
 - **Recherche dans les opportunités (2026-10-21)** : champ de recherche à droite des onglets d'une procédure. Il filtre les opportunités sur le titre, la spécialité, la ville, le pays, le lieu et les conditions, sans tenir compte des accents ni de la casse, tous les mots devant correspondre. Taper dans le champ ouvre l'onglet « Opportunités liées » ; le nombre de résultats s'affiche au-dessus de la liste.
 
+- **Incident base de données (2026-10-21)** : une commande `prisma migrate diff` lancée avec la base de production comme base fantôme (shadow) a effacé toutes les données. Rechargés : les 8 procédures et 52 étapes (`prisma/procedures-content.ts`) et les 52 congrès (`npm run db:import-congres`). Perdus : les fiches utilisateurs (recréées à la connexion, conditions à réaccepter) et tous les dossiers. Les migrations ont été marquées appliquées (`prisma migrate resolve`). Règle : ne jamais utiliser une URL de base du projet comme base fantôme, ni de commande de réinitialisation.
+
+- **Congrès : liste d'abord et guide adapté (2026-10-21)** :
+  - La procédure « Participation aux congrès » s'ouvre sur l'onglet « Congrès à venir » ; le guide reste dans l'onglet « Guide général ». Sur le tableau de bord, le bouton « Lire le guide » de cette procédure devient « Liste des congrès ».
+  - Chaque congrès a un bouton « Participer à cet événement » (`participateInCongress` dans `actions/dossiers.ts`) : il ouvre un dossier rattaché au congrès (nouveau champ `UserProcedureProgress.opportunityId`, migration `20261021120000_dossier_congress`), nommé d'après le congrès et daté de son début, ou retrouve le dossier existant.
+  - Dans ce dossier, l'onglet « Guide pour ce congrès » affiche la fiche du congrès (dates, lieu sur la carte, état des inscriptions, liens d'inscription, d'adhésion et du site), un encadré « Pour votre congrès » aux étapes 1 (inscription), 2 (fenêtre de dépôt du visa calculée d'après la date du congrès) et 3 (hébergement), et les liens du congrès en tête des liens utiles.
+  - Les informations sont lues dans les lignes « Libellé : valeur » des conditions (`lib/congress.ts`) ; un congrès saisi dans l'admin doit garder ces libellés (« Dates », « Organisé par », « S'inscrire au congrès » ou « Page du congrès », « Adhérer à la société », « Site officiel de la société »).
+  - Vérifié : `tsc`, `eslint`, `npm run build`, lecture des 52 congrès. Écrans connectés non vus (connexion impossible depuis le navigateur de l'agent).
+
 ## In Progress
 
 - None.

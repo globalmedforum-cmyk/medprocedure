@@ -3,6 +3,7 @@
 import React from "react";
 import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getCongressMapUrl, type CongressInfo } from "@/lib/congress";
 import { getProcedureResources } from "@/lib/procedure-resources";
 import { Stamp } from "@/components/shared/stamp";
 import { AssistanceDialog } from "./assistance-dialog";
@@ -21,6 +22,8 @@ interface ProcedureStepPanelProps {
   startDossier?: React.ReactNode;
   // Joue l'animation du tampon : l'étape vient d'être cochée
   animateStamp?: boolean;
+  // Congrès suivi par le dossier : certaines étapes s'y adaptent
+  congress?: CongressInfo | null;
 }
 
 export function ProcedureStepPanel({
@@ -33,12 +36,16 @@ export function ProcedureStepPanel({
   onSelectStep,
   startDossier,
   animateStamp = false,
+  congress = null,
 }: ProcedureStepPanelProps) {
   const totalSteps = procedure.steps.length;
   const currentIndex = procedure.steps.findIndex((s) => s.id === activeStep.id);
   const prevStep = procedure.steps[currentIndex - 1] ?? null;
   const nextStep = procedure.steps[currentIndex + 1] ?? null;
-  const resources = getProcedureResources(procedure.slug);
+  const resources = [
+    ...(congress ? getCongressLinks(congress) : []),
+    ...getProcedureResources(procedure.slug),
+  ];
 
   return (
     <div className="min-w-0 space-y-8">
@@ -67,6 +74,10 @@ export function ProcedureStepPanel({
         <p className="max-w-3xl text-base leading-relaxed text-text-muted sm:text-lg">
           {activeStep.description}
         </p>
+
+        {congress && (
+          <CongressStepNote congress={congress} stepOrder={activeStep.order} />
+        )}
 
         {activeStep.content && <StepContent content={activeStep.content} />}
 
@@ -175,6 +186,134 @@ export function ProcedureStepPanel({
           ci-dessus avant d&apos;engager une démarche.
         </p>
       </section>
+    </div>
+  );
+}
+
+function getCongressLinks(congress: CongressInfo) {
+  return [
+    congress.registrationLink && {
+      label: `${congress.registrationLink.label} (${congress.title})`,
+      href: congress.registrationLink.href,
+    },
+    congress.membershipLink && {
+      label: "Adhérer à la société organisatrice",
+      href: congress.membershipLink.href,
+    },
+    congress.websiteLink && {
+      label: "Site de la société organisatrice",
+      href: congress.websiteLink.href,
+    },
+  ].filter((link): link is { label: string; href: string } => Boolean(link));
+}
+
+const noteDateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+function shiftDate(iso: string, days: number, months = 0) {
+  const date = new Date(iso);
+  date.setUTCMonth(date.getUTCMonth() + months);
+  date.setUTCDate(date.getUTCDate() + days);
+  return noteDateFormatter.format(date);
+}
+
+const noteLinkClassName =
+  "font-semibold text-accent-primary underline-offset-4 hover:underline";
+
+// Encadré propre au congrès choisi. Les étapes sont repérées par leur numéro
+// d'ordre dans prisma/procedures-content.ts (procédure « participation-congres »).
+function CongressStepNote({
+  congress,
+  stepOrder,
+}: {
+  congress: CongressInfo;
+  stepOrder: number;
+}) {
+  let body: React.ReactNode = null;
+
+  if (stepOrder === 1) {
+    body = (
+      <>
+        <p>
+          {congress.registrationOpen === true &&
+            "Les inscriptions sont ouvertes. "}
+          {congress.registrationOpen === false &&
+            "Les inscriptions ne sont pas encore ouvertes : surveillez la page du congrès. "}
+          Inscrivez-vous, puis demandez votre lettre d&apos;invitation à
+          l&apos;organisateur
+          {congress.organizer ? ` (${congress.organizer})` : ""}.
+        </p>
+        <ul className="space-y-1">
+          {congress.registrationLink && (
+            <li>
+              <a
+                href={congress.registrationLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={noteLinkClassName}
+              >
+                {congress.registrationLink.label}
+              </a>
+            </li>
+          )}
+          {congress.membershipLink && (
+            <li>
+              <a
+                href={congress.membershipLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={noteLinkClassName}
+              >
+                Adhérer à la société
+              </a>{" "}
+              <span className="text-text-muted">
+                : les membres paient souvent un tarif d&apos;inscription réduit.
+              </span>
+            </li>
+          )}
+        </ul>
+      </>
+    );
+  } else if (stepOrder === 2 && congress.startDate) {
+    body = (
+      <p>
+        Dates du congrès :{" "}
+        {congress.dates ?? `à partir du ${shiftDate(congress.startDate, 0)}`}.
+        Déposez votre demande de visa entre le{" "}
+        <strong>{shiftDate(congress.startDate, 0, -6)}</strong> et le{" "}
+        <strong>{shiftDate(congress.startDate, -15)}</strong> au plus tard,
+        quinze jours avant le début du congrès.
+      </p>
+    );
+  } else if (stepOrder === 3) {
+    body = (
+      <p>
+        Lieu du congrès : {congress.venue}, {congress.city}. Réservez un hébergement à
+        proximité, pour les nuits du congrès.{" "}
+        <a
+          href={getCongressMapUrl(congress)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={noteLinkClassName}
+        >
+          Voir le lieu sur la carte
+        </a>
+      </p>
+    );
+  }
+
+  if (!body) return null;
+
+  return (
+    <div className="max-w-3xl space-y-2 rounded-xl border-l-4 border-accent-primary bg-accent-soft/50 p-4 text-sm leading-relaxed">
+      <p className="font-mono text-xs tracking-[0.15em] text-accent-primary uppercase">
+        Pour votre congrès
+      </p>
+      {body}
     </div>
   );
 }
