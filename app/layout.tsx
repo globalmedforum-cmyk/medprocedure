@@ -7,19 +7,12 @@ import { THEME_COLORS, THEME_STORAGE_KEY } from "@/lib/theme";
 import "./globals.css";
 
 // Polices servies depuis app/fonts : le build ne télécharge rien chez Google
-const jakarta = localFont({
+// Source Sans 3 pour tout le texte, titres compris
+const sourceSans = localFont({
   variable: "--font-sans",
   display: "swap",
-  src: "./fonts/plus-jakarta-sans-latin-wght-normal.woff2",
-  weight: "200 800",
-});
-
-// Titres : police à empattements, au ton éditorial
-const newsreader = localFont({
-  variable: "--font-serif",
-  display: "swap",
-  src: "./fonts/newsreader-latin-wght-normal.woff2",
-  weight: "200 800",
+  src: "./fonts/source-sans-3-latin-wght-normal.woff2",
+  weight: "200 900",
 });
 
 const plexMono = localFont({
@@ -52,7 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="fr"
       // La classe `dark` est posée par le script ci-dessous avant l'affichage
       suppressHydrationWarning
-      className={`${jakarta.variable} ${newsreader.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${sourceSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

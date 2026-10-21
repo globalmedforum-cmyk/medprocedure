@@ -176,6 +176,8 @@ change.
 
 - **Thème bleu (2026-10-21)** : l'accent passe de l'orange au bleu encre : `#1D4ED8` (survol `#1E40AF`, fond doux `#EEF3FF`) ; en mode sombre `#60A5FA` avec texte noir. Seuls les jetons de `app/globals.css` et `context/ui-context.md` changent.
 
+- **Police Source Sans 3 (2026-10-21)** : tout le texte, titres compris, passe en Source Sans 3 (police variable, `app/fonts/source-sans-3-latin-wght-normal.woff2`, Fontsource, OFL) ; `--font-heading` pointe sur `--font-sans`. Plus Jakarta Sans, Newsreader et IBM Plex Sans retirés ; IBM Plex Mono reste pour les numéros.
+
 ## In Progress
 
 - None.

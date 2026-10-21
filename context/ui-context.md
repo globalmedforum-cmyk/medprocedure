@@ -37,8 +37,8 @@ Un mode sombre existe : la classe `dark` sur `<html>` redéfinit ces variables (
 
 | Role            | Font              | Variable      | Classe                     |
 | --------------- | ----------------- | ------------- | -------------------------- |
-| Titres          | Plus Jakarta Sans | `--font-sans` | `font-heading` + `font-bold` |
-| Texte et UI     | Plus Jakarta Sans | `--font-sans` | `font-sans`                |
+| Titres          | Source Sans 3     | `--font-sans` | `font-heading` + `font-bold` |
+| Texte et UI     | Source Sans 3     | `--font-sans` | `font-sans`                |
 | Numéros, délais | IBM Plex Mono     | `--font-mono` | `font-mono`                |
 
 Les polices sont hébergées dans `app/fonts/` et chargées avec `next/font/local`. Le logo, fourni blanc sur fond noir, est affiché en noir grâce aux classes `invert mix-blend-multiply`.
