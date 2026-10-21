@@ -11,6 +11,7 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "db:import-congres": "tsx prisma/import-congres.ts",
+    "db:import-opportunites": "tsx prisma/import-opportunites.ts",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "postinstall": "prisma generate"

@@ -34,9 +34,10 @@ export const opportunityCategoryGroups: {
 
 // Catégories affichées dans l'onglet « Opportunités liées » de chaque procédure.
 // Une procédure absente de cette table n'a pas d'onglet : stage d'observation,
-// enregistrement MEBEKO, DFMS et DFMSA.
+// enregistrement MEBEKO. Les DFMS et DFMSA mènent à un poste de FFI.
 const categoriesByProcedureSlug: Record<string, OpportunityCategory[]> = {
   "ffi-france": ["FFI"],
+  "dfms-dfmsa": ["FFI"],
   "stage-associe": ["STAGE_ASSOCIE"],
   "medecin-assistant-suisse": ["MEDECIN_ASSISTANT"],
   "doctorat-phd": ["PHD", "FELLOWSHIP"],
@@ -70,11 +71,17 @@ export function isOpportunityExpired(deadline: Date | null, today: Date) {
   return deadline !== null && deadline < today;
 }
 
-// Catégories publiées en entier ; les autres n'affichent qu'un aperçu
+// Catégories publiées en entier ; les autres n'affichent qu'un aperçu, sauf
+// une opportunité marquée publique dans l'administration
 const fullyPublicCategories: OpportunityCategory[] = ["CONGRES"];
 
-export function isOpportunityFullyPublic(category: OpportunityCategory) {
-  return fullyPublicCategories.includes(category);
+export function isOpportunityFullyPublic(opportunity: {
+  category: OpportunityCategory;
+  isPublic: boolean;
+}) {
+  return (
+    opportunity.isPublic || fullyPublicCategories.includes(opportunity.category)
+  );
 }
 
 // Référence courte, citée par le client quand il demande le détail d'une offre

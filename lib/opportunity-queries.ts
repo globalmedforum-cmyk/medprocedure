@@ -30,7 +30,7 @@ export async function getProcedureOpportunities(
     location: row.location,
     country: row.country,
     deadline: row.deadline,
-    details: isOpportunityFullyPublic(row.category)
+    details: isOpportunityFullyPublic(row)
       ? {
           hospital: row.hospital,
           requirements: row.requirements,

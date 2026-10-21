@@ -109,6 +109,9 @@ model Opportunity {
   deadline     DateTime?
   requirements String[]            @default([])
   contactEmail String?
+  // Publiée en entier (établissement, conditions et liens visibles par tous),
+  // comme les congrès, au lieu du seul aperçu
+  isPublic     Boolean             @default(false)
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
 

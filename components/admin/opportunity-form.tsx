@@ -52,8 +52,21 @@ export function OpportunityForm({
         Visible par tous sur le site : la catégorie, le titre, la spécialité, la
         ville, le pays et la date limite. L&apos;établissement, les conditions
         et l&apos;e-mail de contact restent réservés à l&apos;équipe, sauf pour
-        les congrès, qui sont publiés en entier.
+        les congrès et les opportunités publiées en entier (case ci-dessous).
       </p>
+      <label className="flex items-start gap-2 text-sm">
+        <input
+          type="checkbox"
+          name="isPublic"
+          defaultChecked={opportunity?.isPublic ?? false}
+          className="mt-0.5 h-4 w-4 accent-accent-primary"
+        />
+        <span>
+          Publier en entier : établissement, conditions et liens visibles par
+          tous. Une condition « Libellé : https://… » devient un lien
+          cliquable.
+        </span>
+      </label>
       <Field
         label="Titre"
         name="title"

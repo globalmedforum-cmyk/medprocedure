@@ -91,6 +91,7 @@ const opportunitySchema = z.object({
     z.literal("").transform(() => null),
     z.email().max(200),
   ]),
+  isPublic: z.boolean(),
 });
 
 function fields(formData: FormData, names: string[]) {
@@ -126,6 +127,7 @@ function opportunityFields(formData: FormData) {
       "contactEmail",
     ]),
     requirements: String(formData.get("requirements") ?? ""),
+    isPublic: formData.get("isPublic") === "on",
   };
 }
 
