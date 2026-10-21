@@ -2,12 +2,12 @@
 
 ## Theme
 
-Interface claire, minimaliste et aérée (branche `experimentation-ui`, en évaluation). Fond gris très clair, cartes blanches aux grands arrondis et à l'ombre légère, texte bleu nuit. L'orange est réservé aux actions principales, à la progression et à l'étape active ; le vert marque ce qui est terminé.
+Interface claire, minimaliste et aérée (branche `experimentation-ui`, en évaluation). Fond gris très clair, cartes blanches aux grands arrondis et à l'ombre légère, texte bleu nuit. Le bleu encre est réservé aux actions principales, à la progression et à l'étape active ; le vert marque ce qui est terminé.
 
 Principes :
 
 - Les contenus sont posés dans des cartes blanches (`rounded-2xl`, bordure fine, `shadow-sm`, `hover:shadow-md`).
-- Une seule action principale orange par zone. Les actions secondaires sont blanches à bordure fine.
+- Une seule action principale bleue par zone. Les actions secondaires sont blanches à bordure fine.
 - Texte courant en 16 px, jamais en dessous de 12 px. Titres en casse de phrase, à la française.
 - Téléphone d'abord : chaque écran est conçu pour 375 px de large, puis élargi avec `sm:`, `md:` et `lg:`. Sur téléphone, les actions principales occupent toute la largeur et toute zone cliquable fait au moins 44 px de haut.
 
@@ -20,9 +20,9 @@ Principes :
 | Fond discret    | `--bg-subtle`        | `#F1F5F9` |
 | Primary text    | `--text-primary`     | `#0F172A` |
 | Muted text      | `--text-muted`       | `#475569` |
-| Primary accent  | `--accent-primary`   | `#BF4A00` (contraste AA avec le blanc) |
-| Accent hover    | `--accent-hover`     | `#9C3D00` |
-| Accent doux     | `--accent-soft`      | `#FFF1E8` |
+| Primary accent  | `--accent-primary`   | `#1D4ED8` bleu encre (contraste AA avec le blanc ; sombre : `#60A5FA` avec texte noir) |
+| Accent hover    | `--accent-hover`     | `#1E40AF` |
+| Accent doux     | `--accent-soft`      | `#EEF3FF` |
 | Links           | `--accent-secondary` | `#1D4ED8` |
 | Border          | `--border-default`   | `#E2E8F0` |
 | Error           | `--state-error`      | `#DC2626` |

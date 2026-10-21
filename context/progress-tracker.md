@@ -174,6 +174,8 @@ change.
   - Les informations sont lues dans les lignes « Libellé : valeur » des conditions (`lib/congress.ts`) ; un congrès saisi dans l'admin doit garder ces libellés (« Dates », « Organisé par », « S'inscrire au congrès » ou « Page du congrès », « Adhérer à la société », « Site officiel de la société »).
   - Vérifié : `tsc`, `eslint`, `npm run build`, lecture des 52 congrès. Écrans connectés non vus (connexion impossible depuis le navigateur de l'agent).
 
+- **Thème bleu (2026-10-21)** : l'accent passe de l'orange au bleu encre : `#1D4ED8` (survol `#1E40AF`, fond doux `#EEF3FF`) ; en mode sombre `#60A5FA` avec texte noir. Seuls les jetons de `app/globals.css` et `context/ui-context.md` changent.
+
 ## In Progress
 
 - None.
