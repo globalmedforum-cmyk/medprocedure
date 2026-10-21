@@ -24,6 +24,7 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
   // Défilement lancé par le carrousel lui-même (à ne pas prendre pour un geste)
   const programmaticUntilRef = useRef(0);
   const pausedUntilRef = useRef(0);
+  const snapTimerRef = useRef<number | undefined>(undefined);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -33,10 +34,18 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
     if (!list || !card) return;
     // Garde jusqu'à la fin du défilement doux (prolongée par chaque événement)
     programmaticUntilRef.current = Date.now() + 1500;
+    // Safari sur iPhone annule un défilement doux lancé par script quand
+    // l'aimantation (scroll-snap) est active : on la coupe le temps du
+    // déplacement, puis on la rétablit une fois la carte atteinte
+    list.style.scrollSnapType = "none";
     list.scrollTo({
       left: card.offsetLeft - (list.clientWidth - card.offsetWidth) / 2,
       behavior: "smooth",
     });
+    window.clearTimeout(snapTimerRef.current);
+    snapTimerRef.current = window.setTimeout(() => {
+      list.style.scrollSnapType = "";
+    }, 900);
   }, []);
 
   // Carte active d'après la position de défilement
