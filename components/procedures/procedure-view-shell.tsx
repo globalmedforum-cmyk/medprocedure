@@ -2,8 +2,9 @@
 
 import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowLeft, List, X } from "lucide-react";
+import { ArrowLeft, List, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppShell } from "@/components/shared/app-shell";
 import { ProcedureStepperSidebar } from "./procedure-stepper-sidebar";
@@ -37,6 +38,30 @@ interface ProcedureViewShellProps {
 const tabTriggerClassName =
   "h-12 flex-none rounded-none px-0 text-sm group-data-horizontal/tabs:after:bottom-[-1px] group-data-horizontal/tabs:after:bg-accent-primary";
 
+// Recherche insensible à la casse et aux accents
+function normalizeSearch(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
+}
+
+function matchesSearch(opportunity: OpportunityItem, query: string) {
+  const text = [
+    opportunity.title,
+    opportunity.specialty,
+    opportunity.location,
+    opportunity.country,
+    opportunity.details?.hospital,
+    ...(opportunity.details?.requirements ?? []),
+  ].join(" ");
+  const haystack = normalizeSearch(text);
+  return normalizeSearch(query)
+    .split(/\s+/)
+    .filter(Boolean)
+    .every((word) => haystack.includes(word));
+}
+
 export function ProcedureViewShell({
   procedure,
   initialCompletedStepIds,
@@ -62,6 +87,14 @@ export function ProcedureViewShell({
   const [stampedStepId, setStampedStepId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [activeTab, setActiveTab] = useState("guide");
+  const [opportunityQuery, setOpportunityQuery] = useState("");
+
+  const filteredOpportunities = opportunityQuery.trim()
+    ? opportunities.filter((opportunity) =>
+        matchesSearch(opportunity, opportunityQuery),
+      )
+    : opportunities;
 
   const activeStep =
     procedure.steps.find((s) => s.id === activeStepId) || procedure.steps[0];
@@ -285,8 +318,12 @@ export function ProcedureViewShell({
         <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:pl-12">
           <div className="max-w-6xl space-y-6">
             {showOpportunities ? (
-              <Tabs defaultValue="guide" className="gap-6">
-                <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border-default">
+              <Tabs
+                value={activeTab}
+                onValueChange={(value) => setActiveTab(String(value))}
+                className="gap-6"
+              >
+                <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 border-b border-border-default">
                   <TabsList
                     variant="line"
                     className="h-auto justify-start gap-6 rounded-none p-0 group-data-horizontal/tabs:h-auto sm:gap-8"
@@ -304,6 +341,25 @@ export function ProcedureViewShell({
                       </span>
                     </TabsTrigger>
                   </TabsList>
+
+                  <div className="relative w-full pb-2 sm:w-80">
+                    <Search
+                      aria-hidden
+                      className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-[calc(50%+0.25rem)] text-text-muted"
+                    />
+                    <Input
+                      id="opportunity-search"
+                      type="search"
+                      value={opportunityQuery}
+                      onChange={(event) => {
+                        setOpportunityQuery(event.target.value);
+                        setActiveTab("opportunities");
+                      }}
+                      placeholder="Rechercher : ville, spécialité, société…"
+                      aria-label="Rechercher dans les opportunités"
+                      className="h-10 rounded-lg border-border-default bg-bg-surface pl-9"
+                    />
+                  </div>
                 </div>
 
                 <TabsContent value="guide" className="space-y-6">
@@ -311,8 +367,20 @@ export function ProcedureViewShell({
                   <div key={activeStepId}>{stepsPanel}</div>
                 </TabsContent>
 
-                <TabsContent value="opportunities">
-                  <ProcedureOpportunities opportunities={opportunities} />
+                <TabsContent value="opportunities" className="space-y-4">
+                  {opportunityQuery.trim() && (
+                    <p className="text-sm text-text-muted">
+                      {filteredOpportunities.length === 0
+                        ? `Aucun résultat pour « ${opportunityQuery.trim()} ».`
+                        : `${filteredOpportunities.length} résultat${filteredOpportunities.length > 1 ? "s" : ""} sur ${opportunities.length}`}
+                    </p>
+                  )}
+                  {(filteredOpportunities.length > 0 ||
+                    !opportunityQuery.trim()) && (
+                    <ProcedureOpportunities
+                      opportunities={filteredOpportunities}
+                    />
+                  )}
                 </TabsContent>
               </Tabs>
             ) : (

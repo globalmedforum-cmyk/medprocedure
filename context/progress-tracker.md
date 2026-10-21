@@ -163,6 +163,8 @@ change.
 
 - **Agenda des congrès des sociétés savantes (2026-10-21)** : 52 prochains congrès (relevés le 21/10/2026 sur les sites officiels de 69 sociétés savantes françaises) stockés comme opportunités `CONGRES` dans `prisma/data/congres.json`, importés en base par `npm run db:import-congres` (`prisma/import-congres.ts`, rejouable, retrouve un congrès par titre et lieu). Pour un congrès, `deadline` est la date de début (affichée « Début du congrès ») et la liste des conditions porte les dates, l'organisateur, l'état des inscriptions et les liens. Une condition « Libellé : https://… » s'affiche comme un lien cliquable (aussi depuis l'admin). Les 4 congrès factices de septembre 2026 sont retirés du seed. Exclus : sociétés sans date annoncée, RAD du CERF (sur invitation), BLEFCO (doublon des journées FFER), convention Unicancer.
 
+- **Recherche dans les opportunités (2026-10-21)** : champ de recherche à droite des onglets d'une procédure. Il filtre les opportunités sur le titre, la spécialité, la ville, le pays, le lieu et les conditions, sans tenir compte des accents ni de la casse, tous les mots devant correspondre. Taper dans le champ ouvre l'onglet « Opportunités liées » ; le nombre de résultats s'affiche au-dessus de la liste.
+
 ## In Progress
 
 - None.
