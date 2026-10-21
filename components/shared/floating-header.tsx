@@ -35,7 +35,7 @@ export function FloatingHeader({ children, className }: FloatingHeaderProps) {
         className={cn(
           "mx-auto w-full rounded-2xl border transition-all duration-300 ease-out motion-reduce:transition-none",
           scrolled
-            ? "max-w-5xl border-border-default/60 bg-bg-surface/60 shadow-lg backdrop-blur-xl backdrop-saturate-150"
+            ? "max-w-5xl border-border-default/40 bg-bg-surface/25 shadow-lg backdrop-blur-md backdrop-saturate-150"
             : "max-w-6xl border-border-default bg-bg-surface",
           className,
         )}
