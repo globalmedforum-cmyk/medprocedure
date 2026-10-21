@@ -1,23 +1,38 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { PrismaClient, type OpportunityCategory } from "@prisma/client";
-import opportunites from "./data/opportunites.json";
 
 const prisma = new PrismaClient();
 
-// Importe les opportunités publiées en entier (programmes, appels à
-// candidatures) décrites dans prisma/data/opportunites.json. Rejouable : une
-// opportunité est retrouvée par (titre, établissement) et mise à jour, sinon
-// créée.
+interface OpportunityData {
+  category: OpportunityCategory;
+  title: string;
+  hospital: string;
+  location: string;
+  country: string;
+  specialty: string;
+  deadline: string | null;
+  requirements: string[];
+  // Absent : publiée en entier (programmes, appels à candidatures)
+  isPublic?: boolean;
+}
+
+// Importe des opportunités décrites dans un fichier JSON de prisma/data
+// (par défaut opportunites.json ; ex. : npm run db:import-opportunites --
+// offres-fhf.json). Rejouable : une opportunité est retrouvée par (titre,
+// établissement) et mise à jour, sinon créée.
 async function main() {
+  const file = path.join(__dirname, "data", process.argv[2] ?? "opportunites.json");
+  const items = JSON.parse(readFileSync(file, "utf-8")) as OpportunityData[];
   let created = 0;
   let updated = 0;
 
-  for (const { deadline, category, ...item } of opportunites) {
+  for (const { deadline, isPublic = true, ...item } of items) {
     const data = {
       ...item,
-      category: category as OpportunityCategory,
-      deadline: new Date(`${deadline}T00:00:00.000Z`),
+      deadline: deadline ? new Date(`${deadline}T00:00:00.000Z`) : null,
       contactEmail: null,
-      isPublic: true,
+      isPublic,
     };
     const existing = await prisma.opportunity.findFirst({
       where: { title: item.title, hospital: item.hospital },
@@ -33,7 +48,9 @@ async function main() {
     }
   }
 
-  console.log(`Opportunités importées : ${created} créées, ${updated} mises à jour.`);
+  console.log(
+    `${path.basename(file)} : ${created} créées, ${updated} mises à jour.`
+  );
 }
 
 main()
