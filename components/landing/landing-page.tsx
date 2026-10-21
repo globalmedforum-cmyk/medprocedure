@@ -99,12 +99,10 @@ export function LandingPage({ procedures }: LandingPageProps) {
             </p>
           </div>
           <div className="space-y-8">
-            {/* Bloc justifié : la taille suit la largeur de l'emplacement
-                (unités de conteneur), si bien que les lignes se coupent
-                toujours aux mêmes mots et restent pleines, sans césure ni
-                espaces étirés, quel que soit l'écran */}
-            <div className="@container max-w-[40rem]">
-              <h1 className="text-justify font-heading text-[6.9cqi] leading-[1.15] font-semibold tracking-tight [text-align-last:justify] [text-wrap:wrap]">
+            {/* Titre aligné à gauche : taille fluide selon l'écran, lignes
+                équilibrées, jamais de césure ni d'espaces étirés */}
+            <div className="max-w-[40rem]">
+              <h1 className="font-heading text-[clamp(1.75rem,1.15rem+2.6vw,2.75rem)] leading-[1.18] font-semibold tracking-tight text-balance hyphens-none">
                 MedProcedure est une plateforme qui accompagne les médecins, en
                 activité ou en formation, dans leur projet d&apos;immigration à
                 l&apos;étranger.
