@@ -7,7 +7,7 @@
     "country": "France",
     "specialty": "Cardiologie",
     "deadline": "2027-04-01",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Le service de cardiologie recrute un cardiologue PHC, un stagiaire associé ou un FFI (coronarographie, rythmologie, échographie, insuffisance cardiaque).",
       "FFI et stagiaire associé explicitement acceptés.",
@@ -23,7 +23,7 @@
     "country": "France",
     "specialty": "Cardiologie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Poste de FFI en cardiologie (CDD) au CH de Carcassonne ; logement mis à disposition gratuitement.",
       "Profil demandé : étudiant en médecine ressortissant UE ou stagiaire associé ; pas d'inscription à l'Ordre exigée.",
@@ -39,7 +39,7 @@
     "country": "France",
     "specialty": "Neurologie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Poste de FFI en neurologie (CDD) au CH de Carcassonne, avec USINV ; logement gratuit.",
       "Ouvert aux étudiants UE ou stagiaires associés en neurologie ; pas d'Ordre requis.",
@@ -55,7 +55,7 @@
     "country": "France",
     "specialty": "Médecine générale / gériatrie",
     "deadline": "2026-11-30",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Recrutement d'un stagiaire associé (contrat FFI) préparant les prochaines EVC du CNG ; diplôme de médecin généraliste ou gériatre, bonne maîtrise du français, logement possible. Priorité aux candidats déjà en France.",
       "Poste explicitement destiné à un PADHUE qui prépare les EVC ; aucune inscription à l'Ordre.",
@@ -71,7 +71,7 @@
     "country": "France",
     "specialty": "Psychiatrie / pédopsychiatrie",
     "deadline": "2026-12-15",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Stagiaire associé en psychiatrie/pédopsychiatrie à temps plein (CMP enfants/ados Boulogne, HJ et hospitalisation ado Camiers), encadré par un PH référent ; permis de conduire demandé.",
       "Intitulé explicite « stagiaire associé ».",
@@ -87,7 +87,7 @@
     "country": "France",
     "specialty": "Psychiatrie",
     "deadline": "2026-12-31",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "L'EPSM Bélair recherche un stagiaire associé titulaire de la qualification en psychiatrie (contrat FFI) : prise en charge des patients de la phase aiguë à la stabilisation.",
       "Statut stagiaire associé / FFI, pas d'Ordre requis ; qualification de psychiatre exigée.",
@@ -103,7 +103,7 @@
     "country": "France",
     "specialty": "Radiologie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Radiologue ; les médecins à diplôme étranger non inscrits à l'Ordre peuvent envoyer CV et lettre pour un poste de stagiaire associé ou de praticien associé.",
       "Ouvert aux non-inscrits à l'Ordre (stagiaire associé ou praticien associé).",
@@ -119,7 +119,7 @@
     "country": "France",
     "specialty": "Médecine générale / gériatrie (SMR-USLD)",
     "deadline": "2027-01-31",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Médecin SMR-USLD ; praticiens et stagiaires associés acceptés sous conditions selon le profil ; pas de logement fourni.",
       "Statuts associés acceptés sous conditions ; à confirmer.",
@@ -135,7 +135,7 @@
     "country": "France",
     "specialty": "Biologie médicale",
     "deadline": "2026-12-31",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Biologiste médical en remplacement de congé maternité ; poste aussi ouvert aux stagiaires associés (DES de biologie médicale ; Ordre requis sauf pour le statut de stagiaire associé).",
       "Exception explicite à l'Ordre pour les stagiaires associés.",
@@ -151,7 +151,7 @@
     "country": "France",
     "specialty": "Neurologie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Neurologue : poste destiné à un PH/PHC/assistant, mais qui peut convenir à un stagiaire associé en neurologie préparant les EVC ou à un praticien associé en PCC.",
       "Stagiaire associé (sans EVC) ou praticien associé accepté.",
@@ -167,7 +167,7 @@
     "country": "France",
     "specialty": "Pédopsychiatrie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Même offre que 475731, publiée pour l'hôpital de Montbard (GH Haute Côte-d'Or) : praticien associé ou stagiaire associé en pédopsychiatrie.",
       "Ouvert aux stagiaires associés / praticiens associés.",
@@ -183,7 +183,7 @@
     "country": "France",
     "specialty": "Pédopsychiatrie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Pédopsychiatre : ouvert aux psychiatres ou pédiatres éligibles au statut de praticien associé ou de stagiaire associé ; excellente maîtrise du français, logement provisoire possible, tutorat.",
       "Ouvert aux stagiaires associés (et praticiens associés) ; pas d'Ordre exigé pour ces statuts.",
@@ -199,7 +199,7 @@
     "country": "France",
     "specialty": "Psychiatrie adulte",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Stagiaire associé diplômé ou en spécialisation de psychiatrie pour le Pôle Admission Court Séjour de l'EPSM 71.",
       "Offre de stage associé (contrat « Stage »).",
@@ -215,7 +215,7 @@
     "country": "France",
     "specialty": "Pédopsychiatrie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Stagiaire associé pédopsychiatre pour le Pôle infanto-juvénile départemental ; type d'offre : convention de coopération internationale.",
       "Stage associé via convention de coopération internationale (type DFMS/DFMSA ou convention).",
@@ -231,7 +231,7 @@
     "country": "France",
     "specialty": "Néphrologie",
     "deadline": null,
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Poste de néphrologue jeune diplômé(e) sous statut de stagiaire associé au CH de Soissons (néphrologie et hémodialyse).",
       "Statut stagiaire associé explicitement proposé.",
@@ -247,7 +247,7 @@
     "country": "France",
     "specialty": "Pédopsychiatrie",
     "deadline": "2026-12-31",
-    "isPublic": false,
+    "isPublic": true,
     "requirements": [
       "Le CH Moulins-Yzeure recrute un pédopsychiatre sous statut de praticien associé contractuel temporaire (PACT) ou de stagiaire associé ; logement, crèche, aide à l'installation.",
       "Statuts PACT ou stagiaire associé explicitement proposés dans l'intitulé.",

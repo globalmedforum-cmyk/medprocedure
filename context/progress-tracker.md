@@ -182,7 +182,7 @@ change.
 
 - **Opportunités publiques et appel REHP 2027-2028 (2026-10-21)** : nouveau champ `Opportunity.isPublic` (migration `20261021150000_opportunity_public`, case « Publier en entier » dans l'admin) pour publier une offre hors congrès avec ses conditions et ses liens. Appel REHP (AP-HP / CMHP) importé en deux fiches publiques par `npm run db:import-opportunites` (`prisma/data/opportunites.json`) : FFI via DFMS/DFMSA et stagiaire associé, date limite 15 janvier 2027. La procédure « DFMS et DFMSA » affiche désormais les offres FFI.
 
-- **Offres FHF pour PADHUE (2026-10-21)** : 16 offres d'emploi.fhf.fr (relevé du 21/10/2026) importées en aperçu (`isPublic` faux : établissement, conditions et lien réservés, bouton « Obtenir les détails ») par `npm run db:import-opportunites -- offres-fhf.json` (`prisma/data/offres-fhf.json`) : 3 FFI (Albi, Carcassonne ×2) et 13 stagiaire associé. Écartées : 7 offres où seule la case FFI était cochée, les offres praticien associé (EVC) et PACT, sans procédure sur le site ; 2 doublons d'annonce EPSM 71 fusionnés. Le script d'import accepte désormais un fichier en argument, des dates limites vides et `isPublic`.
+- **Offres FHF pour PADHUE (2026-10-21)** : 16 offres d'emploi.fhf.fr (relevé du 21/10/2026) publiées en entier (`isPublic`, lien cliquable vers chaque annonce) par `npm run db:import-opportunites -- offres-fhf.json` (`prisma/data/offres-fhf.json`) : 3 FFI (Albi, Carcassonne ×2) et 13 stagiaire associé. Écartées : 7 offres où seule la case FFI était cochée, les offres praticien associé (EVC) et PACT, sans procédure sur le site ; 2 doublons d'annonce EPSM 71 fusionnés. Le script d'import accepte désormais un fichier en argument, des dates limites vides et `isPublic`.
 
 ## In Progress
 
