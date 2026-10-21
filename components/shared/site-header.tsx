@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FloatingHeader } from "./floating-header";
 import { Logo } from "./logo";
 import { ProfileMenu } from "./profile-menu";
 import { ThemeToggle } from "./theme-toggle";
@@ -15,8 +16,8 @@ export function SiteHeader({
   isAdminMode = false,
 }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 border-b border-border-default/70 bg-bg-surface/80 backdrop-blur-xl backdrop-saturate-150">
-      <div className="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6">
+    <FloatingHeader>
+      <div className="flex h-14 w-full items-center justify-between gap-4 px-3 sm:px-5">
         <Link
           href={isAdminMode ? "/admin" : "/editor"}
           aria-label={
@@ -38,6 +39,6 @@ export function SiteHeader({
           <ProfileMenu showAdmin={showAdmin} isAdminMode={isAdminMode} />
         </div>
       </div>
-    </header>
+    </FloatingHeader>
   );
 }

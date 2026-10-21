@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
+import { FloatingHeader } from "@/components/shared/floating-header";
 import { Logo } from "@/components/shared/logo";
 import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -50,8 +51,8 @@ export function LandingPage({ procedures }: LandingPageProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-30 border-b border-border-default/70 bg-bg-surface/80 backdrop-blur-xl backdrop-saturate-150">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
+      <FloatingHeader>
+        <div className="flex h-14 w-full items-center justify-between gap-4 px-3 sm:px-5">
           <Logo hideNameOnPhone />
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
@@ -86,7 +87,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
             </Link>
           </div>
         </div>
-      </header>
+      </FloatingHeader>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
         <section className="grid items-start gap-x-16 gap-y-8 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:py-24">

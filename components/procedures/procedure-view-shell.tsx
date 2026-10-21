@@ -303,7 +303,7 @@ export function ProcedureViewShell({
       <div className="flex min-h-[calc(100vh-4rem)] bg-bg-surface">
         {/* Table des matières, sur ordinateur */}
         {isTocOpen && (
-          <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
+          <aside className="sticky top-[4.5rem] hidden h-[calc(100vh-4.5rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
             <div className="flex items-center justify-between border-b border-border-default py-4 pr-4 pl-6">
               <h2 className="font-heading text-base font-bold">
                 Table des matières
