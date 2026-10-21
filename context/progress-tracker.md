@@ -178,6 +178,8 @@ change.
 
 - **Police Source Sans 3 (2026-10-21)** : tout le texte, titres compris, passe en Source Sans 3 (police variable, `app/fonts/source-sans-3-latin-wght-normal.woff2`, Fontsource, OFL) ; `--font-heading` pointe sur `--font-sans`. Plus Jakarta Sans, Newsreader et IBM Plex Sans retirés ; IBM Plex Mono reste pour les numéros.
 
+- **Barre flottante, titre d'accueil, carrousel (2026-10-21)** : barre de navigation détachée des bords (`components/shared/floating-header.tsx`), opaque en haut de page puis translucide (blanc à 25 %, flou) et resserrée au défilement, sur l'accueil et les pages connectées. Titre de l'accueil aligné à gauche, lignes équilibrées, sans césure, taille fluide (28 à 44 px) au lieu du bloc justifié. Carrousel des procédures sur téléphone : l'aimantation est coupée pendant le défilement automatique, que Safari sur iPhone annulait.
+
 ## In Progress
 
 - None.
