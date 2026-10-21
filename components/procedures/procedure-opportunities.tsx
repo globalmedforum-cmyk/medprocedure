@@ -28,6 +28,25 @@ const lockedDetails = [
 const roundButtonClassName =
   "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-accent-hover hover:shadow-md";
 
+// Une condition de la forme « Libellé : https://… » s'affiche comme un lien
+const linkRequirementPattern = /^(.+?)\s:\s(https:\/\/\S+)$/;
+
+function Requirement({ text }: { text: string }) {
+  const match = linkRequirementPattern.exec(text);
+  if (!match) return <>{text}</>;
+
+  return (
+    <a
+      href={match[2]}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-medium text-accent-primary hover:underline"
+    >
+      {match[1]}
+    </a>
+  );
+}
+
 function CheckMark() {
   return (
     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-primary text-primary-foreground">
@@ -93,9 +112,11 @@ export function ProcedureOpportunities({
                         : "Sans date limite"}
                     </p>
                     <p className="text-sm text-text-muted">
-                      {opportunity.deadline
-                        ? "Date limite"
-                        : "Candidature ouverte"}
+                      {!opportunity.deadline
+                        ? "Candidature ouverte"
+                        : opportunity.category === "CONGRES"
+                          ? "Début du congrès"
+                          : "Date limite"}
                     </p>
                   </div>
                 </div>
@@ -118,7 +139,7 @@ export function ProcedureOpportunities({
                     {details.requirements.map((requirement) => (
                       <li key={requirement} className="flex items-start gap-3">
                         <CheckMark />
-                        {requirement}
+                        <Requirement text={requirement} />
                       </li>
                     ))}
                     {mailto && (

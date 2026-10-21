@@ -161,6 +161,8 @@ change.
 
 - **Identité « dossier officiel » (2026-10-20, branche `test-dossier-officiel`, partie de `test-landing-procedures`, non déployé)** : titres en Newsreader (police à empattements, `--font-heading`), chiffres en IBM Plex Mono ; arrondis réduits (`--radius` 0.5rem), plus d'ombre au repos, plus de fondus à l'apparition. Accueil : registre des sources (procédures, liens de référence comptés dans `lib/procedure-resources.ts`) à la place de l'illustration ; procédures en pages de passeport (motif guilloché, tampon rond, bande de lecture automatique) ; sommaire éditorial numéroté. Guides : tampon « Validée » à l'encre (composant `Stamp`, classe `.ink`) qui s'appose quand on coche une étape, pastilles de la table des matières en tampons. Cartes du tableau de bord sans pictogramme.
 
+- **Agenda des congrès des sociétés savantes (2026-10-21)** : 52 prochains congrès (relevés le 21/10/2026 sur les sites officiels de 69 sociétés savantes françaises) stockés comme opportunités `CONGRES` dans `prisma/data/congres.json`, importés en base par `npm run db:import-congres` (`prisma/import-congres.ts`, rejouable, retrouve un congrès par titre et lieu). Pour un congrès, `deadline` est la date de début (affichée « Début du congrès ») et la liste des conditions porte les dates, l'organisateur, l'état des inscriptions et les liens. Une condition « Libellé : https://… » s'affiche comme un lien cliquable (aussi depuis l'admin). Les 4 congrès factices de septembre 2026 sont retirés du seed. Exclus : sociétés sans date annoncée, RAD du CERF (sur invitation), BLEFCO (doublon des journées FFER), convention Unicancer.
+
 ## In Progress
 
 - None.

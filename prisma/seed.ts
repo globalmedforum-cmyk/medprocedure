@@ -59,72 +59,9 @@ async function main() {
     await upsertProcedure(procedure);
   }
 
-  // Opportunités hospitalières et Congrès médicaux (Image 2)
+  // Opportunités hospitalières. Les congrès sont importés par
+  // prisma/import-congres.ts.
   const opportunities: Prisma.OpportunityCreateInput[] = [
-    // Congrès médicaux majeurs (Image 2)
-    {
-      category: "CONGRES",
-      title: "Congrès FCPC 2026 - Cardiologie pédiatrique et congénitale",
-      hospital: "Cité des Congrès de Nantes",
-      location: "Nantes",
-      country: "France",
-      specialty: "Cardiologie pédiatrique",
-      deadline: new Date("2026-09-10"),
-      requirements: [
-        "Inscription nominative & invitation officielle au congrès",
-        "Assistance complète dossier Visa Schengen C (TLS / VFS)",
-        "Réservation d'hôtel & certificat d'assurance voyage",
-      ],
-      contactEmail: "inscriptions@fcpc2026.fr",
-    },
-    {
-      category: "CONGRES",
-      title: "Congrès SFA 2026 - Société Française d'Audiologie",
-      hospital: "Le Corum - Centre de Congrès de Montpellier",
-      location: "Montpellier",
-      country: "France",
-      specialty: "Audiologie / ORL",
-      deadline: new Date("2026-09-11"),
-      requirements: [
-        "Inscription nominative & invitation officielle au congrès",
-        "Assistance complète dossier Visa Schengen C (TLS / VFS)",
-        "Réservation d'hôtel & certificat d'assurance voyage",
-      ],
-      contactEmail: "contact@sfa-audiologie.fr",
-    },
-    {
-      category: "CONGRES",
-      title:
-        "Congrès SFAR 2026 - Société Française d'Anesthésie et de Réanimation",
-      hospital: "Palais des Congrès de Paris",
-      location: "Paris",
-      country: "France",
-      specialty: "Anesthésie-réanimation",
-      deadline: new Date("2026-09-16"),
-      requirements: [
-        "Inscription nominative & invitation officielle au congrès",
-        "Assistance complète dossier Visa Schengen C (TLS / VFS)",
-        "Réservation d'hôtel & certificat d'assurance voyage",
-      ],
-      contactEmail: "congres@sfar.org",
-    },
-    {
-      category: "CONGRES",
-      title:
-        "Congrès SCGP 2026 - Société de Chirurgie Gynécologique et Pelvienne",
-      hospital: "Palais des Congrès de Bordeaux",
-      location: "Bordeaux",
-      country: "France",
-      specialty: "Gynécologie chirurgicale",
-      deadline: new Date("2026-09-16"),
-      requirements: [
-        "Inscription nominative & invitation officielle au congrès",
-        "Assistance complète dossier Visa Schengen C (TLS / VFS)",
-        "Réservation d'hôtel & certificat d'assurance voyage",
-      ],
-      contactEmail: "secretariat@scgp-asso.fr",
-    },
-
     // Postes hospitaliers
     {
       category: "MEDECIN_ASSISTANT",
