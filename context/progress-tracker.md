@@ -180,6 +180,8 @@ change.
 
 - **Barre flottante, titre d'accueil, carrousel (2026-10-21)** : barre de navigation détachée des bords (`components/shared/floating-header.tsx`), opaque en haut de page puis translucide (blanc à 25 %, flou) et resserrée au défilement, sur l'accueil et les pages connectées. Titre de l'accueil aligné à gauche, lignes équilibrées, sans césure, taille fluide (28 à 44 px) au lieu du bloc justifié. Carrousel des procédures sur téléphone : l'aimantation est coupée pendant le défilement automatique, que Safari sur iPhone annulait.
 
+- **Opportunités publiques et appel REHP 2027-2028 (2026-10-21)** : nouveau champ `Opportunity.isPublic` (migration `20261021150000_opportunity_public`, case « Publier en entier » dans l'admin) pour publier une offre hors congrès avec ses conditions et ses liens. Appel REHP (AP-HP / CMHP) importé en deux fiches publiques par `npm run db:import-opportunites` (`prisma/data/opportunites.json`) : FFI via DFMS/DFMSA et stagiaire associé, date limite 15 janvier 2027. La procédure « DFMS et DFMSA » affiche désormais les offres FFI.
+
 ## In Progress
 
 - None.
