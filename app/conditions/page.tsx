@@ -33,7 +33,7 @@ export default async function ConditionsPage({
   const acceptance = userId ? await getTermsAcceptance(userId) : null;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <header className="border-b border-border-default">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between gap-4 px-4 sm:px-8">
           <Link href="/" aria-label="MedProcedure, accueil">

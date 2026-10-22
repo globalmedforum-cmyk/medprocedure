@@ -33,6 +33,17 @@ const dossierDateFormatter = new Intl.DateTimeFormat("fr-FR", {
   timeZone: "UTC",
 });
 
+// Jours restants avant l'échéance, en clair : « Dans 12 jours », « Demain »…
+export function formatCountdown(date: Date | string, today: Date) {
+  const days = Math.round(
+    (new Date(date).getTime() - today.getTime()) / 86_400_000
+  );
+  if (days < 0) return `Dépassée de ${-days} j`;
+  if (days === 0) return "Aujourd'hui";
+  if (days === 1) return "Demain";
+  return `Dans ${days} jours`;
+}
+
 export function formatDossierDate(date: Date | string) {
   return dossierDateFormatter.format(new Date(date));
 }

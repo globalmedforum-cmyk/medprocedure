@@ -60,7 +60,7 @@ export function DossierSettingsDialog({
           <Button
             variant="outline"
             className={cn(
-              "h-12 gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-all hover:shadow-md sm:h-10",
+              "h-12 gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:shadow-md sm:h-10",
               className
             )}
           />

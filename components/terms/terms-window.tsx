@@ -12,7 +12,7 @@ interface TermsWindowProps {
 // conditions générales en vigueur n'ont pas été acceptées.
 export function TermsWindow({ next }: TermsWindowProps) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
       <div className="fixed inset-0 z-40 flex items-end justify-center bg-slate-950/40 backdrop-blur-sm dark:bg-black/60 sm:items-center sm:p-6">

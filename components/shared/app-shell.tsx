@@ -17,7 +17,7 @@ export function AppShell({
   isAdminMode = false,
 }: AppShellProps) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader
         showAdmin={showAdmin || isAdminMode}
         isAdminMode={isAdminMode}

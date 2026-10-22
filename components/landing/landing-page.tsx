@@ -50,7 +50,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
   const officialLinkCount = countOfficialLinks();
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-svh flex-col">
       <FloatingHeader>
         <div className="flex h-14 w-full items-center justify-between gap-4 px-3 sm:px-5">
           <Logo hideNameOnPhone />
@@ -79,7 +79,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
               href="/sign-up"
               className={cn(
                 buttonVariants(),
-                "hidden h-10 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md md:inline-flex",
+                "hidden h-10 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover hover:shadow-md md:inline-flex",
               )}
             >
               Créer un compte

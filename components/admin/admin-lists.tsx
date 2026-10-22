@@ -126,7 +126,7 @@ export function AdminUserList({ users }: { users: AdminUserSummary[] }) {
         <li key={user.id}>
           <Link
             href={`/admin/utilisateurs/${user.id}`}
-            className="group flex items-center justify-between gap-4 rounded-xl border border-border-default bg-bg-base p-4 transition-all hover:border-accent-primary/40 hover:bg-bg-surface hover:shadow-md"
+            className="group flex items-center justify-between gap-4 rounded-xl border border-border-default bg-bg-base p-4 transition-[transform,background-color,border-color,color,box-shadow] hover:border-accent-primary/40 hover:bg-bg-surface hover:shadow-md"
           >
             <span className="min-w-0 space-y-1">
               <span className="block truncate font-semibold">

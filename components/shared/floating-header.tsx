@@ -29,11 +29,11 @@ export function FloatingHeader({ children, className }: FloatingHeaderProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-30 px-3 pt-3 sm:px-4">
+    <header className="sticky top-0 z-30 px-[max(0.75rem,env(safe-area-inset-left))] pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-[max(1rem,env(safe-area-inset-left))]">
       <div
         data-scrolled={scrolled}
         className={cn(
-          "mx-auto w-full rounded-2xl border transition-all duration-300 ease-out motion-reduce:transition-none",
+          "mx-auto w-full rounded-2xl border transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-300 motion-reduce:transition-none",
           scrolled
             ? "max-w-5xl border-border-default/40 bg-bg-surface/25 shadow-lg backdrop-blur-md backdrop-saturate-150"
             : "max-w-6xl border-border-default bg-bg-surface",

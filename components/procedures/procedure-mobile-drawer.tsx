@@ -32,7 +32,7 @@ export function ProcedureMobileDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="left"
-        className="w-full overflow-y-auto p-4 sm:max-w-md"
+        className="w-full overflow-y-auto p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:max-w-md"
       >
         <SheetHeader className="pb-2">
           <SheetTitle>Table des matières</SheetTitle>

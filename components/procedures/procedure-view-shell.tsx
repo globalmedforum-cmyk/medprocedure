@@ -300,10 +300,10 @@ export function ProcedureViewShell({
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-4rem)] bg-bg-surface">
+      <div className="flex min-h-[calc(100dvh-4.5rem)] bg-bg-surface">
         {/* Table des matières, sur ordinateur */}
         {isTocOpen && (
-          <aside className="sticky top-[4.5rem] hidden h-[calc(100vh-4.5rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
+          <aside className="sticky top-[4.5rem] hidden h-[calc(100dvh-4.5rem)] w-80 shrink-0 flex-col border-r border-border-default lg:flex">
             <div className="flex items-center justify-between border-b border-border-default py-4 pr-4 pl-6">
               <h2 className="font-heading text-base font-bold">
                 Table des matières
@@ -323,7 +323,7 @@ export function ProcedureViewShell({
               activeStepId={activeStepId}
               completedStepIds={completedStepIds}
               onSelectStep={handleSelectStep}
-              className="flex-1 overflow-y-auto py-2 pr-2 pl-3"
+              className="flex-1 overflow-y-auto overscroll-contain py-2 pr-2 pl-3"
             />
           </aside>
         )}
@@ -378,7 +378,9 @@ export function ProcedureViewShell({
                 <TabsContent value="guide" className="space-y-6">
                   {congress && <CongressSummary congress={congress} />}
                   {tocButton}
-                  <div key={activeStepId}>{stepsPanel}</div>
+                  <div key={activeStepId} className="animate-step">
+                    {stepsPanel}
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="opportunities" className="space-y-4">
@@ -401,7 +403,9 @@ export function ProcedureViewShell({
             ) : (
               <>
                 {tocButton}
-                <div key={activeStepId}>{stepsPanel}</div>
+                <div key={activeStepId} className="animate-step">
+                    {stepsPanel}
+                  </div>
               </>
             )}
           </div>
@@ -445,9 +449,10 @@ function ProgressRing({ value }: { value: number }) {
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={circumference * (1 - value / 100)}
-        className={
-          value === 100 ? "stroke-state-success" : "stroke-accent-primary"
-        }
+        className={cn(
+          "transition-[stroke-dashoffset,stroke] duration-500 ease-(--ease-in-out)",
+          value === 100 ? "stroke-state-success" : "stroke-accent-primary",
+        )}
       />
     </svg>
   );

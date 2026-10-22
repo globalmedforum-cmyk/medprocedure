@@ -37,6 +37,10 @@ const themeScript = `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="dark
 export const viewport: Viewport = {
   themeColor: THEME_COLORS.light,
   colorScheme: "light",
+  // Le site passe sous l'encoche ; le contenu s'en écarte avec env(safe-area-inset-*)
+  viewportFit: "cover",
+  // Sur Android, le clavier réduit la zone affichée au lieu de passer dessus
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -129,7 +129,7 @@ export function ProcedureCarousel({ count, children }: ProcedureCarouselProps) {
             >
               <span
                 className={cn(
-                  "block h-1.5 rounded-full transition-all duration-300",
+                  "block h-1.5 rounded-full transition-[width,background-color] duration-300",
                   index === active
                     ? "w-6 bg-accent-primary"
                     : "w-1.5 bg-text-muted/30",

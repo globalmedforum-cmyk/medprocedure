@@ -55,7 +55,7 @@ export function AdminForm({
         <Button
           type="submit"
           disabled={isPending}
-          className="h-11 rounded-xl px-5 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
+          className="h-11 rounded-xl px-5 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover hover:shadow-md"
         >
           {isPending ? "Enregistrement…" : submitLabel}
         </Button>
