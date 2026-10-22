@@ -52,12 +52,11 @@ export const offers: Offer[] = [
   },
 ];
 
-// Offre de lancement : les premières places du « Dossier prêt à déposer »
+// Offre de lancement : le « Dossier prêt à déposer » offert aux premiers
+// médecins qui écrivent par e-mail
 export const launchOffer = {
   offerId: "dossier-pret",
   places: 5,
-  price: 19,
-  regularPrice: 39,
 };
 
 export const paymentMethods = ["Orange Money", "Wave", "MTN MoMo", "Carte"];

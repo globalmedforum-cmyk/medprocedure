@@ -1,5 +1,6 @@
-import { Check, Phone } from "lucide-react";
+import { Check, Mail, Phone } from "lucide-react";
 import { Stamp } from "@/components/shared/stamp";
+import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import {
   coveredProcedures,
@@ -66,8 +67,8 @@ export function OffersSection() {
                 )}
                 {isLaunch && (
                   <p className="text-sm font-semibold text-accent-primary">
-                    {launchOffer.price} € pour les {launchOffer.places} premiers
-                    médecins
+                    Offert aux {launchOffer.places} premiers médecins qui nous
+                    écrivent
                   </p>
                 )}
               </div>
@@ -120,17 +121,23 @@ function LaunchBanner() {
           Offre de lancement
         </p>
         <p className="font-heading text-2xl leading-tight font-bold sm:text-3xl">
-          « Dossier prêt à déposer » à {launchOffer.price} € au lieu de{" "}
-          {launchOffer.regularPrice} €
+          Votre dossier relu en entier jusqu&apos;au dépôt, gratuitement
         </p>
         <p className="opacity-90">
-          Pour les {launchOffer.places} premiers médecins, en échange de votre
-          avis honnête.
+          Pour les {launchOffer.places} premiers médecins qui nous écrivent par
+          e-mail, en échange de votre avis honnête.
         </p>
+        <a
+          href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Offre de lancement : relecture gratuite de mon dossier")}`}
+          className="inline-flex items-center gap-2 pt-1 font-semibold underline underline-offset-4"
+        >
+          <Mail aria-hidden className="h-4 w-4" />
+          {SUPPORT_EMAIL}
+        </a>
       </div>
       <Stamp
         label={`${launchOffer.places} places`}
-        detail="lancement"
+        detail="gratuites"
         shape="round"
         rotate={-12}
         className="w-28 shrink-0 self-start text-sm text-primary-foreground sm:self-center"
