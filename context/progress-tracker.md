@@ -184,6 +184,8 @@ change.
 
 - **Offres FHF pour PADHUE (2026-10-21)** : 16 offres d'emploi.fhf.fr (relevé du 21/10/2026) publiées en entier (`isPublic`, lien cliquable vers chaque annonce) par `npm run db:import-opportunites -- offres-fhf.json` (`prisma/data/offres-fhf.json`) : 3 FFI (Albi, Carcassonne ×2) et 13 stagiaire associé. Écartées : 7 offres où seule la case FFI était cochée, les offres praticien associé (EVC) et PACT, sans procédure sur le site ; 2 doublons d'annonce EPSM 71 fusionnés. Le script d'import accepte désormais un fichier en argument, des dates limites vides et `isPublic`.
 
+- **Postes de médecin assistant en Suisse romande (2026-10-23)** : 29 offres (HUG, CHUV, annonces relayées par l'ASMAV ; aucune ouverte au RHNe ni aux eHnv ; portail de l'Hôpital du Valais illisible) importées en entier dans la catégorie `MEDECIN_ASSISTANT` par `npm run db:import-opportunites -- postes-suisse.json`. La première condition de chaque fiche indique « Diplôme étranger accepté explicitement (MEBEKO / MedReg) » (9 offres) ou « à confirmer auprès de l'employeur » (20 offres), suivie de la phrase de l'annonce sur le diplôme, du taux, du début, de la langue et du lien.
+
 ## In Progress
 
 - None.
