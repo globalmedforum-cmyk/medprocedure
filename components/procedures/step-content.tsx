@@ -1,5 +1,10 @@
 import React from "react";
+import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import {
+  getMentionedProcedureSlug,
+  procedureMentionPattern,
+} from "@/lib/procedure-links";
 
 // Format du champ `content` d'une étape (texte saisi dans l'administration) :
 // - une ligne « - texte » est un point de la liste « En pratique » ;
@@ -105,7 +110,32 @@ function InlineText({ text }: { text: string }) {
           return <em key={index}>{part.slice(1, -1)}</em>;
         }
 
-        return <React.Fragment key={index}>{part}</React.Fragment>;
+        return <ProcedureMentions key={index} text={part} />;
+      })}
+    </>
+  );
+}
+
+// « Titre d'une procédure » devient un lien vers son guide
+export function ProcedureMentions({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(procedureMentionPattern).map((part, index) => {
+        const slug = getMentionedProcedureSlug(part);
+        if (!slug) return <React.Fragment key={index}>{part}</React.Fragment>;
+
+        return (
+          <React.Fragment key={index}>
+            «{" "}
+            <Link
+              href={`/procedures/${slug}`}
+              className="font-medium text-accent-primary underline decoration-accent-primary/40 underline-offset-4 hover:decoration-accent-primary"
+            >
+              {part.slice(1, -1).trim()}
+            </Link>
+            {" "}»
+          </React.Fragment>
+        );
       })}
     </>
   );

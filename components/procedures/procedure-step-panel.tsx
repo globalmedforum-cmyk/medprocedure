@@ -7,7 +7,7 @@ import { getCongressMapUrl, type CongressInfo } from "@/lib/congress";
 import { getProcedureResources } from "@/lib/procedure-resources";
 import { Stamp } from "@/components/shared/stamp";
 import { AssistanceDialog } from "./assistance-dialog";
-import { StepContent } from "./step-content";
+import { ProcedureMentions, StepContent } from "./step-content";
 import type { ProcedureData, StepItem } from "./types";
 
 interface ProcedureStepPanelProps {
@@ -72,7 +72,7 @@ export function ProcedureStepPanel({
         </header>
 
         <p className="max-w-3xl text-base leading-relaxed text-text-muted sm:text-lg">
-          {activeStep.description}
+          <ProcedureMentions text={activeStep.description} />
         </p>
 
         {congress && (

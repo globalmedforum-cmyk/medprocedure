@@ -186,6 +186,8 @@ change.
 
 - **Postes de médecin assistant en Suisse romande (2026-10-23)** : 29 offres (HUG, CHUV, annonces relayées par l'ASMAV ; aucune ouverte au RHNe ni aux eHnv ; portail de l'Hôpital du Valais illisible) importées en entier dans la catégorie `MEDECIN_ASSISTANT` par `npm run db:import-opportunites -- postes-suisse.json`. La première condition de chaque fiche indique « Diplôme étranger accepté explicitement (MEBEKO / MedReg) » (9 offres) ou « à confirmer auprès de l'employeur » (20 offres), suivie de la phrase de l'annonce sur le diplôme, du taux, du début, de la langue et du lien.
 
+- **Liens entre procédures (2026-10-23)** : dans les guides, toute mention « Titre d'une procédure » entre guillemets français (texte des étapes et description) devient un lien vers cette procédure (`lib/procedure-links.ts`, `ProcedureMentions` dans `components/procedures/step-content.tsx`). Fonctionne aussi pour le texte saisi dans l'admin, à condition d'écrire le titre exact. 8 liens dans le contenu actuel.
+
 ## In Progress
 
 - None.
