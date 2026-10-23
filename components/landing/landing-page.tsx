@@ -96,9 +96,10 @@ export function LandingPage({ procedures }: LandingPageProps) {
             <p className="text-sm font-medium tracking-wide opacity-85">
               Démarches des médecins diplômés hors UE
             </p>
-            <h1 className="text-[clamp(2rem,1.3rem+3vw,3.25rem)] leading-[1.12] font-bold tracking-tight text-balance hyphens-none">
-              Préparez votre projet de formation ou d&apos;exercice en France et
-              en Suisse
+            <h1 className="text-[clamp(1.75rem,1.2rem+2.4vw,2.75rem)] leading-[1.15] font-bold tracking-tight text-balance hyphens-none">
+              MedProcedure est une plateforme qui accompagne les médecins, en
+              activité ou en formation, dans leur projet d&apos;immigration à
+              l&apos;étranger.
             </h1>
           </div>
 
