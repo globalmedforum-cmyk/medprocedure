@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { FloatingHeader } from "@/components/shared/floating-header";
 import { Logo } from "@/components/shared/logo";
-import { ProcedureStack } from "@/components/shared/procedure-stack";
+import { ProcedureCards } from "@/components/landing/procedure-cards";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import type { LandingProcedure } from "@/lib/landing";
@@ -89,41 +89,66 @@ export function LandingPage({ procedures }: LandingPageProps) {
         </div>
       </FloatingHeader>
 
-      {/* Bandeau d'accueil : titre sur fond bleu, carte d'action à droite */}
-      <section className="mt-4 bg-accent-primary text-primary-foreground">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
-          <div className="space-y-5">
-            <p className="text-sm font-medium tracking-wide opacity-85">
-              Démarches des médecins diplômés hors UE
-            </p>
-            <h1 className="text-[clamp(1.75rem,1.2rem+2.4vw,2.75rem)] leading-[1.15] font-bold tracking-tight text-balance hyphens-none">
-              MedProcedure est une plateforme qui accompagne les médecins, en
-              activité ou en formation, dans leur projet d&apos;immigration à
-              l&apos;étranger.
-            </h1>
-          </div>
+      {/* Bandeau d'accueil : panneau nuit arrondi, carte d'action à droite */}
+      <section className="mx-auto mt-4 w-full max-w-6xl px-3 sm:px-4">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-ink text-white">
+          {/* Halos discrets : profondeur sans image */}
+          <div
+            aria-hidden
+            className="absolute -top-40 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-accent-primary/45 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="absolute -right-24 -bottom-48 -z-10 h-[26rem] w-[26rem] rounded-full bg-gold/15 blur-3xl"
+          />
 
-          <div className="border-b-4 border-[#00A95F] bg-bg-surface p-8 text-center text-text-primary sm:p-10">
-            <h2 className="text-2xl font-bold sm:text-3xl">
-              Votre parcours, étape par étape
-            </h2>
-            <Link
-              href="/sign-up"
-              className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
-            >
-              Créer un compte gratuit
-            </Link>
-            <p className="my-4 text-sm text-text-muted uppercase">ou</p>
-            <p className="text-base leading-relaxed">
-              Parcourez les {procedures.length} procédures détaillées, rédigées
-              d&apos;après les <strong>sources officielles</strong>
-            </p>
-            <a
-              href="#procedures"
-              className="mt-5 inline-flex h-12 w-full items-center justify-center border border-accent-primary px-6 text-base font-medium text-accent-primary transition-colors hover:bg-accent-soft active:scale-[0.98]"
-            >
-              Voir les procédures
-            </a>
+          <div className="grid items-center gap-10 px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:py-20">
+            <div className="space-y-6">
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-white/80">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold" />
+                Démarches des médecins diplômés hors UE
+              </p>
+              <h1 className="text-[clamp(1.75rem,1.2rem+2.4vw,2.75rem)] leading-[1.15] font-bold tracking-tight text-balance hyphens-none">
+                MedProcedure est une plateforme qui accompagne les médecins, en
+                activité ou en formation, dans leur projet d&apos;immigration à
+                l&apos;étranger.
+              </h1>
+              <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75">
+                {[
+                  `${procedures.length} procédures`,
+                  "France et Suisse",
+                  "Sources officielles",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <Check aria-hidden className="h-4 w-4 text-gold" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-2xl bg-bg-surface p-7 text-text-primary shadow-2xl shadow-black/30 sm:p-8">
+              <h2 className="text-xl font-bold sm:text-2xl">
+                Votre parcours, étape par étape
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-text-muted">
+                Suivez votre dossier, cochez chaque étape et retrouvez-le là où
+                vous l&apos;avez laissé.
+              </p>
+              <Link
+                href="/sign-up"
+                className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-accent-primary px-6 text-base font-semibold text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
+              >
+                Créer un compte gratuit
+                <ArrowRight aria-hidden className="h-4 w-4" />
+              </Link>
+              <a
+                href="#procedures"
+                className="mt-3 inline-flex h-12 w-full items-center justify-center rounded-xl border border-border-default px-6 text-base font-semibold text-text-primary transition-colors hover:border-accent-primary hover:text-accent-primary active:scale-[0.98]"
+              >
+                Voir les procédures
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -141,7 +166,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
           </p>
           <a
             href="#procedures"
-            className="inline-flex h-12 items-center justify-center bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
+            className="inline-flex h-12 items-center justify-center rounded-xl bg-accent-primary px-6 text-base font-semibold text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
           >
             Choisir ma procédure
           </a>
@@ -152,10 +177,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
           className="scroll-mt-24 space-y-6 pt-14 pb-16 sm:pt-20 sm:pb-24"
         >
           <div className="@container mx-auto space-y-4 pb-4 text-center sm:pb-8">
-            <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
-              {procedures.length} procédures détaillées
-            </p>
-            <h2 className="font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl lg:text-[min(3rem,4.3cqi)] lg:whitespace-nowrap">
+            <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               Toutes vos démarches{" "}
               <em className="whitespace-nowrap text-accent-primary">
                 étape par étape
@@ -163,7 +185,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
               au même endroit.
             </h2>
           </div>
-          <ProcedureStack procedures={procedures} />
+          <ProcedureCards procedures={procedures} />
           <p className="text-sm text-text-muted">
             La consultation d&apos;une procédure demande un compte, qui sert à
             enregistrer votre avancement.
