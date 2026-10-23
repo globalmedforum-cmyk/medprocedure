@@ -1,4 +1,5 @@
 import { Check, Mail, Phone } from "lucide-react";
+import { ContactDialog } from "@/components/shared/contact-dialog";
 import { Stamp } from "@/components/shared/stamp";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -85,18 +86,23 @@ export function OffersSection() {
                 ))}
               </ul>
 
-              <button
-                type="button"
-                className={cn(
-                  "mt-auto inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold transition-colors",
-                  offer.recommended
-                    ? "bg-accent-primary text-primary-foreground hover:bg-accent-hover"
-                    : "border border-border-default bg-bg-surface text-text-primary hover:border-accent-primary",
+              <ContactDialog
+                trigger={
+                  <>
+                    <Phone aria-hidden className="h-4 w-4" />
+                    Réserver mon appel gratuit
+                  </>
+                }
+                triggerVariant={offer.recommended ? "default" : "outline"}
+                triggerClassName={cn(
+                  "mt-auto h-12 w-full gap-2 rounded-xl px-4 text-sm font-semibold",
+                  offer.recommended && "hover:bg-accent-hover",
                 )}
-              >
-                <Phone aria-hidden className="h-4 w-4" />
-                Réserver mon appel gratuit
-              </button>
+                title={`Réserver un appel gratuit : ${offer.name}`}
+                description="Écrivez-nous par WhatsApp ou par e-mail : nous vous proposons un créneau pour un appel gratuit de 15 minutes, avant tout paiement."
+                emailSubject={`Appel gratuit : ${offer.name}`}
+                message={`Bonjour, je souhaite réserver l'appel gratuit pour l'offre « ${offer.name} » (${offer.price} €).`}
+              />
             </li>
           );
         })}

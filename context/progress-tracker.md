@@ -188,6 +188,11 @@ change.
 
 - **Liens entre procédures (2026-10-23)** : dans les guides, toute mention « Titre d'une procédure » entre guillemets français (texte des étapes et description) devient un lien vers cette procédure (`lib/procedure-links.ts`, `ProcedureMentions` dans `components/procedures/step-content.tsx`). Fonctionne aussi pour le texte saisi dans l'admin, à condition d'écrire le titre exact. 8 liens dans le contenu actuel.
 
+- **Mise en ligne des essais du 22-23 octobre 2026** :
+  - **Identité visuelle :** police Figtree, bleu indigo `#3346D3` avec une touche dorée `#F2B544`, fond blanc chaud `#FAFAF8`, angles adoucis (`--radius` 0.625rem). Accueil : panneau bleu nuit arrondi, carte d'action blanche, texte des sources officielles sans titre-question, nouvelles cartes de procédures (`components/landing/procedure-cards.tsx`, grille sur ordinateur, carrousel sur téléphone) à la place des cartes « passeport », espacements resserrés. Le style reste distinct de celui de l'État (pas de Marianne, pas de bloc « Gouvernement »).
+  - **UX mobile (branche essai-ux) :** retour à l'appui sur les boutons, courbes ease-out, zones de sécurité (encoche), hauteurs dvh/svh, champs à 16 px, compte à rebours des échéances sur le tableau de bord, transition de changement d'étape.
+  - **Page /offres :** les trois offres d'assistance (19 €, 39 €, 99 €) et la promo des 5 premiers médecins (relecture gratuite) ; les boutons « Réserver mon appel gratuit » ouvrent la fenêtre de contact (WhatsApp ou e-mail). `/offres/promo` est le visuel carré de la promo. Ces pages ne sont liées depuis aucun menu.
+
 ## In Progress
 
 - None.
