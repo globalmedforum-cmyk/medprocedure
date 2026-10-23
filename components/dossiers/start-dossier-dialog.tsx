@@ -44,7 +44,7 @@ export function StartDossierDialog({
           <Button
             variant={triggerVariant}
             className={cn(
-              "h-12 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-all hover:shadow-md sm:h-10",
+              "h-12 gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:shadow-md sm:h-10",
               triggerVariant === "default" && "hover:bg-accent-hover",
               triggerVariant === "outline" && "bg-transparent",
               className

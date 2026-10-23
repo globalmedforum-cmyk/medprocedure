@@ -30,7 +30,7 @@ const lockedDetails = [
 ];
 
 const roundButtonClassName =
-  "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-accent-hover hover:shadow-md";
+  "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent-primary p-0 text-primary-foreground shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover hover:shadow-md";
 
 function Requirement({ text }: { text: string }) {
   const match = linkRequirementPattern.exec(text);

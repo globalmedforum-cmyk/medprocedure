@@ -78,7 +78,7 @@ export function ContactDialog({
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants(),
-                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-all hover:bg-accent-hover",
+                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover",
               )}
             >
               <MessageCircle aria-hidden />

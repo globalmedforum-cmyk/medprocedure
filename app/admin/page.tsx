@@ -65,7 +65,7 @@ export default async function AdminPage() {
           <li key={stat.label}>
             <Link
               href={stat.href}
-              className="group flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-3 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent-primary/40 hover:shadow-md sm:p-5"
+              className="group flex h-full flex-col rounded-2xl border border-border-default bg-bg-surface p-3 shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:-translate-y-0.5 hover:border-accent-primary/40 hover:shadow-md sm:p-5"
             >
               <span className="flex items-start justify-between gap-1">
                 <span className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
@@ -94,7 +94,7 @@ export default async function AdminPage() {
             <li key={procedure.id}>
               <Link
                 href={`/admin/procedures/${procedure.id}`}
-                className="group flex h-full items-center justify-between gap-4 rounded-xl border border-border-default bg-bg-base p-4 transition-all hover:border-accent-primary/40 hover:bg-bg-surface hover:shadow-md"
+                className="group flex h-full items-center justify-between gap-4 rounded-xl border border-border-default bg-bg-base p-4 transition-[transform,background-color,border-color,color,box-shadow] hover:border-accent-primary/40 hover:bg-bg-surface hover:shadow-md"
               >
                 <span className="space-y-1">
                   <span className="block font-semibold">{procedure.title}</span>
@@ -137,7 +137,7 @@ export default async function AdminPage() {
                     href={`/admin/opportunities/new?category=${group.categories[0]}`}
                     className={cn(
                       buttonVariants(),
-                      "h-10 gap-1.5 rounded-xl px-3 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md",
+                      "h-10 gap-1.5 rounded-xl px-3 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover hover:shadow-md",
                     )}
                   >
                     <Plus aria-hidden />

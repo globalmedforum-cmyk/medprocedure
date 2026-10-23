@@ -10,7 +10,7 @@ interface AuthShellProps {
 // Écran de connexion et d'inscription : une colonne centrée, aérée
 export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center bg-bg-base px-4 py-10 sm:py-16">
+    <div className="relative flex min-h-svh w-full flex-col items-center bg-bg-base px-4 py-10 sm:py-16">
       <ThemeToggle className="absolute top-3 right-3 sm:top-4 sm:right-4" />
       <Link href="/" aria-label="MedProcedure, accueil">
         <Logo />

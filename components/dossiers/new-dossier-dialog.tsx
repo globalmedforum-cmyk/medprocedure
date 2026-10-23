@@ -41,7 +41,7 @@ export function NewDossierDialog({
           <Button
             variant="outline"
             className={cn(
-              "h-11 gap-2 rounded-xl bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-all hover:shadow-md sm:h-10",
+              "h-11 gap-2 rounded-xl bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:shadow-md sm:h-10",
               className
             )}
           />

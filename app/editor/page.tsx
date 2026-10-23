@@ -4,7 +4,11 @@ import { auth } from "@clerk/nextjs/server";
 import { ArrowRight } from "lucide-react";
 import { ProcedureStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { formatDossierDate, getDossierLabel } from "@/lib/dossiers";
+import {
+  formatCountdown,
+  formatDossierDate,
+  getDossierLabel,
+} from "@/lib/dossiers";
 import { startOfToday } from "@/lib/opportunity-categories";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 import { Progress } from "@/components/ui/progress";
@@ -157,7 +161,7 @@ export default async function DashboardPage() {
                       <li key={dossier.id}>
                         <Link
                           href={`/dossiers/${dossier.id}`}
-                          className="group block rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                          className="group block rounded-2xl border border-border-default bg-bg-surface p-5 shadow-sm transition-[transform,background-color,border-color,color,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99]"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <p className="text-xs font-medium text-text-muted">
@@ -213,9 +217,8 @@ export default async function DashboardPage() {
                                     : "text-text-muted"
                                 }
                               >
-                                Échéance :{" "}
+                                {formatCountdown(dossier.targetDate, today)} ·{" "}
                                 {formatDossierDate(dossier.targetDate)}
-                                {dossier.isOverdue && " (dépassée)"}
                               </span>
                             )}
                           </div>

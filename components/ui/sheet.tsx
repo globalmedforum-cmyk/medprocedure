@@ -64,7 +64,7 @@ function SheetContent({
       <DialogPrimitive.Popup
         data-slot="sheet-content"
         className={cn(
-          "fixed z-50 flex flex-col gap-4 bg-bg-surface p-6 shadow-2xl transition ease-in-out duration-200 outline-none data-open:animate-in data-closed:animate-out",
+          "fixed z-50 flex flex-col gap-4 overscroll-contain bg-bg-surface p-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl transition ease-(--ease-drawer) duration-300 outline-none data-open:animate-in data-closed:animate-out data-closed:duration-200",
           sideClasses,
           className
         )}

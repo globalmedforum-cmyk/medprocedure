@@ -12,6 +12,25 @@
     --shadow-md: 0 1px 0 rgb(15 23 42 / 0.04), 0 6px 18px rgb(15 23 42 / 0.05);
     --shadow-lg: 0 2px 0 rgb(15 23 42 / 0.04), 0 12px 32px rgb(15 23 42 / 0.08);
     --animate-enter: enter 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    /* Courbes franches : réponse immédiate, fin douce (jamais ease-in) */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --default-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Changement d'étape : bref, sans retenir l'œil (vu plusieurs fois par visite) */
+    --animate-step: step-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both;
+
+    @keyframes step-in {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
 
     @keyframes enter {
         from {
@@ -171,6 +190,25 @@
     @apply font-sans;
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
+    /* Pas de flash gris au toucher ; chaque élément cliquable a son :active */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    }
+  /* Clic immédiat (pas d'attente du double-tap) */
+  a, button, [role="button"], summary, label {
+    touch-action: manipulation;
+    }
+  /* Un appui long ne sélectionne pas le texte d'un bouton */
+  button, [role="button"], [role="tab"] {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    }
+  /* iOS zoome sur un champ en dessous de 16 px */
+  @media (pointer: coarse) {
+    input, textarea, select {
+      font-size: 16px;
+      }
     }
   ::selection {
     background: var(--accent-soft);

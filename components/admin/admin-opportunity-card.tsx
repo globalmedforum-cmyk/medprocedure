@@ -32,7 +32,7 @@ export function AdminOpportunityCard({
   isExpired,
 }: AdminOpportunityCardProps) {
   return (
-    <div className="relative rounded-xl border border-border-default bg-bg-base p-4 transition-all hover:bg-bg-surface hover:shadow-md">
+    <div className="relative rounded-xl border border-border-default bg-bg-base p-4 transition-[transform,background-color,border-color,color,box-shadow] hover:bg-bg-surface hover:shadow-md">
       <div className="grid gap-x-6 gap-y-1 sm:grid-cols-[8rem_minmax(0,1fr)_11rem_auto] sm:items-center">
         <span className="text-sm font-semibold text-accent-primary">
           {opportunityCategoryLabels[category]}

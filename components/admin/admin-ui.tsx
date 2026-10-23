@@ -30,7 +30,7 @@ export function AdminPageHeader({
           href={backHref}
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "h-11 gap-2 rounded-xl border-border-default bg-bg-surface px-3 text-sm font-semibold text-text-primary transition-all hover:shadow-sm sm:h-9",
+            "h-11 gap-2 rounded-xl border-border-default bg-bg-surface px-3 text-sm font-semibold text-text-primary transition-[transform,background-color,border-color,color,box-shadow] hover:shadow-sm sm:h-9",
           )}
         >
           <ArrowLeft aria-hidden />

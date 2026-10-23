@@ -112,7 +112,7 @@ export function ProcedureStepPanel({
               variant="outline"
               disabled={isPending}
               onClick={() => onToggleStep(activeStep.id)}
-              className="h-12 w-full gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-all hover:border-state-success hover:text-state-success hover:shadow-md sm:w-auto"
+              className="h-12 w-full gap-2 rounded-xl border-border-default bg-bg-surface px-4 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:border-state-success hover:text-state-success hover:shadow-md sm:w-auto"
             >
               <Check aria-hidden className="text-state-success" />
               Marquer comme terminée
@@ -130,7 +130,7 @@ export function ProcedureStepPanel({
               variant="secondary"
               disabled={!prevStep}
               onClick={() => prevStep && onSelectStep(prevStep.id)}
-              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold transition-all hover:bg-border-default"
+              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold transition-[transform,background-color,border-color,color,box-shadow] hover:bg-border-default"
             >
               <ArrowLeft aria-hidden />
               Précédente
@@ -138,7 +138,7 @@ export function ProcedureStepPanel({
             <Button
               disabled={!nextStep}
               onClick={() => nextStep && onSelectStep(nextStep.id)}
-              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
+              className="h-12 gap-2 rounded-xl px-3 text-sm font-semibold shadow-sm transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover hover:shadow-md"
             >
               Suivante
               <ArrowRight aria-hidden />
