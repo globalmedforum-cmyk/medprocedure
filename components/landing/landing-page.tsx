@@ -92,7 +92,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
       {/* Bandeau d'accueil : panneau nuit arrondi, texte sobre, carte d'action à droite */}
       <section className="mx-auto mt-4 w-full max-w-6xl px-3 sm:px-4">
         <div className="overflow-hidden rounded-3xl bg-ink text-white">
-          <div className="grid items-center gap-10 px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:py-20">
+          <div className="grid items-center gap-10 px-6 py-10 sm:px-12 sm:py-12 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:py-14">
             <div className="max-w-[36rem] space-y-5">
               <p className="text-sm text-white/70 sm:text-base">
                 Démarches des médecins diplômés hors UE
@@ -134,7 +134,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
         {/* Registre des sources : la preuve plutôt que la promesse */}
         <section
           aria-label="Nos sources"
-          className="grid gap-6 border-b border-border-default py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:py-14"
+          className="grid gap-6 border-b border-border-default py-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:py-10"
         >
           <p className="max-w-2xl text-lg leading-relaxed text-text-muted">
             Chaque procédure est rédigée d&apos;après les pages officielles&nbsp;:{" "}
@@ -151,9 +151,9 @@ export function LandingPage({ procedures }: LandingPageProps) {
 
         <section
           id="procedures"
-          className="scroll-mt-24 space-y-6 pt-14 pb-16 sm:pt-20 sm:pb-24"
+          className="scroll-mt-24 space-y-6 pt-10 pb-10 sm:pt-12 sm:pb-14"
         >
-          <div className="@container mx-auto space-y-4 pb-4 text-center sm:pb-8">
+          <div className="@container mx-auto space-y-4 pb-2 text-center sm:pb-4">
             <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               Toutes vos démarches{" "}
               <em className="whitespace-nowrap text-accent-primary">
@@ -169,7 +169,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
           </p>
         </section>
 
-        <section id="contenu" className="scroll-mt-24 space-y-8 pb-16 sm:pb-24">
+        <section id="contenu" className="scroll-mt-24 space-y-6 pb-12 sm:pb-16">
           {/* Toujours sur une ligne : la taille suit la largeur disponible */}
           <div className="@container">
             <h2 className="font-heading text-[min(2.25rem,6.4cqi)] font-medium tracking-tight whitespace-nowrap">
