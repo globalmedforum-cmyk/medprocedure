@@ -89,67 +89,66 @@ export function LandingPage({ procedures }: LandingPageProps) {
         </div>
       </FloatingHeader>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        <section className="grid items-start gap-x-16 gap-y-8 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:py-24">
-          {/* Une seule ligne sur tous les écrans : la taille suit la largeur
-                disponible, plafonnée à 12 px */}
-          <div className="@container lg:col-span-2">
-            <p className="font-mono text-[min(0.75rem,3.4cqi)] tracking-[0.12em] whitespace-nowrap text-text-muted uppercase">
+      {/* Bandeau d'accueil : titre sur fond bleu, carte d'action à droite */}
+      <section className="mt-4 bg-accent-primary text-primary-foreground">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
+          <div className="space-y-5">
+            <p className="text-sm font-medium tracking-wide opacity-85">
               Démarches des médecins diplômés hors UE
             </p>
-          </div>
-          <div className="space-y-8">
-            {/* Titre aligné à gauche : taille fluide selon l'écran, lignes
-                équilibrées, jamais de césure ni d'espaces étirés */}
-            <div className="max-w-[40rem]">
-              <h1 className="font-heading text-[clamp(1.75rem,1.15rem+2.6vw,2.75rem)] leading-[1.18] font-semibold tracking-tight text-balance hyphens-none">
-                MedProcedure est une plateforme qui accompagne les médecins, en
-                activité ou en formation, dans leur projet d&apos;immigration à
-                l&apos;étranger.
-              </h1>
-            </div>
-            <Link
-              href="/sign-up"
-              className={cn(
-                buttonVariants(),
-                "h-12 w-full gap-2 rounded-md px-6 text-base font-semibold transition-colors hover:bg-accent-hover sm:w-auto",
-              )}
-            >
-              Créer un compte
-              <ArrowRight aria-hidden />
-            </Link>
+            <h1 className="text-[clamp(2rem,1.3rem+3vw,3.25rem)] leading-[1.12] font-bold tracking-tight text-balance hyphens-none">
+              Préparez votre projet de formation ou d&apos;exercice en France et
+              en Suisse
+            </h1>
           </div>
 
-          {/* Registre des sources : la preuve plutôt que la promesse */}
-          <aside
-            aria-label="Nos sources"
-            className="border-y border-text-primary py-5"
+          <div className="border-b-4 border-[#00A95F] bg-bg-surface p-8 text-center text-text-primary sm:p-10">
+            <h2 className="text-2xl font-bold sm:text-3xl">
+              Votre parcours, étape par étape
+            </h2>
+            <Link
+              href="/sign-up"
+              className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
+            >
+              Créer un compte gratuit
+            </Link>
+            <p className="my-4 text-sm text-text-muted uppercase">ou</p>
+            <p className="text-base leading-relaxed">
+              Parcourez les {procedures.length} procédures détaillées, rédigées
+              d&apos;après les <strong>sources officielles</strong>
+            </p>
+            <a
+              href="#procedures"
+              className="mt-5 inline-flex h-12 w-full items-center justify-center border border-accent-primary px-6 text-base font-medium text-accent-primary transition-colors hover:bg-accent-soft active:scale-[0.98]"
+            >
+              Voir les procédures
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
+        {/* Registre des sources : la preuve plutôt que la promesse */}
+        <section
+          aria-label="Nos sources"
+          className="grid gap-6 border-b border-border-default py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:py-14"
+        >
+          <div className="max-w-2xl space-y-3">
+            <h2 className="text-[clamp(1.75rem,1.3rem+1.8vw,2.5rem)] leading-tight font-bold tracking-tight">
+              Où trouver la bonne démarche ?
+            </h2>
+            <p className="text-lg leading-relaxed text-text-muted">
+              Chaque procédure est rédigée d&apos;après les pages officielles :{" "}
+              {OFFICIAL_AUTHORITIES.join(", ")}. {officialLinkCount} liens de
+              référence, vérifiés.
+            </p>
+          </div>
+          <a
+            href="#procedures"
+            className="inline-flex h-12 items-center justify-center bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
           >
-            <p className="font-mono text-[0.7rem] tracking-[0.2em] text-text-muted uppercase">
-              Registre des sources
-            </p>
-            <dl className="mt-4 divide-y divide-border-default">
-              {[
-                ["Procédures", String(procedures.length).padStart(2, "0")],
-                ["Liens de référence", String(officialLinkCount)],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="flex items-baseline justify-between gap-4 py-2.5"
-                >
-                  <dt className="text-sm text-text-muted">{label}</dt>
-                  <dd className="font-mono text-base capitalize">{value}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-4 text-sm leading-relaxed text-text-muted">
-              Rédigé d&apos;après les pages officielles :{" "}
-              <span className="text-text-primary">
-                {OFFICIAL_AUTHORITIES.join(", ")}
-              </span>
-              .
-            </p>
-          </aside>
+            Choisir ma procédure
+          </a>
         </section>
 
         <section

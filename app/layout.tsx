@@ -7,12 +7,13 @@ import { THEME_COLORS, THEME_STORAGE_KEY } from "@/lib/theme";
 import "./globals.css";
 
 // Polices servies depuis app/fonts : le build ne télécharge rien chez Google
-// Source Sans 3 pour tout le texte, titres compris
+// Figtree pour tout le texte, titres compris : géométrique, nette, proche
+// du ton des sites publics sans en reprendre la police réservée (Marianne)
 const sourceSans = localFont({
   variable: "--font-sans",
   display: "swap",
-  src: "./fonts/source-sans-3-latin-wght-normal.woff2",
-  weight: "200 900",
+  src: "./fonts/figtree-latin-wght-normal.woff2",
+  weight: "300 900",
 });
 
 const plexMono = localFont({

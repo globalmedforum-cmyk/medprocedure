@@ -84,16 +84,16 @@
 
 :root {
     /* Jetons applicatifs — voir context/ui-context.md */
-    --bg-base: #F9FAFB;
+    --bg-base: #FFFFFF;
     --bg-surface: #FFFFFF;
-    --bg-subtle: #F1F5F9;
-    --text-primary: #0F172A;
-    --text-muted: #475569;
-    --accent-primary: #1D4ED8;
-    --accent-hover: #1E40AF;
-    --accent-soft: #EEF3FF;
-    --accent-secondary: #1D4ED8;
-    --border-default: #E2E8F0;
+    --bg-subtle: #F6F6F6;
+    --text-primary: #161616;
+    --text-muted: #3A3A3A;
+    --accent-primary: #000091;
+    --accent-hover: #1212FF;
+    --accent-soft: #E3E3FD;
+    --accent-secondary: #000091;
+    --border-default: #DDDDDD;
     --state-error: #DC2626;
     --state-success: #16A34A;
     --state-warning: #B45309;
@@ -123,7 +123,7 @@
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);
     --chart-5: oklch(0.269 0 0);
-    --radius: 0.5rem;
+    --radius: 0rem;
     --sidebar: var(--bg-surface);
     --sidebar-foreground: var(--text-primary);
     --sidebar-primary: var(--accent-primary);
@@ -141,10 +141,10 @@
     --bg-subtle: #171717;
     --text-primary: #F5F5F5;
     --text-muted: #A3A3A3;
-    --accent-primary: #60A5FA;
-    --accent-hover: #93C5FD;
-    --accent-soft: #0C1A2E;
-    --accent-secondary: #93C5FD;
+    --accent-primary: #8585F6;
+    --accent-hover: #A1A1F8;
+    --accent-soft: #1B1B35;
+    --accent-secondary: #8585F6;
     --border-default: #262626;
     --state-error: #F87171;
     --state-success: #4ADE80;
