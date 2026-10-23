@@ -7,10 +7,6 @@ import { Logo } from "@/components/shared/logo";
 import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
-import {
-  OFFICIAL_AUTHORITIES,
-  countOfficialLinks,
-} from "@/lib/content-verification";
 import type { LandingProcedure } from "@/lib/landing";
 import { cn } from "@/lib/utils";
 
@@ -47,8 +43,6 @@ interface LandingPageProps {
 
 // Page d'accueil publique, affichée aux visiteurs non connectés
 export function LandingPage({ procedures }: LandingPageProps) {
-  const officialLinkCount = countOfficialLinks();
-
   return (
     <div className="flex min-h-screen flex-col">
       <FloatingHeader>
@@ -129,32 +123,9 @@ export function LandingPage({ procedures }: LandingPageProps) {
       </section>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
-        {/* Registre des sources : la preuve plutôt que la promesse */}
-        <section
-          aria-label="Nos sources"
-          className="grid gap-6 border-b border-border-default py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:py-14"
-        >
-          <div className="max-w-2xl space-y-3">
-            <h2 className="text-[clamp(1.75rem,1.3rem+1.8vw,2.5rem)] leading-tight font-bold tracking-tight">
-              Où trouver la bonne démarche ?
-            </h2>
-            <p className="text-lg leading-relaxed text-text-muted">
-              Chaque procédure est rédigée d&apos;après les pages officielles :{" "}
-              {OFFICIAL_AUTHORITIES.join(", ")}. {officialLinkCount} liens de
-              référence, vérifiés.
-            </p>
-          </div>
-          <a
-            href="#procedures"
-            className="inline-flex h-12 items-center justify-center bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
-          >
-            Choisir ma procédure
-          </a>
-        </section>
-
         <section
           id="procedures"
-          className="scroll-mt-24 space-y-6 pb-16 sm:pb-24"
+          className="scroll-mt-24 space-y-6 pt-14 pb-16 sm:pt-20 sm:pb-24"
         >
           <div className="@container mx-auto space-y-4 pb-4 text-center sm:pb-8">
             <p className="font-mono text-xs font-medium tracking-widest text-text-muted uppercase">
