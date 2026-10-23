@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { FloatingHeader } from "@/components/shared/floating-header";
@@ -89,42 +89,19 @@ export function LandingPage({ procedures }: LandingPageProps) {
         </div>
       </FloatingHeader>
 
-      {/* Bandeau d'accueil : panneau nuit arrondi, carte d'action à droite */}
+      {/* Bandeau d'accueil : panneau nuit arrondi, texte sobre, carte d'action à droite */}
       <section className="mx-auto mt-4 w-full max-w-6xl px-3 sm:px-4">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-ink text-white">
-          {/* Halos discrets : profondeur sans image */}
-          <div
-            aria-hidden
-            className="absolute -top-40 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-accent-primary/45 blur-3xl"
-          />
-          <div
-            aria-hidden
-            className="absolute -right-24 -bottom-48 -z-10 h-[26rem] w-[26rem] rounded-full bg-gold/15 blur-3xl"
-          />
-
+        <div className="overflow-hidden rounded-3xl bg-ink text-white">
           <div className="grid items-center gap-10 px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:py-20">
-            <div className="space-y-6">
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-white/80">
-                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold" />
+            <div className="max-w-[36rem] space-y-5">
+              <p className="text-sm text-white/70 sm:text-base">
                 Démarches des médecins diplômés hors UE
               </p>
-              <h1 className="text-[clamp(1.75rem,1.2rem+2.4vw,2.75rem)] leading-[1.15] font-bold tracking-tight text-balance hyphens-none">
+              <h1 className="text-[clamp(1.75rem,1.1rem+2.2vw,2.6rem)] leading-[1.18] font-bold tracking-tight text-pretty hyphens-none">
                 MedProcedure est une plateforme qui accompagne les médecins, en
                 activité ou en formation, dans leur projet d&apos;immigration à
                 l&apos;étranger.
               </h1>
-              <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75">
-                {[
-                  `${procedures.length} procédures`,
-                  "France et Suisse",
-                  "Sources officielles",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <Check aria-hidden className="h-4 w-4 text-gold" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
             </div>
 
             <div className="rounded-2xl bg-bg-surface p-7 text-text-primary shadow-2xl shadow-black/30 sm:p-8">
@@ -160,7 +137,7 @@ export function LandingPage({ procedures }: LandingPageProps) {
           className="grid gap-6 border-b border-border-default py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:py-14"
         >
           <p className="max-w-2xl text-lg leading-relaxed text-text-muted">
-            Chaque procédure est rédigée d&apos;après les pages officielles :{" "}
+            Chaque procédure est rédigée d&apos;après les pages officielles&nbsp;:{" "}
             {OFFICIAL_AUTHORITIES.join(", ")}. {officialLinkCount} liens de
             référence, vérifiés.
           </p>
