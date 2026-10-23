@@ -8,6 +8,10 @@ import { ProcedureStack } from "@/components/shared/procedure-stack";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 import type { LandingProcedure } from "@/lib/landing";
+import {
+  OFFICIAL_AUTHORITIES,
+  countOfficialLinks,
+} from "@/lib/content-verification";
 import { cn } from "@/lib/utils";
 
 const guideContents = [
@@ -43,6 +47,8 @@ interface LandingPageProps {
 
 // Page d'accueil publique, affichée aux visiteurs non connectés
 export function LandingPage({ procedures }: LandingPageProps) {
+  const officialLinkCount = countOfficialLinks();
+
   return (
     <div className="flex min-h-screen flex-col">
       <FloatingHeader>
@@ -123,6 +129,24 @@ export function LandingPage({ procedures }: LandingPageProps) {
       </section>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-8">
+        {/* Registre des sources : la preuve plutôt que la promesse */}
+        <section
+          aria-label="Nos sources"
+          className="grid gap-6 border-b border-border-default py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:py-14"
+        >
+          <p className="max-w-2xl text-lg leading-relaxed text-text-muted">
+            Chaque procédure est rédigée d&apos;après les pages officielles :{" "}
+            {OFFICIAL_AUTHORITIES.join(", ")}. {officialLinkCount} liens de
+            référence, vérifiés.
+          </p>
+          <a
+            href="#procedures"
+            className="inline-flex h-12 items-center justify-center bg-accent-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-accent-hover active:scale-[0.98]"
+          >
+            Choisir ma procédure
+          </a>
+        </section>
+
         <section
           id="procedures"
           className="scroll-mt-24 space-y-6 pt-14 pb-16 sm:pt-20 sm:pb-24"
