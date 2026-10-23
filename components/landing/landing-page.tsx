@@ -170,9 +170,12 @@ export function LandingPage({ procedures }: LandingPageProps) {
         </section>
 
         <section id="contenu" className="scroll-mt-24 space-y-8 pb-16 sm:pb-24">
-          <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-            Ce que contient chaque procédure
-          </h2>
+          {/* Toujours sur une ligne : la taille suit la largeur disponible */}
+          <div className="@container">
+            <h2 className="font-heading text-[min(2.25rem,6.4cqi)] font-medium tracking-tight whitespace-nowrap">
+              Ce que contient chaque procédure
+            </h2>
+          </div>
           {/* Sommaire éditorial : des filets et des numéros, pas des cartes */}
           <dl className="grid border-t border-text-primary sm:grid-cols-2 lg:grid-cols-3">
             {guideContents.map((item, index) => (
