@@ -35,7 +35,7 @@ export const termsArticles: TermsArticle[] = [
           "« Guides » désigne les contenus d'information décrivant, étape par étape, des démarches administratives, universitaires ou hospitalières ;",
           "« Opportunités » désigne les offres de poste, de stage, de formation, de thèse ou de congrès référencées sur le Site ;",
           "« Assistance » désigne l'accompagnement individuel fourni par l'équipe de l'Éditeur à la demande de l'Utilisateur, notamment dans le cadre des Formules ;",
-          "« Formules » désigne les formules d'accompagnement payantes Standard, Premium et VIP ;",
+          "« Formules » désigne les formules d'accompagnement payantes Lite, Premium, VIP et Assistance MEBEKO, dont le contenu est présenté à l'Utilisateur avant tout paiement ;",
           "« Plateforme de suivi » désigne l'espace sécurisé, distinct du Site, réservé aux Utilisateurs ayant souscrit une Formule, au moyen duquel l'Utilisateur et l'équipe de l'Éditeur échangent messages et documents et suivent l'avancement du dossier ;",
           "« Documents » désigne les pièces que l'Utilisateur transmet à l'Éditeur pour la constitution de son dossier, telles que passeport, diplômes, relevés de notes, curriculum vitae, lettres, attestations, certificats médicaux ou extraits de casier judiciaire ;",
           "« Organismes tiers » désigne les administrations, représentations consulaires, universités, établissements de santé et, plus généralement, toute autorité ou tout établissement appelé à statuer sur une demande de l'Utilisateur.",
@@ -125,13 +125,13 @@ export const termsArticles: TermsArticle[] = [
   {
     title: "Remboursement",
     clauses: [
-      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve des seuls cas prévus au présent article.",
+      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve des seuls cas prévus au présent article. La Formule Lite, limitée à la relecture et à la correction des Documents, n'ouvre droit à aucun remboursement une fois les corrections rendues.",
       "Lorsque la loi applicable reconnaît à l'Utilisateur un délai de rétractation, l'Utilisateur qui demande expressément le commencement de l'Assistance avant l'expiration de ce délai reconnaît que les prestations exécutées à la date de sa rétractation restent dues.",
       {
-        intro: "Par exception, l'Éditeur rembourse trente pour cent (30 %) des sommes effectivement versées au titre d'une Formule lorsque l'Assistance avait pour objet :",
+        intro: "Par exception, l'Éditeur rembourse soixante pour cent (60 %) des sommes effectivement versées au titre d'une Formule :",
         items: [
-          "l'obtention d'une convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) et qu'aucune convention n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
-          "l'enregistrement d'un diplôme auprès de la MEBEKO et que cet enregistrement a été refusé par une décision écrite de l'autorité compétente.",
+          "Premium ou VIP, lorsque l'Assistance avait pour objet l'obtention d'une convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) et qu'aucune convention n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
+          "Assistance MEBEKO, lorsque l'enregistrement du diplôme a été refusé par une décision écrite de l'autorité compétente.",
         ],
       },
       {

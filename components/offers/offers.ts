@@ -1,69 +1,71 @@
-// Offres d'assistance payantes (voir founder/pricing.md). Prix en euros.
+// Forfaits d'assistance. Aucun prix sur le site : il est communiqué lors de
+// l'appel gratuit, avant tout paiement.
 export interface Offer {
   id: string;
   name: string;
-  price: number;
-  // Paiement en plusieurs fois, ex. « 20 € + 19 € »
-  instalments?: string;
+  // Sous-titre : procédures couvertes ou résumé du forfait
   tagline: string;
   features: string[];
+  // Mention en dessous des avantages
+  note?: string;
   recommended?: boolean;
+  // Forfait sur sélection (VIP) : présentation sombre
+  exclusive?: boolean;
 }
 
 export const offers: Offer[] = [
   {
-    id: "relecture-express",
-    name: "Relecture express",
-    price: 19,
-    tagline: "Un regard extérieur sur un document clé.",
+    id: "lite",
+    name: "Lite",
+    tagline: "FFI · Stage associé · Médecin assistant",
     features: [
-      "Un document : CV ou lettre de motivation",
-      "Corrections rendues sous 48 heures",
-      "Conseils adaptés à la procédure visée",
+      "Relecture de tous vos documents : CV, lettre de motivation…",
+      "Correction des points à améliorer",
     ],
   },
   {
-    id: "dossier-pret",
-    name: "Dossier prêt à déposer",
-    price: 39,
-    instalments: "20 € au départ, 19 € quand le dossier est complet",
-    tagline: "Tout votre dossier, relu jusqu'au dépôt.",
+    id: "premium",
+    name: "Premium",
+    tagline: "Vos documents, plus les contacts pour candidater",
     features: [
-      "Appel gratuit de 15 min avant de payer",
-      "Une personne nommée suit votre dossier",
-      "CV, lettre, pièces et calendrier vérifiés",
-      "Corrections sous 72 heures, sinon remboursé",
-      "Relectures illimitées jusqu'au dépôt",
+      "Tout le Lite",
+      "Mise en relation par e-mail avec les chefs de service de votre spécialité",
+      "Assistance jusqu'au dépôt de la demande de visa",
     ],
     recommended: true,
   },
   {
-    id: "accompagnement-complet",
-    name: "Accompagnement complet",
-    price: 99,
-    instalments: "50 € au départ, 49 € quand le dossier est complet",
-    tagline: "Le dossier, plus la recherche de poste.",
+    id: "vip",
+    name: "VIP",
+    tagline: "Places limitées · avec un poste validé",
     features: [
-      "Tout le « Dossier prêt à déposer »",
-      "Calendrier de vos candidatures",
-      "Sélection d'offres publiques adaptées à votre profil",
-      "Modèles de messages aux chefs de service",
+      "Mise en relation avec un collaborateur sur le site du poste à pourvoir",
+    ],
+    note: "Un service ouvert selon les opportunités à la disposition de nos équipes.",
+    exclusive: true,
+  },
+  {
+    id: "mebeko",
+    name: "Assistance MEBEKO",
+    tagline: "Proposée à part · Suisse",
+    features: [
+      "Suivi de votre demande de reconnaissance de diplôme",
+      "Jusqu'à la réponse de la MEBEKO",
     ],
   },
 ];
 
-// Offre de lancement : le « Dossier prêt à déposer » offert aux premiers
-// médecins qui écrivent par e-mail
+// Offre de lancement : la relecture du dossier offerte aux premiers médecins
+// qui écrivent par e-mail
 export const launchOffer = {
-  offerId: "dossier-pret",
   places: 5,
 };
 
 export const paymentMethods = ["Orange Money", "Wave", "MTN MoMo", "Carte"];
 
 export const coveredProcedures = [
-  "DFMS / DFMSA",
+  "Stage FFI",
   "Stage associé",
-  "Poste de FFI",
-  "Visa pour un congrès",
+  "Médecin assistant en Suisse",
+  "Enregistrement MEBEKO",
 ];

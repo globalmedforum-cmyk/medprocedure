@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Check, Mail, Phone } from "lucide-react";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { Stamp } from "@/components/shared/stamp";
@@ -32,17 +33,19 @@ export function OffersSection() {
 
       <LaunchBanner />
 
-      <ul className="grid gap-5 lg:grid-cols-3 lg:items-stretch">
+      <ul className="grid gap-5 md:grid-cols-2 md:items-stretch">
         {offers.map((offer) => {
-          const isLaunch = offer.id === launchOffer.offerId;
           return (
             <li
               key={offer.id}
               className={cn(
-                "relative flex flex-col gap-6 rounded-2xl border bg-bg-surface p-6 sm:p-7",
+                "relative flex flex-col gap-6 rounded-2xl border p-6 sm:p-7",
+                offer.exclusive
+                  ? "border-transparent bg-accent-primary text-primary-foreground"
+                  : "bg-bg-surface",
                 offer.recommended
                   ? "border-2 border-accent-primary shadow-lg"
-                  : "border-border-default",
+                  : !offer.exclusive && "border-border-default",
               )}
             >
               {offer.recommended && (
@@ -53,25 +56,16 @@ export function OffersSection() {
 
               <div className="space-y-1.5">
                 <h2 className="font-heading text-xl font-bold">{offer.name}</h2>
-                <p className="text-sm text-text-muted">{offer.tagline}</p>
-              </div>
-
-              <div className="space-y-1">
-                <p className="flex items-baseline gap-2">
-                  <span className="font-heading text-5xl font-bold tracking-tight">
-                    {offer.price} €
-                  </span>
-                  <span className="text-sm text-text-muted">par dossier</span>
+                <p
+                  className={cn(
+                    "text-sm",
+                    offer.exclusive
+                      ? "font-semibold opacity-90"
+                      : "text-text-muted",
+                  )}
+                >
+                  {offer.tagline}
                 </p>
-                {offer.instalments && (
-                  <p className="text-sm text-text-muted">{offer.instalments}</p>
-                )}
-                {isLaunch && (
-                  <p className="text-sm font-semibold text-accent-primary">
-                    Offert aux {launchOffer.places} premiers médecins qui nous
-                    écrivent
-                  </p>
-                )}
               </div>
 
               <ul className="space-y-2.5 text-[0.95rem]">
@@ -79,12 +73,19 @@ export function OffersSection() {
                   <li key={feature} className="flex items-start gap-2.5">
                     <Check
                       aria-hidden
-                      className="mt-0.5 h-5 w-5 shrink-0 text-accent-primary"
+                      className={cn(
+                        "mt-0.5 h-5 w-5 shrink-0",
+                        !offer.exclusive && "text-accent-primary",
+                      )}
                     />
                     {feature}
                   </li>
                 ))}
               </ul>
+
+              {offer.note && (
+                <p className="text-sm italic opacity-85">{offer.note}</p>
+              )}
 
               <ContactDialog
                 trigger={
@@ -93,26 +94,40 @@ export function OffersSection() {
                     Réserver mon appel gratuit
                   </>
                 }
-                triggerVariant={offer.recommended ? "default" : "outline"}
+                triggerVariant={
+                  offer.recommended || offer.exclusive ? "default" : "outline"
+                }
                 triggerClassName={cn(
                   "mt-auto h-12 w-full gap-2 rounded-xl px-4 text-sm font-semibold",
                   offer.recommended && "hover:bg-accent-hover",
+                  offer.exclusive &&
+                    "bg-primary-foreground text-accent-primary hover:bg-primary-foreground/90",
                 )}
                 title={`Réserver un appel gratuit : ${offer.name}`}
                 description="Écrivez-nous par WhatsApp ou par e-mail : nous vous proposons un créneau pour un appel gratuit de 15 minutes, avant tout paiement."
                 emailSubject={`Appel gratuit : ${offer.name}`}
-                message={`Bonjour, je souhaite réserver l'appel gratuit pour l'offre « ${offer.name} » (${offer.price} €).`}
+                message={`Bonjour, je souhaite réserver l'appel gratuit pour le forfait « ${offer.name} ».`}
               />
             </li>
           );
         })}
       </ul>
 
-      <div className="flex flex-col gap-2 text-sm text-text-muted sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 text-sm text-text-muted">
+        <p className="font-semibold text-text-primary">
+          Appel gratuit de 15 minutes sur Google Meet, avant tout paiement :
+          nous vous présentons le tarif du forfait adapté à votre dossier.
+        </p>
         <p>Paiement : {paymentMethods.join(" · ")}</p>
         <p>
           Aucun service ne peut garantir un poste ou un visa : nous vous aidons
-          à déposer un dossier complet.
+          à déposer un dossier complet. En Premium, VIP et Assistance MEBEKO,
+          60 % vous sont remboursés si la convention de stage n&apos;est pas
+          obtenue ou si la MEBEKO refuse l&apos;enregistrement, selon les{" "}
+          <Link href="/conditions" className="underline underline-offset-2">
+            conditions générales
+          </Link>
+          .
         </p>
       </div>
     </section>
