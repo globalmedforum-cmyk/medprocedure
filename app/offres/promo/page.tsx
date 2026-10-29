@@ -1,8 +1,10 @@
 import { Check, Mail } from "lucide-react";
 import { Guilloche } from "@/components/shared/guilloche";
 import { Stamp } from "@/components/shared/stamp";
-import { launchOffer } from "@/components/offers/offers";
 import { SUPPORT_EMAIL } from "@/lib/contact";
+
+// Offre de lancement : la relecture du dossier offerte aux premiers médecins
+const launchOffer = { places: 5 };
 
 // Essai : visuel carré (1080 × 1080) de l'offre de lancement, pour WhatsApp
 export default function PromoVisualPage() {
