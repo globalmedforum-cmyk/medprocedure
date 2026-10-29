@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { AccompanimentLink } from "./accompaniment-link";
 import { FloatingHeader } from "./floating-header";
 import { Logo } from "./logo";
 import { ProfileMenu } from "./profile-menu";
@@ -35,6 +37,9 @@ export function SiteHeader({
               Mode administrateur
             </span>
           )}
+          <Suspense fallback={null}>
+            <AccompanimentLink />
+          </Suspense>
           <ThemeToggle />
           <ProfileMenu showAdmin={showAdmin} isAdminMode={isAdminMode} />
         </div>

@@ -193,6 +193,11 @@ change.
   - **UX mobile (branche essai-ux) :** retour à l'appui sur les boutons, courbes ease-out, zones de sécurité (encoche), hauteurs dvh/svh, champs à 16 px, compte à rebours des échéances sur le tableau de bord, transition de changement d'étape.
   - **Page /offres :** les trois offres d'assistance (19 €, 39 €, 99 €) et la promo des 5 premiers médecins (relecture gratuite) ; les boutons « Réserver mon appel gratuit » ouvrent la fenêtre de contact (WhatsApp ou e-mail). `/offres/promo` est le visuel carré de la promo. Ces pages ne sont liées depuis aucun menu.
 
+- **Lien « Mon accompagnement » et conditions générales (2026-10-29)** :
+  - En-tête de l'espace connecté : lien vers la plateforme de suivi (projet medsuivi), visible seulement des médecins qui ont une fiche client (« Mon accompagnement ») et de l'équipe (« Suivi des clients »), jamais des comptes gratuits. Vérification côté serveur, dans un `Suspense` qui ne retarde pas l'en-tête.
+  - Conditions générales, version du 29 octobre 2026 (acceptation redemandée à tous) : définitions des Formules (Standard, Premium, VIP), de la Plateforme de suivi et des Documents ; échéancier de paiement ; nouvel article « Remboursement » (rien de remboursable, sauf 30 % si la convention de stage n'est pas obtenue en 12 mois ou si l'enregistrement MEBEKO est refusé, sous conditions) ; article « Données personnelles » réécrit pour les documents stockés sur la plateforme (finalité, accès, hébergement, suppression 12 mois après la fin, droits).
+  - Vérifié en local avec medsuivi local : lien affiché pour l'équipe, pour un client, absent pour un compte gratuit ; nouvelle fenêtre des conditions affichée (non acceptée, la base locale étant celle de production).
+
 ## In Progress
 
 - None.

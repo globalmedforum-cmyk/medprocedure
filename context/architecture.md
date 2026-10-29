@@ -32,6 +32,7 @@
 - Un utilisateur ne peut lire et modifier que ses propres dossiers (`UserProcedureProgress`). Il peut en ouvrir plusieurs pour une même procédure.
 - Les données de procédures et d'opportunités sont en lecture seule pour les praticiens.
 - Les administrateurs sont les comptes dont l'e-mail principal vérifié figure dans `ADMIN_EMAILS`. Eux seuls accèdent à `/admin` et aux Server Actions de `actions/admin.ts`.
+- Plateforme de suivi des accompagnements payants : projet séparé `medsuivi` (dépôt `globalmedforum-cmyk/medsuivi`, https://medsuivi.vercel.app, base de données propre), même instance Clerk. L'en-tête du site l'interroge avec le jeton de session de l'utilisateur (`lib/accompaniment.ts`, `GET /api/acces` de medsuivi) et n'affiche « Mon accompagnement » qu'aux clients (« Suivi des clients » pour l'équipe). En cas d'erreur, le lien n'apparaît pas. `SUIVI_URL` permet de pointer vers une version locale.
 
 ## Invariants
 

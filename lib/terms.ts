@@ -1,7 +1,7 @@
 // Conditions générales d'utilisation. Changer TERMS_VERSION redemande
 // l'acceptation à tous les utilisateurs à leur prochaine visite.
-export const TERMS_VERSION = "2026-10-13";
-export const TERMS_VERSION_LABEL = "13 octobre 2026";
+export const TERMS_VERSION = "2026-10-29";
+export const TERMS_VERSION_LABEL = "29 octobre 2026";
 
 // Une clause est un paragraphe, ou une phrase d'introduction suivie d'une
 // énumération (a), (b), (c)…
@@ -34,7 +34,10 @@ export const termsArticles: TermsArticle[] = [
           "« Service » désigne l'ensemble des contenus et prestations proposés par l'Éditeur, comprenant les Guides, les Opportunités et l'Assistance ;",
           "« Guides » désigne les contenus d'information décrivant, étape par étape, des démarches administratives, universitaires ou hospitalières ;",
           "« Opportunités » désigne les offres de poste, de stage, de formation, de thèse ou de congrès référencées sur le Site ;",
-          "« Assistance » désigne l'accompagnement individuel fourni par l'équipe de l'Éditeur à la demande de l'Utilisateur ;",
+          "« Assistance » désigne l'accompagnement individuel fourni par l'équipe de l'Éditeur à la demande de l'Utilisateur, notamment dans le cadre des Formules ;",
+          "« Formules » désigne les formules d'accompagnement payantes Standard, Premium et VIP ;",
+          "« Plateforme de suivi » désigne l'espace sécurisé, distinct du Site, réservé aux Utilisateurs ayant souscrit une Formule, au moyen duquel l'Utilisateur et l'équipe de l'Éditeur échangent messages et documents et suivent l'avancement du dossier ;",
+          "« Documents » désigne les pièces que l'Utilisateur transmet à l'Éditeur pour la constitution de son dossier, telles que passeport, diplômes, relevés de notes, curriculum vitae, lettres, attestations, certificats médicaux ou extraits de casier judiciaire ;",
           "« Organismes tiers » désigne les administrations, représentations consulaires, universités, établissements de santé et, plus généralement, toute autorité ou tout établissement appelé à statuer sur une demande de l'Utilisateur.",
         ],
       },
@@ -114,16 +117,55 @@ export const termsArticles: TermsArticle[] = [
     clauses: [
       "La consultation des Guides est libre. L'Assistance et l'accès au détail de certaines Opportunités constituent des prestations payantes.",
       "Le prix, le contenu de la prestation et les conditions de remboursement sont communiqués à l'Utilisateur avant tout paiement. Aucun paiement n'est effectué sur le Site.",
+      "Le prix d'une Formule est convenu entre l'Éditeur et l'Utilisateur avant le début de l'Assistance. Il peut être réglé en une ou plusieurs fois selon les modalités convenues ; l'Assistance peut être suspendue tant qu'une échéance convenue n'est pas réglée.",
       "Le prix versé rémunère la prestation d'accompagnement réalisée par l'Éditeur, indépendamment de la décision rendue par les Organismes tiers.",
       "Sauf stipulation écrite contraire, les frais dus aux Organismes tiers ou à des prestataires extérieurs, notamment les frais de visa, émoluments, droits d'inscription et frais de traduction, ne sont pas compris dans les prix de l'Éditeur et demeurent à la charge de l'Utilisateur.",
     ],
   },
   {
+    title: "Remboursement",
+    clauses: [
+      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve des seuls cas prévus au présent article.",
+      "Lorsque la loi applicable reconnaît à l'Utilisateur un délai de rétractation, l'Utilisateur qui demande expressément le commencement de l'Assistance avant l'expiration de ce délai reconnaît que les prestations exécutées à la date de sa rétractation restent dues.",
+      {
+        intro: "Par exception, l'Éditeur rembourse trente pour cent (30 %) des sommes effectivement versées au titre d'une Formule lorsque l'Assistance avait pour objet :",
+        items: [
+          "l'obtention d'une convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) et qu'aucune convention n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
+          "l'enregistrement d'un diplôme auprès de la MEBEKO et que cet enregistrement a été refusé par une décision écrite de l'autorité compétente.",
+        ],
+      },
+      {
+        intro: "Ce remboursement n'est dû que si l'ensemble des conditions suivantes sont réunies :",
+        items: [
+          "l'Utilisateur a réglé l'intégralité du prix convenu ;",
+          "l'Utilisateur a transmis des Documents authentiques et des informations exactes et complètes, et a suivi les recommandations de l'équipe de l'Éditeur, notamment quant aux délais, aux pièces à fournir et au nombre de candidatures à adresser ;",
+          "le dossier ou les candidatures ont été effectivement déposés par l'Utilisateur dans les délais requis ;",
+          "l'Utilisateur n'a ni abandonné sa démarche, ni refusé une convention ou une offre d'accueil qui lui a été proposée ;",
+          "l'Utilisateur en fait la demande écrite, accompagnée des justificatifs utiles (décision de refus, preuves de dépôt ou de candidature), dans un délai de trente (30) jours à compter de la décision de refus ou de l'expiration du délai de douze (12) mois mentionné ci-dessus.",
+        ],
+      },
+      {
+        intro: "Aucun remboursement n'est dû lorsque l'échec de la démarche résulte :",
+        items: [
+          "d'un Document falsifié, d'une fausse déclaration ou d'une information inexacte ou incomplète transmise par l'Utilisateur ;",
+          "d'un motif tenant à la situation personnelle de l'Utilisateur, notamment ses antécédents judiciaires, son état de santé, son niveau de langue ou l'insuffisance de sa formation au regard des conditions fixées par les Organismes tiers ;",
+          "du refus d'un visa, d'un titre de séjour ou d'une autorisation de travail, ces décisions étant distinctes de l'obtention de la convention ou de l'enregistrement.",
+        ],
+      },
+      "Le remboursement est effectué dans un délai de trente (30) jours suivant l'acceptation de la demande, par le moyen de paiement utilisé lors du règlement lorsque cela est possible, déduction faite des frais de transfert. Les frais dus aux Organismes tiers ou à des prestataires extérieurs ne sont jamais remboursés par l'Éditeur.",
+    ],
+  },
+  {
     title: "Données personnelles",
     clauses: [
-      "L'Éditeur conserve l'adresse électronique de l'Utilisateur, son nom, l'état d'avancement de ses démarches sur le Site ainsi que la date et la version des Conditions acceptées. Aucun document personnel de l'Utilisateur n'est stocké sur le Site.",
-      "Les échanges par courrier électronique ou par messagerie instantanée entre l'Utilisateur et l'équipe de l'Éditeur interviennent en dehors du Site, au moyen de services tiers.",
-      "L'Utilisateur peut demander l'accès à ses données, leur rectification ou leur suppression en écrivant à l'Éditeur à l'adresse indiquée à l'article « Contact ».",
+      "L'Éditeur conserve, sur le Site, l'adresse électronique de l'Utilisateur, son nom, l'état d'avancement de ses démarches ainsi que la date et la version des Conditions acceptées. Aucun Document n'est stocké sur le Site.",
+      "Lorsque l'Utilisateur souscrit une Formule, l'Éditeur traite en outre, sur la Plateforme de suivi, les Documents qu'il transmet, les messages échangés avec l'équipe, la liste des pièces de son dossier et l'historique de ses paiements.",
+      "Ces données sont traitées dans le seul but de préparer, de vérifier et de suivre le dossier de l'Utilisateur, en exécution du contrat qui le lie à l'Éditeur. Elles ne sont ni vendues, ni cédées, ni utilisées à des fins publicitaires.",
+      "Seuls l'Utilisateur et les membres habilités de l'équipe de l'Éditeur ont accès aux Documents. Ceux-ci ne sont jamais rendus publics et ne sont transmis à un Organisme tiers qu'à la demande de l'Utilisateur ou avec son accord.",
+      "Les données sont hébergées par des prestataires techniques choisis par l'Éditeur, qui agissent sur ses instructions et sont tenus à la confidentialité. Elles peuvent à ce titre être hébergées hors du pays de résidence de l'Utilisateur.",
+      "L'Éditeur met en œuvre des mesures raisonnables pour protéger les données, notamment l'accès par identifiants personnels et le contrôle de l'accès à chaque Document. L'Utilisateur ne transmet que les Documents nécessaires à son dossier et peut demander à tout moment la suppression d'un Document qui n'est plus utile.",
+      "Les Documents et les messages sont supprimés au plus tard douze (12) mois après la fin de l'Assistance, sauf demande contraire de l'Utilisateur. Les informations relatives aux paiements sont conservées pendant la durée imposée par les obligations comptables et fiscales de l'Éditeur.",
+      "L'Utilisateur dispose d'un droit d'accès, de rectification, d'effacement, de limitation et de portabilité de ses données, ainsi que du droit de s'opposer à leur traitement. Il exerce ces droits en écrivant à l'Éditeur à l'adresse indiquée à l'article « Contact ». Il peut également introduire une réclamation auprès de l'autorité de protection des données compétente.",
     ],
   },
   {
