@@ -1,6 +1,6 @@
 // Conditions générales d'utilisation. Changer TERMS_VERSION redemande
 // l'acceptation à tous les utilisateurs à leur prochaine visite.
-export const TERMS_VERSION = "2026-10-29";
+export const TERMS_VERSION = "2026-10-29-2";
 export const TERMS_VERSION_LABEL = "29 octobre 2026";
 
 // Une clause est un paragraphe, ou une phrase d'introduction suivie d'une
@@ -125,34 +125,18 @@ export const termsArticles: TermsArticle[] = [
   {
     title: "Remboursement",
     clauses: [
-      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve des seuls cas prévus au présent article. La Formule Lite, limitée à la relecture et à la correction des Documents, n'ouvre droit à aucun remboursement une fois les corrections rendues.",
+      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve de la garantie prévue au présent article. La Formule Lite, limitée à la relecture et à la correction des Documents, n'ouvre droit à aucun remboursement une fois les corrections rendues.",
       "Lorsque la loi applicable reconnaît à l'Utilisateur un délai de rétractation, l'Utilisateur qui demande expressément le commencement de l'Assistance avant l'expiration de ce délai reconnaît que les prestations exécutées à la date de sa rétractation restent dues.",
       {
-        intro: "Par exception, l'Éditeur rembourse soixante pour cent (60 %) des sommes effectivement versées au titre d'une Formule :",
+        intro: "L'Éditeur garantit le remboursement de soixante pour cent (60 %) des sommes effectivement versées au titre d'une Formule :",
         items: [
-          "Premium ou VIP, lorsque l'Assistance avait pour objet l'obtention d'une convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) et qu'aucune convention n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
-          "Assistance MEBEKO, lorsque l'enregistrement du diplôme a été refusé par une décision écrite de l'autorité compétente.",
+          "Premium ou VIP, à tout Utilisateur pour lequel aucune convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
+          "Assistance MEBEKO, à tout Utilisateur dont l'enregistrement du diplôme a été refusé par une décision écrite de l'autorité compétente.",
         ],
       },
-      {
-        intro: "Ce remboursement n'est dû que si l'ensemble des conditions suivantes sont réunies :",
-        items: [
-          "l'Utilisateur a réglé l'intégralité du prix convenu ;",
-          "l'Utilisateur a transmis des Documents authentiques et des informations exactes et complètes, et a suivi les recommandations de l'équipe de l'Éditeur, notamment quant aux délais, aux pièces à fournir et au nombre de candidatures à adresser ;",
-          "le dossier ou les candidatures ont été effectivement déposés par l'Utilisateur dans les délais requis ;",
-          "l'Utilisateur n'a ni abandonné sa démarche, ni refusé une convention ou une offre d'accueil qui lui a été proposée ;",
-          "l'Utilisateur en fait la demande écrite, accompagnée des justificatifs utiles (décision de refus, preuves de dépôt ou de candidature), dans un délai de trente (30) jours à compter de la décision de refus ou de l'expiration du délai de douze (12) mois mentionné ci-dessus.",
-        ],
-      },
-      {
-        intro: "Aucun remboursement n'est dû lorsque l'échec de la démarche résulte :",
-        items: [
-          "d'un Document falsifié, d'une fausse déclaration ou d'une information inexacte ou incomplète transmise par l'Utilisateur ;",
-          "d'un motif tenant à la situation personnelle de l'Utilisateur, notamment ses antécédents judiciaires, son état de santé, son niveau de langue ou l'insuffisance de sa formation au regard des conditions fixées par les Organismes tiers ;",
-          "du refus d'un visa, d'un titre de séjour ou d'une autorisation de travail, ces décisions étant distinctes de l'obtention de la convention ou de l'enregistrement.",
-        ],
-      },
-      "Le remboursement est effectué dans un délai de trente (30) jours suivant l'acceptation de la demande, par le moyen de paiement utilisé lors du règlement lorsque cela est possible, déduction faite des frais de transfert. Les frais dus aux Organismes tiers ou à des prestataires extérieurs ne sont jamais remboursés par l'Éditeur.",
+      "Cette garantie s'applique sur simple demande écrite de l'Utilisateur adressée à l'Éditeur à l'adresse indiquée à l'article « Contact », accompagnée, pour l'Assistance MEBEKO, de la décision de refus. Elle n'est soumise à aucune autre condition.",
+      "Seule exception : la garantie ne s'applique pas lorsque l'Utilisateur a transmis un Document falsifié ou fait une fausse déclaration.",
+      "Le remboursement est effectué dans un délai de trente (30) jours suivant la réception de la demande, par le moyen de paiement utilisé lors du règlement lorsque cela est possible, déduction faite des frais de transfert. Les frais dus aux Organismes tiers ou à des prestataires extérieurs ne sont jamais remboursés par l'Éditeur.",
     ],
   },
   {
