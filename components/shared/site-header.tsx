@@ -36,6 +36,12 @@ export function SiteHeader({
               Mode administrateur
             </span>
           )}
+          <Link
+            href="/offres"
+            className="hidden h-10 items-center rounded-lg px-3 text-sm font-semibold text-accent-primary hover:bg-accent-soft sm:inline-flex"
+          >
+            Nos offres
+          </Link>
           <AccompanimentLink />
           <ThemeToggle />
           <ProfileMenu showAdmin={showAdmin} isAdminMode={isAdminMode} />

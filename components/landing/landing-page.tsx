@@ -57,10 +57,19 @@ export function LandingPage({ procedures }: LandingPageProps) {
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <ThemeToggle />
+            <Link
+              href="/offres"
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "h-11 rounded-lg px-3 text-sm font-semibold text-accent-primary sm:h-10",
+              )}
+            >
+              Nos offres
+            </Link>
             <ContactDialog
               trigger="Nous contacter"
               triggerVariant="ghost"
-              triggerClassName="h-11 rounded-lg px-3 text-sm font-medium sm:h-10"
+              triggerClassName="hidden h-11 rounded-lg px-3 text-sm font-medium sm:inline-flex sm:h-10"
               title="Nous contacter"
               description="Une question sur une procédure ou sur notre accompagnement ? Écrivez-nous, sans avoir besoin de créer un compte. Votre message est déjà préparé, vous pouvez le compléter avant de l'envoyer."
               emailSubject="Demande d'information"
@@ -125,6 +134,13 @@ export function LandingPage({ procedures }: LandingPageProps) {
               >
                 Voir les procédures
               </a>
+              <Link
+                href="/offres"
+                className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 text-sm font-semibold text-accent-primary hover:underline"
+              >
+                Nos offres d&apos;accompagnement
+                <ArrowRight aria-hidden className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
@@ -137,9 +153,9 @@ export function LandingPage({ procedures }: LandingPageProps) {
           className="grid gap-6 border-b border-border-default py-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:py-10"
         >
           <p className="max-w-2xl text-lg leading-relaxed text-text-muted">
-            Chaque procédure est rédigée d&apos;après les pages officielles&nbsp;:{" "}
-            {OFFICIAL_AUTHORITIES.join(", ")}. {officialLinkCount} liens de
-            référence, vérifiés.
+            Chaque procédure est rédigée d&apos;après les pages
+            officielles&nbsp;: {OFFICIAL_AUTHORITIES.join(", ")}.{" "}
+            {officialLinkCount} liens de référence, vérifiés.
           </p>
           <a
             href="#procedures"
@@ -214,6 +230,14 @@ export function LandingPage({ procedures }: LandingPageProps) {
             >
               {SUPPORT_EMAIL}
             </a>
+            <p>
+              <Link
+                href="/offres"
+                className="inline-flex h-11 items-center underline underline-offset-4 hover:text-text-primary md:h-auto"
+              >
+                Nos offres d&apos;accompagnement
+              </Link>
+            </p>
             <p>
               <Link
                 href="/conditions"

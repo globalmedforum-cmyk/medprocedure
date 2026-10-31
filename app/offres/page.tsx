@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FloatingHeader } from "@/components/shared/floating-header";
 import { Logo } from "@/components/shared/logo";
 import { OffersSection } from "@/components/offers/offers-section";
@@ -14,7 +15,9 @@ export default function OffersPage() {
     <div className="flex min-h-screen flex-col">
       <FloatingHeader>
         <div className="flex h-14 w-full items-center px-3 sm:px-5">
-          <Logo />
+          <Link href="/" aria-label="MedProcedure, accueil">
+            <Logo />
+          </Link>
         </div>
       </FloatingHeader>
       <main className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-8 sm:py-16">
