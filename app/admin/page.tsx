@@ -3,6 +3,7 @@ import { ProcedureStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin";
 import { getAdminDossiers } from "@/lib/admin-queries";
+import { sortProcedures } from "@/lib/procedure-links";
 import { ArrowRight, Plus } from "lucide-react";
 import { AdminOpportunityCard } from "@/components/admin/admin-opportunity-card";
 import { buttonVariants } from "@/components/ui/button";
@@ -29,16 +30,18 @@ export default async function AdminPage() {
     await Promise.all([
       prisma.user.count(),
       getAdminDossiers("tous"),
-      prisma.procedure.findMany({
-        orderBy: { createdAt: "asc" },
-        include: {
-          _count: { select: { steps: true } },
-          progress: {
-            where: { status: { not: ProcedureStatus.NOT_STARTED } },
-            select: { id: true },
+      prisma.procedure
+        .findMany({
+          orderBy: { createdAt: "asc" },
+          include: {
+            _count: { select: { steps: true } },
+            progress: {
+              where: { status: { not: ProcedureStatus.NOT_STARTED } },
+              select: { id: true },
+            },
           },
-        },
-      }),
+        })
+        .then(sortProcedures),
       prisma.opportunity.findMany({ orderBy: { createdAt: "desc" } }),
     ]);
 

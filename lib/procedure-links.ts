@@ -12,6 +12,25 @@ export const procedureSlugByTitle: Record<string, string> = {
   "Participation aux congrès": "participation-congres",
 };
 
+// Procédures affichées en tête de liste, dans cet ordre ; les autres suivent
+// dans leur ordre de création
+const leadingProcedureSlugs = [
+  "stage-observation",
+  "mebeko-suisse",
+  "medecin-assistant-suisse",
+];
+
+function leadingRank(slug: string) {
+  const index = leadingProcedureSlugs.indexOf(slug);
+  return index === -1 ? leadingProcedureSlugs.length : index;
+}
+
+export function sortProcedures<T extends { slug: string }>(procedures: T[]) {
+  return [...procedures].sort(
+    (a, b) => leadingRank(a.slug) - leadingRank(b.slug),
+  );
+}
+
 // « Titre » entre guillemets français, espaces simples ou insécables
 export const procedureMentionPattern = /(«[\s ][^»]+?[\s ]»)/g;
 

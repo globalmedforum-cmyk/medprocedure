@@ -429,11 +429,6 @@ export const procedures: ProcedureSeed[] = [
           "Les stages d'observation ne sont presque jamais publiés. L'accueil repose sur une candidature spontanée adressée directement au chef de service (PU-PH en France, Chefarzt en Allemagne, consultant au Royaume-Uni, attending aux États-Unis).",
         content: [
           "- **Pourquoi les chefs de service acceptent facilement :** un médecin observateur ne coûte rien à l'hôpital, n'entre pas dans les quotas de postes et apporte une présence médicale motivée aux staffs.",
-          "- **Où trouver les contacts des chefs de service :**",
-          "  - France : annuaires des pôles des CHU et des sociétés savantes ;",
-          "  - Allemagne : [Deutsches Krankenhausverzeichnis](https://www.deutsches-krankenhaus-verzeichnis.de/) et [Klinikradar](https://klinikradar.de/), en écrivant au secrétariat du chef de service (*Chefarztsekretariat*) ;",
-          "  - Royaume-Uni : sites des *NHS Trusts*, rubrique *clinical attachments* ;",
-          "  - États-Unis : [liste des observerships de l'AMA](https://www.ama-assn.org/education/international-medical-education/observership-program-listings-international-medical).",
           "- **Durée à demander :** un créneau précis de **4 à 8 semaines**, toujours inférieur à 90 jours, pour simplifier à la fois la convention avec l'hôpital et le visa de court séjour.",
           "## Focus : dossier de candidature",
           "### Le CV de médecin observateur (1 à 2 pages)",

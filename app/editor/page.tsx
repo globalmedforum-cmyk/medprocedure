@@ -10,6 +10,7 @@ import {
   getDossierLabel,
 } from "@/lib/dossiers";
 import { startOfToday } from "@/lib/opportunity-categories";
+import { sortProcedures } from "@/lib/procedure-links";
 import { hasAcceptedTerms } from "@/lib/terms-acceptance";
 import { Progress } from "@/components/ui/progress";
 import { AppShell } from "@/components/shared/app-shell";
@@ -37,15 +38,17 @@ export default async function DashboardPage() {
   const { userId } = await auth();
 
   const [procedures, dossierRows] = await Promise.all([
-    prisma.procedure.findMany({
-      include: {
-        steps: {
-          select: { id: true, order: true, title: true },
-          orderBy: { order: "asc" },
+    prisma.procedure
+      .findMany({
+        include: {
+          steps: {
+            select: { id: true, order: true, title: true },
+            orderBy: { order: "asc" },
+          },
         },
-      },
-      orderBy: { createdAt: "asc" },
-    }),
+        orderBy: { createdAt: "asc" },
+      })
+      .then(sortProcedures),
     userId
       ? prisma.userProcedureProgress.findMany({
           where: { user: { clerkId: userId } },

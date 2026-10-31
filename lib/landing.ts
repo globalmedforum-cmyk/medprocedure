@@ -1,17 +1,20 @@
 import { prisma } from "@/lib/prisma";
+import { sortProcedures } from "@/lib/procedure-links";
 
 // Procédures affichées sur la page d'accueil, avec le titre et la durée de
 // chaque étape pour l'aperçu de la table des matières
 export function getLandingProcedures() {
-  return prisma.procedure.findMany({
-    orderBy: { createdAt: "asc" },
-    include: {
-      steps: {
-        select: { order: true, title: true, estimatedDuration: true },
-        orderBy: { order: "asc" },
+  return prisma.procedure
+    .findMany({
+      orderBy: { createdAt: "asc" },
+      include: {
+        steps: {
+          select: { order: true, title: true, estimatedDuration: true },
+          orderBy: { order: "asc" },
+        },
       },
-    },
-  });
+    })
+    .then(sortProcedures);
 }
 
 export type LandingProcedure = Awaited<
