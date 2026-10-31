@@ -1,7 +1,7 @@
 // Conditions générales d'utilisation. Changer TERMS_VERSION redemande
 // l'acceptation à tous les utilisateurs à leur prochaine visite.
-export const TERMS_VERSION = "2026-10-29-2";
-export const TERMS_VERSION_LABEL = "29 octobre 2026";
+export const TERMS_VERSION = "2026-10-31";
+export const TERMS_VERSION_LABEL = "31 octobre 2026";
 
 // Une clause est un paragraphe, ou une phrase d'introduction suivie d'une
 // énumération (a), (b), (c)…
@@ -26,7 +26,8 @@ export const termsArticles: TermsArticle[] = [
     title: "Définitions",
     clauses: [
       {
-        intro: "Dans les Conditions, les termes suivants ont le sens ci-après :",
+        intro:
+          "Dans les Conditions, les termes suivants ont le sens ci-après :",
         items: [
           "« Éditeur » désigne l'exploitant du Site, opérant sous la dénomination MedProcedure ;",
           "« Site » désigne le site internet accessible à l'adresse medprocedure.org ;",
@@ -35,7 +36,7 @@ export const termsArticles: TermsArticle[] = [
           "« Guides » désigne les contenus d'information décrivant, étape par étape, des démarches administratives, universitaires ou hospitalières ;",
           "« Opportunités » désigne les offres de poste, de stage, de formation, de thèse ou de congrès référencées sur le Site ;",
           "« Assistance » désigne l'accompagnement individuel fourni par l'équipe de l'Éditeur à la demande de l'Utilisateur, notamment dans le cadre des Formules ;",
-          "« Formules » désigne les formules d'accompagnement payantes Lite, Premium, VIP et Assistance MEBEKO, dont le contenu est présenté à l'Utilisateur avant tout paiement ;",
+          "« Formules » désigne les formules d'accompagnement payantes « Stage d'observation en Europe », « Enregistrement MEBEKO » et « Poste de médecin assistant », dont le contenu et le prix sont présentés à l'Utilisateur avant tout paiement ;",
           "« Plateforme de suivi » désigne l'espace sécurisé, distinct du Site, réservé aux Utilisateurs ayant souscrit une Formule, au moyen duquel l'Utilisateur et l'équipe de l'Éditeur échangent messages et documents et suivent l'avancement du dossier ;",
           "« Documents » désigne les pièces que l'Utilisateur transmet à l'Éditeur pour la constitution de son dossier, telles que passeport, diplômes, relevés de notes, curriculum vitae, lettres, attestations, certificats médicaux ou extraits de casier judiciaire ;",
           "« Organismes tiers » désigne les administrations, représentations consulaires, universités, établissements de santé et, plus généralement, toute autorité ou tout établissement appelé à statuer sur une demande de l'Utilisateur.",
@@ -117,7 +118,7 @@ export const termsArticles: TermsArticle[] = [
     clauses: [
       "La consultation des Guides est libre. L'Assistance et l'accès au détail de certaines Opportunités constituent des prestations payantes.",
       "Le prix, le contenu de la prestation et les conditions de remboursement sont communiqués à l'Utilisateur avant tout paiement. Aucun paiement n'est effectué sur le Site.",
-      "Le prix d'une Formule est convenu entre l'Éditeur et l'Utilisateur avant le début de l'Assistance. Il peut être réglé en une ou plusieurs fois selon les modalités convenues ; l'Assistance peut être suspendue tant qu'une échéance convenue n'est pas réglée.",
+      "Le prix d'une Formule est celui présenté sur le Site à la date de la souscription, sauf prix différent convenu par écrit entre l'Éditeur et l'Utilisateur avant le début de l'Assistance. Il peut être réglé en une ou plusieurs fois selon les modalités convenues ; l'Assistance peut être suspendue tant qu'une échéance convenue n'est pas réglée.",
       "Le prix versé rémunère la prestation d'accompagnement réalisée par l'Éditeur, indépendamment de la décision rendue par les Organismes tiers.",
       "Sauf stipulation écrite contraire, les frais dus aux Organismes tiers ou à des prestataires extérieurs, notamment les frais de visa, émoluments, droits d'inscription et frais de traduction, ne sont pas compris dans les prix de l'Éditeur et demeurent à la charge de l'Utilisateur.",
     ],
@@ -125,16 +126,18 @@ export const termsArticles: TermsArticle[] = [
   {
     title: "Remboursement",
     clauses: [
-      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve de la garantie prévue au présent article. La Formule Lite, limitée à la relecture et à la correction des Documents, n'ouvre droit à aucun remboursement une fois les corrections rendues.",
+      "Les sommes versées rémunèrent un travail d'accompagnement réalisé pour l'essentiel dès le début de l'Assistance, notamment l'analyse du dossier, la relecture des Documents et les conseils de l'équipe. Elles ne sont pas remboursables, sous réserve de la garantie prévue au présent article.",
       "Lorsque la loi applicable reconnaît à l'Utilisateur un délai de rétractation, l'Utilisateur qui demande expressément le commencement de l'Assistance avant l'expiration de ce délai reconnaît que les prestations exécutées à la date de sa rétractation restent dues.",
       {
-        intro: "L'Éditeur garantit le remboursement de soixante pour cent (60 %) des sommes effectivement versées au titre d'une Formule :",
+        intro:
+          "L'Éditeur garantit le remboursement d'une partie des sommes effectivement versées au titre d'une Formule, dans les cas suivants :",
         items: [
-          "Premium ou VIP, à tout Utilisateur pour lequel aucune convention de stage (stage d'observation, stage associé ou stage de faisant fonction d'interne) n'a été signée par un établissement d'accueil dans un délai de douze (12) mois à compter du début de l'Assistance ;",
-          "Assistance MEBEKO, à tout Utilisateur dont l'enregistrement du diplôme a été refusé par une décision écrite de l'autorité compétente.",
+          "Stage d'observation en Europe : soixante-dix pour cent (70 %), lorsqu'aucune convention de stage d'observation n'a été signée par un établissement d'accueil dans un délai de six (6) mois à compter du début de l'Assistance ;",
+          "Enregistrement MEBEKO : soixante-dix pour cent (70 %), lorsque l'enregistrement du diplôme a été refusé par une décision écrite de l'autorité compétente ;",
+          "Poste de médecin assistant : soixante-quinze pour cent (75 %), lorsqu'aucun contrat de travail de médecin assistant n'a été obtenu dans un délai de douze (12) mois à compter du début de l'Assistance.",
         ],
       },
-      "Cette garantie s'applique sur simple demande écrite de l'Utilisateur adressée à l'Éditeur à l'adresse indiquée à l'article « Contact », accompagnée, pour l'Assistance MEBEKO, de la décision de refus. Elle n'est soumise à aucune autre condition.",
+      "Cette garantie s'applique sur simple demande écrite de l'Utilisateur adressée à l'Éditeur à l'adresse indiquée à l'article « Contact », accompagnée, pour la Formule « Enregistrement MEBEKO », de la décision de refus. Elle n'est soumise à aucune autre condition.",
       "Seule exception : la garantie ne s'applique pas lorsque l'Utilisateur a transmis un Document falsifié ou fait une fausse déclaration.",
       "Le remboursement est effectué dans un délai de trente (30) jours suivant la réception de la demande, par le moyen de paiement utilisé lors du règlement lorsque cela est possible, déduction faite des frais de transfert. Les frais dus aux Organismes tiers ou à des prestataires extérieurs ne sont jamais remboursés par l'Éditeur.",
     ],
