@@ -33,7 +33,7 @@ const guideContents = [
   },
   {
     title: "Une assistance personnalisée",
-    text: "À chaque étape, vous pouvez demander l'accompagnement de notre équipe, par WhatsApp ou par e-mail, pour avancer sur votre dossier.",
+    text: "À chaque étape, vous pouvez demander l'accompagnement de notre équipe, par e-mail, pour avancer sur votre dossier.",
   },
   {
     title: "Votre avancement",

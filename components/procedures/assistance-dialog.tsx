@@ -30,7 +30,7 @@ export function AssistanceDialog({
         className,
       )}
       title="Obtenir une assistance"
-      description="Notre équipe peut vous accompagner dans cette procédure. Choisissez comment nous écrire : votre message est déjà préparé, vous pouvez le compléter avant de l'envoyer."
+      description="Notre équipe peut vous accompagner dans cette procédure. Votre message est déjà préparé par e-mail, vous pouvez le compléter avant de l'envoyer."
       emailSubject={`Demande d'accompagnement : ${procedureTitle}`}
       message={buildAssistanceMessage(procedureTitle, stepLabel)}
     />

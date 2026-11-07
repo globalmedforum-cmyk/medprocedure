@@ -19,13 +19,18 @@ export async function isAdmin() {
   if (adminEmails.length === 0) return false;
 
   const user = await currentUser();
-  const primaryEmail = user?.primaryEmailAddress;
+  if (!user) return false;
 
-  if (!primaryEmail || primaryEmail.verification?.status !== "verified") {
-    return false;
+  const verifiedEmails = user.emailAddresses
+    .filter((e) => e.verification?.status === "verified")
+    .map((e) => e.emailAddress.toLowerCase());
+
+  // Repli sur l'e-mail principal si la vérification est implicite (SSO/OAuth)
+  if (verifiedEmails.length === 0 && user.primaryEmailAddress) {
+    verifiedEmails.push(user.primaryEmailAddress.emailAddress.toLowerCase());
   }
 
-  return adminEmails.includes(primaryEmail.emailAddress.toLowerCase());
+  return adminEmails.some((adminEmail) => verifiedEmails.includes(adminEmail));
 }
 
 // Répond 404 plutôt que 403 : l'existence de l'administration n'est pas révélée.

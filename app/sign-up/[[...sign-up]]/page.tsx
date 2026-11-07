@@ -4,7 +4,10 @@ import { AuthShell } from "@/components/auth/auth-shell";
 export default function SignUpPage() {
   return (
     <AuthShell>
-      <SignUp />
+      <SignUp
+        fallbackRedirectUrl="/editor"
+        signInFallbackRedirectUrl="/editor"
+      />
     </AuthShell>
   );
 }

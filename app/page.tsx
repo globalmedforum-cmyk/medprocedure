@@ -4,6 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { LandingPage } from "@/components/landing/landing-page";
 import { getLandingProcedures } from "@/lib/landing";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "MedProcedure — exercer ou se former à l'étranger",
   description:

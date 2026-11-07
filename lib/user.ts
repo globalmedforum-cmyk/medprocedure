@@ -29,17 +29,16 @@ export async function syncDbUser(clerkId: string) {
     });
   }
 
-  // Même personne, nouvel identifiant Clerk (changement d'instance Clerk, par
-  // exemple) : la ligne existante est rattachée au nouveau compte, à condition
-  // que l'adresse soit vérifiée, afin de conserver dossiers et acceptation.
-  if (primaryEmail?.verification?.status === "verified") {
-    const sameEmail = await prisma.user.findUnique({ where: { email } });
-    if (sameEmail) {
-      return prisma.user.update({
-        where: { id: sameEmail.id },
-        data: { clerkId, name: name ?? undefined },
-      });
-    }
+  // Même personne, nouvel identifiant Clerk (changement d'instance Clerk,
+  // reconnexion avec un compte social ayant la même adresse, etc.) : la ligne
+  // existante est rattachée au compte Clerk actuel afin de conserver dossiers,
+  // historique et acceptation des conditions sans conflit d'unicité d'e-mail.
+  const sameEmail = await prisma.user.findUnique({ where: { email } });
+  if (sameEmail) {
+    return prisma.user.update({
+      where: { id: sameEmail.id },
+      data: { clerkId, name: name ?? undefined },
+    });
   }
 
   return prisma.user.create({ data: { clerkId, email, name } });

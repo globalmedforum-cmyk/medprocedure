@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Check, MessageCircle } from "lucide-react";
+import { Check, Mail } from "lucide-react";
 import { ContactDialog } from "@/components/shared/contact-dialog";
 import { formatEuro, formatFcfa, offers, paymentMethods } from "./offers";
 
 const contactDescription =
-  "Écrivez-nous par WhatsApp ou par e-mail : nous étudions votre profil et vous indiquons le parcours adapté à votre situation, avant tout paiement.";
+  "Écrivez-nous par e-mail : nous étudions votre profil et vous indiquons le parcours adapté à votre situation, avant tout paiement.";
 
 // Page des offres : argumentaire, trois offres avec leur prix, garantie de
 // remboursement partiel
@@ -84,7 +84,7 @@ export function OffersSection() {
               <ContactDialog
                 trigger={
                   <>
-                    <MessageCircle aria-hidden className="h-4 w-4" />
+                    <Mail aria-hidden className="h-4 w-4" />
                     Étudier mon profil
                   </>
                 }
@@ -171,7 +171,7 @@ export function OffersSection() {
         <ContactDialog
           trigger={
             <>
-              <MessageCircle aria-hidden className="h-4 w-4" />
+              <Mail aria-hidden className="h-4 w-4" />
               Contacter notre équipe
             </>
           }

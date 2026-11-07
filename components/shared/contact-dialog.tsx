@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +15,6 @@ import {
 import {
   SUPPORT_EMAIL,
   buildEmailLink,
-  buildWhatsAppLink,
 } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
@@ -42,7 +41,6 @@ export function ContactDialog({
   message,
 }: ContactDialogProps) {
   const emailLink = buildEmailLink(emailSubject, message);
-  const whatsAppLink = buildWhatsAppLink(message);
 
   return (
     <Dialog>
@@ -71,26 +69,11 @@ export function ContactDialog({
         </DialogHeader>
 
         <div className="grid gap-3">
-          {whatsAppLink && (
-            <a
-              href={whatsAppLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants(),
-                "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover",
-              )}
-            >
-              <MessageCircle aria-hidden />
-              Écrire sur WhatsApp
-            </a>
-          )}
           <a
             href={emailLink}
             className={cn(
-              buttonVariants({ variant: whatsAppLink ? "outline" : "default" }),
-              "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold",
-              whatsAppLink && "bg-transparent",
+              buttonVariants({ variant: "default" }),
+              "h-12 justify-start gap-3 rounded-xl px-4 text-sm font-semibold transition-[transform,background-color,border-color,color,box-shadow] hover:bg-accent-hover",
             )}
           >
             <Mail aria-hidden />
